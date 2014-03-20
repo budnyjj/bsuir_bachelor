@@ -1,0 +1,46 @@
+manufacturer_box.click:
+
+cur_manufacturer = thisformset.manufacturers_form.manufacturer_box.value
+thisformset.get_manufacturers_data(cur_manufacturer)
+
+
+delete_button.click:
+
+cur_manufacturer = thisFormSet.manufacturers_form.manufacturer_box.Value
+thisFormSet.delete_manufacturer(cur_manufacturer)
+
+thisformset.manufacturers_get_available_manufacturers
+cur_manufacturer = thisformset.manufacturers_form.manufacturer_box.value
+thisformset.get_manufacturers_data(cur_manufacturer)
+
+
+close_button.click:
+
+thisFormSet.manufacturers_form.Visible = .F.
+
+
+create_button.click:
+
+new_manufacturer = thisFormSet.manufacturers_form.manufacturer_field.value
+new_city = thisFormSet.manufacturers_form.city_field.value
+new_logo = thisFormSet.manufacturers_form.logo_field.value
+
+thisFormSet.create_manufacturer(new_manufacturer, new_city, new_logo) 
+
+thisFormSet.manufacturers_form_create_preparation
+
+
+update_button.click:
+
+old_manufacturer = thisFormSet.manufacturers_form.manufacturer_box.value
+new_manufacturer = thisFormSet.manufacturers_form.manufacturer_field.value
+new_city = thisFormSet.manufacturers_form.city_field.value
+new_logo = thisFormSet.manufacturers_form.logo_field.value
+
+thisFormSet.update_manufacturer(old_manufacturer, new_manufacturer, new_city, new_logo) 
+
+thisformset.manufacturers_get_available_manufacturers
+new_manufacturer = thisformset.manufacturers_form.manufacturer_box.value
+thisformset.get_manufacturers_data(new_manufacturer)
+
+

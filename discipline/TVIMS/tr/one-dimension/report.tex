@@ -1,0 +1,319 @@
+\documentclass[14pt,hidelinks]{extarticle}
+
+\input{tex/packages}     % Подключаемые пакеты
+\input{tex/styles}	     % Пользовательские стили
+
+\begin{document}
+
+\input{tex/names}	     % Переопределение именований
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{center}
+	\textbf{Типовой расчет} \\ 
+	выполнил ст. гр. ****** Петров Ю.А. \\
+        Задача №10\\
+	Вариант XX 
+\end{center}
+
+\section{Условие}
+
+По выборке одномерной случайной величины:
+
+\begin{itemize}
+	\item получить вариационный ряд;
+	\item построить на масштабно-координатной бумаге формата А4 график эмпирической функции распределения $ F^*(x) $; 
+	\item построить гистограмму равноинтервальным способом;
+	\item вычислить оценки математического ожидания и дисперсии при заданном значении надежности;
+	\item выдвинуть гипотезу о законе распределения случайной величины и проверить её при помощи критерия согласия $ \chi^2 $ и критерия Колмогорова ($ \alpha = 0.05 $).
+\end{itemize}
+
+Вариационный ряд исходной выборки приведен в таблице~\ref{tbl:first_sample}.
+
+\renewcommand{\tabcolsep}{0.6em} 
+\begin{table}[h!]
+	\centering
+	\caption{Одномерная выборка\label{tbl:first_sample}}
+	\label{tbl:first}
+	\begin{tabular}{cccccccccc}
+		\input{val/sample}
+	\end{tabular}
+\end{table}
+
+\newpage
+
+\section{Решение}
+
+\subsection{Построение эмпирической функции распределения $F^*(x)$}
+Для построения эмпирической функции распределения $F^*(x)$ необходимо воспользоваться следующей формулой:
+\begin{equation}
+	\begin{aligned}
+		F^*(x)=p^*(X<x)=
+		\left\{
+			\begin{aligned}
+				&0, \hspace{5mm} x \le \hat{x}_1, \\
+				&\vdots \\
+				&\frac{i}{n}, \hspace{4mm} \hat{x}_i < x \le \hat{x}_{i+1}, \\
+				&\vdots \\
+				&1, \hspace{5mm} x > \hat{x}_n.
+			\end{aligned}
+		\right.
+	\end{aligned}
+\end{equation}
+
+График эмпирической функции распределения $F^*(x)$ приведен на рисунке~\ref{fig:emp_distrib}.
+\begin{figure}[h!] 
+
+  \centering
+  \includegraphics[width=1\linewidth]{pic/sample.png}
+  \caption{График эмпирической функции распределения $F^*(x)$\label{fig:emp_distrib}}
+\end{figure}
+
+\newpage
+
+\subsection{Построение гистограмм}
+
+Вычислим значения интервального статистического ряда (таблица~\ref{tabl:eq-size_int}) для построения
+равноинтервальной гистограммы (рисунок~\ref{fig:eq-size_hist}).
+
+\renewcommand{\tabcolsep}{1.5em} 
+\begin{table}[h!]
+  \centering
+  \caption{Равноинтервальный статистический ряд\label{tabl:eq-size_int}}
+  \small
+  \begin{tabular}{|c|c|c|c|c|c|c|}
+    \hline
+    \input{tbl/stat_series_eq_size}
+  \end{tabular}
+\end{table}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=1\linewidth]{pic/stat_series_eq_size.png}
+  \caption{Равноинтервальная гистограмма распределения случайной величины $ X $\label{fig:eq-size_hist}}
+\end{figure}
+
+Вычислим значения интервального статистического ряда (таблица~\ref{tabl:eq-prob_int}) для построения
+равновероятностной гистограммы (рисунок~\ref{fig:eq-prob_hist}).
+\begin{table}[h!]
+	\centering
+	\caption{Равновероятностный статистический ряд\label{tabl:eq-prob_int}}
+        \small
+	\begin{tabular}{|c|c|c|c|c|c|c|}
+		\hline
+		\input{tbl/stat_series_eq_probability}
+	\end{tabular}
+\end{table}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=1\linewidth]{pic/stat_series_eq_probability.png}
+  \caption{Равновероятностная гистограмма распределения случайной величины $ X $\label{fig:eq-prob_hist}}
+\end{figure}
+
+\subsection{Вычисление оценок математического ожидания и дисперсии}
+
+Запишем формулы для расчета cоответствующих оценок:
+\begin{equation}
+  m^*_X = \overline{x} = \frac{1}{n} \sum_{i=1}^{n} x_i,
+\end{equation}
+
+\begin{equation}
+  I_\gamma(m_X) = \left[ \overline{x} - z_\gamma \dfrac{S_0}{\sqrt{n}};
+    \overline{x} + z_\gamma \dfrac{S_0}{\sqrt{n}} \right],
+\end{equation} 
+
+\begin{equation}
+  D^*_X = S^2_0 = \frac{1}{n-1} \sum_{i=1}^{n} x^2_i - \frac{n}{n-1} \overline{x}^2,
+\end{equation}
+
+\begin{equation}
+  I_\gamma(D_X) = \left[ S_0^2 - z_\gamma \sqrt{ \dfrac{2}{n-1}} S_0^2;
+    S_0^2 + z_\gamma \sqrt{ \dfrac{2}{n-1}} S_0^2 \right],
+\end{equation} 
+
+Результаты вычислений при $ \gamma = 0.95 $:
+\begin{equation*}
+	\begin{aligned}
+		m^*_X &= \input{val/expectation_value}, &
+		I_{0.95}(m_X) &= \left[ \input{val/expectation_min}; \input{val/expectation_max} \right], \\
+		D^*_X &= \input{val/dispersion_value}, &
+                I_{0.95}(D_X) &= \left[ \input{val/dispersion_min}; \input{val/dispersion_max} \right].
+	\end{aligned}
+\end{equation*}
+
+\newpage
+
+\subsection{Выдвижение гипотезы о законе распределения случайной величины $ X $}
+По виду графика эмпирической функции распределения $F^*(x)$ и гистограмм выдвинем один из следующих вариантов двухальтернативной
+гипотезы о законе распределения случайной величины:
+\begin{enumerate}
+
+\item
+	$H_0$ --- величина $X$ распределена по равномерному закону:
+	\begin{equation}
+		\begin{aligned}
+			f(x)=
+			\left\{
+				\begin{aligned}
+					&0, \hspace{11.5mm} x < a, \\
+					&\frac{1}{b-a}, \hspace{2mm} a \le x \le b, \\
+					&1, \hspace{11.5mm} x > b.
+				\end{aligned}
+			\right.
+		\end{aligned}
+	\end{equation}
+	\begin{equation}
+		\begin{aligned}
+			F(x)=
+			\left\{
+				\begin{aligned}
+					&0, \hspace{11.5mm} x < a, \\
+					&\frac{x-a}{b-a}, \hspace{2mm} a \le x \le b, \\
+					&1, \hspace{11.5mm} x > b.
+				\end{aligned}
+			\right.
+		\end{aligned}
+	\end{equation}
+	$H_1$ --- величина $X$ не распределена по равномерному закону:
+	\begin{align}
+		f(x) & \neq f_0(x) ,&
+		F(x) & \neq F_0(x).
+	\end{align}
+
+\item
+	$H_0$ --- величина $X$ распределена по экспоненциальному закону:
+	\begin{equation}
+		\begin{aligned}
+			&f(t)=
+			\left\{
+				\begin{aligned}
+					&0, \hspace{11mm} t < 0, \\
+					&\lambda e^{-\lambda t}, \hspace{2mm} a \le x \le b.
+				\end{aligned}
+			\right.
+		\end{aligned}
+	\end{equation}
+	\begin{equation}
+		\begin{aligned}
+			&F(t)=
+			\left\{
+				\begin{aligned}
+					&0, \hspace{17mm} t < 0, \\
+					&1 - e^{-\lambda t}, \hspace{2mm} a \le x \le b.
+				\end{aligned}
+			\right.
+		\end{aligned}
+	\end{equation}
+	$H_1$ --- величина $X$ не распределена по экспоненциальному закону:
+	\begin{align}
+		f(x) & \neq f_0(x) ,&
+		F(x) & \neq F_0(x).
+	\end{align}
+
+\item
+	$H_0$ --- величина $X$ распределена по нормальному закону:
+	\begin{equation}
+	  f(x) = f_0(x) = \frac{1}{\sigma\sqrt{2\pi}} \cdot \text{exp} \left[-\frac{(x-m)^2}{2\sigma^2} \right],
+	\end{equation}
+	\begin{equation}
+	  F(x) = F_0(x) = 0.5 + \left( \frac{x-m}{\sigma} \right).
+	\end{equation}
+	$H_1$ --- величина $X$ не распределена по нормальному закону:
+	\begin{align}
+		f(x) & \neq f_0(x) ,&
+		F(x) & \neq F_0(x).
+	\end{align}
+\end{enumerate}
+
+В данном примере выдвинем двухальтернативную гипотезу о нормальном законе распределения случайной величины.
+
+Учитывая, что $m^* = \overline{x} = \input{val/expectation_value}$ и $\sigma^* = \sqrt{D^*} = \input{val/standart_deviation_value}$, получаем гипотетическую функцию распределения:
+
+\begin{equation*}
+  F_0(x) = 0,5 + \Phi \left( \frac{x-\overline{x}}{\sqrt{D^*}} \right) =
+  0,5 + \Phi \left( \frac{x- \input{val/expectation_value}}{\input{val/standart_deviation_value}} \right)
+\end{equation*}
+
+Построим график $F_0(x)$ в одной системе координат с эмпирической функцией распределения $F^*(x)$ (рисунок~\ref{fig:sample_normal}). 
+
+\newpage
+
+\subsection{Проверка гипотезы о нормальном законе распределения 
+  случайной величины $ X $ с помощью критерия Пирсона}
+
+Вычислим значение критерия $\chi^2$ на основе равноинтервального статистического ряда
+(таблица~\ref{tabl:eq-size_int}) по следующей формуле:
+\begin{equation}
+  \label{eq:chi^2}
+	\chi^2 = n \sum_{j=1}^{10} \frac{(p_j-p^*_j)^2}{p_j}.
+\end{equation}
+
+Теоретические вероятности $p_j$ попадания в интервалы равноинтервального статистического ряда нормальной случайной величины с параметрами $m*$, $\sigma^*$ вычислим по следующей формуле:
+\begin{equation*}
+  p_j = F_0(B_j) - F_0(A_j) = \Phi \left( \frac{B_j + (\input{val/expectation_value})}{\input{val/standart_deviation_value}} \right) - \Phi \left( \frac{A_j + (\input{val/expectation_value})}{\input{val/standart_deviation_value}} \right).
+\end{equation*}
+
+Результаты расчетов приведены в таблице~\ref{tabl:pirson}.
+
+\begin{table}[h!]
+  \renewcommand{\arraystretch}{1.2}
+  \renewcommand{\tabcolsep}{1.2em}
+  \caption{Результаты расчетов значений слагаемых критерия $ \chi^2 $\label{tabl:pirson}}
+  \centering
+  \small
+  \begin{tabular}{|c|c|c|c|c|c|c|c|}
+    \hline
+    \input{tbl/pirson_normal}
+  \end{tabular}
+\end{table}
+
+Проверим выполнение контрольного соотношения для $p_j$:
+\begin{align}
+	\left| 1 - \sum_{j=1}^{10} p_j \right| = value \le 0.01.
+\end{align}
+
+В cоответствии с формулой~\eqref{eq:chi^2} получаем $\chi^2= 100 \cdot \input{val/pirson_normal_sum} = \input{val/pirson_normal} $.
+
+Вычислим число степеней свободы: $ k = M - 1 - s = 10 - 1 - 2 = 7 $. 
+
+По заданному уровню значимости ($\alpha = 0.05$) из таблицы распределения $\chi^2$ выбирем критическое значение:
+\begin{equation*}
+  \chi^2_{\alpha; k} = \chi^2_{0.05; 7} = 14.07.
+\end{equation*}
+
+\textbf{Вывод:} так как $\chi^2 = \input{val/pirson_normal} {<}sign{>} \chi^2_{0.05;7} $, то гипотеза $H_0$ о нормальном законе распределения принимается (отклоняется). 
+
+
+\subsection{Проверка гипотезы о нормальном законе распределения 
+  случайной величины $ X $ с помощью критерия Колмогорова}
+
+По рисунку~\ref{fig:sample_normal} определим максимальное по модулю отклонение между функциями $F^*(x)$ и $F_0(x)$:
+\begin{align}
+	Z = \max_{i=1}^n \Big| F^*(x_i) - F_0(x_i) \Big| = \input{val/kolmogorov_normal_z}.
+\end{align}
+
+Вычислим значение критерия Колмогорова по формуле:
+\begin{align}
+  \lambda &= \sqrt{n} \cdot Z, \\ \nonumber
+  \lambda &= \sqrt{100} \cdot \input{val/kolmogorov_normal_z} = \input{val/kolmogorov_normal}.
+\end{align}
+
+Из таблицы <<критических значений>> для критерия Колмогорова по заданному уровню значимости ($\alpha = 0.05$)
+выбираем критическое значение $\lambda_{\gamma} = \lambda_{1-\alpha} = \lambda_{0.95} = 1.36 $.
+
+\textbf{Вывод:} так как $\lambda = \input{val/kolmogorov_normal} {<}notation{>} \lambda_{0.95} $, то гипотеза $H_0$ о нормальном законе распределения принимается (отклоняется).
+
+\newpage
+\fancyhf{}
+\newgeometry{left=1cm,right=1cm,top=1cm}
+\begin{landscape}
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{pic/sample_normal.png}
+    \caption{График гипотетической и эмпирической функций распределения случайной величины $ X $\label{fig:sample_normal}}
+  \end{figure}
+\end{landscape}
+\restoregeometry
+
+\end{document}

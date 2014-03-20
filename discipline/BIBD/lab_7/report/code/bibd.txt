@@ -1,0 +1,522 @@
+Dim opened As Boolean
+Dim stud, library As recordset
+Dim database As database
+
+Private Sub addBookBtn_Click() ' create (add) book
+If opened = True Then
+    Dim cursorAddBook As recordset
+    Set cursorAddBook = database.OpenRecordset("SELECT MAX(id) as max FROM library", dbOpenDynaset)
+    curBookId = cursorAddBook.Fields("max").Value
+    library.AddNew
+    library.Fields("id").Value = curBookId + 1
+    library.Fields("title").Value = Documents(1).titleTextBox.Value
+    library.Fields("author").Value = Documents(1).authorTextBox.Value
+    library.Fields("publication_date").Value = Documents(1).dateTextBox.Value
+    library.Fields("studID").Value = 0
+    library.Update
+    
+    cursorAddBook.Close
+    Set cursorAddBook = Nothing
+End If
+End Sub
+
+Private Sub addBookToStudent_Click()
+If opened = True Then
+    If library.Fields("studID").Value = 0 Then
+        library.Edit
+        library.Fields("studID").Value = stud.Fields("studID").Value
+        library.Fields("association_date").Value = Date
+        library.Update
+        MsgBox ("The book was successfully added!")
+        assocStudID = library.Fields("studID")
+            
+        Documents(1).AssociationDateTextBox.Value = library.Fields("association_date").Value
+                   
+        If assocStudID = 0 Then
+            Documents(1).AssociatedStundentTextBox.Value = "Ñâîáîäíà"
+        Else
+            Set bookAssoc = database.OpenRecordset("SELECT surname FROM students WHERE (studID =" + Str(assocStudID) + ")", dbOpenDynaset)
+            Documents(1).AssociatedStundentTextBox.Value = bookAssoc.Fields("surname")
+        End If
+    Else
+        MsgBox ("Please, choose another book!")
+    End If
+Else
+    MsgBox ("Please, open DataBase!")
+End If
+End Sub
+
+Private Sub browseAllBook_Click()
+    If opened = True Then
+        Documents(1).releaseBook.Enabled = False
+    
+        Set library = database.OpenRecordset("library", dbOpenDynaset)
+        Documents(1).titleTextBox.Value = library.Fields("title").Value
+        Documents(1).authorTextBox.Value = library.Fields("author").Value
+        Documents(1).dateTextBox.Value = library.Fields("publication_date").Value
+    
+        assocDate = library.Fields("association_date").Value
+        If IsNull(assocDate) Then
+            Documents(1).AssociationDateTextBox.Value = "Ñâîáîäíà"
+        Else
+            Documents(1).AssociationDateTextBox.Value = assocDate
+        End If
+        
+        assocStudID = library.Fields("studID")
+        If assocStudID = 0 Then
+            Documents(1).AssociatedStundentTextBox.Value = "Ñâîáîäíà"
+        Else
+            Set bookAssoc = database.OpenRecordset("SELECT surname FROM students WHERE (studID =" + Str(assocStudID) + ")", dbOpenDynaset)
+            Documents(1).AssociatedStundentTextBox.Value = bookAssoc.Fields("surname")
+        End If
+    Else
+        MsgBox ("Please, open DataBase!")
+    End If
+End Sub
+
+Private Sub browseStudentBook_Click()
+    If opened = True Then
+        
+        curStudId = Str(stud.Fields("studID").Value)
+        Set library = database.OpenRecordset("SELECT * FROM library WHERE (studID =" + curStudId + ")", dbOpenDynaset)
+        If library.EOF() = False Then
+            Documents(1).releaseBook.Enabled = True
+            
+            Documents(1).titleTextBox.Value = library.Fields("title").Value
+            Documents(1).authorTextBox.Value = library.Fields("author").Value
+            Documents(1).dateTextBox.Value = library.Fields("publication_date").Value
+            
+            assocDate = library.Fields("association_date").Value
+            If IsNull(assocDate) Then
+                Documents(1).AssociationDateTextBox.Value = "Ñâîáîäíà"
+            Else
+                Documents(1).AssociationDateTextBox.Value = assocDate
+            End If
+            
+            assocStudID = library.Fields("studID")
+            If assocStudID = 0 Then
+                Documents(1).AssociatedStundentTextBox.Value = "Ñâîáîäíà"
+            Else
+                Set bookAssoc = database.OpenRecordset("SELECT surname FROM students WHERE (studID =" + Str(assocStudID) + ")", dbOpenDynaset)
+                Documents(1).AssociatedStundentTextBox.Value = bookAssoc.Fields("surname")
+            End If
+        Else
+            MsgBox ("Can't find any suitable book!")
+        End If
+    Else
+        MsgBox ("Please, open DataBase!")
+    End If
+End Sub
+
+Private Sub closeDbBtn_Click() 'close database
+     If opened = True Then
+        stud.Close
+        database.Close
+        Set stud = Nothing
+        opened = False
+    End If
+    openDbBtn.Enabled = True
+    Documents(1).famTextBox.Value = ""
+    Documents(1).groupTextBox.Value = ""
+    Documents(1).ageTextBox.Value = ""
+    Documents(1).markTextBox.Value = ""
+    Documents(1).photoPathTextBox.Value = ""
+    Documents(1).image.Picture = LoadPicture("", 100, 100, Color)
+    Documents(1).titleTextBox.Value = ""
+    Documents(1).authorTextBox.Value = ""
+    Documents(1).dateTextBox.Value = ""
+    Documents(1).AssociatedStundentTextBox.Value = ""
+    Documents(1).AssociationDateTextBox.Value = ""
+End Sub
+
+Private Sub createStudBtn_Click() 'create student
+If opened = True Then
+    Dim cursor As recordset
+    Set cursor = database.OpenRecordset("SELECT MAX(studID) as max FROM students", dbOpenDynaset)
+    curStudId = cursor.Fields("max").Value
+    
+    stud.AddNew
+    stud.Fields("studID").Value = curStudId + 1
+    stud.Fields("surname").Value = Documents(1).famTextBox.Value
+    stud.Fields("group").Value = Documents(1).groupTextBox.Value
+    stud.Fields("age").Value = Documents(1).ageTextBox.Value
+    stud.Fields("mark").Value = Documents(1).markTextBox.Value
+    stud.Fields("photo_path").Value = Documents(1).photoPathTextBox.Value
+    stud.Update
+    
+    photoPath = Documents(1).photoPathTextBox.Value
+    Documents(1).image.Picture = LoadPicture(photoPath, 100, 100, Color)
+    
+    cursor.Close
+    Set cursor = Nothing
+Else
+    MsgBox ("Please, open DataBase!")
+End If
+End Sub
+
+Private Sub delBookBtn_Click() ' delete book
+If opened = True Then
+    library.Delete
+    library.MoveFirst
+    If library.EOF() = False Then
+        Documents(1).titleTextBox.Value = library.Fields("title").Value
+        Documents(1).authorTextBox.Value = library.Fields("author").Value
+        Documents(1).dateTextBox.Value = library.Fields("publication_date").Value
+    Else
+        Documents(1).titleTextBox.Value = ""
+        Documents(1).authorTextBox.Value = ""
+        Documents(1).dateTextBox.Value = ""
+    End If
+Else
+    MsgBox ("Please, open DataBase!")
+End If
+End Sub
+
+Private Sub deleteStudBtn_Click() 'delete student
+If opened = True Then
+    Dim curStudId As Integer
+    curStudId = stud.Fields("studID").Value
+    deleteConnectedBooksQuery = "Update library set studId = 0 where (studId  = " + Str(curStudId) + ")"
+    database.Execute (deleteConnectedBooksQuery)
+    stud.Delete
+
+    stud.MoveFirst
+    Documents(1).famTextBox.Value = stud.Fields("surname").Value
+    Documents(1).groupTextBox.Value = stud.Fields("group").Value
+    Documents(1).ageTextBox.Value = stud.Fields("age").Value
+    Documents(1).markTextBox.Value = stud.Fields("mark").Value
+    photoPath = stud.Fields("photo_path").Value
+    Documents(1).photoPathTextBox.Value = photoPath
+    Documents(1).image.Picture = LoadPicture(photoPath, 100, 100, Color)
+    
+Else
+    MsgBox ("Please, open DataBase!")
+End If
+End Sub
+
+Sub clearTable()
+    Dim i As Integer
+    i = 2
+    maxRow = Documents(1).Tables(2).Rows.Count
+    Do While (i <= maxRow)
+        Documents(1).Tables(2).Cell(i, 1).Range.Text = ""
+        Documents(1).Tables(2).Cell(i, 2).Range.Text = ""
+        Documents(1).Tables(2).Cell(i, 3).Range.Text = ""
+        Documents(1).Tables(2).Cell(i, 4).Range.Text = ""
+        Documents(1).Tables(2).Cell(i, 5).Range.Text = ""
+        Documents(1).Tables(2).Cell(i, 6).Range.Text = ""
+        i = i + 1
+    Loop
+End Sub
+
+
+Sub printRecordset(resultSet As recordset)
+    Call clearTable
+    i = 2
+    Do While Not (resultSet.EOF())
+        Documents(1).Tables(2).Cell(i, 1).Range.Text = resultSet.Fields("surname").Value
+        Documents(1).Tables(2).Cell(i, 2).Range.Text = resultSet.Fields("group").Value
+        If Not IsNull(resultSet.Fields("title").Value) Then
+            Documents(1).Tables(2).Cell(i, 3).Range.Text = resultSet.Fields("title").Value
+            Documents(1).Tables(2).Cell(i, 4).Range.Text = resultSet.Fields("author").Value
+            Documents(1).Tables(2).Cell(i, 5).Range.Text = resultSet.Fields("publication_date").Value
+            Documents(1).Tables(2).Cell(i, 6).Range.Text = resultSet.Fields("association_date").Value
+        Else
+            Documents(1).Tables(2).Cell(i, 3).Range.Text = ""
+            Documents(1).Tables(2).Cell(i, 4).Range.Text = ""
+            Documents(1).Tables(2).Cell(i, 5).Range.Text = ""
+            Documents(1).Tables(2).Cell(i, 6).Range.Text = ""
+        End If
+        resultSet.MoveNext
+        i = i + 1
+    Loop
+End Sub
+
+Sub printDateRecordset(resultSet As recordset)
+    Call clearTable
+    Dim assocDate As Date, numberOfDays As Integer, thresholdDays As Integer
+    thresholdDays = Documents(1).findTextBox.Value 'çàäà¸ì ïîðîãîâîå çíà÷åíèå
+    i = 2
+    Do While Not (resultSet.EOF())
+        If Not IsNull(resultSet.Fields("association_date").Value) Then
+            assocDate = resultSet.Fields("association_date").Value
+            numberOfDays = DateDiff("d", assocDate, Date)
+            
+            If (numberOfDays >= thresholdDays) Then
+                Documents(1).Tables(2).Cell(i, 1).Range.Text = resultSet.Fields("surname").Value
+                Documents(1).Tables(2).Cell(i, 2).Range.Text = resultSet.Fields("group").Value
+                Documents(1).Tables(2).Cell(i, 3).Range.Text = resultSet.Fields("title").Value
+                Documents(1).Tables(2).Cell(i, 4).Range.Text = resultSet.Fields("author").Value
+                Documents(1).Tables(2).Cell(i, 5).Range.Text = resultSet.Fields("publication_date").Value
+                Documents(1).Tables(2).Cell(i, 6).Range.Text = resultSet.Fields("association_date").Value
+                i = i + 1
+            End If
+        End If
+        resultSet.MoveNext
+    Loop
+End Sub
+
+Function generateRecordset(searchField As String, searchPredicate As String) As recordset
+    searchQuery = "SELECT * FROM students LEFT OUTER JOIN library ON students.studID = library.studID WHERE (" + searchField + " Like '*" + searchPredicate + "*')"
+    Dim generateRecorset As recordset
+    Set generateRecordset = database.OpenRecordset(searchQuery, dbOpenDynaset)
+End Function
+
+Private Sub findBtn_Click()
+    Dim stringFind As String
+    stringFind = Trim(Documents(1).findTextBox.Value)
+If stringFind = "" Then
+    MsgBox ("Enter text")
+Else
+    If findStudentSurnameOpBtn.Value = True Then
+        Dim findSurname As recordset
+        Set findSurname = generateRecordset("students.surname", stringFind)
+        Call printRecordset(findSurname)
+    End If
+
+    If findStudentGroupOpBtn.Value = True Then
+        Dim findStudentsGroup As recordset
+        Set findStudentsGroup = generateRecordset("students.group", stringFind)
+        Call printRecordset(findStudentsGroup)
+    End If
+    
+    If findBookTitleOpBtn.Value = True Then
+        Dim findTitle As recordset
+        Set findTitle = generateRecordset("library.title", stringFind)
+        Call printRecordset(findTitle)
+    End If
+    
+    If findBookAuthorOpBtn.Value = True Then
+        Dim findAuthor As recordset
+        Set findAuthor = generateRecordset("library.author", stringFind)
+        Call printRecordset(findAuthor)
+    End If
+    
+    If findBorrowedBookOpBtn.Value = True Then
+        Dim findAll As recordset
+        Set findAll = generateRecordset("students.surname", "*")
+        Call printDateRecordset(findAll)
+    End If
+    
+End If
+End Sub
+
+Private Sub libraryNext_Click() '>>>>
+If opened = True Then
+    If library.EOF() = False Then
+        library.MoveNext
+        If library.EOF() = True Then
+            library.MovePrevious
+        End If
+        Documents(1).titleTextBox.Value = library.Fields("title").Value
+        Documents(1).authorTextBox.Value = library.Fields("author").Value
+        Documents(1).dateTextBox.Value = library.Fields("publication_date").Value
+        
+        assocDate = library.Fields("association_date").Value
+        If IsNull(assocDate) Then
+            Documents(1).AssociationDateTextBox.Value = "Ñâîáîäíà"
+        Else
+            Documents(1).AssociationDateTextBox.Value = assocDate
+        End If
+        
+        assocStudID = library.Fields("studID")
+        If assocStudID = 0 Then
+            Documents(1).AssociatedStundentTextBox.Value = "Ñâîáîäíà"
+        Else
+            Set bookAssoc = database.OpenRecordset("SELECT surname FROM students WHERE (studID =" + Str(assocStudID) + ")", dbOpenDynaset)
+            Documents(1).AssociatedStundentTextBox.Value = bookAssoc.Fields("surname")
+        End If
+    End If
+Else
+    MsgBox ("Please, open DataBase!")
+End If
+End Sub
+
+Private Sub libraryPrevious_Click() '<<<<
+If opened = True Then
+    If library.BOF() = False Then
+        library.MovePrevious
+        If library.BOF() = True Then
+            library.MoveNext
+        End If
+        Documents(1).titleTextBox.Value = library.Fields("title").Value
+        Documents(1).authorTextBox.Value = library.Fields("author").Value
+        Documents(1).dateTextBox.Value = library.Fields("publication_date").Value
+        
+        assocDate = library.Fields("association_date").Value
+        If IsNull(assocDate) Then
+            Documents(1).AssociationDateTextBox.Value = "Ñâîáîäíà"
+        Else
+            Documents(1).AssociationDateTextBox.Value = assocDate
+        End If
+        
+        assocStudID = library.Fields("studID")
+        If assocStudID = 0 Then
+            Documents(1).AssociatedStundentTextBox.Value = "Ñâîáîäíà"
+        Else
+            Set bookAssoc = database.OpenRecordset("SELECT surname FROM students WHERE (studID =" + Str(assocStudID) + ")", dbOpenDynaset)
+            Documents(1).AssociatedStundentTextBox.Value = bookAssoc.Fields("surname")
+        End If
+    End If
+Else
+    MsgBox ("Please, open DataBase!")
+End If
+End Sub
+
+Private Sub nextStubBtn_Click() '>>>>
+If opened = True Then
+    If stud.EOF() = False Then
+        stud.MoveNext
+        If stud.EOF() = True Then
+            stud.MovePrevious
+        End If
+        Documents(1).famTextBox.Value = stud.Fields("surname").Value
+        Documents(1).groupTextBox.Value = stud.Fields("group").Value
+        Documents(1).ageTextBox.Value = stud.Fields("age").Value
+        Documents(1).markTextBox.Value = stud.Fields("mark").Value
+        photoPath = stud.Fields("photo_path").Value
+        Documents(1).photoPathTextBox.Value = photoPath
+        Documents(1).image.Picture = LoadPicture(photoPath, 100, 100, Color)
+    End If
+Else
+    MsgBox ("Please, open DataBase!")
+End If
+End Sub
+
+Private Sub openDbBtn_Click() 'open database
+    pathDB = Documents(1).dbPathTextBox.Text
+    If pathDB = "" Then
+        MsgBox "Database path is wrong!"
+        Exit Sub
+    End If
+    If opened = True Then
+        MsgBox "Database is open!"
+    Else
+        Set database = OpenDatabase(Name:=pathDB, Options:=True)
+        Set stud = database.OpenRecordset("students", dbOpenDynaset)
+        Set library = database.OpenRecordset("library", dbOpenDynaset)
+        
+        Documents(1).famTextBox.Value = stud.Fields("surname").Value
+        Documents(1).groupTextBox.Value = stud.Fields("group").Value
+        Documents(1).ageTextBox.Value = stud.Fields("age").Value
+        Documents(1).markTextBox.Value = stud.Fields("mark").Value
+        photoPath = stud.Fields("photo_path").Value
+        Documents(1).photoPathTextBox.Value = photoPath
+        Documents(1).image.Picture = LoadPicture(photoPath, 100, 100, Color)
+        
+        Documents(1).titleTextBox.Value = library.Fields("title").Value
+        Documents(1).authorTextBox.Value = library.Fields("author").Value
+        Documents(1).dateTextBox.Value = library.Fields("publication_date").Value
+        
+        assocDate = library.Fields("association_date").Value
+        If IsNull(assocDate) Then
+            Documents(1).AssociationDateTextBox.Value = "Ñâîáîäíà"
+        Else
+            Documents(1).AssociationDateTextBox.Value = assocDate
+        End If
+        
+        assocStudID = library.Fields("studID")
+        If assocStudID = 0 Then
+            Documents(1).AssociatedStundentTextBox.Value = "Ñâîáîäíà"
+        Else
+            Set bookAssoc = database.OpenRecordset("SELECT surname FROM students WHERE (studID =" + Str(assocStudID) + ")", dbOpenDynaset)
+            Documents(1).AssociatedStundentTextBox.Value = bookAssoc.Fields("surname")
+        End If
+        
+        opened = True
+        openDbBtn.Enabled = False
+    End If
+End Sub
+
+Private Sub prevStudBtn_Click() '<<<<
+If opened = True Then
+    If stud.BOF() = False Then
+        stud.MovePrevious
+        If stud.BOF() = True Then
+            stud.MoveNext
+        End If
+        Documents(1).famTextBox.Value = stud.Fields("surname").Value
+        Documents(1).groupTextBox.Value = stud.Fields("group").Value
+        Documents(1).ageTextBox.Value = stud.Fields("age").Value
+        Documents(1).markTextBox.Value = stud.Fields("mark").Value
+        photoPath = stud.Fields("photo_path").Value
+        Documents(1).photoPathTextBox.Value = photoPath
+        Documents(1).image.Picture = LoadPicture(photoPath, 100, 100, Color)
+    End If
+Else
+    MsgBox ("Please, open DataBase!")
+End If
+
+End Sub
+
+Private Sub releaseBook_Click()
+If opened = True Then
+    library.Edit
+    library.Fields("studID").Value = 0
+    library.Fields("association_date").Value = Null
+    library.Update
+    
+    curStudId = Str(stud.Fields("studID").Value)
+    Set library = database.OpenRecordset("SELECT * FROM library WHERE (studID =" + curStudId + ")", dbOpenDynaset)
+    If library.EOF() = False Then
+        Documents(1).titleTextBox.Value = library.Fields("title").Value
+        Documents(1).authorTextBox.Value = library.Fields("author").Value
+        Documents(1).dateTextBox.Value = library.Fields("publication_date").Value
+        
+        assocDate = library.Fields("association_date").Value
+        If IsNull(assocDate) Then
+            Documents(1).AssociationDateTextBox.Value = "Ñâîáîäíà"
+        Else
+            Documents(1).AssociationDateTextBox.Value = assocDate
+        End If
+        
+        assocStudID = library.Fields("studID")
+        If assocStudID = 0 Then
+            Documents(1).AssociatedStundentTextBox.Value = "Ñâîáîäíà"
+        Else
+            Set bookAssoc = database.OpenRecordset("SELECT surname FROM students WHERE (studID =" + Str(assocStudID) + ")", dbOpenDynaset)
+            Documents(1).AssociatedStundentTextBox.Value = bookAssoc.Fields("surname")
+        End If
+    Else
+        Documents(1).titleTextBox.Value = ""
+        Documents(1).authorTextBox.Value = ""
+        Documents(1).dateTextBox.Value = ""
+        Documents(1).dateTextBox.Value = ""
+        Documents(1).AssociatedStundentTextBox.Value = ""
+        Documents(1).AssociatingDateTextBox.Value = ""
+    End If
+Else
+    MsgBox ("Please, open DataBase!")
+End If
+End Sub
+
+Private Sub updateBookBtn_Click() 'update book
+If opened = True Then
+    library.Edit
+    library.Fields("title").Value = Documents(1).titleTextBox.Value
+    library.Fields("author").Value = Documents(1).authorTextBox.Value
+    library.Fields("publication_date").Value = Documents(1).dateTextBox.Value
+    library.Update
+Else
+    MsgBox ("Please, open DataBase!")
+End If
+
+End Sub
+
+Private Sub updateStudBtn_Click() 'update student
+If opened = True Then
+    stud.Edit
+    stud.Fields("surname").Value = Documents(1).famTextBox.Value
+    stud.Fields("group").Value = Documents(1).groupTextBox.Value
+    stud.Fields("age").Value = Documents(1).ageTextBox.Value
+    stud.Fields("mark").Value = Documents(1).markTextBox.Value
+    stud.Fields("photo_path").Value = Documents(1).photoPathTextBox.Value
+    stud.Update
+    
+    photoPath = Documents(1).photoPathTextBox.Value
+    Documents(1).image.Picture = LoadPicture(photoPath, 100, 100, Color)
+Else
+    MsgBox ("Please, open DataBase!")
+End If
+
+End Sub

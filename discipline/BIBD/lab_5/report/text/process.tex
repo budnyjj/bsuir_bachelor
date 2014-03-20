@@ -1,0 +1,625 @@
+\section{Ход работы}
+
+Пусть имеются база данных с таблицами products и manufacturers (рисунок 3.1).
+
+\begin{figure}[h!]
+    \center{\includegraphics[width=0.5\linewidth]{db}}
+  \caption{Схема базы данных}
+\end{figure}
+
+Визуальный интерфейс разработанного класса изображен на рисунке 3.2.
+
+\begin{figure}[h!]
+    \center{\includegraphics[width=0.7\linewidth]{formset}}
+  \caption{Визуальный интерфейс класса CRUD\_formset}
+\end{figure}
+
+Далее приведены листинги используемых методов класса.
+
+\begin{lstlisting}[caption=crud\_formset\_procedures]
+  init:
+
+  SET DELETED ON
+
+
+  create_manufacturer:
+
+  PARAMETERS manufacturer_name, manufacturer_city, manufacturer_logo
+
+  INSERT INTO manufacturers (manufacturer, city, logo);
+  VALUES (manufacturer_name, manufacturer_city, manufacturer_logo)
+
+
+  create_product:
+
+  PARAMETERS product_title, product_manufacturer, product_price, product_amount, product_picture
+
+  INSERT INTO products (title, manufacturer, price, amount, picture);
+  VALUES (product_title, product_manufacturer, product_price, product_amount, product_picture)
+
+
+  delete_manufacturer:
+
+  PARAMETERS product_title, product_manufacturer, product_price, product_amount, product_picture
+
+  INSERT INTO products (title, manufacturer, price, amount, picture);
+  VALUES (product_title, product_manufacturer, product_price, product_amount, product_picture)
+
+
+  delete_product:
+
+  PARAMETERS product_title, product_manufacturer, product_price, product_amount, product_picture
+
+  INSERT INTO products (title, manufacturer, price, amount, picture);
+  VALUES (product_title, product_manufacturer, product_price, product_amount, product_picture)
+
+
+  get_manufacturers_data:
+
+  PARAMETERS cur_manufacturer
+
+  SELECT * FROM manufacturers ;
+  WHERE manufacturers.manufacturer = cur_manufacturer ;
+  INTO CURSOR manufacturers_data
+
+  thisformset.manufacturers_form.manufacturer_field.Value = manufacturers_data.manufacturer
+  thisformset.manufacturers_form.manufacturer_box.value = manufacturers_data.manufacturer
+  thisformset.manufacturers_form.city_field.value = manufacturers_data.city
+  thisformset.manufacturers_form.logo_field.value = manufacturers_data.logo
+  thisformset.manufacturers_form.manufacturer_logo.Picture = ;
+  'hp\budnyjj\university\labs\bibd\lab_5_refactored\pics\manufacturers\' + manufacturers_data.logo
+
+
+  SELECT title as Product, price as Price, amount as Amount FROM products ; 
+  WHERE products.manufacturer = cur_manufacturer ;
+  INTO CURSOR products_data
+
+  thisformset.manufacturers_form.products_grid.RecordSource = 'products_data'
+
+
+  get_products_data:
+
+  PARAMETER product_code
+
+  SELECT * FROM ;
+  products INNER JOIN manufacturers ON products.manufacturer = manufacturers.manufacturer ;
+  WHERE products.code = product_code ;
+  INTO CURSOR products_data
+
+  thisformset.products_form.title_field.Value = products_data.title
+  thisformset.products_form.price_field.value = products_data.price
+  thisformset.products_form.amount_field.value = products_data.amount
+  thisformset.products_form.picture_field.value = products_data.picture
+  thisformset.products_form.product_picture.Picture = ;
+  'hp\budnyjj\university\labs\bibd\lab_5_refactored\pics\products\' + products_data.picture
+
+  thisformset.products_form.manufacturer_box.value = products_data.manufacturer_a
+  thisformset.products_form.manufacturer_field.value = products_data.manufacturer_a
+  thisformset.products_form.city_field.value = products_data.city
+  thisformset.products_form.manufacturer_logo.Picture = ;
+  'hp\budnyjj\university\labs\bibd\lab_5_refactored\pics\manufacturers\' + products_data.logo
+
+
+  manufacturers_form_clear_fields:
+
+  thisFormSet.manufacturers_form.manufacturer_field.Value = ''
+  thisFormSet.manufacturers_form.city_field.Value = ''
+  thisFormSet.manufacturers_form.logo_field.Value = ''
+  thisFormSet.manufacturers_form.products_grid.RecordSource = ''
+
+
+  manufacturers_form_create_preparation:
+
+  thisFormSet.manufacturers_form_hide_buttons
+  thisFormSet.manufacturers_form.create_button.Visible = .T.
+
+  thisFormSet.manufacturers_form_unlock_fields
+
+  thisFormSet.manufacturers_form.manufacturer_field.Visible = .T.
+  thisFormSet.manufacturers_form.manufacturer_label.Visible = .T.
+  thisFormSet.manufacturers_form.manufacturer_box.Visible = .F.
+
+
+  thisFormSet.manufacturers_form.logo_field.Visible = .T.
+  thisFormSet.manufacturers_form.logo_label.Visible = .T.
+
+  thisformset.manufacturers_get_available_manufacturers
+  cur_manufacturer = thisformset.manufacturers_form.manufacturer_box.value
+  thisformset.get_manufacturers_data(cur_manufacturer)
+  thisFormSet.manufacturers_form_clear_fields
+
+  thisFormSet.manufacturers_form.Visible = .T.
+
+
+  manufacturers_form_delete_preparation:
+
+  thisFormSet.manufacturers_form_hide_buttons
+  thisFormSet.manufacturers_form.delete_button.Visible = .T.
+
+  thisFormSet.manufacturers_form_lock_fields
+
+  thisFormSet.manufacturers_form.logo_field.Visible = .F.
+  thisFormSet.manufacturers_form.logo_label.Visible = .F.
+
+  thisFormSet.manufacturers_form.manufacturer_field.Visible = .F.
+  thisFormSet.manufacturers_form.manufacturer_label.Visible = .F.
+  thisFormSet.manufacturers_form.manufacturer_box.Visible = .T.
+
+  thisformset.manufacturers_get_available_manufacturers
+  cur_manufacturer = thisformset.manufacturers_form.manufacturer_box.value
+  thisformset.get_manufacturers_data(cur_manufacturer)
+
+  thisFormSet.manufacturers_form.Visible = .T.
+
+
+  manufacturers_form_hide_buttons:
+
+  thisFormSet.manufacturers_form.update_button.Visible = .F.
+  thisFormSet.manufacturers_form.delete_button.Visible = .F.
+  thisFormSet.manufacturers_form.create_button.Visible = .F.
+
+
+  manufacturers_form_lock_fields:
+
+  thisFormSet.manufacturers_form.manufacturer_field.ReadOnly = .T.
+  thisFormSet.manufacturers_form.city_field.ReadOnly = .T.
+
+
+  manufacturers_form_unlock_fields:
+
+  thisFormSet.manufacturers_form.manufacturer_field.ReadOnly = .F.
+  thisFormSet.manufacturers_form.city_field.ReadOnly = .F.
+
+
+  manufacturers_form_update_preparation:
+
+  thisFormSet.manufacturers_form_hide_buttons
+  thisFormSet.manufacturers_form.update_button.Visible = .T.
+
+  thisFormSet.manufacturers_form_unlock_fields
+
+  thisFormSet.manufacturers_form.manufacturer_field.Visible = .T.
+  thisFormSet.manufacturers_form.manufacturer_label.Visible = .T.
+
+  thisFormSet.manufacturers_form.logo_field.Visible = .T.
+  thisFormSet.manufacturers_form.logo_label.Visible = .T.
+  thisFormSet.manufacturers_form.manufacturer_box.Visible = .T.
+
+  thisformset.manufacturers_get_available_manufacturers
+  cur_manufacturer = thisformset.manufacturers_form.manufacturer_box.value
+  thisformset.get_manufacturers_data(cur_manufacturer)
+
+  thisFormSet.manufacturers_form.Visible = .T.
+
+
+  manufacturers_get_available_manufacturers:
+
+  thisFormSet.manufacturers_form_hide_buttons
+  thisFormSet.manufacturers_form.update_button.Visible = .T.
+
+  thisFormSet.manufacturers_form_unlock_fields
+
+  thisFormSet.manufacturers_form.manufacturer_field.Visible = .T.
+  thisFormSet.manufacturers_form.manufacturer_label.Visible = .T.
+
+  thisFormSet.manufacturers_form.logo_field.Visible = .T.
+  thisFormSet.manufacturers_form.logo_label.Visible = .T.
+  thisFormSet.manufacturers_form.manufacturer_box.Visible = .T.
+
+  thisformset.manufacturers_get_available_manufacturers
+  cur_manufacturer = thisformset.manufacturers_form.manufacturer_box.value
+  thisformset.get_manufacturers_data(cur_manufacturer)
+
+  thisFormSet.manufacturers_form.Visible = .T.
+
+
+  products_form_clear_fields:
+
+  thisFormSet.products_form.title_field.Value = ''
+  thisFormSet.products_form.price_field.Value = ''
+  thisFormSet.products_form.amount_field.Value = ''
+  thisFormSet.products_form.picture_field.Value = ''
+
+
+  products_form_create_preparation:
+
+  thisFormSet.products_form_unlock_fields
+
+  thisFormSet.products_form_hide_buttons
+
+  thisFormSet.products_form.title_box.Visible = .F.
+
+  thisFormSet.products_form.title_box.Visible = .F.
+
+  thisFormSet.products_form.create_button.Visible = .T.
+
+  thisFormSet.products_form.title_label.Visible = .T.
+  thisFormSet.products_form.title_field.Visible = .T.
+
+  thisFormSet.products_form.picture_label.Visible = .T.
+  thisFormSet.products_form.picture_field.Visible = .T.
+
+  thisFormSet.products_form.manufacturer_field.Visible = .F.
+  thisFormSet.products_form.manufacturer_box.Visible = .T.
+
+  thisformset.products_get_available_products
+  product_code = VAL(thisformset.products_form.Title_box.value)
+  thisformset.get_products_data(product_code)
+  thisFormSet.products_form_clear_fields
+
+  thisFormSet.products_form.Visible = .T.
+
+
+  products_form_delete_preparation:
+
+  thisFormSet.products_form_lock_fields
+  thisFormSet.products_form_hide_buttons
+
+  thisFormSet.products_form.title_box.Visible = .T.
+
+  thisFormSet.products_form.delete_button.Visible = .T.
+
+  thisFormSet.products_form.title_label.Visible = .F.
+  thisFormSet.products_form.title_field.Visible = .F.
+
+  thisFormSet.products_form.picture_label.Visible = .F.
+  thisFormSet.products_form.picture_field.Visible = .F.
+
+  thisFormSet.products_form.manufacturer_field.Visible = .T.
+  thisFormSet.products_form.manufacturer_box.Visible = .F.
+
+  thisformset.products_get_available_products
+  product_code = VAL(thisformset.products_form.Title_box.value)
+  thisformset.get_products_data(product_code)
+
+  thisFormSet.products_form.Visible = .T.
+
+
+  products_form_hide_buttons:
+
+  thisFormSet.products_form.update_button.Visible = .F.
+  thisFormSet.products_form.delete_button.Visible = .F.
+  thisFormSet.products_form.create_button.Visible = .F.
+
+
+  products_form_lock_fields:
+
+  thisFormSet.products_form.title_field.ReadOnly = .T.
+  thisFormSet.products_form.price_field.ReadOnly = .T.
+  thisFormSet.products_form.amount_field.ReadOnly = .T.
+
+
+  products_form_unlock_fields:
+
+  thisFormSet.products_form.title_field.ReadOnly = .F.
+  thisFormSet.products_form.price_field.ReadOnly = .F.
+  thisFormSet.products_form.amount_field.ReadOnly = .F.
+
+
+  products_form_update:
+
+  thisFormSet.products_form_unlock_fields
+  thisFormSet.products_form_hide_buttons
+
+  thisFormSet.products_form.title_box.Visible = .T.
+  thisFormSet.products_form.update_button.Visible = .T.
+
+  thisFormSet.products_form.title_label.Visible = .T.
+  thisFormSet.products_form.title_field.Visible = .T.
+
+  thisFormSet.products_form.picture_label.Visible = .T.
+  thisFormSet.products_form.picture_field.Visible = .T.
+
+  thisFormSet.products_form.manufacturer_field.Visible = .F.
+  thisFormSet.products_form.manufacturer_box.Visible = .T.
+
+  thisformset.products_get_available_products
+  product_code = VAL(thisformset.products_form.Title_box.value)
+  thisformset.get_products_data(product_code)
+
+  thisFormSet.products_form.Visible = .T.
+
+
+  products_get_available_products:
+
+  SELECT title, code FROM products INTO CURSOR available_products
+
+  WITH thisFormSet.products_form.title_box
+  .rowSource = 'available_products'
+  .rowSourceType = 2
+  .boundColumn = 2
+  .boundTo = .t.
+  .Style = 2
+  .ListIndex = 1
+  ENDWITH
+
+  SELECT manufacturer FROM manufacturers INTO CURSOR available_manufacturers
+
+  WITH thisFormSet.products_form.manufacturer_box
+  .rowSource = 'available_manufacturers'
+  .rowSourceType = 2
+  .boundColumn = 1
+  .boundTo = .t.
+  .Style = 2
+  .ListIndex = 1
+  ENDWITH
+
+
+  search_manufacturer:
+
+  PARAMETERS manufacturer_name
+  manufacturer_query = '\%' + ALLTRIM(manufacturer_name) + '\%'
+
+  SELECT manufacturer as Manufacturer, city AS City ;
+  FROM manufacturers ;
+  WHERE UPPER(manufacturer) LIKE UPPER(ALLTRIM(manufacturer_query))
+
+
+  search_manufacturer_form_search:
+
+  thisFormSet.search_manufacturer_form.Visible = .T.
+
+
+  search_product:
+
+  PARAMETERS product_name
+  product_query = '\%' + ALLTRIM(product_name) + '\%'
+
+  SELECT title as Title, manufacturer AS Manufacturer, price AS Price, amount AS Amount ;
+  FROM products ;
+  WHERE UPPER(title) LIKE UPPER(ALLTRIM(product_query))
+
+
+  search_product_form_search:
+
+  thisFormSet.search_product_form.Visible = .T.
+
+
+  update_manufacturer:
+
+  PARAMETERS manufacturer_old_name, manufacturer_new_name, manufacturer_city, manufacturer_logo
+
+  UPDATE manufacturers SET ;
+  manufacturer = manufacturer_new_name, city=manufacturer_city, logo=manufacturer_logo;
+  WHERE manufacturer = manufacturer_old_name
+
+  UPDATE products SET ;
+  manufacturer = manufacturer_new_name ;
+  WHERE manufacturer = manufacturer_old_name
+
+
+  update_product:
+
+  PARAMETERS product_code, product_title, product_manufacturer, product_price, product_amount, product_picture
+
+  UPDATE products SET ;
+  title = product_title, manufacturer = product_manufacturer, price = product_price, amount = product_amount, picture = product_picture ;
+  WHERE code = product_code
+\end{lstlisting}
+
+
+\begin{lstlisting}[caption=store\_form procedures]
+DEFINE MENU store_menu IN store_form BAR
+
+DEFINE PAD products_pad OF store_menu PROMPT "Products"
+ON PAD products_pad OF store_menu ACTIVATE POPUP products_pad
+DEFINE POPUP products_pad MARGIN RELATIVE SHADOW COLOR SCHEME 4
+
+DEFINE BAR 1 OF products_pad PROMPT "\<Create"
+ON SELECTION BAR 1 OF products_pad crud_formset.products_form_create_preparation
+
+DEFINE BAR 2 OF products_pad PROMPT "\<Update"
+ON SELECTION BAR 2 OF products_pad crud_formset.products_form_update_preparation
+
+DEFINE BAR 3 OF products_pad PROMPT "\<Search"
+ON SELECTION BAR 3 OF products_pad crud_formset.search_product_form_search_preparation
+
+DEFINE BAR 4 OF products_pad PROMPT "\<Delete"
+ON SELECTION BAR 4 OF products_pad crud_formset.products_form_delete_preparation
+
+DEFINE PAD manufacturers_pad OF store_menu PROMPT "Manufacturers"
+ON PAD manufacturers_pad OF store_menu ACTIVATE POPUP manufacturers_pad
+DEFINE POPUP manufacturers_pad MARGIN RELATIVE SHADOW COLOR SCHEME 4
+
+DEFINE BAR 1 OF manufacturers_pad PROMPT "\<Create"
+ON SELECTION BAR 1 OF manufacturers_pad crud_formset.manufacturers_form_create_preparation
+
+DEFINE BAR 2 OF manufacturers_pad PROMPT "\<Update"
+ON SELECTION BAR 2 OF manufacturers_pad crud_formset.manufacturers_form_update_preparation
+
+DEFINE BAR 3 OF manufacturers_pad PROMPT "\<Search"
+ON SELECTION BAR 3 OF manufacturers_pad crud_formset.search_manufacturer_form_search_preparation
+
+DEFINE BAR 4 OF manufacturers_pad PROMPT "\<Delete"
+ON SELECTION BAR 4 OF manufacturers_pad crud_formset.manufacturers_form_delete_preparation
+
+
+DEFINE PAD misc_pad OF store_menu PROMPT "Misc"
+ON PAD misc_pad OF store_menu ACTIVATE POPUP misc_pad
+DEFINE POPUP misc_pad MARGIN RELATIVE SHADOW COLOR SCHEME 4
+
+DEFINE BAR 1 OF misc_pad PROMPT "\<Report"
+ON SELECTION BAR 1 OF misc_pad DO view_report
+
+DEFINE BAR 2 OF misc_pad PROMPT "\<Show tables"
+ON SELECTION BAR 2 OF misc_pad DO show_tables
+
+DEFINE BAR 3 OF misc_pad PROMPT "\<Exit"
+ON SELECTION BAR 3 OF misc_pad _SCREEN.ActiveForm.Release
+
+ACTIVATE MENU store_menu NOWAIT
+\end{lstlisting}
+
+\begin{lstlisting}[caption=products\_form procedures]
+title_box.click:
+
+product_code = VAL(thisformset.products_form.Title_box.value)
+thisformset.get_products_data(product_code)
+
+
+close_button.click:
+
+thisFormSet.products_form.Visible = .F.
+
+
+delete_button.click:
+
+product_code = VAL(thisFormSet.products_form.title_box.Value)
+thisFormSet.delete_product(product_code)
+
+thisFormSet.products_get_available_products
+product_code = VAL(thisformset.products_form.Title_box.value)
+thisformset.get_products_data(product_code)
+
+
+delete_button.click:
+
+code = VAL(thisFormSet.products_form.title_box.value)
+new_title = thisFormSet.products_form.title_field.value
+new_price = thisFormSet.products_form.price_field.value
+new_amount = thisFormSet.products_form.amount_field.value
+new_manufacturer = thisFormSet.products_form.manufacturer_box.value
+new_picture = thisFormSet.products_form.picture_field.value
+
+thisFormSet.update_product(code, new_title, new_manufacturer, new_price, new_amount, new_picture) 
+
+thisformset.products_get_available_products
+product_code = VAL(thisformset.products_form.Title_box.value)
+thisformset.get_products_data(product_code)
+
+
+create_button.click:
+
+new_title = thisFormSet.products_form.title_field.value
+new_price = VAL(thisFormSet.products_form.price_field.value)
+new_amount = VAL(thisFormSet.products_form.amount_field.value)
+new_manufacturer = thisFormSet.products_form.manufacturer_box.value
+new_picture = thisFormSet.products_form.picture_field.value
+
+thisFormSet.create_product(new_title, new_manufacturer, new_price, new_amount, new_picture) 
+
+thisFormSet.products_form_create_preparation
+\end{lstlisting}
+
+\begin{lstlisting}[caption=manufacturers\_form procedures]
+manufacturer_box.click:
+
+cur_manufacturer = thisformset.manufacturers_form.manufacturer_box.value
+thisformset.get_manufacturers_data(cur_manufacturer)
+
+
+delete_button.click:
+
+cur_manufacturer = thisFormSet.manufacturers_form.manufacturer_box.Value
+thisFormSet.delete_manufacturer(cur_manufacturer)
+
+thisformset.manufacturers_get_available_manufacturers
+cur_manufacturer = thisformset.manufacturers_form.manufacturer_box.value
+thisformset.get_manufacturers_data(cur_manufacturer)
+
+
+close_button.click:
+
+thisFormSet.manufacturers_form.Visible = .F.
+
+
+create_button.click:
+
+new_manufacturer = thisFormSet.manufacturers_form.manufacturer_field.value
+new_city = thisFormSet.manufacturers_form.city_field.value
+new_logo = thisFormSet.manufacturers_form.logo_field.value
+
+thisFormSet.create_manufacturer(new_manufacturer, new_city, new_logo) 
+
+thisFormSet.manufacturers_form_create_preparation
+
+
+update_button.click:
+
+old_manufacturer = thisFormSet.manufacturers_form.manufacturer_box.value
+new_manufacturer = thisFormSet.manufacturers_form.manufacturer_field.value
+new_city = thisFormSet.manufacturers_form.city_field.value
+new_logo = thisFormSet.manufacturers_form.logo_field.value
+
+thisFormSet.update_manufacturer(old_manufacturer, new_manufacturer, new_city, new_logo) 
+
+thisformset.manufacturers_get_available_manufacturers
+new_manufacturer = thisformset.manufacturers_form.manufacturer_box.value
+thisformset.get_manufacturers_data(new_manufacturer)
+\end{lstlisting}
+
+\begin{lstlisting}[caption=product\_search\_form procedures]
+close_button.click:
+
+thisFormSet.search_product_form.Visible = .F.
+
+
+search_button:
+
+product_name = thisFormSet.search_product_form.search_field.value
+thisFormSet.search_product(product_name)
+\end{lstlisting}
+
+\begin{lstlisting}[caption=manufacturer\_search\_form procedures]
+close_button.click:
+
+thisFormSet.search_product_form.Visible = .F.
+
+
+search_button:
+
+product_name = thisFormSet.search_product_form.search_field.value
+thisFormSet.search_product(product_name)
+\end{lstlisting}
+
+\begin{lstlisting}[caption=procedures]
+PROCEDURE insert_data
+	INSERT INTO products (title, manufacturer, price, amount, picture) VALUES ("Pidzhak", "Red Hat", 1000, 15, "pidzhak.png")
+	INSERT INTO products (title, manufacturer, price, amount, picture) VALUES ("Plasch", "Red Hat", 1300, 10, "plasch.png")
+	INSERT INTO products (title, manufacturer, price, amount, picture) VALUES ("Podkova", "Roga \& Kopyta", 20, 40, "podkova.png")
+	
+	INSERT INTO manufacturers (manufacturer, city, logo) VALUES ("Roga \& Kopyta", "Mogilev", "roga_kopyta.png")
+	INSERT INTO manufacturers (manufacturer, city, logo) VALUES ("Red Hat", "Brest", "red_hat.png")
+ENDPROC
+
+PROCEDURE delete_data
+	USE products
+	DELETE FROM products
+	PACK
+	USE manufacturers
+	DELETE FROM manufacturers
+	PACK
+ENDPROC
+
+PROCEDURE run_crud
+	SET CLASSLIB TO "hp\budnyjj\university\labs\bibd\lab_5_refactored\class\crud_formset.vcx" ADDITIVE
+	crud_formset = CREATEOBJECT("crud_formset")
+	crud_formset.Show
+	READ EVENTS
+	RETURN
+ENDPROC
+
+PROCEDURE view_report
+	REPORT FORM hp\budnyjj\university\labs\bibd\lab_5_refactored\report\manufacturers.frx PREVIEW
+ENDPROC
+
+PROCEDURE view_report
+	reportForm = CREATEOBJECT('Form')
+	WITH reportForm
+		.caption = "Report"
+		.windowState = 2
+		.Show()
+	ENDWITH
+	REPORT FORM hp\budnyjj\university\labs\bibd\lab_5_refactored\report\manufacturers.frx PREVIEW WINDOW (reportForm.Name)
+	
+	reportForm.Release()
+	RELEASE reportForm
+ENDPROC
+
+PROCEDURE show_tables
+	SELECT products.title as Title, ;
+	products.price as Price, products.amount as Amount, products.picture as Picture, ;
+	products.manufacturer as Manufacturer, manufacturers.city as City, manufacturers.logo as Logo ;
+	FROM products INNER JOIN manufacturers ON products.manufacturer = manufacturers.manufacturer
+ENDPROC
+\end{lstlisting}

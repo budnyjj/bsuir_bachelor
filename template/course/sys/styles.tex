@@ -1,0 +1,172 @@
+%%% Макет страницы %%%
+\geometry{a4paper,top=20mm,bottom=27mm,left=30mm,right=15mm}
+\setstretch{1.15}
+
+%%% Язык текста %%%
+\selectlanguage{russian}
+
+%%% Кодировки и шрифты %%%
+\renewcommand{\rmdefault}{ftm} % Включаем Times New Roman
+
+%%% Выравнивание и переносы %%%
+\sloppy				% Избавляемся от переполнений
+\clubpenalty=10000		% Запрещаем разрыв страницы после первой строки абзаца
+\widowpenalty=10000		% Запрещаем разрыв страницы после последней строки абзаца
+\interfootnotelinepenalty=10000 % Запрет разрывов сносок
+
+%%% Нумерация %%%
+
+\fancypagestyle{plain}{%
+\fancyhf{} % clear all header and footer fields
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}}
+
+\pagestyle{fancy}
+\fancyhf{} % clear all header and footer fields
+\fancyfoot[R]{\thepage} 
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+%%% Библиография %%%
+\makeatletter
+\bibliographystyle{ugost2003s}	% Оформляем библиографию в соответствии с ГОСТ 7.1 2003
+
+%%% Изображения %%%
+\graphicspath{{images/}} % Пути к изображениям
+
+%%% Содержание %%%
+\renewcommand{\cfttoctitlefont}{\hfil \large\bfseries}
+
+\setlength{\cftparskip}{0em}
+\setlength{\cftbeforesecskip}{0em}
+\setlength{\cftaftertoctitleskip}{1\baselineskip}
+
+\renewcommand{\cftsecaftersnumb}{\:}
+\renewcommand{\cftsecfont}{}   
+\renewcommand{\cftsecpagefont}{\normalsize}
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+\setlength{\cftsecindent}{0em}
+\setlength{\cftsecnumwidth}{1ex}
+
+\setlength{\cftsubsecindent}{1em}
+\setlength{\cftsubsecnumwidth}{2ex}
+
+%%% Требования ЕСКД/СТП %%%
+
+%%% Размеры заголовков
+\newcommand{\sectionbreak}{\clearpage}
+
+\titleformat{\section}{\large\bfseries}{\thesection\:}{0em}{}
+\titlespacing*{\section}{5ex}{1\baselineskip}{1\baselineskip}
+
+\titleformat{name=\section,numberless}{\large\bfseries\filcenter}{}{0em}{}
+\titlespacing*{name=\section,numberless}{0ex}{1\baselineskip}{1\baselineskip}
+
+\titleformat{name=\subsection}{\normalsize\bfseries}{\thesubsection\:}{0em}{}
+\titlespacing*{\subsection}{5ex}{1\baselineskip}{1\baselineskip}
+
+\titleformat{name=\subsection,numberless}{\normalsize\bfseries}{}{0em}{}
+\titlespacing*{name=\subsection,numberless}{0ex}{1\baselineskip}{1\baselineskip}
+
+%%% Размеры текста формул %%%
+
+\DeclareMathSizes{12}{12}{6}{4}
+
+%%% Оформление текста
+\setlength{\topskip}{1\baselineskip}
+
+\setlength{\parskip}{0em}
+\setlength{\parindent}{5ex}
+
+\setlength{\floatsep}{1\baselineskip}
+\setlength{\textfloatsep}{1\baselineskip}
+\setlength{\intextsep}{1\baselineskip}
+\setlength{\abovecaptionskip}{0em}
+\setlength{\belowcaptionskip}{0em}
+
+\setlength{\topsep}{0em}
+\setlength{\partopsep}{0em}
+\setlength{\itemsep}{0em}
+
+
+
+\expandafter\def\expandafter\normalsize\expandafter{%
+  \normalsize
+  % \setlength{\abovedisplayskip}{1\baselineskip}
+  % \setlength{\abovedisplayshortskip}{1\baselineskip}
+  % \setlength{\belowdisplayskip}{1\baselineskip}
+  \setlength{\belowdisplayshortskip}{1\baselineskip}
+}
+
+             
+\setitemize[0]{itemindent=3.4em,leftmargin=0em,itemsep=0em,topsep=0em,parsep=0em}
+\renewcommand{\labelitemi}{$-$}
+
+\captionsetup[figure]{
+  labelsep=endash,
+  justification=centering,
+  singlelinecheck=false,
+  position=bottom,
+  skip=1\baselineskip}
+
+\captionsetup[table]{
+  labelsep=endash,
+  justification=raggedright,
+  singlelinecheck=false,
+  position=top,
+  skip=0ex}
+
+\captionsetup[lstlisting]{
+  labelsep=endash
+}
+
+\lstset{
+basicstyle=\normalsize,
+keywordstyle=\bfseries,
+commentstyle=\itshape,
+numbers=left,
+stepnumber=1,
+frame=single,
+resetmargins=true,
+captionpos=b,
+keepspaces=true,
+breaklines=true,
+aboveskip=1.2\baselineskip,
+belowskip=0em,
+abovecaptionskip=1.2\baselineskip}
+
+\renewcommand{\arraystretch}{1.5}
+
+%%% Красоты %%%
+
+\mdfdefinestyle{listing}
+{
+  hidealllines = true,
+  skipabove    = 1\baselineskip,
+  skipbelow    = 1\baselineskip,
+  leftmargin = 5ex,
+  rightmargin = 2ex,
+  innertopmargin = 0em,
+  innerbottommargin = 0em,
+  innerleftmargin = 0em,
+  innerrightmargin = 0em,
+  singleextra  = {},
+  firstextra   = {
+    \node[below right,overlay,align=center,font=\normalsize]
+    at (O) {\continuingtext};
+  },
+  secondextra  = {
+    \node[above right,overlay,align=center,font=\normalsize]
+    at (O |- P) {\continuedtext};
+  },
+  middleextra  = {
+    \node[below right,overlay,align=center,font=\normalsize]
+    at (O) {\continuingtext};
+    \node[above right,overlay,align=center,font=\normalsize]
+    at (O |- P) {\continuedtext};
+  }
+}
+
+% customize the appearance of the continuing notes:
+\newcommand*\continuingtext{Продолжение на следующей странице}
+\newcommand*\continuedtext{Продолжение листинга}

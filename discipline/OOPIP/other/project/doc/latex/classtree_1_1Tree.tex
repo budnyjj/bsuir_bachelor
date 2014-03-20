@@ -1,0 +1,556 @@
+\hypertarget{classtree_1_1Tree}{\section{tree\-:\-:Tree Class Reference}
+\label{classtree_1_1Tree}\index{tree\-::\-Tree@{tree\-::\-Tree}}
+}
+
+
+Used for encapsulate \hyperlink{classnode_1_1Node}{node\-::\-Node} structures.  
+
+
+
+
+{\ttfamily \#include $<$tree.\-hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classtree_1_1Tree_a66755a8dbcf714aa93e63952bdb62484}{\hyperlink{classtree_1_1Tree_a66755a8dbcf714aa93e63952bdb62484}{Tree} ()}\label{classtree_1_1Tree_a66755a8dbcf714aa93e63952bdb62484}
+
+\begin{DoxyCompactList}\small\item\em Creates tree with unnamed node and depth == 1. \end{DoxyCompactList}\item 
+\hyperlink{classtree_1_1Tree_ac9e85c2936a0c63f4928ac9864e487fb}{Tree} (const std\-::string \&i\-Name)
+\begin{DoxyCompactList}\small\item\em Creates tree with specified name and depth == 1. \end{DoxyCompactList}\item 
+\hyperlink{classtree_1_1Tree_ad55803fa67e5cd1f1f8b7b80e014ffaa}{Tree} (const \hyperlink{classnode_1_1Node}{node\-::\-Node} \&i\-Node)
+\begin{DoxyCompactList}\small\item\em Creates tree from \hyperlink{classnode_1_1Node}{node\-::\-Node} structure. \end{DoxyCompactList}\item 
+\hyperlink{classtree_1_1Tree_a71b78c230e92b439dfaab0fe4c9c956c}{Tree} (const \hyperlink{classtree_1_1Tree}{tree\-::\-Tree} \&i\-Tree)
+\begin{DoxyCompactList}\small\item\em Creates tree from other tree. \end{DoxyCompactList}\item 
+\hyperlink{classtree_1_1Tree}{Tree} \& \hyperlink{classtree_1_1Tree_a73dc8a4574c7222c6640c88eef387a19}{add\-Left} (const std\-::string \&i\-Name)
+\begin{DoxyCompactList}\small\item\em Adds left child. \end{DoxyCompactList}\item 
+\hyperlink{classtree_1_1Tree}{Tree} \& \hyperlink{classtree_1_1Tree_a6d98f5bb78258d03882041c6d6438ab0}{add\-Left} (const \hyperlink{classnode_1_1Node}{node\-::\-Node} \&i\-Node)
+\begin{DoxyCompactList}\small\item\em Adds left child. \end{DoxyCompactList}\item 
+\hyperlink{classtree_1_1Tree}{Tree} \& \hyperlink{classtree_1_1Tree_a73996a043448192cd9bb52175cd78a0c}{add\-Left} (const \hyperlink{classtree_1_1Tree}{Tree} \&i\-Tree)
+\begin{DoxyCompactList}\small\item\em Adds left child. \end{DoxyCompactList}\item 
+\hyperlink{classtree_1_1Tree}{Tree} \& \hyperlink{classtree_1_1Tree_a23e77e37d23040fabb35eeec86370b02}{add\-Right} (const std\-::string \&i\-Name)
+\begin{DoxyCompactList}\small\item\em Adds right child. \end{DoxyCompactList}\item 
+\hyperlink{classtree_1_1Tree}{Tree} \& \hyperlink{classtree_1_1Tree_aa4ac522514b647e10a087ea388868e31}{add\-Right} (const \hyperlink{classnode_1_1Node}{node\-::\-Node} \&i\-Node)
+\begin{DoxyCompactList}\small\item\em Adds right child. \end{DoxyCompactList}\item 
+\hyperlink{classtree_1_1Tree}{Tree} \& \hyperlink{classtree_1_1Tree_a1fe1a6b148f1ea7258e649f73e3b6a6f}{add\-Right} (const \hyperlink{classtree_1_1Tree}{Tree} \&i\-Tree)
+\begin{DoxyCompactList}\small\item\em Adds right child. \end{DoxyCompactList}\item 
+\hyperlink{classtree_1_1Tree}{Tree} \& \hyperlink{classtree_1_1Tree_af3de9693422e9af3e5b47f8bc386d821}{move\-Left} ()
+\begin{DoxyCompactList}\small\item\em Move operation pointer to left child. \end{DoxyCompactList}\item 
+\hyperlink{classtree_1_1Tree}{Tree} \& \hyperlink{classtree_1_1Tree_a783680aa05d80764a53353ab7b0ef1fb}{move\-Right} ()
+\begin{DoxyCompactList}\small\item\em Move operation pointer to right child. \end{DoxyCompactList}\item 
+\hypertarget{classtree_1_1Tree_ae664afeb1d788e51ceeb37d6720d7578}{\hyperlink{classtree_1_1Tree}{Tree} \& \hyperlink{classtree_1_1Tree_ae664afeb1d788e51ceeb37d6720d7578}{move\-Top} ()}\label{classtree_1_1Tree_ae664afeb1d788e51ceeb37d6720d7578}
+
+\begin{DoxyCompactList}\small\item\em Move operation pointer to parent node. \end{DoxyCompactList}\item 
+\hypertarget{classtree_1_1Tree_ad64be9c6cdaf79bfbc16b7e25ec7f072}{\hyperlink{classtree_1_1Tree}{Tree} \& \hyperlink{classtree_1_1Tree_ad64be9c6cdaf79bfbc16b7e25ec7f072}{move\-Root} ()}\label{classtree_1_1Tree_ad64be9c6cdaf79bfbc16b7e25ec7f072}
+
+\begin{DoxyCompactList}\small\item\em Move operation pointer to root node. \end{DoxyCompactList}\item 
+\hypertarget{classtree_1_1Tree_a1a3832a39a4b353766baf84316c692dc}{\hyperlink{classtree_1_1Tree}{Tree} \& \hyperlink{classtree_1_1Tree_a1a3832a39a4b353766baf84316c692dc}{delete\-Left} ()}\label{classtree_1_1Tree_a1a3832a39a4b353766baf84316c692dc}
+
+\begin{DoxyCompactList}\small\item\em Deletes selected left subtree. \end{DoxyCompactList}\item 
+\hypertarget{classtree_1_1Tree_af4ddc57ec2ed9629cd48dd34a2ab0645}{\hyperlink{classtree_1_1Tree}{Tree} \& \hyperlink{classtree_1_1Tree_af4ddc57ec2ed9629cd48dd34a2ab0645}{delete\-Right} ()}\label{classtree_1_1Tree_af4ddc57ec2ed9629cd48dd34a2ab0645}
+
+\begin{DoxyCompactList}\small\item\em Deletes selected right subtree. \end{DoxyCompactList}\item 
+\hypertarget{classtree_1_1Tree_afc485303d43f5ac66b074a9fc5d7d212}{std\-::string \hyperlink{classtree_1_1Tree_afc485303d43f5ac66b074a9fc5d7d212}{get\-Name} () const }\label{classtree_1_1Tree_afc485303d43f5ac66b074a9fc5d7d212}
+
+\begin{DoxyCompactList}\small\item\em Get selected node name. \end{DoxyCompactList}\item 
+\hypertarget{classtree_1_1Tree_aadbae7ca0bd170156b91d9f13d0fa783}{\hyperlink{classtree_1_1Tree}{Tree} \& \hyperlink{classtree_1_1Tree_aadbae7ca0bd170156b91d9f13d0fa783}{set\-Name} (const std\-::string \&i\-Name)}\label{classtree_1_1Tree_aadbae7ca0bd170156b91d9f13d0fa783}
+
+\begin{DoxyCompactList}\small\item\em Set selected node name. \end{DoxyCompactList}\item 
+\hyperlink{classtree_1_1Tree}{Tree} \& \hyperlink{classtree_1_1Tree_a87196f2bf4aac12cefe77df4515d1665}{operator=} (const \hyperlink{classtree_1_1Tree}{tree\-::\-Tree} \&i\-Tree)
+\begin{DoxyCompactList}\small\item\em Sets content under operation pointer equal to {\itshape copy} of whole tree structure. \end{DoxyCompactList}\item 
+\hyperlink{classtree_1_1Tree}{Tree} \& \hyperlink{classtree_1_1Tree_ab421f2c2b6ceab773cb5854317186791}{operator=} (const \hyperlink{classnode_1_1Node}{node\-::\-Node} \&i\-Node)
+\begin{DoxyCompactList}\small\item\em Sets content under operation pointer equal to {\itshape copy} of specified node structure. \end{DoxyCompactList}\item 
+\hyperlink{classtree_1_1Tree}{Tree} \& \hyperlink{classtree_1_1Tree_a310a51f2fecc6f93d57091c364fa4d99}{operator=} (const std\-::string \&i\-Name)
+\begin{DoxyCompactList}\small\item\em Sets content under operation pointer equal to node with specified name. \end{DoxyCompactList}\item 
+\hyperlink{classtree_1_1Tree}{Tree} \& \hyperlink{classtree_1_1Tree_a3d8e27ab655fed7f4d7b640f30628312}{operator$<$} (const \hyperlink{classtree_1_1Tree}{tree\-::\-Tree} \&i\-Tree)
+\begin{DoxyCompactList}\small\item\em Adds {\itshape copy} of whole source tree as left child of operation pointer. \end{DoxyCompactList}\item 
+\hyperlink{classtree_1_1Tree}{Tree} \& \hyperlink{classtree_1_1Tree_afccc4be4d4097a231c48385a4c7fc402}{operator$<$} (const \hyperlink{classnode_1_1Node}{node\-::\-Node} \&i\-Node)
+\begin{DoxyCompactList}\small\item\em Adds specified node structure as left child of operation pointer. \end{DoxyCompactList}\item 
+\hyperlink{classtree_1_1Tree}{Tree} \& \hyperlink{classtree_1_1Tree_a9197395651b7b6098ffd2eeb62c39263}{operator$<$} (const std\-::string \&i\-Name)
+\begin{DoxyCompactList}\small\item\em Adds node with specified name as left child of operation pointer. \end{DoxyCompactList}\item 
+\hyperlink{classtree_1_1Tree}{Tree} \& \hyperlink{classtree_1_1Tree_aaffe009efda5ae4b6699890e9c1a7c30}{operator$>$} (const \hyperlink{classtree_1_1Tree}{tree\-::\-Tree} \&i\-Tree)
+\begin{DoxyCompactList}\small\item\em Adds {\itshape copy} of whole source tree as right child of operation pointer. \end{DoxyCompactList}\item 
+\hyperlink{classtree_1_1Tree}{Tree} \& \hyperlink{classtree_1_1Tree_ae058874c4bd591e2cb060806d6e9de41}{operator$>$} (const \hyperlink{classnode_1_1Node}{node\-::\-Node} \&i\-Node)
+\begin{DoxyCompactList}\small\item\em Adds specified node structure as right child of operation pointer. \end{DoxyCompactList}\item 
+\hyperlink{classtree_1_1Tree}{Tree} \& \hyperlink{classtree_1_1Tree_a438deea3b585e9f003d21c342e8ad4b1}{operator$>$} (const std\-::string \&i\-Name)
+\begin{DoxyCompactList}\small\item\em Adds node with specified name as right child of operation pointer. \end{DoxyCompactList}\item 
+\hypertarget{classtree_1_1Tree_a4ddf2644182f9fb72aea10cd42e27926}{unsigned int \hyperlink{classtree_1_1Tree_a4ddf2644182f9fb72aea10cd42e27926}{get\-Level} () const }\label{classtree_1_1Tree_a4ddf2644182f9fb72aea10cd42e27926}
+
+\begin{DoxyCompactList}\small\item\em Get level of selected node. \end{DoxyCompactList}\item 
+\hypertarget{classtree_1_1Tree_a88fbf6974cbb144273fffb8289599978}{unsigned int \hyperlink{classtree_1_1Tree_a88fbf6974cbb144273fffb8289599978}{get\-Depth} () const }\label{classtree_1_1Tree_a88fbf6974cbb144273fffb8289599978}
+
+\begin{DoxyCompactList}\small\item\em Get tree depth. \end{DoxyCompactList}\item 
+\hypertarget{classtree_1_1Tree_a8510242d20d1a62e694bdda7d6f08355}{\hyperlink{classnode_1_1Node}{node\-::\-Node} \& \hyperlink{classtree_1_1Tree_a8510242d20d1a62e694bdda7d6f08355}{get\-Nodes} () const }\label{classtree_1_1Tree_a8510242d20d1a62e694bdda7d6f08355}
+
+\begin{DoxyCompactList}\small\item\em Get {\itshape copy} node structure of tree. \end{DoxyCompactList}\item 
+\hyperlink{namespacetree_a36da3b38ad98fe87c16c4336cd5b8a44}{Tree\-Nodes} \hyperlink{classtree_1_1Tree_a4dce9d5202dc7412ec8f1432040d5deb}{search} (const std\-::string \&s\-Name) const 
+\begin{DoxyCompactList}\small\item\em Finds nodes with specified name. \end{DoxyCompactList}\item 
+\hypertarget{classtree_1_1Tree_ae84318b936a74cfd6f8ba2705b1bd6ac}{\hyperlink{namespacetree_a1906ab31086935949f162ea3e2c41200}{Tree\-Content} \hyperlink{classtree_1_1Tree_ae84318b936a74cfd6f8ba2705b1bd6ac}{get\-Content} () const }\label{classtree_1_1Tree_ae84318b936a74cfd6f8ba2705b1bd6ac}
+
+\begin{DoxyCompactList}\small\item\em Gets tree content in vector-\/based representation. \end{DoxyCompactList}\item 
+\hyperlink{namespacetree_a36da3b38ad98fe87c16c4336cd5b8a44}{Tree\-Nodes} \hyperlink{classtree_1_1Tree_a5ae3316bf8d3905413cc5454e5079b3f}{operator\mbox{[}$\,$\mbox{]}} (const std\-::string \&s\-Name) const 
+\begin{DoxyCompactList}\small\item\em Finds nodes with specified name. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Used for encapsulate \hyperlink{classnode_1_1Node}{node\-::\-Node} structures. 
+
+This class provides tree-\/oriented operations based on \hyperlink{classnode_1_1Node}{node\-::\-Node} class. 
+
+Definition at line 50 of file tree.\-hpp.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classtree_1_1Tree_ac9e85c2936a0c63f4928ac9864e487fb}{\index{tree\-::\-Tree@{tree\-::\-Tree}!Tree@{Tree}}
+\index{Tree@{Tree}!tree::Tree@{tree\-::\-Tree}}
+\subsubsection[{Tree}]{\setlength{\rightskip}{0pt plus 5cm}tree\-::\-Tree\-::\-Tree (
+\begin{DoxyParamCaption}
+\item[{const std\-::string \&}]{i\-Name}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classtree_1_1Tree_ac9e85c2936a0c63f4928ac9864e487fb}
+
+
+Creates tree with specified name and depth == 1. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em i\-Name} & -- name for node. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 67 of file tree.\-hpp.
+
+\hypertarget{classtree_1_1Tree_ad55803fa67e5cd1f1f8b7b80e014ffaa}{\index{tree\-::\-Tree@{tree\-::\-Tree}!Tree@{Tree}}
+\index{Tree@{Tree}!tree::Tree@{tree\-::\-Tree}}
+\subsubsection[{Tree}]{\setlength{\rightskip}{0pt plus 5cm}tree\-::\-Tree\-::\-Tree (
+\begin{DoxyParamCaption}
+\item[{const {\bf node\-::\-Node} \&}]{i\-Node}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classtree_1_1Tree_ad55803fa67e5cd1f1f8b7b80e014ffaa}
+
+
+Creates tree from \hyperlink{classnode_1_1Node}{node\-::\-Node} structure. 
+
+Normalizes node levels. 
+\begin{DoxyParams}{Parameters}
+{\em i\-Node} & -- source node \hyperlink{classnode_1_1Node}{node\-::\-Node} to copy. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 75 of file tree.\-hpp.
+
+\hypertarget{classtree_1_1Tree_a71b78c230e92b439dfaab0fe4c9c956c}{\index{tree\-::\-Tree@{tree\-::\-Tree}!Tree@{Tree}}
+\index{Tree@{Tree}!tree::Tree@{tree\-::\-Tree}}
+\subsubsection[{Tree}]{\setlength{\rightskip}{0pt plus 5cm}tree\-::\-Tree\-::\-Tree (
+\begin{DoxyParamCaption}
+\item[{const {\bf tree\-::\-Tree} \&}]{i\-Tree}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classtree_1_1Tree_a71b78c230e92b439dfaab0fe4c9c956c}
+
+
+Creates tree from other tree. 
+
+Insert nodes from {\itshape copy} of source tree. Normalizes node levels. 
+\begin{DoxyParams}{Parameters}
+{\em i\-Tree} & -- source tree to copy. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 84 of file tree.\-hpp.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classtree_1_1Tree_a73dc8a4574c7222c6640c88eef387a19}{\index{tree\-::\-Tree@{tree\-::\-Tree}!add\-Left@{add\-Left}}
+\index{add\-Left@{add\-Left}!tree::Tree@{tree\-::\-Tree}}
+\subsubsection[{add\-Left}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Tree} \& tree\-::\-Tree\-::add\-Left (
+\begin{DoxyParamCaption}
+\item[{const std\-::string \&}]{i\-Name}
+\end{DoxyParamCaption}
+)}}\label{classtree_1_1Tree_a73dc8a4574c7222c6640c88eef387a19}
+
+
+Adds left child. 
+
+Inserts node with specified name as left child, if not exists. Normalizes inserted node. Throws \hyperlink{classtree_1_1InsertError}{tree\-::\-Insert\-Error} exception in other way.
+
+
+\begin{DoxyParams}{Parameters}
+{\em i\-Name} & -- name of node to insert. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 137 of file tree.\-hpp.
+
+\hypertarget{classtree_1_1Tree_a6d98f5bb78258d03882041c6d6438ab0}{\index{tree\-::\-Tree@{tree\-::\-Tree}!add\-Left@{add\-Left}}
+\index{add\-Left@{add\-Left}!tree::Tree@{tree\-::\-Tree}}
+\subsubsection[{add\-Left}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Tree} \& tree\-::\-Tree\-::add\-Left (
+\begin{DoxyParamCaption}
+\item[{const {\bf node\-::\-Node} \&}]{i\-Node}
+\end{DoxyParamCaption}
+)}}\label{classtree_1_1Tree_a6d98f5bb78258d03882041c6d6438ab0}
+
+
+Adds left child. 
+
+Inserts node structure as left child, if not exists. Normalizes inserted subtree. Throws \hyperlink{classtree_1_1InsertError}{tree\-::\-Insert\-Error} exception in other way.
+
+
+\begin{DoxyParams}{Parameters}
+{\em i\-Node} & -- source of node structure to insert. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 158 of file tree.\-hpp.
+
+\hypertarget{classtree_1_1Tree_a73996a043448192cd9bb52175cd78a0c}{\index{tree\-::\-Tree@{tree\-::\-Tree}!add\-Left@{add\-Left}}
+\index{add\-Left@{add\-Left}!tree::Tree@{tree\-::\-Tree}}
+\subsubsection[{add\-Left}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Tree} \& tree\-::\-Tree\-::add\-Left (
+\begin{DoxyParamCaption}
+\item[{const {\bf Tree} \&}]{i\-Tree}
+\end{DoxyParamCaption}
+)}}\label{classtree_1_1Tree_a73996a043448192cd9bb52175cd78a0c}
+
+
+Adds left child. 
+
+Inserts {\itshape copy} of {\itshape whole} tree as left child, if not exists. Normalizes inserted subtree. Throws \hyperlink{classtree_1_1InsertError}{tree\-::\-Insert\-Error} exception in other way.
+
+
+\begin{DoxyParams}{Parameters}
+{\em i\-Tree} & -- source tree to insert. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 179 of file tree.\-hpp.
+
+\hypertarget{classtree_1_1Tree_a23e77e37d23040fabb35eeec86370b02}{\index{tree\-::\-Tree@{tree\-::\-Tree}!add\-Right@{add\-Right}}
+\index{add\-Right@{add\-Right}!tree::Tree@{tree\-::\-Tree}}
+\subsubsection[{add\-Right}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Tree} \& tree\-::\-Tree\-::add\-Right (
+\begin{DoxyParamCaption}
+\item[{const std\-::string \&}]{i\-Name}
+\end{DoxyParamCaption}
+)}}\label{classtree_1_1Tree_a23e77e37d23040fabb35eeec86370b02}
+
+
+Adds right child. 
+
+Inserts node with specified name as right child, if not exists. Normalizes inserted node. Throws \hyperlink{classtree_1_1InsertError}{tree\-::\-Insert\-Error} exception in other way.
+
+
+\begin{DoxyParams}{Parameters}
+{\em i\-Name} & -- name of node to insert. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 200 of file tree.\-hpp.
+
+\hypertarget{classtree_1_1Tree_aa4ac522514b647e10a087ea388868e31}{\index{tree\-::\-Tree@{tree\-::\-Tree}!add\-Right@{add\-Right}}
+\index{add\-Right@{add\-Right}!tree::Tree@{tree\-::\-Tree}}
+\subsubsection[{add\-Right}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Tree} \& tree\-::\-Tree\-::add\-Right (
+\begin{DoxyParamCaption}
+\item[{const {\bf node\-::\-Node} \&}]{i\-Node}
+\end{DoxyParamCaption}
+)}}\label{classtree_1_1Tree_aa4ac522514b647e10a087ea388868e31}
+
+
+Adds right child. 
+
+Inserts node structure as right child, if not exists. Normalizes inserted subtree. Throws \hyperlink{classtree_1_1InsertError}{tree\-::\-Insert\-Error} exception in other way.
+
+
+\begin{DoxyParams}{Parameters}
+{\em i\-Node} & -- source of node structure to insert. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 221 of file tree.\-hpp.
+
+\hypertarget{classtree_1_1Tree_a1fe1a6b148f1ea7258e649f73e3b6a6f}{\index{tree\-::\-Tree@{tree\-::\-Tree}!add\-Right@{add\-Right}}
+\index{add\-Right@{add\-Right}!tree::Tree@{tree\-::\-Tree}}
+\subsubsection[{add\-Right}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Tree} \& tree\-::\-Tree\-::add\-Right (
+\begin{DoxyParamCaption}
+\item[{const {\bf Tree} \&}]{i\-Tree}
+\end{DoxyParamCaption}
+)}}\label{classtree_1_1Tree_a1fe1a6b148f1ea7258e649f73e3b6a6f}
+
+
+Adds right child. 
+
+Inserts {\itshape copy} of {\itshape whole} tree as right child, if not exists. Normalizes inserted subtree. Throws \hyperlink{classtree_1_1InsertError}{tree\-::\-Insert\-Error} exception in other way.
+
+
+\begin{DoxyParams}{Parameters}
+{\em i\-Tree} & -- source tree to insert. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 242 of file tree.\-hpp.
+
+\hypertarget{classtree_1_1Tree_af3de9693422e9af3e5b47f8bc386d821}{\index{tree\-::\-Tree@{tree\-::\-Tree}!move\-Left@{move\-Left}}
+\index{move\-Left@{move\-Left}!tree::Tree@{tree\-::\-Tree}}
+\subsubsection[{move\-Left}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Tree} \& tree\-::\-Tree\-::move\-Left (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classtree_1_1Tree_af3de9693422e9af3e5b47f8bc386d821}
+
+
+Move operation pointer to left child. 
+
+Throws \hyperlink{classtree_1_1AddressError}{tree\-::\-Address\-Error} exception if there is no left child. 
+
+Definition at line 259 of file tree.\-hpp.
+
+\hypertarget{classtree_1_1Tree_a783680aa05d80764a53353ab7b0ef1fb}{\index{tree\-::\-Tree@{tree\-::\-Tree}!move\-Right@{move\-Right}}
+\index{move\-Right@{move\-Right}!tree::Tree@{tree\-::\-Tree}}
+\subsubsection[{move\-Right}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Tree} \& tree\-::\-Tree\-::move\-Right (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classtree_1_1Tree_a783680aa05d80764a53353ab7b0ef1fb}
+
+
+Move operation pointer to right child. 
+
+Throws \hyperlink{classtree_1_1AddressError}{tree\-::\-Address\-Error} exception if there is no right child. 
+
+Definition at line 275 of file tree.\-hpp.
+
+\hypertarget{classtree_1_1Tree_a3d8e27ab655fed7f4d7b640f30628312}{\index{tree\-::\-Tree@{tree\-::\-Tree}!operator$<$@{operator$<$}}
+\index{operator$<$@{operator$<$}!tree::Tree@{tree\-::\-Tree}}
+\subsubsection[{operator$<$}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Tree} \& tree\-::\-Tree\-::operator$<$ (
+\begin{DoxyParamCaption}
+\item[{const {\bf tree\-::\-Tree} \&}]{i\-Tree}
+\end{DoxyParamCaption}
+)}}\label{classtree_1_1Tree_a3d8e27ab655fed7f4d7b640f30628312}
+
+
+Adds {\itshape copy} of whole source tree as left child of operation pointer. 
+
+Normalizes inserted subtree. Throws \hyperlink{classtree_1_1InsertError}{tree\-::\-Insert\-Error} exception if try to insert i\-Node to busy place.
+
+
+\begin{DoxyParams}{Parameters}
+{\em i\-Tree} & -- source tree. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 413 of file tree.\-hpp.
+
+\hypertarget{classtree_1_1Tree_afccc4be4d4097a231c48385a4c7fc402}{\index{tree\-::\-Tree@{tree\-::\-Tree}!operator$<$@{operator$<$}}
+\index{operator$<$@{operator$<$}!tree::Tree@{tree\-::\-Tree}}
+\subsubsection[{operator$<$}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Tree} \& tree\-::\-Tree\-::operator$<$ (
+\begin{DoxyParamCaption}
+\item[{const {\bf node\-::\-Node} \&}]{i\-Node}
+\end{DoxyParamCaption}
+)}}\label{classtree_1_1Tree_afccc4be4d4097a231c48385a4c7fc402}
+
+
+Adds specified node structure as left child of operation pointer. 
+
+Normalizes inserted subtree. Throws \hyperlink{classtree_1_1InsertError}{tree\-::\-Insert\-Error} exception if try to insert i\-Node to busy place.
+
+
+\begin{DoxyParams}{Parameters}
+{\em i\-Node} & -- source node structure. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 429 of file tree.\-hpp.
+
+\hypertarget{classtree_1_1Tree_a9197395651b7b6098ffd2eeb62c39263}{\index{tree\-::\-Tree@{tree\-::\-Tree}!operator$<$@{operator$<$}}
+\index{operator$<$@{operator$<$}!tree::Tree@{tree\-::\-Tree}}
+\subsubsection[{operator$<$}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Tree} \& tree\-::\-Tree\-::operator$<$ (
+\begin{DoxyParamCaption}
+\item[{const std\-::string \&}]{i\-Name}
+\end{DoxyParamCaption}
+)}}\label{classtree_1_1Tree_a9197395651b7b6098ffd2eeb62c39263}
+
+
+Adds node with specified name as left child of operation pointer. 
+
+Throws \hyperlink{classnode_1_1InsertError}{node\-::\-Insert\-Error} exception if try to insert i\-Node to busy place. Normalizes inserted node.
+
+
+\begin{DoxyParams}{Parameters}
+{\em i\-Name} & -- source name for node to insert. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 443 of file tree.\-hpp.
+
+\hypertarget{classtree_1_1Tree_a87196f2bf4aac12cefe77df4515d1665}{\index{tree\-::\-Tree@{tree\-::\-Tree}!operator=@{operator=}}
+\index{operator=@{operator=}!tree::Tree@{tree\-::\-Tree}}
+\subsubsection[{operator=}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Tree} \& tree\-::\-Tree\-::operator= (
+\begin{DoxyParamCaption}
+\item[{const {\bf tree\-::\-Tree} \&}]{i\-Tree}
+\end{DoxyParamCaption}
+)}}\label{classtree_1_1Tree_a87196f2bf4aac12cefe77df4515d1665}
+
+
+Sets content under operation pointer equal to {\itshape copy} of whole tree structure. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em i\-Tree} & -- source tree. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 360 of file tree.\-hpp.
+
+\hypertarget{classtree_1_1Tree_ab421f2c2b6ceab773cb5854317186791}{\index{tree\-::\-Tree@{tree\-::\-Tree}!operator=@{operator=}}
+\index{operator=@{operator=}!tree::Tree@{tree\-::\-Tree}}
+\subsubsection[{operator=}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Tree} \& tree\-::\-Tree\-::operator= (
+\begin{DoxyParamCaption}
+\item[{const {\bf node\-::\-Node} \&}]{i\-Node}
+\end{DoxyParamCaption}
+)}}\label{classtree_1_1Tree_ab421f2c2b6ceab773cb5854317186791}
+
+
+Sets content under operation pointer equal to {\itshape copy} of specified node structure. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em i\-Node} & -- source node structure. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 379 of file tree.\-hpp.
+
+\hypertarget{classtree_1_1Tree_a310a51f2fecc6f93d57091c364fa4d99}{\index{tree\-::\-Tree@{tree\-::\-Tree}!operator=@{operator=}}
+\index{operator=@{operator=}!tree::Tree@{tree\-::\-Tree}}
+\subsubsection[{operator=}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Tree} \& tree\-::\-Tree\-::operator= (
+\begin{DoxyParamCaption}
+\item[{const std\-::string \&}]{i\-Name}
+\end{DoxyParamCaption}
+)}}\label{classtree_1_1Tree_a310a51f2fecc6f93d57091c364fa4d99}
+
+
+Sets content under operation pointer equal to node with specified name. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em i\-Name} & -- source name for node to replace. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 396 of file tree.\-hpp.
+
+\hypertarget{classtree_1_1Tree_aaffe009efda5ae4b6699890e9c1a7c30}{\index{tree\-::\-Tree@{tree\-::\-Tree}!operator$>$@{operator$>$}}
+\index{operator$>$@{operator$>$}!tree::Tree@{tree\-::\-Tree}}
+\subsubsection[{operator$>$}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Tree} \& tree\-::\-Tree\-::operator$>$ (
+\begin{DoxyParamCaption}
+\item[{const {\bf tree\-::\-Tree} \&}]{i\-Tree}
+\end{DoxyParamCaption}
+)}}\label{classtree_1_1Tree_aaffe009efda5ae4b6699890e9c1a7c30}
+
+
+Adds {\itshape copy} of whole source tree as right child of operation pointer. 
+
+Normalizes inserted subtree. Throws \hyperlink{classtree_1_1InsertError}{tree\-::\-Insert\-Error} exception if try to insert i\-Node to busy place.
+
+
+\begin{DoxyParams}{Parameters}
+{\em i\-Tree} & -- source tree. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 457 of file tree.\-hpp.
+
+\hypertarget{classtree_1_1Tree_ae058874c4bd591e2cb060806d6e9de41}{\index{tree\-::\-Tree@{tree\-::\-Tree}!operator$>$@{operator$>$}}
+\index{operator$>$@{operator$>$}!tree::Tree@{tree\-::\-Tree}}
+\subsubsection[{operator$>$}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Tree} \& tree\-::\-Tree\-::operator$>$ (
+\begin{DoxyParamCaption}
+\item[{const {\bf node\-::\-Node} \&}]{i\-Node}
+\end{DoxyParamCaption}
+)}}\label{classtree_1_1Tree_ae058874c4bd591e2cb060806d6e9de41}
+
+
+Adds specified node structure as right child of operation pointer. 
+
+Normalizes inserted subtree. Throws \hyperlink{classtree_1_1InsertError}{tree\-::\-Insert\-Error} exception if try to insert i\-Node to busy place.
+
+
+\begin{DoxyParams}{Parameters}
+{\em i\-Node} & -- source node structure. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 473 of file tree.\-hpp.
+
+\hypertarget{classtree_1_1Tree_a438deea3b585e9f003d21c342e8ad4b1}{\index{tree\-::\-Tree@{tree\-::\-Tree}!operator$>$@{operator$>$}}
+\index{operator$>$@{operator$>$}!tree::Tree@{tree\-::\-Tree}}
+\subsubsection[{operator$>$}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Tree} \& tree\-::\-Tree\-::operator$>$ (
+\begin{DoxyParamCaption}
+\item[{const std\-::string \&}]{i\-Name}
+\end{DoxyParamCaption}
+)}}\label{classtree_1_1Tree_a438deea3b585e9f003d21c342e8ad4b1}
+
+
+Adds node with specified name as right child of operation pointer. 
+
+Throws \hyperlink{classnode_1_1InsertError}{node\-::\-Insert\-Error} exception if try to insert i\-Node to busy place. Normalizes inserted node.
+
+
+\begin{DoxyParams}{Parameters}
+{\em i\-Name} & -- source name for node to insert. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 487 of file tree.\-hpp.
+
+\hypertarget{classtree_1_1Tree_a5ae3316bf8d3905413cc5454e5079b3f}{\index{tree\-::\-Tree@{tree\-::\-Tree}!operator\mbox{[}$\,$\mbox{]}@{operator[]}}
+\index{operator\mbox{[}$\,$\mbox{]}@{operator[]}!tree::Tree@{tree\-::\-Tree}}
+\subsubsection[{operator[]}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Tree\-Nodes} tree\-::\-Tree\-::operator\mbox{[}$\,$\mbox{]} (
+\begin{DoxyParamCaption}
+\item[{const std\-::string \&}]{s\-Name}
+\end{DoxyParamCaption}
+) const}}\label{classtree_1_1Tree_a5ae3316bf8d3905413cc5454e5079b3f}
+
+
+Finds nodes with specified name. 
+
+Returns a vector of found node contents. 
+
+Definition at line 560 of file tree.\-hpp.
+
+\hypertarget{classtree_1_1Tree_a4dce9d5202dc7412ec8f1432040d5deb}{\index{tree\-::\-Tree@{tree\-::\-Tree}!search@{search}}
+\index{search@{search}!tree::Tree@{tree\-::\-Tree}}
+\subsubsection[{search}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Tree\-Nodes} tree\-::\-Tree\-::search (
+\begin{DoxyParamCaption}
+\item[{const std\-::string \&}]{s\-Name}
+\end{DoxyParamCaption}
+) const}}\label{classtree_1_1Tree_a4dce9d5202dc7412ec8f1432040d5deb}
+
+
+Finds nodes with specified name. 
+
+Returns a vector of found node contents. 
+
+Definition at line 550 of file tree.\-hpp.
+
+
+
+The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+src/tree.\-hpp\end{DoxyCompactItemize}

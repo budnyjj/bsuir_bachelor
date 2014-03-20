@@ -1,0 +1,348 @@
+\section{Ход работы}
+
+\subsection{Расчет характеристик работы станка A}
+
+При расчете характеристик СМО используется величина, называемая нагрузкой на СМО:
+\begin{align}
+	\label{fmla:rho}
+	\rho = \frac{\lambda}{m\mu}.
+\end{align}
+
+Коэффициент загрузки рассчитаем по формуле:
+\begin{align}
+	U = \rho (1 - P_{\text{отк}}).
+\end{align}
+
+Среднее число заявок на обслуживание (среднее число занятых каналов):
+\begin{align}
+	\overline{S} = mU.
+\end{align}
+
+Среднее число заявок в СМО:
+\begin{align}
+	\overline{k} = \overline{q} + \overline{S}.
+\end{align}
+
+Пропускная способность СМО:
+\begin{align}
+	\gamma = \mu \overline{S}.
+\end{align}
+
+Среднее время пребывания заявки в очереди (форула Литтла):
+\begin{align}
+	\overline{w} = \frac{\overline{q}}{\gamma}.
+\end{align}
+
+Среднее время пребывания заявки в СМО:
+\begin{align}
+	\overline{t} = \overline{w} + \overline{x}.
+\end{align}
+
+Для расчёта одноканальных СМО без ограничений на очередь применяются следующие формулы.
+
+Вероятность простоя:
+\begin{align}
+	P_0 = 1 - \rho.
+\end{align}
+
+Средняя длина очереди:
+\begin{align}
+	\label{fmla:q}
+	\overline{q} = \frac{\rho^2(v^2+\varepsilon^2)}{2(1 - \rho)},
+\end{align}
+где \hspace{1mm} $v$ --- коэффициент вариации интервалов между заявками; \par 
+$\varepsilon$ --- коэффициент вариации времени обслуживания. \\
+
+Вероятности пребывания в СМО j заявок:
+\begin{align}
+	\label{fmla:probOfRemaining}
+	P_j = \rho^j(1 - \rho), \hspace{5mm} j = 1,2,\ldots
+\end{align}
+
+Вероятность того, что время пребывания заявки в СМО превысит некоторую заданную величину $T$:
+\begin{align}
+	P(t > T) = e^{-\mu(1-\rho)T}.
+\end{align}
+
+\textbf{В итоге характеристика работы станка А (D/G/1):}
+\begin{equation*}
+	\begin{aligned}
+		&m = 1, \hspace{5mm}
+		\overline{x} = 3 \text{ (мин)}, \hspace{5mm}
+		\mu \approx 0,3333 \text{ (1/мин)}, \\
+		&P_0 = 0,4, \hspace{5mm} 
+		P_{\text{отк}} = 0, \hspace{5mm}
+		P_{\text{обсл}} = 1, \\
+		&\lambda = 0,2, \hspace{5mm}
+		\rho = 0,6 = U = \overline{S} \text{ (количество заявок)}, \\
+		&\overline{q} \approx 0,0167, \hspace{5mm}
+		\overline{k} = 0,6167 \text{ (количество заявок)}, \\
+		&\gamma = 0,2, \text{ (1/мин)} \hspace{5mm}
+		\overline{\omega} \approx 0,0835 \text{ (мин)}, \hspace{5mm}
+		\overline{t} = 3,0835 \text{ (мин)}.
+	\end{aligned}
+\end{equation*}
+
+\newpage
+
+
+\subsection{Расчет характеристик работы группы станков B1-B2}
+
+Вероятность простоя СМО:
+\begin{align}
+	P_0 = \left[ \sum_{i=0}^{m} \frac{(m\rho)^i}{i!} + \frac{(m\rho)^{m+1}}{m \cdot m!} \cdot \frac{1-\rho^n}{1-\rho} \right]^{-1}
+\end{align}
+где \hspace{0.5mm} $m$ --- количество каналов СМО; \par
+$n$ --- максимально допустимое количество заявок в очереди. \\
+
+Вероятность отказа в обслуживании:
+\begin{align}
+	P_{\text{отк}} = \frac{(m\rho)^{m+n}}{m^n \cdot m!} \cdot P_0.
+\end{align}
+
+Средняя длина очереди:
+\begin{align}
+	\overline{q} =  \frac{ (m\rho)^{m+1} \cdot P_0 }{ m \cdot m! } \cdot 
+									\frac{ 1-(n+1)\rho^n+n\rho^{n+1} }{ {(1-\rho})^2 }. 
+\end{align}
+
+Вероятность пребывания в СМО $j$ заявок:
+\begin{equation}
+	\begin{aligned}
+  	P_j = 
+  	\left\{
+    	\begin{aligned}
+	      &\frac{(m\rho)^j}{j!} \cdot P_0, \hspace{1cm} j = 1, \ldots, m, \\
+	      &\frac{(m\rho)^j}{m^{j-m}m!} \cdot P_0, \hspace{5mm} j = m+1, \ldots, m+1.
+    	\end{aligned}
+  	\right.
+	\end{aligned}
+\end{equation}
+
+Учитывая формулы~\ref{fmla:rho}~--~\ref{fmla:q}, получим \textbf{характеристику работы \\ группы станков B1-B2 (M/M/2)}: 
+\begin{equation*}
+	\begin{aligned}
+		&m = 2, \hspace{5mm}
+		\overline{x} = 15 \text{ (мин)}, \hspace{5mm}
+		\mu \approx 0,0667 \text{ (1/мин)}, \hspace{5mm}
+		n = 5, \\
+		&P_0 \approx 0,0181, \hspace{5mm} 
+		P_{\text{отк}} \approx 0,2958, \hspace{5mm}
+		P_{\text{обсл}} = 0,7042, \\
+		&\lambda = 0,18, \hspace{5mm}
+		\overline{q} \approx 3,1722, \hspace{5mm}
+		\overline{k} = 5,0734 \text{ (количество заявок)}, \\
+		&\rho = 1,35, \hspace{5mm} 
+		U \approx 0,9506, \hspace{5mm}
+		\overline{S} \approx 1,9012 \text{ (количество заявок)}, \\
+		&\gamma \approx 0,1267, \text{ (1/мин)} \hspace{5mm}
+		\overline{\omega} \approx 25,0371 \text{ (мин)}, \hspace{5mm}
+		\overline{t} = 40,0371 \text{ (мин)}.
+	\end{aligned}
+\end{equation*}
+
+\newpage
+
+\subsection{Расчет характеристик работы станка C}
+
+Аналогично п.~3.1. рассчитаем \textbf{характеристику работы \\ станка C (M/M/1)}:
+\begin{equation*}
+	\begin{aligned}
+		&m = 1, \hspace{5mm}
+		\overline{x} = 10 \text{ (мин)}, \hspace{5mm}
+		\mu = 0,1 \text{ (1/мин)} \\
+		&\lambda \approx 0,0532, \hspace{5mm}
+		\overline{q} \approx 0,6062, \hspace{5mm}
+		\overline{k} = 1,1386 \text{ (количество заявок)}, \\
+		&P_0 \approx 0,4676, \hspace{5mm} 
+		P_{\text{отк}} = 0, \hspace{5mm}
+		P_{\text{обсл}} = 1, \\
+		&\rho = U = \overline{S} \approx 0,5324 \text{ (количество заявок)}, \\
+		&\gamma \approx 0,0532, \text{ (1/мин)} \hspace{5mm}
+		\overline{\omega} \approx 11,3947 \text{ (мин)}, \hspace{5mm}
+		\overline{t} = 21,3947 \text{ (мин)}.
+	\end{aligned}
+\end{equation*}
+
+
+
+\subsection{Расчет прибыли от работы участка за 8 часов}
+
+Выручка от обслуживания заявок в СМО в течение времени $T$:
+\begin{align}
+	V = \gamma \cdot C \cdot T, 
+\end{align}
+где \hspace{1mm} $\gamma$ --- пропускная способность СМО; \par
+$C$ --- выручка от обслуживания одной заявки. \\
+Затраты, связанные с обслуживанием заявок в СМО в течение времени $T$:
+\begin{align}
+	Z_{\text{обсл}} = \gamma \cdot C_{\text{обсл}} \cdot T,
+\end{align}
+где $C_{\text{обсл}}$ --- выручка от обслуживания одной заявки.
+
+Затраты, связанные с эксплуатацией СМО в течение времени $T$:
+\begin{align}
+	Z_{\text{эксп}} = (\overline{S}C_{\text{раб}} + (m-\overline{S}) C_{\text{пр}})T ,
+\end{align}
+где \hspace{1mm} $m$ --- количество каналов в СМО; \par
+$\overline{S}$ --- среднее число заявок на обслуживание (в каналах), или среднее число занятых каналов; \par
+$C_{\text{раб}}$ --- затраты, связанные с работой одного канала в течение едицины времени; \par
+$C_{\text{пр}}$ --- затраты, связанные с простоем одного канала в течение единицы времени. \\
+
+Убытки, связанные с отказами в обслуживании за время $T$:
+\begin{align}
+	Z_{\text{отк}} = \lambda \cdot C_{\text{отк}} \cdot P_{\text{отк}} \cdot T,
+\end{align}
+где \hspace{1mm} $\lambda$ --- интенсивность потока заявок; \par
+$C_{\text{отк}}$ --- убытки, связанные с отказом в обслуживании одной заявки; \par
+$P_{\text{отк}}$ --- вероятность отказа. \\
+
+Убытки за время $T$, связанные с пребыванием заявки в СМО (как в очереди, так и на обслуживании):
+\begin{align}
+	Z_{\text{пр}} = \overline{k} \cdot C_{\text{пр}} \cdot T,
+\end{align}
+где \hspace{1mm} $\overline{k}$ --- среднее число заявок в СМО; \par
+$C_{\text{пр}}$ --- убытки, связанные с пребыванием заявки в СМО в течение единицы времени; \\
+
+\textbf{В итоге получаем следующую прибыль (в ден.~ед.):}
+\begin{equation*}
+	\begin{aligned}
+		&V_A = 0,2 \cdot 0,1 \cdot (8-5) \cdot 480 = 48, \\
+		&V_B = 0,1267 \cdot (35-10) \cdot 480 = 1520,4, \\
+		&V_C = 0,0532 \cdot (35-10) \cdot 480 = 638,4, \\
+		&Z_{\text{обсл A}} = 0, \hspace{5mm}
+		Z_{\text{обсл B}} = 0, \hspace{5mm} 
+		Z_{\text{обсл C}} = 0, \\
+		&Z_{\text{экспл A}} = [0,6000 \cdot 0,2 + (1 - 0,6000) \cdot 0,1] \cdot 480 \approx 76,8, \\
+		&Z_{\text{экспл B}} = [1,9012 \cdot 0,5 + (2 - 1,9012) \cdot 0,1] \cdot 480 \approx 461,0, \\
+		&Z_{\text{экспл C}} = [0,5324 \cdot 0,7 + (1 - 0,5324) \cdot 0,1] \cdot 480 \approx 201,3.
+	\end{aligned}
+\end{equation*}
+
+Прибыль участка за 8 часов работы:
+\begin{equation*}
+	\begin{aligned}
+		&V_A + V_B + V_C - \\ 
+		&-(Z_{\text{обсл A}} + Z_{\text{обсл B}} + Z_{\text{обсл C}}) -\\ 
+		&-(Z_{\text{экспл A}} + Z_{\text{экспл B}} + Z_{\text{экспл C}}) = 1467,6
+	\end{aligned}
+\end{equation*}
+
+\newpage
+
+
+
+\subsection{Расчет вероятности того, что деталь, поступившая на станки B1-B2, сразу же начнет обрабатываться}
+
+Деталь, поступившая на станки B1-B2 сразу же начнет обрабатываться, если в момент поступления детали хотя бы один станок из группы B будет свободен. Вероятность этого события находится по формуле:
+\begin{align}
+	P(j \le R) = \sum_{j=0}^{R} P_j.
+\end{align}
+
+Таким образом:
+\begin{align}
+	P(j \le 1) = P_0 + P_1.
+\end{align}
+
+Вероятность $P_1$ найдём по формуле~\ref{fmla:probOfRemaining}. В итоге:
+\begin{equation}
+	\begin{aligned}
+		&P_1 \approx 0,0489, \\
+		&P(j \le 1) = 0,0670.
+	\end{aligned}
+\end{equation}
+
+\newpage
+
+
+
+\subsection{Расчет характеристик от работы всех станков и прибыль от работы участка (за 8 часов) при некоторых изменениях}
+На участке внесены следующие изменения: заготовки поступают на обработку чаще (через каждые 4 минуты), а станок A заменен на новый (A1); время обработки одной детали на станке A1 --- от 1 до 3 минут. Для нового станка A1 затраты на одну минуту работы и простоя --- 0,4 и 0,2~д.~е. соответственно.
+
+\vspace{5mm}
+
+\textbf{Основные характеристики работы станка А (D/G/1):}
+\begin{equation*}
+	\begin{aligned}
+		&m = 1, \hspace{5mm}
+		\overline{x} = 2 \text{ (мин)}, \hspace{5mm}
+		\mu = 0,5 \text{ (1/мин)}, \\
+		&P_0 = 0,4, \hspace{5mm} 
+		P_{\text{отк}} = 0, \hspace{5mm}
+		P_{\text{обсл}} = 1, \\
+		&\lambda = 0,25, \hspace{5mm}
+		\rho = 0,5 = U = \overline{S} \text{ (количество заявок)}, \\
+		&\overline{q} \approx 0,0208, \hspace{5mm}
+		\overline{k} = 0,5208 \text{ (количество заявок)}, \\
+		&\gamma = 0,25, \text{ (1/мин)} \hspace{5mm}
+		\overline{\omega} \approx 0,0833 \text{ (мин)}, \hspace{5mm}
+		\overline{t} = 2,0833 \text{ (мин)}.
+	\end{aligned}
+\end{equation*}
+
+\textbf{Характеристика работы группы станков B1-B2 (M/M/2):}
+\begin{equation*}
+	\begin{aligned}
+		&m = 2, \hspace{5mm}
+		\overline{x} = 15 \text{ (мин)}, \hspace{5mm}
+		\mu \approx 0,0667 \text{ (1/мин)}, \hspace{5mm}
+		n = 5, \\
+		&P_0 \approx 0,0054, \hspace{5mm} 
+		P_{\text{отк}} \approx 0,4182, \hspace{5mm}
+		P_{\text{обсл}} = 0,5818, \\
+		&\lambda = 0,225, \hspace{5mm}
+		\overline{q} \approx 3,7479, \hspace{5mm}
+		\overline{k} = 5,7117 \text{ (количество заявок)}, \\
+		&\rho = 1,6875, \hspace{5mm} 
+		U \approx 0,9819, \hspace{5mm}
+		\overline{S} \approx 1,9638 \text{ (количество заявок)}, \\
+		&\gamma \approx 0,1309, \text{ (1/мин)} \hspace{5mm}
+		\overline{\omega} \approx 28,6318 \text{ (мин)}, \hspace{5mm}
+		\overline{t} = 43,6318 \text{ (мин)}.
+	\end{aligned}
+\end{equation*}
+
+\textbf{Характеристика работы станка C (M/M/1):}
+\begin{equation*}
+	\begin{aligned}
+		&m = 1, \hspace{5mm}
+		\overline{x} = 10 \text{ (мин)}, \hspace{5mm}
+		\mu = 0,1 \text{ (1/мин)} \\
+		&\lambda \approx 0,0941, \hspace{5mm}
+		\overline{q} \approx 15,0082, \hspace{5mm}
+		\overline{k} = 15,9492 \text{ (количество заявок)}, \\
+		&P_0 \approx 0,0591, \hspace{5mm} 
+		P_{\text{отк}} = 0, \hspace{5mm}
+		P_{\text{обсл}} = 1, \\
+		&\rho = U = \overline{S} \approx 0,9410 \text{ (количество заявок)}, \\
+		&\gamma = 0,0941, \text{ (1/мин)} \hspace{5mm}
+		\overline{\omega} \approx 282,1090 \text{ (мин)}, \hspace{5mm}
+		\overline{t} = 292,1090 \text{ (мин)}.
+	\end{aligned}
+\end{equation*}
+
+\newpage
+
+\textbf{Прибыль от работы участка за 8 часов:}
+\begin{equation*}
+	\begin{aligned}
+		&V_A = 0,25 \cdot 0,1 \cdot (8-5) \cdot 480 = 60, \\
+		&V_B = 0,131 \cdot (35-10) \cdot 480 = 1572, \\
+		&V_C = 0,093 \cdot (35-10) \cdot 480 = 1116, \\
+		&Z_{\text{обсл A}} = 0, \hspace{5mm}
+		Z_{\text{обсл B}} = 0, \hspace{5mm} 
+		Z_{\text{обсл C}} = 0, \\
+		&Z_{\text{экспл A}} = [0,5 \cdot 0,4 + (1 - 0,5) \cdot 0,2] \cdot 480 \approx 144, \\
+		&Z_{\text{экспл B}} = [1,971 \cdot 0,5 + (2 - 1,971) \cdot 0,1] \cdot 480 \approx 474, \\
+		&Z_{\text{экспл C}} = [0,935 \cdot 0,7 + (1 - 0,935) \cdot 0,1] \cdot 480 \approx 317.
+	\end{aligned}
+\end{equation*}
+
+Прибыль участка за 8 часов работы:
+\begin{equation*}
+	\begin{aligned}
+		&V_A + V_B + V_C - \\ 
+		&-(Z_{\text{обсл A}} + Z_{\text{обсл B}} + Z_{\text{обсл C}}) -\\ 
+		&-(Z_{\text{экспл A}} + Z_{\text{экспл B}} + Z_{\text{экспл C}}) = 1812
+	\end{aligned}
+\end{equation*}

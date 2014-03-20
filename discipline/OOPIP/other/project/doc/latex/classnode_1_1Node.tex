@@ -1,0 +1,415 @@
+\hypertarget{classnode_1_1Node}{\section{node\-:\-:Node Class Reference}
+\label{classnode_1_1Node}\index{node\-::\-Node@{node\-::\-Node}}
+}
+
+
+This class provides atomized operations relationed to current node.  
+
+
+
+
+{\ttfamily \#include $<$node.\-hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classnode_1_1Node_a5caad933e458d07b106592c3adc57376}{\hyperlink{classnode_1_1Node_a5caad933e458d07b106592c3adc57376}{Node} ()}\label{classnode_1_1Node_a5caad933e458d07b106592c3adc57376}
+
+\begin{DoxyCompactList}\small\item\em Creates node with empty name and zero level. \end{DoxyCompactList}\item 
+\hyperlink{classnode_1_1Node_a8ed9e1fe9979ed9fefa4596a7d3f9098}{Node} (const std\-::string \&i\-Name)
+\begin{DoxyCompactList}\small\item\em Creates node with specified name and zero level. \end{DoxyCompactList}\item 
+\hyperlink{classnode_1_1Node_a214bbdde99347bda1d92a4b9ebee421c}{Node} (const \hyperlink{classnode_1_1Node}{Node} \&i\-Node)
+\begin{DoxyCompactList}\small\item\em Copy constructor. \end{DoxyCompactList}\item 
+\hypertarget{classnode_1_1Node_a4594558bd19fa4633a0ec277950c281f}{\hyperlink{classnode_1_1Node_a4594558bd19fa4633a0ec277950c281f}{$\sim$\-Node} ()}\label{classnode_1_1Node_a4594558bd19fa4633a0ec277950c281f}
+
+\begin{DoxyCompactList}\small\item\em Recursive destructor. \end{DoxyCompactList}\item 
+\hyperlink{classnode_1_1Node}{Node} \& \hyperlink{classnode_1_1Node_a77e2492642e7741f301ea12bc943ff79}{get\-Left} () const 
+\begin{DoxyCompactList}\small\item\em Get reference to left child. \end{DoxyCompactList}\item 
+\hyperlink{classnode_1_1Node}{Node} \& \hyperlink{classnode_1_1Node_a49ca4f8e2c62bfec66bec4ec4be0ce42}{get\-Right} () const 
+\begin{DoxyCompactList}\small\item\em Get reference to right child. \end{DoxyCompactList}\item 
+\hyperlink{classnode_1_1Node}{Node} \& \hyperlink{classnode_1_1Node_ad9daef61614061d0d2d7da0dfd425ff1}{get\-Top} () const 
+\begin{DoxyCompactList}\small\item\em Get reference to parent node. \end{DoxyCompactList}\item 
+\hyperlink{classnode_1_1Node}{Node} \& \hyperlink{classnode_1_1Node_ae31c4cd9619b2c968631bf58c915233f}{add\-Left} (const std\-::string \&i\-Name)
+\begin{DoxyCompactList}\small\item\em Adds left child. \end{DoxyCompactList}\item 
+\hyperlink{classnode_1_1Node}{Node} \& \hyperlink{classnode_1_1Node_a853bb602104e4e65d0d17e1a38dcfb94}{add\-Left} (const \hyperlink{classnode_1_1Node}{Node} \&i\-Node)
+\begin{DoxyCompactList}\small\item\em Adds left child. \end{DoxyCompactList}\item 
+\hyperlink{classnode_1_1Node}{Node} \& \hyperlink{classnode_1_1Node_a8a676071ac063cf27a13bcdd316a673b}{add\-Right} (const std\-::string \&i\-Name)
+\begin{DoxyCompactList}\small\item\em Adds right child. \end{DoxyCompactList}\item 
+\hyperlink{classnode_1_1Node}{Node} \& \hyperlink{classnode_1_1Node_a85be9468caa1a9f8e7976e5f30166b8d}{add\-Right} (const \hyperlink{classnode_1_1Node}{Node} \&i\-Node)
+\begin{DoxyCompactList}\small\item\em Adds left child. \end{DoxyCompactList}\item 
+\hypertarget{classnode_1_1Node_adaff3f88360e19f705fa729aea7adb43}{\hyperlink{classnode_1_1Node}{Node} \& \hyperlink{classnode_1_1Node_adaff3f88360e19f705fa729aea7adb43}{delete\-Left} ()}\label{classnode_1_1Node_adaff3f88360e19f705fa729aea7adb43}
+
+\begin{DoxyCompactList}\small\item\em Deletes left subtree. \end{DoxyCompactList}\item 
+\hypertarget{classnode_1_1Node_a00fc2ecb534c80527e8b42f4be3084a5}{\hyperlink{classnode_1_1Node}{Node} \& \hyperlink{classnode_1_1Node_a00fc2ecb534c80527e8b42f4be3084a5}{delete\-Right} ()}\label{classnode_1_1Node_a00fc2ecb534c80527e8b42f4be3084a5}
+
+\begin{DoxyCompactList}\small\item\em Deletes right subtree. \end{DoxyCompactList}\item 
+\hypertarget{classnode_1_1Node_abd035403eb1ce41e220f036595717d98}{std\-::string \hyperlink{classnode_1_1Node_abd035403eb1ce41e220f036595717d98}{get\-Name} () const }\label{classnode_1_1Node_abd035403eb1ce41e220f036595717d98}
+
+\begin{DoxyCompactList}\small\item\em Get node name. \end{DoxyCompactList}\item 
+\hypertarget{classnode_1_1Node_a6cec5b63d685d29a2d849336a8d6f8d2}{\hyperlink{classnode_1_1Node}{Node} \& \hyperlink{classnode_1_1Node_a6cec5b63d685d29a2d849336a8d6f8d2}{set\-Name} (const std\-::string \&i\-Name)}\label{classnode_1_1Node_a6cec5b63d685d29a2d849336a8d6f8d2}
+
+\begin{DoxyCompactList}\small\item\em Set node name. \end{DoxyCompactList}\item 
+\hyperlink{classnode_1_1Node}{Node} \& \hyperlink{classnode_1_1Node_af6e99944cbf63f15cd85ecb4655bde6e}{operator=} (const \hyperlink{classnode_1_1Node}{Node} \&i\-Node)
+\begin{DoxyCompactList}\small\item\em Sets current node equal to {\itshape copy} of specified node structure. \end{DoxyCompactList}\item 
+\hyperlink{classnode_1_1Node}{Node} \& \hyperlink{classnode_1_1Node_a75716ea94259082ba459234bdf45be50}{operator=} (const std\-::string \&i\-Name)
+\begin{DoxyCompactList}\small\item\em Sets current node equal to node with specified name. \end{DoxyCompactList}\item 
+\hyperlink{classnode_1_1Node}{Node} \& \hyperlink{classnode_1_1Node_aedae3083215e9f9785d3d9d655a26fc7}{operator$<$} (const \hyperlink{classnode_1_1Node}{Node} \&i\-Node)
+\begin{DoxyCompactList}\small\item\em Adds specified node structure as left child. \end{DoxyCompactList}\item 
+\hyperlink{classnode_1_1Node}{Node} \& \hyperlink{classnode_1_1Node_ad9bf2bb992fb6c363fb2cdf6d5fd7924}{operator$<$} (const std\-::string \&i\-Name)
+\begin{DoxyCompactList}\small\item\em Adds node with specified name as left child. \end{DoxyCompactList}\item 
+\hyperlink{classnode_1_1Node}{Node} \& \hyperlink{classnode_1_1Node_a74195c5033e17798b6ad909765012317}{operator$>$} (const \hyperlink{classnode_1_1Node}{Node} \&i\-Node)
+\begin{DoxyCompactList}\small\item\em Adds specified node structure as right child. Normalizes inserted subtree. Throws \hyperlink{classnode_1_1InsertError}{node\-::\-Insert\-Error} exception if try to insert i\-Node to busy place. \end{DoxyCompactList}\item 
+\hyperlink{classnode_1_1Node}{Node} \& \hyperlink{classnode_1_1Node_a92db84e7ddf68b555800f72621745311}{operator$>$} (const std\-::string \&i\-Name)
+\begin{DoxyCompactList}\small\item\em Adds node with specified name as right child. Throws \hyperlink{classnode_1_1InsertError}{node\-::\-Insert\-Error} exception if try to insert i\-Node to busy place. \end{DoxyCompactList}\item 
+\hypertarget{classnode_1_1Node_a1d1940dc3b8285207c7746bcf9569926}{unsigned int \hyperlink{classnode_1_1Node_a1d1940dc3b8285207c7746bcf9569926}{get\-Level} () const }\label{classnode_1_1Node_a1d1940dc3b8285207c7746bcf9569926}
+
+\begin{DoxyCompactList}\small\item\em Get node level. \end{DoxyCompactList}\item 
+\hypertarget{classnode_1_1Node_a7b5de538f317d34fbcd050ee22e1d6af}{unsigned int \hyperlink{classnode_1_1Node_a7b5de538f317d34fbcd050ee22e1d6af}{normalize\-Level} ()}\label{classnode_1_1Node_a7b5de538f317d34fbcd050ee22e1d6af}
+
+\begin{DoxyCompactList}\small\item\em Makes node levels growing in order, counted form root. Root level == 0. Returns counted depth of tree. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{classnode_1_1Node_a64879d4c1aca07f9dd96e28e5bf988a4}{\-\_\-connect} (\hyperlink{classnode_1_1Node}{Node} $\ast$c\-Node, const \hyperlink{classnode_1_1Node}{Node} $\ast$p\-Node)
+\begin{DoxyCompactList}\small\item\em Set pointer to parent of current node to selected node. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This class provides atomized operations relationed to current node. 
+
+Definition at line 51 of file node.\-hpp.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classnode_1_1Node_a8ed9e1fe9979ed9fefa4596a7d3f9098}{\index{node\-::\-Node@{node\-::\-Node}!Node@{Node}}
+\index{Node@{Node}!node::Node@{node\-::\-Node}}
+\subsubsection[{Node}]{\setlength{\rightskip}{0pt plus 5cm}node\-::\-Node\-::\-Node (
+\begin{DoxyParamCaption}
+\item[{const std\-::string \&}]{i\-Name}
+\end{DoxyParamCaption}
+)}}\label{classnode_1_1Node_a8ed9e1fe9979ed9fefa4596a7d3f9098}
+
+
+Creates node with specified name and zero level. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em i\-Name} & -- name for node. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 109 of file node.\-hpp.
+
+\hypertarget{classnode_1_1Node_a214bbdde99347bda1d92a4b9ebee421c}{\index{node\-::\-Node@{node\-::\-Node}!Node@{Node}}
+\index{Node@{Node}!node::Node@{node\-::\-Node}}
+\subsubsection[{Node}]{\setlength{\rightskip}{0pt plus 5cm}node\-::\-Node\-::\-Node (
+\begin{DoxyParamCaption}
+\item[{const {\bf Node} \&}]{i\-Node}
+\end{DoxyParamCaption}
+)}}\label{classnode_1_1Node_a214bbdde99347bda1d92a4b9ebee421c}
+
+
+Copy constructor. 
+
+Creates node from other node structure. Level may be not normalized, but grown. 
+\begin{DoxyParams}{Parameters}
+{\em i\-Node} & -- source node to copy. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 122 of file node.\-hpp.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classnode_1_1Node_ae31c4cd9619b2c968631bf58c915233f}{\index{node\-::\-Node@{node\-::\-Node}!add\-Left@{add\-Left}}
+\index{add\-Left@{add\-Left}!node::Node@{node\-::\-Node}}
+\subsubsection[{add\-Left}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Node} \& node\-::\-Node\-::add\-Left (
+\begin{DoxyParamCaption}
+\item[{const std\-::string \&}]{i\-Name}
+\end{DoxyParamCaption}
+)}}\label{classnode_1_1Node_ae31c4cd9619b2c968631bf58c915233f}
+
+
+Adds left child. 
+
+Inserts node with specified name as left child, if not exists. Normalizes inserted node. Throws \hyperlink{classnode_1_1InsertError}{node\-::\-Insert\-Error} exception in other way.
+
+
+\begin{DoxyParams}{Parameters}
+{\em i\-Name} & -- name of node to insert. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 215 of file node.\-hpp.
+
+\hypertarget{classnode_1_1Node_a853bb602104e4e65d0d17e1a38dcfb94}{\index{node\-::\-Node@{node\-::\-Node}!add\-Left@{add\-Left}}
+\index{add\-Left@{add\-Left}!node::Node@{node\-::\-Node}}
+\subsubsection[{add\-Left}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Node} \& node\-::\-Node\-::add\-Left (
+\begin{DoxyParamCaption}
+\item[{const {\bf Node} \&}]{i\-Node}
+\end{DoxyParamCaption}
+)}}\label{classnode_1_1Node_a853bb602104e4e65d0d17e1a38dcfb94}
+
+
+Adds left child. 
+
+Inserts node structure as left child, if not exists. Normalizes inserted subtree. Throws \hyperlink{classnode_1_1InsertError}{node\-::\-Insert\-Error} exception in other way.
+
+
+\begin{DoxyParams}{Parameters}
+{\em i\-Node} & -- source of node structure to insert. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 237 of file node.\-hpp.
+
+\hypertarget{classnode_1_1Node_a8a676071ac063cf27a13bcdd316a673b}{\index{node\-::\-Node@{node\-::\-Node}!add\-Right@{add\-Right}}
+\index{add\-Right@{add\-Right}!node::Node@{node\-::\-Node}}
+\subsubsection[{add\-Right}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Node} \& node\-::\-Node\-::add\-Right (
+\begin{DoxyParamCaption}
+\item[{const std\-::string \&}]{i\-Name}
+\end{DoxyParamCaption}
+)}}\label{classnode_1_1Node_a8a676071ac063cf27a13bcdd316a673b}
+
+
+Adds right child. 
+
+Inserts node with specified name as right child, if not exists. Normalizes inserted node. Throws \hyperlink{classnode_1_1InsertError}{node\-::\-Insert\-Error} exception in other way.
+
+
+\begin{DoxyParams}{Parameters}
+{\em i\-Name} & -- name of node to insert. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 258 of file node.\-hpp.
+
+\hypertarget{classnode_1_1Node_a85be9468caa1a9f8e7976e5f30166b8d}{\index{node\-::\-Node@{node\-::\-Node}!add\-Right@{add\-Right}}
+\index{add\-Right@{add\-Right}!node::Node@{node\-::\-Node}}
+\subsubsection[{add\-Right}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Node} \& node\-::\-Node\-::add\-Right (
+\begin{DoxyParamCaption}
+\item[{const {\bf Node} \&}]{i\-Node}
+\end{DoxyParamCaption}
+)}}\label{classnode_1_1Node_a85be9468caa1a9f8e7976e5f30166b8d}
+
+
+Adds left child. 
+
+Inserts node structure as right child, if not exists. Normalizes inserted subtree. Throws \hyperlink{classnode_1_1InsertError}{node\-::\-Insert\-Error} exception in other way.
+
+
+\begin{DoxyParams}{Parameters}
+{\em i\-Node} & -- source of node structure to insert. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 280 of file node.\-hpp.
+
+\hypertarget{classnode_1_1Node_a77e2492642e7741f301ea12bc943ff79}{\index{node\-::\-Node@{node\-::\-Node}!get\-Left@{get\-Left}}
+\index{get\-Left@{get\-Left}!node::Node@{node\-::\-Node}}
+\subsubsection[{get\-Left}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Node} \& node\-::\-Node\-::get\-Left (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{classnode_1_1Node_a77e2492642e7741f301ea12bc943ff79}
+
+
+Get reference to left child. 
+
+Returns reference to left child, if exists. Throws \hyperlink{classnode_1_1AddressError}{node\-::\-Address\-Error} exception in other way. 
+
+Definition at line 175 of file node.\-hpp.
+
+\hypertarget{classnode_1_1Node_a49ca4f8e2c62bfec66bec4ec4be0ce42}{\index{node\-::\-Node@{node\-::\-Node}!get\-Right@{get\-Right}}
+\index{get\-Right@{get\-Right}!node::Node@{node\-::\-Node}}
+\subsubsection[{get\-Right}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Node} \& node\-::\-Node\-::get\-Right (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{classnode_1_1Node_a49ca4f8e2c62bfec66bec4ec4be0ce42}
+
+
+Get reference to right child. 
+
+Returns reference to right child, if exists. Throws \hyperlink{classnode_1_1AddressError}{node\-::\-Address\-Error} exception in other way. 
+
+Definition at line 187 of file node.\-hpp.
+
+\hypertarget{classnode_1_1Node_ad9daef61614061d0d2d7da0dfd425ff1}{\index{node\-::\-Node@{node\-::\-Node}!get\-Top@{get\-Top}}
+\index{get\-Top@{get\-Top}!node::Node@{node\-::\-Node}}
+\subsubsection[{get\-Top}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Node} \& node\-::\-Node\-::get\-Top (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{classnode_1_1Node_ad9daef61614061d0d2d7da0dfd425ff1}
+
+
+Get reference to parent node. 
+
+Returns reference to parent node, if exists. Throws \hyperlink{classnode_1_1AddressError}{node\-::\-Address\-Error} exception in other way. 
+
+Definition at line 200 of file node.\-hpp.
+
+\hypertarget{classnode_1_1Node_aedae3083215e9f9785d3d9d655a26fc7}{\index{node\-::\-Node@{node\-::\-Node}!operator$<$@{operator$<$}}
+\index{operator$<$@{operator$<$}!node::Node@{node\-::\-Node}}
+\subsubsection[{operator$<$}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Node} \& node\-::\-Node\-::operator$<$ (
+\begin{DoxyParamCaption}
+\item[{const {\bf Node} \&}]{i\-Node}
+\end{DoxyParamCaption}
+)}}\label{classnode_1_1Node_aedae3083215e9f9785d3d9d655a26fc7}
+
+
+Adds specified node structure as left child. 
+
+Normalizes inserted subtree. Throws \hyperlink{classnode_1_1InsertError}{node\-::\-Insert\-Error} exception if try to insert i\-Node to busy place.
+
+
+\begin{DoxyParams}{Parameters}
+{\em i\-Node} & -- source node structure inserted node. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 351 of file node.\-hpp.
+
+\hypertarget{classnode_1_1Node_ad9bf2bb992fb6c363fb2cdf6d5fd7924}{\index{node\-::\-Node@{node\-::\-Node}!operator$<$@{operator$<$}}
+\index{operator$<$@{operator$<$}!node::Node@{node\-::\-Node}}
+\subsubsection[{operator$<$}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Node} \& node\-::\-Node\-::operator$<$ (
+\begin{DoxyParamCaption}
+\item[{const std\-::string \&}]{i\-Name}
+\end{DoxyParamCaption}
+)}}\label{classnode_1_1Node_ad9bf2bb992fb6c363fb2cdf6d5fd7924}
+
+
+Adds node with specified name as left child. 
+
+Throws \hyperlink{classnode_1_1InsertError}{node\-::\-Insert\-Error} exception if try to insert i\-Node to busy place. Normalizes inserted node.
+
+
+\begin{DoxyParams}{Parameters}
+{\em i\-Name} & -- source name for node to insert. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 364 of file node.\-hpp.
+
+\hypertarget{classnode_1_1Node_af6e99944cbf63f15cd85ecb4655bde6e}{\index{node\-::\-Node@{node\-::\-Node}!operator=@{operator=}}
+\index{operator=@{operator=}!node::Node@{node\-::\-Node}}
+\subsubsection[{operator=}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Node} \& node\-::\-Node\-::operator= (
+\begin{DoxyParamCaption}
+\item[{const {\bf Node} \&}]{i\-Node}
+\end{DoxyParamCaption}
+)}}\label{classnode_1_1Node_af6e99944cbf63f15cd85ecb4655bde6e}
+
+
+Sets current node equal to {\itshape copy} of specified node structure. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em i\-Node} & -- source node structure. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 314 of file node.\-hpp.
+
+\hypertarget{classnode_1_1Node_a75716ea94259082ba459234bdf45be50}{\index{node\-::\-Node@{node\-::\-Node}!operator=@{operator=}}
+\index{operator=@{operator=}!node::Node@{node\-::\-Node}}
+\subsubsection[{operator=}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Node} \& node\-::\-Node\-::operator= (
+\begin{DoxyParamCaption}
+\item[{const std\-::string \&}]{i\-Name}
+\end{DoxyParamCaption}
+)}}\label{classnode_1_1Node_a75716ea94259082ba459234bdf45be50}
+
+
+Sets current node equal to node with specified name. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em i\-Name} & -- source name for node to replace. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 336 of file node.\-hpp.
+
+\hypertarget{classnode_1_1Node_a74195c5033e17798b6ad909765012317}{\index{node\-::\-Node@{node\-::\-Node}!operator$>$@{operator$>$}}
+\index{operator$>$@{operator$>$}!node::Node@{node\-::\-Node}}
+\subsubsection[{operator$>$}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Node} \& node\-::\-Node\-::operator$>$ (
+\begin{DoxyParamCaption}
+\item[{const {\bf Node} \&}]{i\-Node}
+\end{DoxyParamCaption}
+)}}\label{classnode_1_1Node_a74195c5033e17798b6ad909765012317}
+
+
+Adds specified node structure as right child. Normalizes inserted subtree. Throws \hyperlink{classnode_1_1InsertError}{node\-::\-Insert\-Error} exception if try to insert i\-Node to busy place. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em i\-Node} & -- source node structure inserted node. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 376 of file node.\-hpp.
+
+\hypertarget{classnode_1_1Node_a92db84e7ddf68b555800f72621745311}{\index{node\-::\-Node@{node\-::\-Node}!operator$>$@{operator$>$}}
+\index{operator$>$@{operator$>$}!node::Node@{node\-::\-Node}}
+\subsubsection[{operator$>$}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Node} \& node\-::\-Node\-::operator$>$ (
+\begin{DoxyParamCaption}
+\item[{const std\-::string \&}]{i\-Name}
+\end{DoxyParamCaption}
+)}}\label{classnode_1_1Node_a92db84e7ddf68b555800f72621745311}
+
+
+Adds node with specified name as right child. Throws \hyperlink{classnode_1_1InsertError}{node\-::\-Insert\-Error} exception if try to insert i\-Node to busy place. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em i\-Name} & -- source name for node to insert. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 387 of file node.\-hpp.
+
+
+
+\subsection{Friends And Related Function Documentation}
+\hypertarget{classnode_1_1Node_a64879d4c1aca07f9dd96e28e5bf988a4}{\index{node\-::\-Node@{node\-::\-Node}!\-\_\-connect@{\-\_\-connect}}
+\index{\-\_\-connect@{\-\_\-connect}!node::Node@{node\-::\-Node}}
+\subsubsection[{\-\_\-connect}]{\setlength{\rightskip}{0pt plus 5cm}void \-\_\-connect (
+\begin{DoxyParamCaption}
+\item[{{\bf Node} $\ast$}]{c\-Node, }
+\item[{const {\bf Node} $\ast$}]{p\-Node}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [friend]}}}\label{classnode_1_1Node_a64879d4c1aca07f9dd96e28e5bf988a4}
+
+
+Set pointer to parent of current node to selected node. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em c\-Node} & -- current \hyperlink{classnode_1_1Node}{Node} \\
+\hline
+{\em p\-Node} & -- parent \hyperlink{classnode_1_1Node}{Node} \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 415 of file node.\-hpp.
+
+
+
+The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+src/node.\-hpp\end{DoxyCompactItemize}

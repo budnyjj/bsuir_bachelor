@@ -1,0 +1,138 @@
+\documentclass[a4paper,12pt]{report}
+\usepackage{geometry} % Для последующего задания полей
+\geometry{a4paper,top=15mm,bottom=20mm,left=10mm,right=10mm}
+\usepackage[T2A]{fontenc}	     % Поддержка русских букв
+\usepackage[utf8]{inputenc}	     % Кодировка utf8
+\usepackage[english, russian]{babel} % Языки: русский, английский
+\usepackage{graphicx}                % Подключаем пакет работы с графикой
+
+\renewcommand{\arraystretch}{1.3}
+
+\begin{document}
+
+
+\section*{Исходные данные}
+
+\begin{table}[h!]
+  \renewcommand{\tabcolsep}{0.9em}
+  \centering
+  \begin{tabular}{cccccccccc}
+    \input{../val/sample}
+  \end{tabular}
+  \caption{Исходная выборка}
+\end{table}
+
+\begin{figure}[h!] 
+  \centering
+  \includegraphics[width=0.8\linewidth]{../pic/sample.png}
+  \caption{График гипотетической функции распределения вероятностей}
+\end{figure}
+
+\newpage
+
+\section*{Равноинтервальная гистограмма}
+
+\begin{figure}[h!] 
+  \centering
+  \includegraphics[width=0.8\linewidth]{../pic/stat_series_eq_size.png}
+  \caption{Равноинтервальная гистограмма распределения случайной величины}
+\end{figure}
+
+\begin{table}[h!]
+  \renewcommand{\tabcolsep}{1.6em}
+  \centering
+  \begin{tabular}{|c|c|c|c|c|c|c|}
+    \hline %%% strange bug...
+    \input{../tbl/stat_series_eq_size}
+  \end{tabular}
+  \caption{Данные для построения равноинтервальной гистограммы}
+\end{table}
+
+\newpage
+
+\section*{Равновероятностная гистограмма}
+
+\begin{figure}[h!] 
+  \centering
+  \includegraphics[width=0.8\linewidth]{../pic/stat_series_eq_probability.png}
+  \caption{Равновероятностая гистограмма распределения случайной величины}
+\end{figure}
+
+\begin{table}[h!]
+  \renewcommand{\tabcolsep}{1.6em}
+  \centering
+  \begin{tabular}{|c|c|c|c|c|c|c|}
+    \hline %%% strange bug...
+    \input{../tbl/stat_series_eq_probability}
+  \end{tabular}
+  \caption{Данные для построения равновероятностной гистограммы}
+\end{table}
+
+\newpage
+
+\section*{Гипотеза о равномерном законе \\
+  распределения случайной величины}
+
+\begin{figure}[h!] 
+  \centering
+  \includegraphics[width=0.8\linewidth]{../pic/sample_uniform.png}
+  \caption{Иллюстрация гипотезы о равномерном законе распределения случайной величины}
+\end{figure}
+
+\begin{table}[h!]
+  \renewcommand{\tabcolsep}{1em}
+  \centering
+  \begin{tabular}{|c|c|c|c|c|c|c|c|}
+    \hline %%% strange bug...
+    \input{../tbl/pirson_uniform}
+  \end{tabular}
+  \caption{Промежуточные вычисления критерия согласия Пирсона}
+\end{table}
+
+\newpage
+
+\section*{Гипотеза об экспоненциальном законе \\
+  распределения случайной величины}
+
+\begin{figure}[h!] 
+  \centering
+  \includegraphics[width=0.8\linewidth]{../pic/sample_exponential.png}
+  \caption{Иллюстрация гипотезы об экспоненциальном законе распределения случайной величины}
+\end{figure}
+
+\begin{table}[h!]
+  \renewcommand{\tabcolsep}{1em}
+  \centering
+  \begin{tabular}{|c|c|c|c|c|c|c|c|}
+    \hline %%% strange bug...
+    \input{../tbl/pirson_exponential}
+  \end{tabular}
+  \caption{Промежуточные вычисления критерия согласия Пирсона для экспоненциального распределения}
+\end{table}
+
+\newpage
+
+
+\section*{Гипотеза о нормальном законе \\
+  распределения случайной величины}
+
+\begin{figure}[h!] 
+  \centering
+  \includegraphics[width=0.8\linewidth]{../pic/sample_normal.png}
+  \caption{Иллюстрация гипотезы о нормальном законе распределения случайной величины}
+\end{figure}
+
+\begin{table}[h!]
+  \renewcommand{\tabcolsep}{1em}
+  \centering
+  \begin{tabular}{|c|c|c|c|c|c|c|c|}
+    \hline %%% strange bug...
+    \input{../tbl/pirson_normal}
+  \end{tabular}
+  \caption{Промежуточные вычисления критерия согласия Пирсона}
+\end{table}
+
+\newpage
+
+
+\end{document}

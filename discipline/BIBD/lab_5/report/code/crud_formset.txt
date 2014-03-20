@@ -1,0 +1,378 @@
+init:
+
+SET DELETED ON
+
+
+create_manufacturer:
+
+PARAMETERS manufacturer_name, manufacturer_city, manufacturer_logo
+
+INSERT INTO manufacturers (manufacturer, city, logo);
+VALUES (manufacturer_name, manufacturer_city, manufacturer_logo)
+
+
+create_product:
+
+PARAMETERS product_title, product_manufacturer, product_price, product_amount, product_picture
+
+INSERT INTO products (title, manufacturer, price, amount, picture);
+VALUES (product_title, product_manufacturer, product_price, product_amount, product_picture)
+
+
+delete_manufacturer:
+
+PARAMETERS product_title, product_manufacturer, product_price, product_amount, product_picture
+
+INSERT INTO products (title, manufacturer, price, amount, picture);
+VALUES (product_title, product_manufacturer, product_price, product_amount, product_picture)
+
+
+delete_product:
+
+PARAMETERS product_title, product_manufacturer, product_price, product_amount, product_picture
+
+INSERT INTO products (title, manufacturer, price, amount, picture);
+VALUES (product_title, product_manufacturer, product_price, product_amount, product_picture)
+
+
+get_manufacturers_data:
+
+PARAMETERS cur_manufacturer
+
+SELECT * FROM manufacturers ;
+WHERE manufacturers.manufacturer = cur_manufacturer ;
+INTO CURSOR manufacturers_data
+
+thisformset.manufacturers_form.manufacturer_field.Value = manufacturers_data.manufacturer
+thisformset.manufacturers_form.manufacturer_box.value = manufacturers_data.manufacturer
+thisformset.manufacturers_form.city_field.value = manufacturers_data.city
+thisformset.manufacturers_form.logo_field.value = manufacturers_data.logo
+thisformset.manufacturers_form.manufacturer_logo.Picture = ;
+	'\\hp\budnyjj\university\labs\bibd\lab_5_refactored\pics\manufacturers\' + manufacturers_data.logo
+
+
+SELECT title as Product, price as Price, amount as Amount FROM products ; 
+WHERE products.manufacturer = cur_manufacturer ;
+INTO CURSOR products_data
+
+thisformset.manufacturers_form.products_grid.RecordSource = 'products_data'
+
+
+get_products_data:
+
+PARAMETER product_code
+
+SELECT * FROM ;
+products INNER JOIN manufacturers ON products.manufacturer = manufacturers.manufacturer ;
+WHERE products.code = product_code ;
+INTO CURSOR products_data
+
+thisformset.products_form.title_field.Value = products_data.title
+thisformset.products_form.price_field.value = products_data.price
+thisformset.products_form.amount_field.value = products_data.amount
+thisformset.products_form.picture_field.value = products_data.picture
+thisformset.products_form.product_picture.Picture = ;
+	'\\hp\budnyjj\university\labs\bibd\lab_5_refactored\pics\products\' + products_data.picture
+
+thisformset.products_form.manufacturer_box.value = products_data.manufacturer_a
+thisformset.products_form.manufacturer_field.value = products_data.manufacturer_a
+thisformset.products_form.city_field.value = products_data.city
+thisformset.products_form.manufacturer_logo.Picture = ;
+	'\\hp\budnyjj\university\labs\bibd\lab_5_refactored\pics\manufacturers\' + products_data.logo
+
+
+manufacturers_form_clear_fields:
+
+thisFormSet.manufacturers_form.manufacturer_field.Value = ''
+thisFormSet.manufacturers_form.city_field.Value = ''
+thisFormSet.manufacturers_form.logo_field.Value = ''
+thisFormSet.manufacturers_form.products_grid.RecordSource = ''
+
+
+manufacturers_form_create_preparation:
+
+thisFormSet.manufacturers_form_hide_buttons
+thisFormSet.manufacturers_form.create_button.Visible = .T.
+
+thisFormSet.manufacturers_form_unlock_fields
+
+thisFormSet.manufacturers_form.manufacturer_field.Visible = .T.
+thisFormSet.manufacturers_form.manufacturer_label.Visible = .T.
+thisFormSet.manufacturers_form.manufacturer_box.Visible = .F.
+
+
+thisFormSet.manufacturers_form.logo_field.Visible = .T.
+thisFormSet.manufacturers_form.logo_label.Visible = .T.
+
+thisformset.manufacturers_get_available_manufacturers
+cur_manufacturer = thisformset.manufacturers_form.manufacturer_box.value
+thisformset.get_manufacturers_data(cur_manufacturer)
+thisFormSet.manufacturers_form_clear_fields
+
+thisFormSet.manufacturers_form.Visible = .T.
+
+
+manufacturers_form_delete_preparation:
+
+thisFormSet.manufacturers_form_hide_buttons
+thisFormSet.manufacturers_form.delete_button.Visible = .T.
+
+thisFormSet.manufacturers_form_lock_fields
+
+thisFormSet.manufacturers_form.logo_field.Visible = .F.
+thisFormSet.manufacturers_form.logo_label.Visible = .F.
+
+thisFormSet.manufacturers_form.manufacturer_field.Visible = .F.
+thisFormSet.manufacturers_form.manufacturer_label.Visible = .F.
+thisFormSet.manufacturers_form.manufacturer_box.Visible = .T.
+
+thisformset.manufacturers_get_available_manufacturers
+cur_manufacturer = thisformset.manufacturers_form.manufacturer_box.value
+thisformset.get_manufacturers_data(cur_manufacturer)
+
+thisFormSet.manufacturers_form.Visible = .T.
+
+
+manufacturers_form_hide_buttons:
+
+thisFormSet.manufacturers_form.update_button.Visible = .F.
+thisFormSet.manufacturers_form.delete_button.Visible = .F.
+thisFormSet.manufacturers_form.create_button.Visible = .F.
+
+
+manufacturers_form_lock_fields:
+
+thisFormSet.manufacturers_form.manufacturer_field.ReadOnly = .T.
+thisFormSet.manufacturers_form.city_field.ReadOnly = .T.
+
+
+manufacturers_form_unlock_fields:
+
+thisFormSet.manufacturers_form.manufacturer_field.ReadOnly = .F.
+thisFormSet.manufacturers_form.city_field.ReadOnly = .F.
+
+
+manufacturers_form_update_preparation:
+
+thisFormSet.manufacturers_form_hide_buttons
+thisFormSet.manufacturers_form.update_button.Visible = .T.
+
+thisFormSet.manufacturers_form_unlock_fields
+
+thisFormSet.manufacturers_form.manufacturer_field.Visible = .T.
+thisFormSet.manufacturers_form.manufacturer_label.Visible = .T.
+
+thisFormSet.manufacturers_form.logo_field.Visible = .T.
+thisFormSet.manufacturers_form.logo_label.Visible = .T.
+thisFormSet.manufacturers_form.manufacturer_box.Visible = .T.
+
+thisformset.manufacturers_get_available_manufacturers
+cur_manufacturer = thisformset.manufacturers_form.manufacturer_box.value
+thisformset.get_manufacturers_data(cur_manufacturer)
+
+thisFormSet.manufacturers_form.Visible = .T.
+
+
+manufacturers_get_available_manufacturers:
+
+thisFormSet.manufacturers_form_hide_buttons
+thisFormSet.manufacturers_form.update_button.Visible = .T.
+
+thisFormSet.manufacturers_form_unlock_fields
+
+thisFormSet.manufacturers_form.manufacturer_field.Visible = .T.
+thisFormSet.manufacturers_form.manufacturer_label.Visible = .T.
+
+thisFormSet.manufacturers_form.logo_field.Visible = .T.
+thisFormSet.manufacturers_form.logo_label.Visible = .T.
+thisFormSet.manufacturers_form.manufacturer_box.Visible = .T.
+
+thisformset.manufacturers_get_available_manufacturers
+cur_manufacturer = thisformset.manufacturers_form.manufacturer_box.value
+thisformset.get_manufacturers_data(cur_manufacturer)
+
+thisFormSet.manufacturers_form.Visible = .T.
+
+
+products_form_clear_fields:
+
+thisFormSet.products_form.title_field.Value = ''
+thisFormSet.products_form.price_field.Value = ''
+thisFormSet.products_form.amount_field.Value = ''
+thisFormSet.products_form.picture_field.Value = ''
+
+
+products_form_create_preparation:
+
+thisFormSet.products_form_unlock_fields
+
+thisFormSet.products_form_hide_buttons
+
+thisFormSet.products_form.title_box.Visible = .F.
+
+thisFormSet.products_form.title_box.Visible = .F.
+
+thisFormSet.products_form.create_button.Visible = .T.
+
+thisFormSet.products_form.title_label.Visible = .T.
+thisFormSet.products_form.title_field.Visible = .T.
+
+thisFormSet.products_form.picture_label.Visible = .T.
+thisFormSet.products_form.picture_field.Visible = .T.
+
+thisFormSet.products_form.manufacturer_field.Visible = .F.
+thisFormSet.products_form.manufacturer_box.Visible = .T.
+
+thisformset.products_get_available_products
+product_code = VAL(thisformset.products_form.Title_box.value)
+thisformset.get_products_data(product_code)
+thisFormSet.products_form_clear_fields
+
+thisFormSet.products_form.Visible = .T.
+
+
+products_form_delete_preparation:
+
+thisFormSet.products_form_lock_fields
+thisFormSet.products_form_hide_buttons
+
+thisFormSet.products_form.title_box.Visible = .T.
+
+thisFormSet.products_form.delete_button.Visible = .T.
+
+thisFormSet.products_form.title_label.Visible = .F.
+thisFormSet.products_form.title_field.Visible = .F.
+
+thisFormSet.products_form.picture_label.Visible = .F.
+thisFormSet.products_form.picture_field.Visible = .F.
+
+thisFormSet.products_form.manufacturer_field.Visible = .T.
+thisFormSet.products_form.manufacturer_box.Visible = .F.
+
+thisformset.products_get_available_products
+product_code = VAL(thisformset.products_form.Title_box.value)
+thisformset.get_products_data(product_code)
+
+thisFormSet.products_form.Visible = .T.
+
+
+products_form_hide_buttons:
+
+thisFormSet.products_form.update_button.Visible = .F.
+thisFormSet.products_form.delete_button.Visible = .F.
+thisFormSet.products_form.create_button.Visible = .F.
+
+
+products_form_lock_fields:
+
+thisFormSet.products_form.title_field.ReadOnly = .T.
+thisFormSet.products_form.price_field.ReadOnly = .T.
+thisFormSet.products_form.amount_field.ReadOnly = .T.
+
+
+products_form_unlock_fields:
+
+thisFormSet.products_form.title_field.ReadOnly = .F.
+thisFormSet.products_form.price_field.ReadOnly = .F.
+thisFormSet.products_form.amount_field.ReadOnly = .F.
+
+
+products_form_update:
+
+thisFormSet.products_form_unlock_fields
+thisFormSet.products_form_hide_buttons
+
+thisFormSet.products_form.title_box.Visible = .T.
+thisFormSet.products_form.update_button.Visible = .T.
+
+thisFormSet.products_form.title_label.Visible = .T.
+thisFormSet.products_form.title_field.Visible = .T.
+
+thisFormSet.products_form.picture_label.Visible = .T.
+thisFormSet.products_form.picture_field.Visible = .T.
+
+thisFormSet.products_form.manufacturer_field.Visible = .F.
+thisFormSet.products_form.manufacturer_box.Visible = .T.
+
+thisformset.products_get_available_products
+product_code = VAL(thisformset.products_form.Title_box.value)
+thisformset.get_products_data(product_code)
+
+thisFormSet.products_form.Visible = .T.
+
+
+products_get_available_products:
+
+SELECT title, code FROM products INTO CURSOR available_products
+
+WITH thisFormSet.products_form.title_box
+	.rowSource = 'available_products'
+	.rowSourceType = 2
+	.boundColumn = 2
+	.boundTo = .t.
+	.Style = 2
+	.ListIndex = 1
+ENDWITH
+
+SELECT manufacturer FROM manufacturers INTO CURSOR available_manufacturers
+
+WITH thisFormSet.products_form.manufacturer_box
+	.rowSource = 'available_manufacturers'
+	.rowSourceType = 2
+	.boundColumn = 1
+	.boundTo = .t.
+	.Style = 2
+	.ListIndex = 1
+ENDWITH
+
+
+search_manufacturer:
+
+PARAMETERS manufacturer_name
+manufacturer_query = '%' + ALLTRIM(manufacturer_name) + '%'
+
+SELECT manufacturer as Manufacturer, city AS City ;
+FROM manufacturers ;
+WHERE UPPER(manufacturer) LIKE UPPER(ALLTRIM(manufacturer_query))
+
+
+search_manufacturer_form_search:
+
+thisFormSet.search_manufacturer_form.Visible = .T.
+
+
+search_product:
+
+PARAMETERS product_name
+product_query = '%' + ALLTRIM(product_name) + '%'
+
+SELECT title as Title, manufacturer AS Manufacturer, price AS Price, amount AS Amount ;
+FROM products ;
+WHERE UPPER(title) LIKE UPPER(ALLTRIM(product_query))
+
+
+search_product_form_search:
+
+thisFormSet.search_product_form.Visible = .T.
+
+
+update_manufacturer:
+
+PARAMETERS manufacturer_old_name, manufacturer_new_name, manufacturer_city, manufacturer_logo
+
+UPDATE manufacturers SET ;
+manufacturer = manufacturer_new_name, city=manufacturer_city, logo=manufacturer_logo;
+WHERE manufacturer = manufacturer_old_name
+
+UPDATE products SET ;
+manufacturer = manufacturer_new_name ;
+WHERE manufacturer = manufacturer_old_name
+
+
+update_product:
+
+PARAMETERS product_code, product_title, product_manufacturer, product_price, product_amount, product_picture
+
+UPDATE products SET ;
+title = product_title, manufacturer = product_manufacturer, price = product_price, amount = product_amount, picture = product_picture ;
+WHERE code = product_code

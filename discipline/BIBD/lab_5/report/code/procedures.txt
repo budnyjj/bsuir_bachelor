@@ -1,0 +1,49 @@
+PROCEDURE insert_data
+	INSERT INTO products (title, manufacturer, price, amount, picture) VALUES ("Pidzhak", "Red Hat", 1000, 15, "pidzhak.png")
+	INSERT INTO products (title, manufacturer, price, amount, picture) VALUES ("Plasch", "Red Hat", 1300, 10, "plasch.png")
+	INSERT INTO products (title, manufacturer, price, amount, picture) VALUES ("Podkova", "Roga & Kopyta", 20, 40, "podkova.png")
+	
+	INSERT INTO manufacturers (manufacturer, city, logo) VALUES ("Roga & Kopyta", "Mogilev", "roga_kopyta.png")
+	INSERT INTO manufacturers (manufacturer, city, logo) VALUES ("Red Hat", "Brest", "red_hat.png")
+ENDPROC
+
+PROCEDURE delete_data
+	USE products
+	DELETE FROM products
+	PACK
+	USE manufacturers
+	DELETE FROM manufacturers
+	PACK
+ENDPROC
+
+PROCEDURE run_crud
+	SET CLASSLIB TO "\\hp\budnyjj\university\labs\bibd\lab_5_refactored\class\crud_formset.vcx" ADDITIVE
+	crud_formset = CREATEOBJECT("crud_formset")
+	crud_formset.Show
+	READ EVENTS
+	RETURN
+ENDPROC
+
+PROCEDURE view_report
+	REPORT FORM \\hp\budnyjj\university\labs\bibd\lab_5_refactored\report\manufacturers.frx PREVIEW
+ENDPROC
+
+PROCEDURE view_report
+	reportForm = CREATEOBJECT('Form')
+	WITH reportForm
+		.caption = "Report"
+		.windowState = 2
+		.Show()
+	ENDWITH
+	REPORT FORM \\hp\budnyjj\university\labs\bibd\lab_5_refactored\report\manufacturers.frx PREVIEW WINDOW (reportForm.Name)
+	
+	reportForm.Release()
+	RELEASE reportForm
+ENDPROC
+
+PROCEDURE show_tables
+	SELECT products.title as Title, ;
+	products.price as Price, products.amount as Amount, products.picture as Picture, ;
+	products.manufacturer as Manufacturer, manufacturers.city as City, manufacturers.logo as Logo ;
+	FROM products INNER JOIN manufacturers ON products.manufacturer = manufacturers.manufacturer
+ENDPROC

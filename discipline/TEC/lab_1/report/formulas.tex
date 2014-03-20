@@ -1,0 +1,70 @@
+\section{Теоретические сведения}
+\addcontentsline{toc}{section}{Теоретические сведения}	% Добавляем его в оглавление
+
+Инструментальная погрешность имеет различные формы: абсолютную ($ \Delta $), относительную ($ \delta $) и приведённую ($ \gamma $):
+
+\begin{equation}
+  \label{eq:equation1}
+  \Delta_{i} = \vert X_{i} - Q \vert
+\end{equation}
+
+\begin{equation}
+  \label{eq:equation2}
+  \delta_{i} = \dfrac{\Delta_{i}}{Q} * 100\% = \gamma_{i} * \dfrac{X_{N}}{Q}
+\end{equation}
+
+\begin{equation}
+  \label{eq:equation3}
+  \gamma_{i} = \dfrac{\Delta_{i}}{X_{N}}*100\%
+\end{equation}
+
+\noindent где $ X_{N} $ -- нормируемое значение, которое согласно ГОСТ 8.401-80 следует выбирать равным пределу измерения
+
+$ Q $ -- действительное значение величины
+
+$ X_{i} $ -- показание прибора
+
+\vspace{4mm}
+
+Возникающая методическая погрешность (вследствие существования сопротивления измерительных приборов) может быть рассчитана по формуле:
+
+\begin{equation}
+  \label{eq:equation4}
+  \delta_{mi} = \dfrac{I_{i}-I}{I}*100\% = -100\%*(1 + \dfrac{R_{i}}{R_{a}})
+\end{equation}
+
+\noindent где $ I $ -- сила тока до включения прибора в электрическую цепь
+
+$ I_{i} $ -- сила тока после включения прибора в цепь
+
+\vspace{4mm}
+
+Систематическую погрешность можно скомпенсировать путем введения поправки $ q_{i} $:
+
+\begin{equation}
+  \label{eq:equation5}
+  I = I_{i} + q_{i}, \hspace{4mm} \text{где} \; q_{i} = \dfrac{\delta_{mi}}{100 + \delta_{mi}}*I_{i}
+\end{equation}
+
+Основная относительная погрешность воспроизведения сопротивления магазином сопротивлений МСР-63 находится из формулы:
+
+\begin{equation}
+  \label{eq:equation6}
+  \delta_{rmc} = \pm \Big[ 0,05 + 4*10^{-6}*\big( \dfrac{R_{rmc}}{R_{mc}} - 1 \big) \Big]\%
+\end{equation}
+
+Основная относительная погрешность измерения напряжения постоянного тока прибором В7-34 находится из формулы:
+
+\begin{equation}
+  \label{eq:equation7}
+  \delta_{oi} = \pm \Big[ 0,015 + 0,002*\big( \dfrac{U_{n}}{U_{i}} - 1 \big) \Big]\%
+\end{equation}
+
+Абсолютная погрешность прибора В7-34:
+
+\begin{equation}
+  \label{eq:equation8}
+  \Delta_{oi} = \dfrac{\delta_{oi}*U_{0}}{100\%}
+\end{equation}
+
+\clearpage

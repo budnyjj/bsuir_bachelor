@@ -1,0 +1,48 @@
+title_box.click:
+
+product_code = VAL(thisformset.products_form.Title_box.value)
+thisformset.get_products_data(product_code)
+
+
+close_button.click:
+
+thisFormSet.products_form.Visible = .F.
+
+
+delete_button.click:
+
+product_code = VAL(thisFormSet.products_form.title_box.Value)
+thisFormSet.delete_product(product_code)
+
+thisFormSet.products_get_available_products
+product_code = VAL(thisformset.products_form.Title_box.value)
+thisformset.get_products_data(product_code)
+
+
+delete_button.click:
+
+code = VAL(thisFormSet.products_form.title_box.value)
+new_title = thisFormSet.products_form.title_field.value
+new_price = thisFormSet.products_form.price_field.value
+new_amount = thisFormSet.products_form.amount_field.value
+new_manufacturer = thisFormSet.products_form.manufacturer_box.value
+new_picture = thisFormSet.products_form.picture_field.value
+
+thisFormSet.update_product(code, new_title, new_manufacturer, new_price, new_amount, new_picture) 
+
+thisformset.products_get_available_products
+product_code = VAL(thisformset.products_form.Title_box.value)
+thisformset.get_products_data(product_code)
+
+
+create_button.click:
+
+new_title = thisFormSet.products_form.title_field.value
+new_price = VAL(thisFormSet.products_form.price_field.value)
+new_amount = VAL(thisFormSet.products_form.amount_field.value)
+new_manufacturer = thisFormSet.products_form.manufacturer_box.value
+new_picture = thisFormSet.products_form.picture_field.value
+
+thisFormSet.create_product(new_title, new_manufacturer, new_price, new_amount, new_picture) 
+
+thisFormSet.products_form_create_preparation

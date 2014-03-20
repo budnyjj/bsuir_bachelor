@@ -1,0 +1,163 @@
+PROCEDURE 0_insert_data
+	INSERT INTO store values(1, "nails A", 10, 10000)
+	INSERT INTO store values(2, "nails A", 15, 5000)
+	INSERT INTO store values(3, "nails B", 30, 1000)
+	INSERT INTO store values(4, "nails B", 45, 700)
+	INSERT INTO store values(5, "nails C", 100, 500)
+	INSERT INTO store values(6, "bolts A", 30, 10000)
+	INSERT INTO store values(7, "bolts B", 50, 7500)
+	INSERT INTO store values(8, "bolts B", 70, 1000)
+	INSERT INTO store values(9, "bolts C", 90, 1000)
+	INSERT INTO store values(10, "bolts C", 110, 500)
+
+
+	INSERT INTO manufacturers values(1, "Udarnik", "Mogilev")
+	INSERT INTO manufacturers values(2, "Roga & Kopyta", "Orsha")
+	INSERT INTO manufacturers values(3, "Realnaya Stal'", "Zhlobin")
+	INSERT INTO manufacturers values(4, "Realnaya Stal'", "Zhlobin")
+	INSERT INTO manufacturers values(5, "Udarnik", "Mogilev")
+	INSERT INTO manufacturers values(6, "Roga & Kopyta", "Orsha")
+	INSERT INTO manufacturers values(7, "Realnaya Stal'", "Zhlobin")
+	INSERT INTO manufacturers values(8, "Roga & Kopyta", "Orsha")
+	INSERT INTO manufacturers values(9, "Realnaya Stal'", "Zhlobin")
+	INSERT INTO manufacturers values(10, "Udarnik", "Mogilev")
+ENDPROC
+
+PROCEDURE 0_purge_data
+	DELETE FROM store WHERE (code >= 0)
+	PACK
+	DELETE FROM manufacturers WHERE (code >= 0)
+	PACK
+ENDPROC
+
+PROCEDURE 1_1_update_price
+	i_title = "?"
+	i_percent = 0
+
+	@ 0,0 CLEAR
+	@ 1,1 CLEAR to 1,50
+	@ 1,1 SAY "title = " GET i_title size 1,20
+	READ
+	
+	@ 1,1 CLEAR to 1,50
+	@ 1,1 SAY "percent = " GET i_percent size 1,6
+	READ
+	
+	UPDATE store SET price = price * (1 + i_percent / 100) WHERE title = i_title
+	BROWSE
+ENDPROC
+
+PROCEDURE 1_2_update_title
+	old_title = "?"
+	new_title = "?"
+
+	@ 0,0 CLEAR
+	@ 1,1 CLEAR to 1,50
+	@ 1,1 SAY "title = " GET old_title size 1,20
+	READ
+	
+	
+	@ 1,1 CLEAR to 1,50
+	@ 1,1 SAY "new title = " GET new_title size 1,20
+	READ
+	
+	UPDATE store SET title = new_title WHERE title = old_title
+	BROWSE
+ENDPROC
+
+PROCEDURE 1_3_update_amount
+	i_title = "?"
+	i_amount = 0
+
+	@ 0,0 CLEAR
+	@ 1,1 CLEAR to 1,50
+	@ 1,1 SAY "title = " GET i_title size 1,20
+	READ
+	
+	@ 1,1 CLEAR to 1,50
+	@ 1,1 SAY "new amount = " GET i_amount size 1,6
+	READ
+	
+	UPDATE store SET amount = i_amount WHERE title = i_title
+	BROWSE
+ENDPROC
+
+PROCEDURE 2_select_amount_with_current_title
+	i_title = "?"
+
+	@ 0,0 CLEAR
+	@ 1,1 CLEAR to 1,50
+	@ 1,1 SAY "title = " GET i_title size 1,20
+	READ
+	
+	SELECT title, amount FROM store WHERE title = i_title
+ENDPROC
+
+PROCEDURE 3_select_sorted_title_price
+	SELECT title, price FROM store ORDER BY title
+ENDPROC
+
+PROCEDURE 4_select_title_marge
+	SELECT title, price*amount AS marge FROM store
+ENDPROC
+
+PROCEDURE 5_select_title_with_min_price
+	SELECT title, price FROM store ;
+	WHERE price IN (SELECT MIN(price) FROM store)
+ENDPROC
+
+PROCEDURE 6_select_title_price_manufacturer_city
+	SELECT store.title, store.price, manufacturers.manufacturer, manufacturers.city FROM ;
+	store INNER JOIN manufacturers ON ;
+	store.code = manufacturers.code 
+ENDPROC
+
+PROCEDURE 7_select_manufacturer_min_price
+	SELECT manufacturers.manufacturer, store.title, store.price FROM ;
+	store INNER JOIN manufacturers ON ;
+	store.code = manufacturers.code ;
+	WHERE store.price IN (SELECT MIN(price) FROM store)
+ENDPROC
+
+PROCEDURE 8_1_select_avg_price_group_by_title
+	SELECT title, AVG(price) AS average_price FROM store ;
+	GROUP BY title
+ENDPROC
+
+PROCEDURE 8_2_select_titles_count_by_manufacturers
+	SELECT manufacturers.manufacturer, COUNT(store.title) FROM ;
+	store INNER JOIN manufacturers ON ;
+	store.code = manufacturers.code ;
+	GROUP BY manufacturer
+ENDPROC
+
+PROCEDURE 9_select_manufacturer_with_minimal_price_by_title
+	i_title = "?"
+
+	@ 0,0 CLEAR
+	@ 1,1 CLEAR to 1,50
+	@ 1,1 SAY "title = " GET i_title size 1,20
+	READ
+	
+	SELECT manufacturers.manufacturer, store.title, store.price FROM ;
+	store INNER JOIN manufacturers ON ;
+	store.code = manufacturers.code ;
+	WHERE store.price IN (SELECT MIN(price) FROM store WHERE store.title = i_title) AND store.title = i_title
+ENDPROC
+	
+PROCEDURE 10_usage_cursor
+	SELECT title, price FROM store ;
+	INTO CURSOR storeCursor NOFILTER
+	
+	BROWSE
+ENDPROC
+
+PROCEDURE 11_usage_view
+	CREATE SQL VIEW storeView ;
+	AS SELECT title, price from STORE
+ENDPROC
+
+PROCEDURE 12_select_with_tax
+	SELECT title, IIF(price*amount<=10000, price*amount*0.13, price*amount*0.2) AS tax FROM store
+ENDPROC
+

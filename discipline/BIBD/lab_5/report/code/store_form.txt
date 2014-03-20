@@ -1,0 +1,56 @@
+store_form.init:
+DEFINE MENU store_menu IN store_form BAR
+
+&&Products->
+DEFINE PAD products_pad OF store_menu PROMPT "Products"
+ON PAD products_pad OF store_menu ACTIVATE POPUP products_pad
+DEFINE POPUP products_pad MARGIN RELATIVE SHADOW COLOR SCHEME 4
+
+DEFINE BAR 1 OF products_pad PROMPT "\<Create"
+ON SELECTION BAR 1 OF products_pad crud_formset.products_form_create_preparation
+
+DEFINE BAR 2 OF products_pad PROMPT "\<Update"
+ON SELECTION BAR 2 OF products_pad crud_formset.products_form_update_preparation
+
+DEFINE BAR 3 OF products_pad PROMPT "\<Search"
+ON SELECTION BAR 3 OF products_pad crud_formset.search_product_form_search_preparation
+
+DEFINE BAR 4 OF products_pad PROMPT "\<Delete"
+ON SELECTION BAR 4 OF products_pad crud_formset.products_form_delete_preparation
+
+&&Manufacturers->
+DEFINE PAD manufacturers_pad OF store_menu PROMPT "Manufacturers"
+ON PAD manufacturers_pad OF store_menu ACTIVATE POPUP manufacturers_pad
+DEFINE POPUP manufacturers_pad MARGIN RELATIVE SHADOW COLOR SCHEME 4
+
+DEFINE BAR 1 OF manufacturers_pad PROMPT "\<Create"
+ON SELECTION BAR 1 OF manufacturers_pad crud_formset.manufacturers_form_create_preparation
+
+DEFINE BAR 2 OF manufacturers_pad PROMPT "\<Update"
+ON SELECTION BAR 2 OF manufacturers_pad crud_formset.manufacturers_form_update_preparation
+
+DEFINE BAR 3 OF manufacturers_pad PROMPT "\<Search"
+ON SELECTION BAR 3 OF manufacturers_pad crud_formset.search_manufacturer_form_search_preparation
+
+DEFINE BAR 4 OF manufacturers_pad PROMPT "\<Delete"
+ON SELECTION BAR 4 OF manufacturers_pad crud_formset.manufacturers_form_delete_preparation
+
+
+
+&& Misc->
+DEFINE PAD misc_pad OF store_menu PROMPT "Misc"
+ON PAD misc_pad OF store_menu ACTIVATE POPUP misc_pad
+DEFINE POPUP misc_pad MARGIN RELATIVE SHADOW COLOR SCHEME 4
+
+DEFINE BAR 1 OF misc_pad PROMPT "\<Report"
+ON SELECTION BAR 1 OF misc_pad DO view_report
+
+DEFINE BAR 2 OF misc_pad PROMPT "\<Show tables"
+ON SELECTION BAR 2 OF misc_pad DO show_tables
+
+DEFINE BAR 3 OF misc_pad PROMPT "\<Exit"
+ON SELECTION BAR 3 OF misc_pad _SCREEN.ActiveForm.Release
+
+
+
+ACTIVATE MENU store_menu NOWAIT

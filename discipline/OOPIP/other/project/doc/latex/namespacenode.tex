@@ -1,0 +1,56 @@
+\hypertarget{namespacenode}{\section{node Namespace Reference}
+\label{namespacenode}\index{node@{node}}
+}
+
+
+Used for Node-\/relation classes.  
+
+
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classnode_1_1BasicError}{Basic\-Error}
+\begin{DoxyCompactList}\small\item\em Basic error class. \end{DoxyCompactList}\item 
+class \hyperlink{classnode_1_1InsertError}{Insert\-Error}
+\begin{DoxyCompactList}\small\item\em Thrown if try to add node to busy place. \end{DoxyCompactList}\item 
+class \hyperlink{classnode_1_1AddressError}{Address\-Error}
+\begin{DoxyCompactList}\small\item\em Thrown if try to access empty place. \end{DoxyCompactList}\item 
+class \hyperlink{classnode_1_1Node}{Node}
+\begin{DoxyCompactList}\small\item\em This class provides atomized operations relationed to current node. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{namespacenode_a3a207588fdbfd347567a11ed3d4004f1}{std\-::ostream \& \hyperlink{namespacenode_a3a207588fdbfd347567a11ed3d4004f1}{operator$<$$<$} (std\-::ostream \&os, const \hyperlink{classnode_1_1Node}{node\-::\-Node} \&c\-Node)}\label{namespacenode_a3a207588fdbfd347567a11ed3d4004f1}
+
+\begin{DoxyCompactList}\small\item\em Outputs name of current node to output stream. \end{DoxyCompactList}\item 
+void \hyperlink{namespacenode_abc231d3793b070782e2f2f74a9f8b7dd}{\-\_\-connect} (\hyperlink{classnode_1_1Node}{Node} $\ast$c\-Node, const \hyperlink{classnode_1_1Node}{Node} $\ast$p\-Node)
+\begin{DoxyCompactList}\small\item\em Set pointer to parent of current node to selected node. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Used for Node-\/relation classes. 
+
+\subsection{Function Documentation}
+\hypertarget{namespacenode_abc231d3793b070782e2f2f74a9f8b7dd}{\index{node@{node}!\-\_\-connect@{\-\_\-connect}}
+\index{\-\_\-connect@{\-\_\-connect}!node@{node}}
+\subsubsection[{\-\_\-connect}]{\setlength{\rightskip}{0pt plus 5cm}void node\-::\-\_\-connect (
+\begin{DoxyParamCaption}
+\item[{Node $\ast$}]{c\-Node, }
+\item[{const Node $\ast$}]{p\-Node}
+\end{DoxyParamCaption}
+)}}\label{namespacenode_abc231d3793b070782e2f2f74a9f8b7dd}
+
+
+Set pointer to parent of current node to selected node. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em c\-Node} & -- current \hyperlink{classnode_1_1Node}{Node} \\
+\hline
+{\em p\-Node} & -- parent \hyperlink{classnode_1_1Node}{Node} \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 415 of file node.\-hpp.
+

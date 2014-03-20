@@ -1,0 +1,65 @@
+\section{Теоретические сведения}
+\addcontentsline{toc}{section}{Теоретические сведения}	% Добавляем его в оглавление
+
+Коэффициент усиления предварительного усилителя:
+\begin{equation}
+\label{equation:eq1}
+	k' = \dfrac{U_{\text{вых}}} {U_{\text{вх}}}
+\end{equation}
+
+Основная погрешность измерения амплитудных параметров сигнала:
+\begin{equation}
+\label{equation:eq2}
+	\delta_{A} = \left[2 + 0,15 \ast \left( \dfrac{U_{n}}{U_{x}} - 1 \right) \right] , 
+\end{equation}
+
+где $ \delta_{A} $ \textit{-- основная погрешность измерения амплитудных параметров сигнала, \%;}
+
+\hspace{5mm} $ U_{n} $ \textit{-- предел измерений, В;} 
+
+\hspace{5mm} $ U_{x} $ \textit{-- значение измеряемого напряжения, В.} 
+
+\vspace{4mm}
+
+\begin{table} [h!]
+	\centering
+	\begin{tabular}{ p{7cm}  p{7cm}l }
+		\centering Диапазон: $ [10^{-7}; 10^{-4}] $, с: & 
+		\centering Диапазон: $ [10^{-4}; 0,1] $, с: & \\
+        \vspace{1mm}
+
+        \centering $ \delta_{T(r)} = \pm \left[ 2+0,2 * \left(\dfrac{T_n}{T_x}-1 \right) \right] $
+        &
+        \vspace{1mm}
+		\centering $ \delta_{T(r)} = \pm \left[ 1+0,2 * \left(\dfrac{T_n}{T_x}-1 \right) \right] $
+        & \\
+		
+	\end{tabular}
+	\caption{Основная погрешность измерений временных параметров сигнала}
+\end{table}
+
+где $ \delta_{T(r)} $ \textit{-- основная погрешность цифровых измерений временных сигналов, \%;}
+
+\hspace{5mm} $ T_n $ \textit{-- предел измерений, с;}
+
+\hspace{5mm} $ T_x $ \textit{-- значения измеряемого интервала, с.}
+
+\vspace{4mm}
+
+Фазовый сдвиг синусоидальных сигналов:
+\begin{equation}
+\label{equation:eq3}
+	\varphi^{0}_x = 360\ast\dfrac{l_\tau}{l_T}, 
+\end{equation}
+
+где $ l_\tau $, $ l_T $ \textit{-- временной сдвиг и период сигналов в делениях.} \\
+
+Абсолютная погрешность измерения фазового сдвига:
+\begin{equation}
+\label{equation:eq4}
+	\Delta \varphi^{0}_x = \varphi^{0}_x \ast \dfrac{\Delta l}{\sqrt{l_{\tau}^2 + l^2_T}}, 
+\end{equation}
+
+где $ \Delta l $ \textit{-- абсолютная погрешность отсчета по шкале ЭЛТ в делением с учетом толщины луча} ($ \pm0,1 $ \textit{деление}). \\
+
+\clearpage

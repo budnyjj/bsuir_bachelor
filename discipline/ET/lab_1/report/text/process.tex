@@ -1,0 +1,96 @@
+\section{Результаты экспериментальных исследований}
+\addcontentsline{toc}{section}{Результаты экспериментальных исследований}	% Добавляем его в оглавление
+
+\begin{enumerate}
+\item 
+$I_{\text{Б}}^{*} = $ \hspace{5mm} мА
+
+$I_{\text{К}} = $ \hspace{5mm} мА при $U_{\text{КЭ}} = $ \hspace{5mm} В
+
+
+\item
+Транзистор в активном режиме:
+
+\begin{table} [h!]
+  \caption{Результаты измерений входных характеристик $ I_{\text{Б}} = f(U_{\text{БЭ}})$}
+  \begin{tabular}{| p{3cm} | p{1.5cm} | p{1.5cm} | p{1.5cm} | p{1.5cm} | p{1.5cm} | p{1.5cm}l | }
+    \hline
+    \centering \multirow{2}{*}{ $ I_{\text{КЭ}} $, В} & \multicolumn{6}{c}{$ U_{\text{БЭ}} $, В} &\\ \cline{2-8}
+    & & & & & & &\\
+    \hline
+    \centering 0 & & & & & & &\\
+    \hline
+    \centering 5 & & & & & & &\\
+    \hline
+    \centering 10 & & & & & & &\\
+    \hline
+  \end{tabular}
+\end{table}
+
+\item
+Транзистор в активном режиме:
+
+\begin{table} [h!]
+  \caption{Результаты измерений выходных характеристик $ I_{\text{К}} = f(U_{\text{КЭ}})$}
+  \begin{tabular}{| p{3cm} | p{1.5cm} | p{1.5cm} | p{1.5cm} | p{1.5cm} | p{1.5cm} | p{1.5cm}l | }
+    \hline
+    \centering \multirow{2}{*}{ $ I_{\text{Б}} $, мА} & \multicolumn{6}{c}{$ U_{\text{КЭ}} $, В} &\\ \cline{2-8}
+    & & & & & & &\\
+    \hline
+    $ 0,3 * I_{\text{Б}}^{*} = $ \hspace{5mm} & & & & & & &\\
+    \hline
+    $ 0,6 * I_{\text{Б}}^{*} = $ \hspace{5mm} & & & & & & &\\
+    \hline
+    $ I_{\text{Б}}^{*} = $ \hspace{5mm} & & & & & & &\\
+    \hline
+  \end{tabular}
+\end{table}
+
+\item
+Транзистор в инверсном режиме:
+
+\begin{table} [h!]
+  \caption{Результаты измерений выходных характеристик $ I_{\text{Э}} = f(U_{\text{КЭ}})$}
+  \begin{tabular}{| p{3cm} | p{1.5cm} | p{1.5cm} | p{1.5cm} | p{1.5cm} | p{1.5cm} | p{1.5cm}l | }
+    \hline
+    \centering \multirow{2}{*}{ $ I_{\text{Б}} $, мА} & \multicolumn{6}{c}{$ U_{\text{ЭК}} $, В} &\\ \cline{2-8}
+    & & & & & & &\\
+    \hline
+    $ 0,3 * I_{\text{Б}}^{*} = $ \hspace{5mm} & & & & & & &\\
+    \hline
+    $ 0,6 * I_{\text{Б}}^{*} = $ \hspace{5mm} & & & & & & &\\
+    \hline
+    $ I_{\text{Б}}^{*} = $ \hspace{5mm} & & & & & & &\\
+    \hline
+  \end{tabular}
+\end{table}
+
+\item
+Графики зависимостей $ I_{\text{Б}}(U_{\text{БЭ}})$ и  $ I_{\text{К}}(U_{\text{КЭ}})$:
+\vspace{100mm}
+
+\item Расчет h-параметров транзистора:
+
+\begin{equation}
+  \label{eq:equation1}
+  h_{11_{\text{Э}}} = \dfrac{\Delta U_{\text{БЭ}}}{\Delta I_{\text{Б}}} \Bigg|_{U_{\text{КЭ} = const}} = \dfrac{U_{\text{БЭ}}^{''} - U_{\text{БЭ}}^{'}}{I_{\text{Б}}^{''} - I_{\text{Б}}^{'}} \Bigg|_{U_{\text{КЭ} = const}}
+\end{equation}
+
+\begin{equation}
+  \label{eq:equation2}
+  h_{12_{\text{Э}}} = \dfrac{\Delta U_{\text{БЭ}}}{\Delta U_{\text{КЭ}}} \Bigg|_{I_{\text{Б} = const}} = \dfrac{U_{\text{БЭ}}^{''} - U_{\text{БЭ}}^{'}}{U_{\text{КЭ}}^{''} - U_{\text{КЭ}}^{'}} \Bigg|_{I_{\text{Б} = const}}
+\end{equation}
+
+\begin{equation}
+  \label{eq:equation3}
+  h_{21_{\text{Э}}} = \dfrac{\Delta I_{\text{К}}}{\Delta I_{\text{Б}}} \Bigg|_{U_{\text{КЭ} = const}} = \dfrac{I_{\text{К}}^{''} - I_{\text{К}}^{'}}{I_{\text{Б}}^{''} - I_{\text{Б}}^{'}} \Bigg|_{U_{\text{КЭ} = const}}
+\end{equation}
+
+\begin{equation}
+  \label{eq:equation4}
+  h_{22_{\text{Э}}} = \dfrac{\Delta I_{\text{К}}}{\Delta U_{\text{КЭ}}} \Bigg|_{I_{\text{Б} = const}} = \dfrac{I_{\text{К}}^{''} - I_{\text{К}}^{'}}{U_{\text{КЭ}}^{''} - U_{\text{КЭ}}^{'}} \Bigg|_{I_{\text{Б} = const}}
+\end{equation}
+
+\vspace{70mm}
+
+\end{enumerate}

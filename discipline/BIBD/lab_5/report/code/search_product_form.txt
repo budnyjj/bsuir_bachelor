@@ -1,0 +1,9 @@
+close_button.click:
+
+thisFormSet.search_product_form.Visible = .F.
+
+
+search_button:
+
+product_name = thisFormSet.search_product_form.search_field.value
+thisFormSet.search_product(product_name)

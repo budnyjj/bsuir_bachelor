@@ -1,0 +1,182 @@
+\documentclass[14pt,hidelinks]{extarticle}
+
+\input{tex/packages}     % Подключаемые пакеты
+\input{tex/styles}	     % Пользовательские стили
+
+\begin{document}
+
+\input{tex/names}	     % Переопределение именований
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{center}
+	\textbf{Типовой расчет} \\ 
+	выполнил ст. гр. ****** Петров Ю.А. \\
+        Задача №11\\
+	Вариант XX 
+\end{center}
+
+\section{Условие}
+
+По выборке двумерной случайной величины:
+
+\begin{itemize}
+	\item вычислить оценку коэффициента корреляции;
+        \item прлверить гипотезу об отсутствии \\
+          корреляционной зависимости ($ \alpha = 0.05 $);
+	\item вычислить параметры линии регрессии $ \alpha_0 $ и $ \alpha_1 $; 
+	\item построить диаграмму рассеивания и линию регрессии;
+\end{itemize}
+
+Исходные данные для варианта XX приведены в таблице~\ref{tbl:second_sample}.
+
+\begin{table}[h!]
+  \renewcommand{\tabcolsep}{0.6em} 
+	\centering
+	\caption{Двумерная выборка\label{tbl:second_sample}}
+	\begin{tabular}{llllllllll}
+          \input{val/sample}
+	\end{tabular}
+\end{table}
+
+\newpage
+
+\section{Решение}
+
+\subsection{Вычисление точечных оценок параметров двумерной выборки}
+
+Вычислим оценки математических ожиданий по каждой переменной.
+\begin{align}
+  m^*_X &= \overline{x} = \frac{1}{n} \sum_{i=1}^{n} x_i, &
+  m^*_Y &= \overline{y} = \frac{1}{n} \sum_{i=1}^{n} y_i, \\ \nonumber
+  m^*_X &= \input{val/x_expectation_value}, &
+  m^*_Y &= \input{val/y_expectation_value}.
+\end{align}
+
+Вычислим оценки дисперсий по каждой переменной.
+\begin{equation}
+  \begin{aligned}
+    D^*_X &= S^2_0(x) = \frac{1}{n-1} \sum_{i=1}^{n} (x_i - \overline{x})^2, \\
+    D^*_Y &= S^2_0(y) = \frac{1}{n-1} \sum_{i=1}^{n} (y_i - \overline{y})^2,
+  \end{aligned}
+\end{equation} 
+\begin{equation*}
+  \begin{aligned}
+    D^*_X &= \input{val/x_dispersion_value}, &
+    D^*_Y &= \input{val/y_dispersion_value}.
+  \end{aligned}
+\end{equation*}
+
+Вычислим оценку корреляционного момента:
+\begin{equation}
+  K^*_{XY} = \frac{1}{n-1} \sum_{i=1}^{n}{(x_i - \overline{x})(y_i - \overline{y})},
+\end{equation} 
+\begin{equation*}
+  K^*_{XY} = \input{val/correlation_moment}.
+\end{equation*}
+
+Найдем оценку коэффициента корреляции:
+\begin{equation}
+  R^*_{XY} = \frac{K^*_{XY}}{\sqrt{S^2_0(x) \cdot S^2_0(y)}},
+\end{equation} 
+\begin{equation*}
+  R^*_{XY} = \dfrac{\input{val/correlation_moment}}
+  {\sqrt{\input{val/x_dispersion_value} \cdot \input{val/y_dispersion_value}}} = 
+  \input{val/correlation_coefficient_value}.
+\end{equation*}
+
+\subsection{Вычисление интервальной оценки коэффициента корреляции}
+
+Вычислим интервальную оценку коэффициента корреляции с надёжностью $\gamma = 0.95$ по следующей формуле:
+\begin{align}
+  I_{\gamma} (R_{XY}) &= \left[ \frac{e^{2a}-1}{e^{2a}+1}; \frac{e^{2b}-1}{e^{2b}+1} \right]. 
+\end{align}
+
+Для этого в таблице функции Лапласа найдем значение, равное $\frac{\gamma}{2} = 0.475$ и определим значение аргумента, ему соответствующее:
+\begin{equation*}
+  z_{0.95} = arg \Phi (0.475) = 1.96. 
+\end{equation*}
+
+Для вычисления интервальной оценки коэффициента корреляции найдем вспомогательные значения $a, b$ по следующим формулам:
+\begin{equation}
+  \begin{aligned}
+    a &= 0.5 \cdot ln \left( \frac{1+R^*_{XY}}{1-R^*_{XY}} \right) - \frac{z_{\gamma}}{\sqrt{n-3}}, \\
+    b &= 0.5 \cdot ln \left( \frac{1+R^*_{XY}}{1-R^*_{XY}} \right) + \frac{z_{\gamma}}{\sqrt{n-3}}, \\
+  \end{aligned}
+\end{equation}
+\begin{equation*}
+  \begin{aligned}
+    a &= \input{val/correlation_coefficient_a}, &
+    b &= \input{val/correlation_coefficient_b}.
+  \end{aligned}
+\end{equation*}
+
+Таким образом, доверительный интервал для коэффициента корреляции имеет вид:
+\begin{align}
+  I_{\gamma} (R_{XY}) &= \left[ \frac{e^{2a}-1}{e^{2a}+1}; \frac{e^{2b}-1}{e^{2b}+1} \right], \\ \nonumber
+  I_{\gamma} (R_{XY}) &= \left[ \input{val/correlation_coefficient_min}; 
+    \input{val/correlation_coefficient_max} \right]
+\end{align}
+
+\newpage 
+
+\subsection{Проверка гипотезы об отсутствии корреляционной зависимости}
+Выдвинем двухальтернативную гипотезу об отсутствии корреляционной зависимости 
+между величинами $ X $ и $ Y $:
+
+\begin{itemize}
+\item $H_0$ --- $ R_{XY} = 0 $: между величинами $ X $ и $ Y $ корреляционная зависимость отсутствует;
+\item $H_1$ --- $ R_{XY} \neq 0 $: между величинами $ X $ и $ Y $ существует корреляционная зависимость.
+\end{itemize}
+
+Так как объем выборки велик ($ n \ge 50 $), то вычислим значение критерия по формуле:
+\begin{equation}
+  Z = \dfrac{|R^*_{XY}| \cdot \sqrt{n}}{1-(R^*_{XY})^2},
+\end{equation}
+\begin{equation*}
+  Z = \input{val/hypothesis_no_correlation}.
+\end{equation*}
+
+Определим значение $ Z_\alpha $ из таблицы функции Лапласа ($ \alpha = 0.05 $):
+\begin{equation*}
+  Z_{0.05} = 1.96.
+\end{equation*}
+
+\textbf{Вывод:} так как $ Z = \input{val/hypothesis_no_correlation} {<}notation{>} Z_{0.05} $,
+то гипотеза $H_0$ об отсутствии корреляционной зависимости между величинами $ X $ и $ Y $ принимается (отклоняется).
+
+\newpage
+
+\subsection{Построение линии регрессии}
+
+Уравнение линии регрессии имеет следующий вид:
+\begin{equation}
+  \overline{y}(x) = a^*_0 + a^*_1 x,
+\end{equation} 
+где $a^*_1 = \dfrac{K^*_{XY}}{S^2_0(x)},\; a^*_0 = \overline{y} - a^*_1 \cdot \overline{x} $
+--- коэффициенты линии регрессии.
+
+\vspace{1em}
+Найдем значения $ a^*_1, a^*_0 $:
+\begin{equation*}
+	\begin{aligned}
+		a^*_1 &= \input{val/regression_param_1}, &
+		a^*_0 &= \input{val/regression_param_0}
+	\end{aligned}
+\end{equation*}
+
+Таким образом, линия регрессии примет вид:
+\begin{equation}
+  \overline{y}(x) = \input{val/regression_param_0}
+  + ( \input{val/regression_param_1} ) \cdot x
+\end{equation}
+
+График линии регрессии изображен на рисунке~\ref{fig:sample_regression}.
+\begin{figure}[h!] 
+  \centering
+  \includegraphics[width=1\linewidth]{pic/sample_regression}
+  \caption{График линии регрессии для двумерной случайной величины\label{fig:sample_regression}}
+\end{figure}
+
+
+\end{document}

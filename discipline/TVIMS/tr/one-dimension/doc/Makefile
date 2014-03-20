@@ -1,0 +1,2 @@
+doc:
+	pdflatex usage.tex

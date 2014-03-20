@@ -1,0 +1,62 @@
+<html>
+  <head>
+    <script language="VBScript" type="text/vbscript" src="static/script/db.vbs" ></script>
+    <link rel="stylesheet" type="text/css" href="static/css/style.css" >
+  </head>
+  <body>
+    <div id="page">
+      <div id="header">
+	<h1>Information about collegues</h1>
+      </div>
+      <div id="main-content">
+	<div class="form-wrapper">
+	  <form id="main-form" name="main_form">
+	    <div class="db-controls" name="db_controls">
+	      <div id="db_path" class="">
+		<input type="TextField" name="db_path" value="C:/dev/BIBD/lab_9/db/library.mdb" size=15>
+	      </div>
+	      <input id="open_db" type="Button" name="openDatabaseButton" value="Open database" onClick="call openDatabase">
+	      <input id="close_db" type="Button" name="closeDatabaseButton" value="Close database" onClick="call closeDatabase">
+	    </div>
+
+	    <div class="filters">
+	      <div>
+	    	<div class="filter-label">Surname:</div>
+	    	<div class="filter-input">
+	    	  <input type="TextField" name="Surname" value="" size=15>
+	    	</div>
+
+		<div class="filter-label">Group:</div>
+		<div class="filter-input">
+	    	  <input type="TextField" name="Group" value="" size=15>
+	    	</div>
+
+		<div class="filter-label">Age:</div>
+	    	<div class="filter-input">
+	    	  <input type="TextField" name="Age" value="" size=15>
+	    	</div>
+
+		<div class="filter-label">Mark:</div>
+		<div class="filter-input">
+	    	  <input type="TextField" name="Mark" value="" size=15>
+	    	</div>
+
+		<div class="filter-label">Path to photo:</div>
+		<div class="filter-input">
+	    	  <input type="TextField" name="PhotoPath" value="" size=15>
+	    	</div>
+	      </div>
+	      <div id="photo">
+		<img src="static/img/default.jpg" class="photo" name="Photo">
+	      </div>
+	      <div class="move-control-buttons">
+		<input type="Button" name="previousButton" value="Previous" onClick="call previousStudent">
+		<input type="Button" name="nextButton" value="Next" onClick="call nextStudent">
+	      </div>
+	  </form>
+	  
+	  </div>
+	</div>
+      </div>
+  </body>
+</html>

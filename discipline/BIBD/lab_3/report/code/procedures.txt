@@ -1,0 +1,115 @@
+myForm.getData:
+
+curCode = VAL(thisForm.codeBox.Value)
+
+SELECT * FROM store INNER JOIN manufacturers ON store.code=manufacturers.code WHERE store.code = curCode INTO CURSOR dataCursor
+
+thisForm.manufacturerField.Value = dataCursor.manufacturer
+thisForm.cityField.Value = dataCursor.city
+
+thisForm.titleField.Value = dataCursor.title
+thisForm.priceField.Value = dataCursor.price
+thisForm.amountField.Value = dataCursor.amount
+
+
+
+myForm.insertData:
+
+SELECT MAX(code) FROM store INTO CURSOR availableCode
+newCode = availableCode.max_code
+newTitle = thisForm.titleField.value
+newPrice = thisForm.priceField.value
+newAmount = thisForm.amountField.value
+newManufacturer = thisForm.manufacturerField.value
+newCity = thisForm.cityField.value
+
+INSERT INTO store values(newCode + 1, newTitle, newPrice, newAmount)
+INSERT INTO manufacturers values(newCode + 1, newManufacturer, newCity)
+
+
+
+myForm.updateData:
+
+curCode = VAL(thisForm.codeBox.value)
+newTitle = thisForm.titleField.value
+newPrice = thisForm.priceField.value
+newAmount = thisForm.amountField.value
+newManufacturer = thisForm.manufacturerField.value
+newCity = thisForm.cityField.value
+
+UPDATE store SET title = newTitle WHERE code = curCode
+UPDATE store SET price = newPrice WHERE code = curCode
+UPDATE store SET amount = newAmount WHERE code = curCode
+UPDATE manufacturers SET manufacturer = newManufacturer WHERE code = curCode
+UPDATE manufacturers SET city = newCity WHERE code = curCode
+
+
+myForm.deleteData:
+
+curCode = VAL(thisForm.codeBox.value)
+
+DELETE FROM store WHERE (code = curCode)
+SELECT store
+DELETE FROM manufacturers WHERE (code = curCode)
+SELECT manufacturers
+
+
+
+myForm.getAvailableCode:
+
+LPARAMETERS eFormat, aData
+
+SELECT code FROM store INTO CURSOR availableCode
+WITH thisForm.codeBox
+	.rowSource = 'availableCode.code'
+	.rowSourceType = 2
+	.boundColumn = 1
+	.boundTo = .t.
+	.Style = 2
+	.ListIndex = 1
+ENDWITH
+
+
+
+InsertButton.Click:
+
+thisForm.insertData
+thisForm.getavailablecode
+
+
+UpdateButton.Click:
+
+thisForm.updatedata
+
+
+DeleteButton.Click:
+
+thisForm.deleteData
+thisForm.getavailablecode
+thisForm.getData
+
+
+CodeBox.Click:
+
+thisForm.getData
+
+
+CodeBox.Init:
+
+thisForm.getavailablecode
+
+
+QuitButton.Click:
+
+thisForm.Release
+
+
+runCRUD:
+
+PROCEDURE runCRUD
+	SET CLASSLIB TO "\\hp\budnyjj\university\labs\bibd\lab_3\class\myform.vcx" ADDITIVE
+	myForm = CREATEOBJECT("myform")
+	myForm.Show
+	READ EVENTS
+	RETURN
+ENDPROC
