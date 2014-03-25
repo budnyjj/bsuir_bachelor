@@ -29,7 +29,7 @@ input_complex() {
 static struct Complex change_complex_form(struct Complex complex) {   
     double mod, phi;
     mod = sqrt(complex.re * complex.re + complex.im * complex.im);
-    phi = atan(complex.im / complex.re) * 180 / PI;                 // devide by zero
+    phi = atan(complex.im / complex.re) * 180 / PI;
 
     struct Complex result;
     result.re = mod;

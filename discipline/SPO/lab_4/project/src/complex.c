@@ -1,6 +1,5 @@
 #include "complex.h"
 
-
 struct Complex
 add(struct Complex c1, struct Complex c2) {
 	struct Complex result;

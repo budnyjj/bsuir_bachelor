@@ -14,11 +14,20 @@ h1 {
 	padding: 10px 20px;
 }
 
-#main-form {
+#students-form {
 	padding: 10px;
         margin-right: 10px;
 	height: 200px;
 	border: 1px dashed rgb(200, 200, 200);
+	position: relative;
+}
+
+#library-form {
+	padding: 10px;
+        margin-right: 10px;
+	height: 200px;
+	border: 1px dashed rgb(200, 200, 200);
+	position: relative;
 }
 
 #header {
@@ -45,10 +54,6 @@ h1 {
 }
 
 .control-buttons {
-}
-
-#main-form {
-    position: relative;
 }
 
 #photo {
