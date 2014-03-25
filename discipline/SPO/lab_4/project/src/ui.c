@@ -13,7 +13,7 @@ complex_process() {
         printf("First "); from = input_complex();        
         printf("Second ");  to = input_complex();
 
-        print_main_user_menu();
+        print_user_menu();
         
         switch (getchar()) {
         case 'a':

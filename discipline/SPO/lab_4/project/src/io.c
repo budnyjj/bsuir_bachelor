@@ -58,7 +58,7 @@ print_complex(struct Complex complex) {
 }
 
 void 
-print_main_user_menu() {
+print_user_menu() {
     printf("+--- Choose operation: ---------------+\n");
     printf("|  a --- Add complex numbers          |\n");
     printf("|  s --- Sub complex numbers          |\n");
