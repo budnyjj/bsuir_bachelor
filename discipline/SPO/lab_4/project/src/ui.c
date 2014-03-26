@@ -6,35 +6,44 @@
 
 void 
 complex_process() {
-    struct Complex from, to, result;
+    struct Complex c1, c2, result;
+
+    c1.re = complex1_re; c1.im = complex1_im;
+    c2.re = complex2_re; c2.im = complex2_im;
 
     while (1) {
-         
-        printf("First "); from = input_complex();        
-        printf("Second ");  to = input_complex();
-
-        print_user_menu();
-        
+        print_user_menu(c1, c2);
         switch (getchar()) {
+        case '1':
+            printf("Input first complex number.\n");
+            c1 = input_complex();
+            break;
+        case '2':
+            printf("Input second complex number.\n");
+            c2 = input_complex();
+            break;
+        
+        // complex operations
         case 'a':
         case 'A':       
-            result = add(from, to);
+            result = add(c1, c2);
             print_complex(result);
             break;
         case 's':
         case 'S':
-            result = sub(from, to);
+            result = sub(c1, c2);
             print_complex(result);
             break;
         case 'm':
         case 'M':
-            result = mul(from, to);
+            result = mul(c1, c2);
             print_complex(result);
             break;
         case 'd':
         case 'D':
-            result = div(from, to);
-            print_complex(result);
+            result = div(c1, c2);
+            if (!result.error)
+                print_complex(result);
             break;
         case 'q':
         case 'Q':
@@ -42,5 +51,6 @@ complex_process() {
         default:
             printf("Incorrect input, please choose an exists element\n");
         }
+        clear();
     }
 }
