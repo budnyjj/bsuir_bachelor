@@ -27,37 +27,51 @@ void complex_process();
 
 #include <stdio.h>
 
+#define complex1_re 1
+#define complex1_im 2.2
+#define complex2_re -5
+#define complex2_im 3
+
 void 
 complex_process() {
-    struct Complex from, to, result;
+    struct Complex c1, c2, result;
+
+    c1.re = complex1_re; c1.im = complex1_im;
+    c2.re = complex2_re; c2.im = complex2_im;
 
     while (1) {
-         
-        printf("First "); from = input_complex();        
-        printf("Second ");  to = input_complex();
-
-        print_user_menu();
-        
+        print_user_menu(c1, c2);
         switch (getchar()) {
+        case '1':
+            printf("Input first complex number.\n");
+            c1 = input_complex();
+            break;
+        case '2':
+            printf("Input second complex number.\n");
+            c2 = input_complex();
+            break;
+        
+        // complex operations
         case 'a':
         case 'A':       
-            result = add(from, to);
+            result = add(c1, c2);
             print_complex(result);
             break;
         case 's':
         case 'S':
-            result = sub(from, to);
+            result = sub(c1, c2);
             print_complex(result);
             break;
         case 'm':
         case 'M':
-            result = mul(from, to);
+            result = mul(c1, c2);
             print_complex(result);
             break;
         case 'd':
         case 'D':
-            result = div(from, to);
-            print_complex(result);
+            result = div(c1, c2);
+            if (!result.error)
+                print_complex(result);
             break;
         case 'q':
         case 'Q':
@@ -65,6 +79,7 @@ complex_process() {
         default:
             printf("Incorrect input, please choose an exists element\n");
         }
+        clear();
     }
 }
 
@@ -75,6 +90,7 @@ complex_process() {
 struct Complex {
     double re;
     double im;
+    int error; // error number
 };
 
 struct Complex add(struct Complex c1, struct Complex c2);
@@ -114,6 +130,13 @@ mul(struct Complex c1, struct Complex c2) {
 struct Complex
 div(struct Complex from, struct Complex to) {
     struct Complex result;
+    result.error = 0;
+
+    if (!(to.im) && !(to.re)) {
+        printf("Invalid operation (devide by zero error)!\n");
+        result.error = 1;
+    }
+
     result.re = (from.re * to.re + from.im * to.im) / (to.re * to.re + to.im * to.im);
     result.im = (from.re * to.im - from.im * to.re) / (to.re * to.re + to.im * to.im);
     return result;
@@ -128,7 +151,7 @@ void clear();
 struct Complex input_complex();
 void print_complex(struct Complex complex);
 
-void print_user_menu();
+void print_user_menu(struct Complex c1, struct Complex c2);
 
 #endif
 
@@ -148,58 +171,94 @@ clear() { while(getchar() != '\n'); }
 struct Complex
 input_complex() {
     struct Complex complex;
-    char sign;
-    printf("complex number in the format a[+/-]bi: ");
-    while (scanf("%lf%[+-]%lf[ij]", &complex.re, &sign, &complex.im) != 3) {
-        printf("Input error! The format must be a[+/-]bi: ");
+    
+    printf("Enter real part: ");
+    clear();
+    while (!scanf("%lf", &complex.re)) {
+        printf("Input error! Try again: ");
         clear();
     }
-    clear();
 
-    if (sign == '-') {
-        complex.im = -complex.im;
+    printf("Enter imaginary part: ");
+    clear();
+    while (!scanf("%lf", &complex.im)) {
+        printf("Input error! Try again: ");
+        clear();
     }
+
     return complex;
 }
 
 static struct Complex change_complex_form(struct Complex complex) {   
-    double mod, phi;
-    mod = sqrt(complex.re * complex.re + complex.im * complex.im);
-    phi = atan(complex.im / complex.re) * 180 / PI;
-
     struct Complex result;
-    result.re = mod;
-    result.im = phi;
+    result.error = 0; // no error
+    
+    result.re = sqrt(complex.re * complex.re + complex.im * complex.im);
+    
+    if (complex.re > 0) {
+        result.im = atan(complex.im / complex.re);        
+    } else if ((complex.re < 0) && (complex.im >= 0)) {
+        result.im = atan(complex.im / complex.re) + PI;
+    } else if ((complex.re < 0) && (complex.im < 0)) {
+        result.im = atan(complex.im / complex.re) - PI;
+    } else if ((!complex.re) && (complex.im > 0)) {
+        result.im = PI / 2;
+    } else if ((!complex.re) && (complex.im < 0)) {
+        result.im = -(PI / 2);
+    } else if ((!complex.re) && (!complex.im)) {
+        result.error = 1;
+    }
+
+    result.im *= 180 / PI;
     
     return result;
 }
 
-void
-print_complex(struct Complex complex) {
-    struct Complex polar_complex;
-    polar_complex = change_complex_form(complex);
-
+static void
+print_algebraic_complex(struct Complex complex) {
     char sign = '+';
     if (complex.im < 0) {
         sign = '-';
         complex.im = -complex.im;
     }
 
-    printf("---  Algebraic form:  -----------------\n");
     printf("%g %c %g*i\n", complex.re, sign, complex.im);
+}
 
-    printf("---  Polar form:  ---------------------\n");
-    printf("%g * e^(%g*i)\n", polar_complex.re, polar_complex.im);
-    printf("---------------------------------------\n");
+static void
+print_polar_complex(struct Complex complex) {
+    struct Complex polar_complex;
+    polar_complex = change_complex_form(complex);
+
+    if (!polar_complex.error)
+        printf("%g * e^(%g*i)\n", polar_complex.re, polar_complex.im);
+    else
+        printf("Indeterminate polar value!\n");
+}
+
+print_complex(struct Complex complex) {
+    printf("+-------------------------------------+\n");
+    printf("Result (in algebraic form): ");
+    print_algebraic_complex(complex);
+    printf("+-------------------------------------+\n");
+    printf("Result (in polar form): ");
+    print_polar_complex(complex);
+    printf("+-------------------------------------+\n");
 }
 
 void 
-print_user_menu() {
-    printf("+--- Choose operation: ---------------+\n");
-    printf("|  a --- Add complex numbers          |\n");
-    printf("|  s --- Sub complex numbers          |\n");
-    printf("|  m --- Mul complex numbers          |\n");
-    printf("|  d --- Div complex numbers          |\n");
-    printf("|  q --- Quit                         |\n");
-    printf("+-------------------------------------+\n");
+print_user_menu(struct Complex c1, struct Complex c2) {
+    printf("+---------- Complex numbers ----------+\n");
+    printf("     first  complex number: "); print_algebraic_complex(c1);
+    printf("     second complex number: "); print_algebraic_complex(c2);
+    printf("+-------------------------------------+\n"
+           "|  1 --- Edit  first complex number   |\n"
+           "|  2 --- Edit second complex number   |\n"
+           "+--- Choose operation: ---------------+\n"
+           "|  a --- Add complex numbers          |\n"
+           "|  s --- Sub complex numbers          |\n"
+           "|  m --- Mul complex numbers          |\n"
+           "|  d --- Div complex numbers          |\n"
+           "|  q --- Quit                         |\n"
+           "+-------------------------------------+\n");
 }

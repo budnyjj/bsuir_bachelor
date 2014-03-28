@@ -89,17 +89,17 @@ print_complex(struct Complex complex) {
 
 void 
 print_user_menu(struct Complex c1, struct Complex c2) {
-    printf("+---------- Complex numbers ----------+\n"
-           "     first  complex number: "); print_algebraic_complex(c1);
+    printf("+---------- Complex numbers ----------+\n");
+    printf("     first  complex number: "); print_algebraic_complex(c1);
     printf("     second complex number: "); print_algebraic_complex(c2);
-    printf("+-------------------------------------+\n");
-    printf("|  1 --- Edit  first complex number   |\n");
-    printf("|  2 --- Edit second complex number   |\n");
-    printf("+--- Choose operation: ---------------+\n");
-    printf("|  a --- Add complex numbers          |\n");
-    printf("|  s --- Sub complex numbers          |\n");
-    printf("|  m --- Mul complex numbers          |\n");
-    printf("|  d --- Div complex numbers          |\n");
-    printf("|  q --- Quit                         |\n");
-    printf("+-------------------------------------+\n");
+    printf("+-------------------------------------+\n"
+           "|  1 --- Edit  first complex number   |\n"
+           "|  2 --- Edit second complex number   |\n"
+           "+--- Choose operation: ---------------+\n"
+           "|  a --- Add complex numbers          |\n"
+           "|  s --- Sub complex numbers          |\n"
+           "|  m --- Mul complex numbers          |\n"
+           "|  d --- Div complex numbers          |\n"
+           "|  q --- Quit                         |\n"
+           "+-------------------------------------+\n");
 }
