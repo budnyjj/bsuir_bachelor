@@ -4,6 +4,7 @@
 struct Complex {
 	double re;
 	double im;
+	int error; // error number
 };
 
 struct Complex add(struct Complex c1, struct Complex c2);

@@ -12,58 +12,94 @@ clear() { while(getchar() != '\n'); }
 struct Complex
 input_complex() {
     struct Complex complex;
-    char sign;
-    printf("complex number in the format a[+/-]bi: ");
-    while (scanf("%lf%[+-]%lf[ij]", &complex.re, &sign, &complex.im) != 3) {
-        printf("Input error! The format must be a[+/-]bi: ");
+    
+    printf("Enter real part: ");
+    clear();
+    while (!scanf("%lf", &complex.re)) {
+        printf("Input error! Try again: ");
         clear();
     }
-    clear();
 
-    if (sign == '-') {
-        complex.im = -complex.im;
+    printf("Enter imaginary part: ");
+    clear();
+    while (!scanf("%lf", &complex.im)) {
+        printf("Input error! Try again: ");
+        clear();
     }
+
     return complex;
 }
 
 static struct Complex change_complex_form(struct Complex complex) {   
-    double mod, phi;
-    mod = sqrt(complex.re * complex.re + complex.im * complex.im);
-    phi = atan(complex.im / complex.re) * 180 / PI;
-
     struct Complex result;
-    result.re = mod;
-    result.im = phi;
+    result.error = 0; // no error
+    
+    result.re = sqrt(complex.re * complex.re + complex.im * complex.im);
+    
+    if (complex.re > 0) {
+        result.im = atan(complex.im / complex.re);        
+    } else if ((complex.re < 0) && (complex.im >= 0)) {
+        result.im = atan(complex.im / complex.re) + PI;
+    } else if ((complex.re < 0) && (complex.im < 0)) {
+        result.im = atan(complex.im / complex.re) - PI;
+    } else if ((!complex.re) && (complex.im > 0)) {
+        result.im = PI / 2;
+    } else if ((!complex.re) && (complex.im < 0)) {
+        result.im = -(PI / 2);
+    } else if ((!complex.re) && (!complex.im)) {
+        result.error = 1;
+    }
+
+    result.im *= 180 / PI;
     
     return result;
 }
 
-void
-print_complex(struct Complex complex) {
-    struct Complex polar_complex;
-    polar_complex = change_complex_form(complex);
-
+static void
+print_algebraic_complex(struct Complex complex) {
     char sign = '+';
     if (complex.im < 0) {
         sign = '-';
         complex.im = -complex.im;
     }
 
-    printf("---  Algebraic form:  -----------------\n");
     printf("%g %c %g*i\n", complex.re, sign, complex.im);
+}
 
-    printf("---  Polar form:  ---------------------\n");
-    printf("%g * e^(%g*i)\n", polar_complex.re, polar_complex.im);
-    printf("---------------------------------------\n");
+static void
+print_polar_complex(struct Complex complex) {
+    struct Complex polar_complex;
+    polar_complex = change_complex_form(complex);
+
+    if (!polar_complex.error)
+        printf("%g * e^(%g*i)\n", polar_complex.re, polar_complex.im);
+    else
+        printf("Indeterminate polar value!\n");
+}
+
+print_complex(struct Complex complex) {
+    printf("+-------------------------------------+\n");
+    printf("Result (in algebraic form): ");
+    print_algebraic_complex(complex);
+    printf("+-------------------------------------+\n");
+    printf("Result (in polar form): ");
+    print_polar_complex(complex);
+    printf("+-------------------------------------+\n");
 }
 
 void 
-print_main_user_menu() {
-    printf("+--- Choose operation: ---------------+\n");
-    printf("|  a --- Add complex numbers          |\n");
-    printf("|  s --- Sub complex numbers          |\n");
-    printf("|  m --- Mul complex numbers          |\n");
-    printf("|  d --- Div complex numbers          |\n");
-    printf("|  q --- Quit                         |\n");
-    printf("+-------------------------------------+\n");
+print_user_menu(struct Complex c1, struct Complex c2) {
+    printf("+---------- Complex numbers ----------+\n");
+    printf("     first  complex number: "); print_algebraic_complex(c1);
+    printf("     second complex number: "); print_algebraic_complex(c2);
+    printf("+-------------------------------------+\n"
+           "|  1 --- Edit  first complex number   |\n"
+           "|  2 --- Edit second complex number   |\n"
+           "+--- Choose operation: ---------------+\n"
+           "|  a --- Add complex numbers          |\n"
+           "|  s --- Sub complex numbers          |\n"
+           "|  m --- Mul complex numbers          |\n"
+           "|  d --- Div complex numbers          |\n"
+           "|  q --- Quit                         |\n"
+           "+-------------------------------------+\n");
 }
