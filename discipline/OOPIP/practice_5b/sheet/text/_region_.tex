@@ -1,0 +1,17 @@
+\message{ !name(text.tex)}
+\message{ !name(text.tex) !offset(326) }
+  class Glyph {
+    public:
+    virtual ~Glyph();
+    virtual void Draw(Window*, GlyphContext\&);
+    virtual void SetFont(Font*, GlyphContext\&);
+    virtual Font* GetFont(GlyphContext\&);
+    virtual void First(GlyphContext\&);
+    virtual void Next(GlyphContext\&);
+    virtual bool IsDone(GlyphContext\&);
+    virtual Glyph* Current(GlyphContext\&);
+    virtual void Insert(Glyph*, GlyphContext\&);
+    virtual void Remove(GlyphContext\&};
+  protected:
+  
+\message{ !name(text.tex) !offset(-17) }

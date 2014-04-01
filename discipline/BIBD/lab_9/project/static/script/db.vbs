@@ -8,32 +8,8 @@ adUseServer = 2
 
 isConnOpened = False
 
-Sub openConnection(dbPath)
-    Set conn = CreateObject("ADODB.Connection")
-    With conn
-     .Provider = "Microsoft.Access.OLEDB.10.0"
-     .Properties("Data Provider").Value = "Microsoft.Jet.OLEDB.4.0"
-     .Properties("Data Source").Value = dbPath
-     .Open
-    End With
-End Sub
 
-Sub closeConnection
-    conn.Close
-    isConnOpened = False
-End Sub
-
-Function request(ByRef connection, requestStr)
-    Set request = CreateObject("ADODB.Recordset")
-    With request
-         .ActiveConnection = connection
-     .Source = requestStr
-     .CursorType = adOpenKeyset
-     .LockType = adLockOptimistic
-     .CursorLocation = adUseServer
-     .Open
-    End With
-End function
+' === DB interface ===
 
 Sub openDatabase
     If isConnOpened = False Then
@@ -68,14 +44,45 @@ Sub closeDatabase
     call clearLibraryFields
 End Sub
 
+' === DB internals ===
+
+Sub openConnection(dbPath)
+    Set conn = CreateObject("ADODB.Connection")
+    With conn
+     .Provider = "Microsoft.Access.OLEDB.10.0"
+     .Properties("Data Provider").Value = "Microsoft.Jet.OLEDB.4.0"
+     .Properties("Data Source").Value = dbPath
+     .Open
+    End With
+End Sub
+
+Sub closeConnection
+    conn.Close
+    isConnOpened = False
+End Sub
+
+Function request(ByRef connection, requestStr)
+    Set request = CreateObject("ADODB.Recordset")
+    With request
+         .ActiveConnection = connection
+     .Source = requestStr
+     .CursorType = adOpenKeyset
+     .LockType = adLockOptimistic
+     .CursorLocation = adUseServer
+     .Open
+    End With
+End function
+
 Sub nextRow(ByRef rs)
     If rs.EOF = false then
        rs.moveNext
        If rs.EOF=true then
           rs.moveFirst
        End if
-    else
-    rs.moveFirst
+    Else
+        If (rs.BOF = false) Then
+	   rs.moveFirst
+	End If
     End if
 End Sub
 
@@ -86,12 +93,15 @@ Sub previousRow(ByRef rs)
             rs.moveLast
         End if
     else
-        rs.moveLast
+	If (rs.EOF = false) Then
+           rs.moveLast
+	End If
     End if
 End Sub
 
 Sub deleteRow(ByRef rs)
     rs.Delete
+    rs.Update
 End Sub
 
 Sub insertRow(ByRef rs, ByRef fields, ByRef values)
@@ -104,7 +114,7 @@ Sub updateRow(ByRef rs, ByRef fields, ByRef values)
   rs.Update
 End Sub
 
-' === Students ===
+' === Students interface ===
 
 Sub nextStudent
     If isConnOpened Then
@@ -121,20 +131,6 @@ Sub previousStudent
        printStudent(students)
     else
        call connErrorMsg
-    End If
-End Sub
-
-Sub printStudent(ByRef rs)
-    If (not (rs.BOF and rs.EOF)) Then
-        document.students_form.Surname.value = rs("surname")
-        document.students_form.Group.value = rs("group")
-        document.students_form.Age.value = rs("age")
-        document.students_form.Mark.value = rs("mark")
-        document.students_form.PhotoPath.value = rs("photo_path")
-        document.students_form.Photo.src=rs("photo_path")
-    Else
-        msgbox("Database is empty!")
-        call clearStudentFields
     End If
 End Sub
 
@@ -202,8 +198,25 @@ Sub updateStudent
     End If
 End Sub
 
+' === Students internals ===
 
-' === Library ===
+Sub printStudent(ByRef rs)
+    If (not (rs.BOF and rs.EOF)) Then
+        document.students_form.Surname.value = rs("surname")
+        document.students_form.Group.value = rs("group")
+        document.students_form.Age.value = rs("age")
+        document.students_form.Mark.value = rs("mark")
+        document.students_form.PhotoPath.value = rs("photo_path")
+        document.students_form.Photo.src=rs("photo_path")
+    Else
+        msgbox("Database is empty!")
+        call clearStudentFields
+    End If
+End Sub
+
+
+
+' === Library interface ===
 
 Sub nextBook
     If isConnOpened Then
@@ -223,39 +236,14 @@ Sub previousBook
     End If
 End Sub
 
-Sub printBook(ByRef rs)
-    If (not (rs.BOF and rs.EOF)) Then
-        document.library_form.Title.value = rs("title")
-        document.library_form.Author.value = rs("author")
-        document.library_form.PubDate.value = rs("publication_date")
-
-        If (rs("studID") > 0) Then
-            ' Book is associated with student
-            Dim assocStud
-
-            ' get student surname with specified id
-            assocStud = request(conn, "SELECT surname FROM students WHERE studID =" & rs("studID"))
-            document.library_form.AssocStud.value = assocStud("surname")
-            document.library_form.AssocDate.value = rs("association_date").value
-        Else
-            document.library_form.AssocStud.value = "None"
-            document.library_form.AssocDate.value = "None"
-        End If
-    Else
-        msgbox("Database is empty!")
-        call clearLibraryFields
-    End If
-End Sub
-
- Sub deleteBook
+Sub deleteBook
     If isConnOpened Then
         deleteRow(library)
-        nextRow(library)
-        printBook(library)
+	call nextBook
     Else
         call connErrorMsg
     End If
- End Sub
+End Sub
 
 Sub insertBook
     If isConnOpened Then
@@ -277,8 +265,8 @@ Sub insertBook
         values(1) = document.library_form.Title.value
         values(2) = document.library_form.Author.value
         values(3) = document.library_form.PubDate.value
-        values(4) = document.library_form.AssocStud.value
-        values(5) = document.library_form.AssocDate.value
+        values(4) = 0
+        values(5) = NULL
 
         call insertRow(library, fieldsArray, values)
         call printBook(library)
@@ -291,6 +279,7 @@ Sub updateBook
     If isConnOpened Then
         Dim fieldsArray(4)
         Dim values(4)
+	Dim assocStud, assocDate
 
         fieldsArray(0) = "title"
         fieldsArray(1) = "author"
@@ -301,8 +290,24 @@ Sub updateBook
         values(0) = document.library_form.Title.value
         values(1) = document.library_form.Author.value
         values(2) = document.library_form.PubDate.value
-        values(3) = document.library_form.AssocStud.value
-        values(4) = document.library_form.AssocDate.value
+	
+	assocStud = document.library_form.AssocStud.value
+	assocDate = document.library_form.AssocDate.value
+
+	If (assocStud <> "None") Then
+           Dim studID
+	   studID = getStudIDFromSurname(assocStud)
+	   If (studID <> -1) Then 
+              values(3) = studID
+	      values(4) = assocDate 
+	   Else
+		msgBox("Please, specify existing student!")
+		Exit Sub
+	   End If
+	Else
+	   values(3) = 0
+	   values(4) = NULL
+	End If
 
         call updateRow(library, fieldsArray, values)
         call printBook(library)
@@ -347,13 +352,56 @@ End Sub
 
 Sub releaseBook
     If isConnOpened Then
-        If (library("studID").value != 0) Then
-            document.library_form.AssocStud.value = ""
-            document.library_form.AssocDate.value = ""
-            call updateBook
+        If (library("studID").value <> 0) Then
+	   document.library_form.AssocStud.value = "None"
+           document.library_form.AssocDate.value = "None"
+	   call updateBook
         End If
     Else
         call connErrorMsg
+    End If
+End Sub
+
+' === Library internals ===
+
+Function getStudIDFromSurname(studSurname)
+    Dim rs
+    Set rs = request(conn, "SELECT studID FROM students WHERE surname = '" & studSurname & "'")
+    If (not (rs.EOF and rs.BOF)) Then
+       getStudIDFromSurname = rs("studID")
+    Else
+	getStudIDFromSurname = -1
+    End If
+End Function
+
+Sub printBook(ByRef rs)
+    If (not(rs.BOF=True and rs.EOF=True)) Then
+        document.library_form.Title.value = rs("title")
+        document.library_form.Author.value = rs("author")
+        document.library_form.PubDate.value = rs("publication_date")
+
+        If (rs("studID") > 0) Then
+            ' Book is associated with student
+            Dim assocStud
+
+            ' get student surname with specified id
+            assocStud = request(conn, "SELECT surname FROM students WHERE studID =" & rs("studID"))
+            document.library_form.AssocStud.value = assocStud("surname")
+            document.library_form.AssocDate.value = rs("association_date").value
+        Else
+            document.library_form.AssocStud.value = "None"
+            document.library_form.AssocDate.value = "None"
+        End If
+
+	document.library_form.previousBookButton.disabled = False
+	document.library_form.nextBookButton.disabled = False
+	document.library_form.releaseBookButton.disabled = False
+    Else
+        msgbox("Book shelf is empty!")
+        call clearLibraryFields
+	document.library_form.previousBookButton.disabled = True
+	document.library_form.nextBookButton.disabled = True
+	document.library_form.releaseBookButton.disabled = True
     End If
 End Sub
 

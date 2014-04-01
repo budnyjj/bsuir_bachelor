@@ -1,110 +1,118 @@
 <html>
-<head>
-  <script language="VBScript" type="text/vbscript" src="static/script/db.vbs" ></script>
-  <link rel="stylesheet" type="text/css" href="static/css/style.css" ></head>
-<body>
-  <div id="page">
-    <div id="header">
-      <h1>Information about collegues</h1>
-    </div>
-    <div id="main-content">
-      <div class="form-wrapper">
+  <head>
+    <script language="VBScript" type="text/vbscript" src="static/script/db.vbs" ></script>
+    <link rel="stylesheet" type="text/css" href="static/css/style.css" ></head>
+  <body>
+    <div id="page">
+      <div id="header">
+	<h1>Information about collegues</h1>
+      </div>
+      <div id="main-content">
+	<div class="form-wrapper">
 
-        <form id="students-form" name="students_form">
-          <div class="db-controls" name="db_controls">
-            <div id="db_path" class="">
-              <input type="TextField" name="db_path" value="C:/dev/BIBD/lab_9/db/library.mdb" size=15>
+          <form id="students-form" name="students_form">
+            <div class="db-controls" name="db_controls">
+              <div id="db_path" class="">
+		<input type="TextField" name="db_path" value="C:/dev/BIBD/lab_9/db/library.mdb" size=15>
+              </div>
+              <input id="open_db" type="Button" name="openDatabaseButton" value="Open database" onClick="call openDatabase">
+              <input id="close_db" type="Button" name="closeDatabaseButton" value="Close database" onClick="call closeDatabase">
             </div>
-            <input id="open_db" type="Button" name="openDatabaseButton" value="Open database" onClick="call openDatabase">
-            <input id="close_db" type="Button" name="closeDatabaseButton" value="Close database" onClick="call closeDatabase">
-          </div>
 
-          <div class="filters">
-            <div>
-              <div class="filter-label">Surname:</div>
-              <div class="filter-input">
-                <input type="TextField" name="Surname" value="" size=15>
-              </div>
+            <div class="filters">
+              <div>
+		<div class="filter-label">Surname:</div>
+		<div class="filter-input">
+                  <input type="TextField" name="Surname" value="" size=15>
+		</div>
 
-              <div class="filter-label">Group: </div>
-              <div class="filter-input">
-                <input type="TextField" name="Group" value="" size=15>
-              </div>
+		<div class="filter-label">Group: </div>
+		<div class="filter-input">
+                  <input type="TextField" name="Group" value="" size=15>
+		</div>
 
-              <div class="filter-label">Age:</div>
-              <div class="filter-input">
-                <input type="TextField" name="Age" value="" size=15>
-              </div>
+		<div class="filter-label">Age:</div>
+		<div class="filter-input">
+                  <input type="TextField" name="Age" value="" size=15>
+		</div>
 
-              <div class="filter-label">Mark:</div>
-              <div class="filter-input">
-                <input type="TextField" name="Mark" value="" size=15>
-              </div>
+		<div class="filter-label">Mark:</div>
+		<div class="filter-input">
+                  <input type="TextField" name="Mark" value="" size=15>
+		</div>
 
-              <div class="filter-label">Path to photo:</div>
-              <div class="filter-input">
-                <input type="TextField" name="PhotoPath" value="" size=15>
-              </div>
-            </div>
-          </div>
-          <div id="photo">
-            <img src="static/img/default.jpg" class="photo" name="Photo">
-          </div>
-
-          <div class="move-control-buttons">
-            <input type="Button" name="previousStundentButton" value="Previous" onClick="call previousStudent">
-            <input type="Button" name="nextStundentButton" value="Next" onClick="call nextStudent">
-          </div>
-
-          <div class="crud-control-buttons">
-            <input type="Button" name="deleteButton" value="Delete" onClick="call deleteStudent">
-            <input type="Button" name="updateButton" value="Update" onClick="call updateStudent">
-            <input type="Button" name="insertButton" value="Insert" onClick="call insertStudent">
-          </div>
-        </form>
-
-        <form id="library-form" name="library_form">
-          <div class="filters">
-            <div>
-              <div class="filter-label">Title:</div>
-              <div class="filter-input">
-                <input type="TextField" name="Title" value="" size=15>
-              </div>
-
-              <div class="filter-label">Author:</div>
-              <div class="filter-input">
-                <input type="TextField" name="Author" value="" size=15>
-              </div>
-
-              <div class="filter-label">Publication date:</div>
-              <div class="filter-input">
-                <input type="TextField" name="PubDate" value="" size=15>
-              </div>
-
-              <div class="filter-label">Associated student:</div>
-              <div class="filter-input">
-                <input type="TextField" name="AssocStud" value="" size=15>
-              </div>
-
-              <div class="filter-label">Association date:</div>
-              <div class="filter-input">
-                <input type="TextField" name="AssocDate" value="" size=15>
+		<div class="filter-label">Path to photo:</div>
+		<div class="filter-input">
+                  <input type="TextField" name="PhotoPath" value="" size=15>
+		</div>
               </div>
             </div>
-          </div>
+            <div id="photo">
+              <img src="static/img/default.jpg" class="photo" name="Photo">
+            </div>
 
-          <div class="open-library-buttons">
-            <input type="Button" name="showBooksOfCurStudentButton" value="Show books of current student" onClick="call showBooksOfCurStudent" />
-            <input type="Button" name="showAllBooksButton" value="Show all books" onClick="call showAllBooks" />
-          </div>
+            <div class="move-control-buttons">
+              <input type="Button" name="previousStundentButton" value="Previous" onClick="call previousStudent">
+              <input type="Button" name="nextStundentButton" value="Next" onClick="call nextStudent">
+            </div>
 
-          <div class="move-control-buttons">
-            <input type="Button" name="previousBookButton" value="Previous" onClick="call previousBook">
-            <input type="Button" name="nextBookButton" value="Next" onClick="call nextBook">
-          </div>
-        </form>
+            <div class="crud-control-buttons">
+              <input type="Button" name="deleteButton" value="Delete" onClick="call deleteStudent">
+              <input type="Button" name="updateButton" value="Update" onClick="call updateStudent">
+              <input type="Button" name="insertButton" value="Insert" onClick="call insertStudent">
+            </div>
+          </form>
+
+          <form id="library-form" name="library_form">
+            <div class="filters">
+              <div>
+		<div class="filter-label">Title:</div>
+		<div class="filter-input">
+                  <input type="TextField" name="Title" value="" size=15>
+		</div>
+
+		<div class="filter-label">Author:</div>
+		<div class="filter-input">
+                  <input type="TextField" name="Author" value="" size=15>
+		</div>
+
+		<div class="filter-label">Publication date:</div>
+		<div class="filter-input">
+                  <input type="TextField" name="PubDate" value="" size=15>
+		</div>
+
+		<div class="filter-label">Associated student:</div>
+		<div class="filter-input">
+                  <input type="TextField" name="AssocStud" value="" size=15>
+		</div>
+
+		<div class="filter-label">Association date:</div>
+		<div class="filter-input">
+                  <input type="TextField" name="AssocDate" value="" size=15>
+		</div>
+              </div>
+            </div>
+
+            <div class="open-library-buttons">
+              <input type="Button" name="showBooksOfCurStudentButton" value="Show books of current student" onClick="call showBooksOfCurStudent" />
+              <input type="Button" name="showAllBooksButton" value="Show all books" onClick="call showAllBooks" />
+	      <input type="Button" name="releaseBookButton" value="Release book" onClick="call releaseBook" />
+	      <input type="Button" name="addBookToStudentButton" value="Add book to student" onClick="call addBookToStudent" />
+            </div>
+
+	    <div class="control-book-buttons">
+              <input type="Button" name="InsertBookButton" value="Insert book" onClick="call insertBook" />
+	      <input type="Button" name="UpdateBookButton" value="Update book" onClick="call updateBook" />
+	      <input type="Button" name="DeleteBookButton" value="Delete book" onClick="call deleteBook" />
+            </div>
+
+            <div class="move-control-buttons">
+              <input type="Button" name="previousBookButton" value="Previous" onClick="call previousBook">
+              <input type="Button" name="nextBookButton" value="Next" onClick="call nextBook">
+            </div>
+          </form>
+	</div>
       </div>
     </div>
-  </div>
-</body>
-</html>
+  </body>
+</html> 
