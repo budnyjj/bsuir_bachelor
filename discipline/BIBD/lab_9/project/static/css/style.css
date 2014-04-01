@@ -3,77 +3,126 @@ body {
 	margin: 0;
 }
 
+#page {
+	width: 940px;
+	margin: 0 auto;
+	background-color: #fff;
+	padding: 10px 20px;
+	border-left: 1px dashed rgb(200, 200, 200);
+	border-right: 1px dashed rgb(200, 200, 200);
+}
+
+#header {
+    padding-bottom: 10px;
+}
+
+#left-side {
+    float: left;
+    width: 49%;
+}
+
+#right-side {
+    float: right;
+    width: 49%;
+}
+
+#footer {
+    clear: both;
+}
+
 h1 {
 	margin: 0 0 0.5em;
 }
 
-#page {
-	width: 940px;
-	margin: 0 auto;
-	background-color: rgb(255,255,255);
-	padding: 10px 20px;
+/* DB controls style */
+
+/* Students form style */
+
+form {
+    border: 1px dashed rgb(200, 200, 200);
+    padding: 10px;
 }
 
-#students-form {
-	padding: 10px;
-        margin-right: 10px;
-	height: 200px;
-	border: 1px dashed rgb(200, 200, 200);
-	position: relative;
+.students-fields {
+    width: 49%;
+    float: left;
+    margin-top: 20px;
 }
 
-#library-form {
-	padding: 10px;
-        margin-right: 10px;
-	height: 200px;
-	border: 1px dashed rgb(200, 200, 200);
-	position: relative;
+/* DB controls styles */
+
+.db-path,
+.db-buttons {
+    display: inline-block;
 }
 
-#header {
-	border-bottom: 1px dashed rgb(200, 200, 200);
-	margin-bottom: 10px;
-}
-
-.filters {
-	margin: 10px 0;
-}
-
-.filter-label {
-    width: 7em;
-    overflow: hidden;
-    vertical-align: middle;
-}
-
-.filter-input {
-}
-
-.filter-input,
-.filter-label {
-	display: inline-block;
-}
-
-.control-buttons {
-}
-
-#photo {
-    margin: 10px;
-    position: absolute;
-    top: 0;
-    right: 0;
+.field-photo {
+    float: right;
+    width: 49%;
 }
 
 .photo {
-    height: 200px;
-    width: 200px;
+    margin-top: 40px;
+    width: 100%;
 }
 
-.form-wrapper {
-    width: 550px;
+.control-buttons {
+    clear: both;
+    padding-top: 10px;
+}
+
+.students-fields input {
+    width: 100%;
+}
+
+.move-control-buttons input {
+    width: 49%;
+}
+
+.crud-control-buttons input {
+    width: 100%;
+}
+
+/* Library form styles */
+
+.library-fields input {
+    width: 100%;
+}
+
+.library-buttons {
+    clear: both;
+    padding-top: 10px;
+}
+
+.show-library-buttons input {
+    width: 49%;
+}
+
+.control-book-buttons input {
+    width: 32%;
+}
+
+.export-button {
+    width: 50%;
     margin: 0 auto;
 }
 
-#db_path,
-#open_db {
+.export-button input {
+    width: 100%;
+    
+}
+/* Search form styles */
+.search-input,
+.search-button {
     display: inline-block;
+}
+
+table {
+    margin: 10px 0;
+    width: 100%;
+    border: 1px dashed rgb(200, 200, 200);
+}
+
+thead {
+    border: 1px dashed rgb(200, 200, 200);
 }

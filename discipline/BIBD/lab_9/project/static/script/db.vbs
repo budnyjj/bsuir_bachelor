@@ -64,7 +64,7 @@ End Sub
 Function request(ByRef connection, requestStr)
     Set request = CreateObject("ADODB.Recordset")
     With request
-         .ActiveConnection = connection
+     .ActiveConnection = connection
      .Source = requestStr
      .CursorType = adOpenKeyset
      .LockType = adLockOptimistic
@@ -405,6 +405,154 @@ Sub printBook(ByRef rs)
     End If
 End Sub
 
+' === Export to Excel ===
+
+Sub exportRowToExcel(ByRef row, ByRef objExcel, rowIndex)
+    Dim colIndex
+    for colIndex = 0 to UBound(row)
+    	objExcel.Cells(rowIndex, colIndex + 1).value = row(colIndex)
+    Next
+End Sub
+
+Sub exportStudentsToExcel(ByRef objExcel, ByRef exportStudents)
+    Dim studentHeaders(5), studentValues(5)
+
+    studentHeaders(0) = "studID"
+    studentHeaders(1) = "surname"
+    studentHeaders(2) = "group"
+    studentHeaders(3) = "age"
+    studentHeaders(4) = "mark"
+    studentHeaders(5) = "photoPath"
+
+    ' objExcel.Workbooks.Name = "Students"    
+
+    Dim rowIndex
+    rowIndex = 1
+    call exportRowToExcel(studentHeaders, objExcel, rowIndex)  
+
+    while (not exportStudents.EOF) 
+    	  rowIndex = rowIndex + 1
+    	  studentValues(0) = exportStudents("studID").value
+    	  studentValues(1) = exportStudents("surname").value
+    	  studentValues(2) = exportStudents("group").value
+    	  studentValues(3) = exportStudents("age").value
+    	  studentValues(4) = exportStudents("mark").value
+    	  studentValues(5) = exportStudents("photo_path").value
+	  call exportRowToExcel(studentValues, objExcel, rowIndex)
+	  exportStudents.moveNext
+    wEnd 
+End Sub
+
+Sub exportLibraryToExcel(ByRef objExcel, ByRef exportLibrary)
+    Dim libraryHeaders(5), libraryValues(5)
+
+    libraryHeaders(0) = "bookID"
+    libraryHeaders(1) = "title"
+    libraryHeaders(2) = "author"
+    libraryHeaders(3) = "publication date"
+    libraryHeaders(4) = "studID"
+    libraryHeaders(5) = "association date"
+
+    ' objExcel.Workbooks.Name = "Library"    
+
+    Dim rowIndex
+    rowIndex = 1
+    call exportRowToExcel(libraryHeaders, objExcel, rowIndex)  
+
+    while (not exportLibrary.EOF) 
+    	  rowIndex = rowIndex + 1
+    	  libraryValues(0) = exportLibrary("id").value
+    	  libraryValues(1) = exportLibrary("title").value
+    	  libraryValues(2) = exportLibrary("author").value
+    	  libraryValues(3) = exportLibrary("publication_date").value
+    	  libraryValues(4) = exportLibrary("studID").value
+    	  libraryValues(5) = exportLibrary("association_date").value
+	  call exportRowToExcel(libraryValues, objExcel, rowIndex)
+	  exportLibrary.moveNext
+    wEnd 
+    
+End Sub
+
+Sub exportToExcel
+    Dim objExcel, exportStudents
+    Set objExcel = createObject("Excel.Application")
+    objExcel.Visible = True
+
+    objExcel.Workbooks.Add
+    
+    Set exportStudents = request(conn, "SELECT * FROM students")
+    call exportStudentsToExcel(objExcel, exportStudents)
+
+    Dim exportLibrary
+    Set exportLibrary = request(conn, "SELECT * FROM library")
+    call exportLibraryToExcel(objExcel, exportLibrary)
+End Sub
+
+' === Search text ===
+
+Function exportSearchToExcel(ByRef objExcel, ByRef exportRes, startIndex)
+    Dim searchValues(5)
+
+    ' objExcel.Workbooks.Name = "Search Results"    
+
+    Dim rowIndex
+    rowIndex = startIndex
+
+    while (not exportRes.EOF) 
+    	  searchValues(0) = exportRes("surname").value
+    	  searchValues(1) = exportRes("group").value
+    	  searchValues(2) = exportRes("title").value
+    	  searchValues(3) = exportRes("author").value
+    	  searchValues(4) = exportRes("publication_date").value
+    	  searchValues(5) = exportRes("association_date").value
+	  call exportRowToExcel(searchValues, objExcel, rowIndex)
+	  rowIndex = rowIndex + 1
+	  exportRes.moveNext
+    wEnd 
+    
+    exportSearchToExcel = rowIndex ' + 1
+End Function
+
+Sub searchAndExportToExcel(ByRef conn, searchPredicate)
+    Dim objExcel
+    Set objExcel = createObject("Excel.Application")
+    objExcel.Visible = True
+    objExcel.Workbooks.Add
+
+    Dim searchFields(5)
+    searchFields(0) = "surname"
+    searchFields(1) = "group"
+    searchFields(2) = "title"
+    searchFields(3) = "author"
+    searchFields(4) = "publication_date"
+    searchFields(5) = "association_date"
+
+    Dim searchIndex, startIndex, searchStr, searchRequest, searchHeader(1)
+    startIndex = 1
+
+    for searchIndex = 0 to UBound(searchFields)
+    	searchHeader(0) = "Search '" & searchPredicate & "' in " & searchFields(searchIndex)
+	call exportRowToExcel(searchHeader, objExcel, startIndex)
+	startIndex = startIndex + 1
+
+        call exportRowToExcel(searchFields, objExcel, startIndex)
+	startIndex = startIndex + 1
+
+	searchStr = "SELECT * FROM students LEFT OUTER JOIN library ON students.studID = library.studID WHERE (" & searchFields(searchIndex) & " Like '%" & searchPredicate & "%')"
+    	Set searchRequest = request(conn, searchStr)
+    	startIndex = exportSearchToExcel(objExcel, searchRequest, startIndex) + 1
+    Next
+End Sub
+
+Sub searchTextInDB
+    Dim searchPredicate
+
+    searchPredicate = document.search_form.searchText.value
+    if (document.search_form.search_and_export_excel.checked = True) Then
+       call searchAndExportToExcel(conn, searchPredicate)
+    end If
+End Sub
+
 ' === Maintanance ===
 
 Sub clearStudentFields
@@ -413,7 +561,7 @@ Sub clearStudentFields
     document.students_form.Age.value = ""
     document.students_form.Mark.value = ""
     document.students_form.PhotoPath.value = ""
-  document.students_form.Photo.src="static/img/default.jpg"
+    document.students_form.Photo.src="static/img/default.jpg"
 End Sub
 
 Sub clearLibraryFields
