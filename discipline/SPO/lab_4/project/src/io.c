@@ -12,7 +12,7 @@ clear() { while(getchar() != '\n'); }
 struct Complex
 input_complex() {
     struct Complex complex;
-    
+
     printf("Enter real part: ");
     clear();
     while (!scanf("%lf", &complex.re)) {
@@ -30,14 +30,14 @@ input_complex() {
     return complex;
 }
 
-static struct Complex change_complex_form(struct Complex complex) {   
+static struct Complex change_complex_form(struct Complex complex) {
     struct Complex result;
     result.error = 0; // no error
-    
+
     result.re = sqrt(complex.re * complex.re + complex.im * complex.im);
-    
+
     if (complex.re > 0) {
-        result.im = atan(complex.im / complex.re);        
+        result.im = atan(complex.im / complex.re);
     } else if ((complex.re < 0) && (complex.im >= 0)) {
         result.im = atan(complex.im / complex.re) + PI;
     } else if ((complex.re < 0) && (complex.im < 0)) {
@@ -51,7 +51,7 @@ static struct Complex change_complex_form(struct Complex complex) {
     }
 
     result.im *= 180 / PI;
-    
+
     return result;
 }
 
@@ -77,6 +77,7 @@ print_polar_complex(struct Complex complex) {
         printf("Indeterminate polar value!\n");
 }
 
+void
 print_complex(struct Complex complex) {
     printf("+-------------------------------------+\n");
     printf("Result (in algebraic form): ");
@@ -87,7 +88,7 @@ print_complex(struct Complex complex) {
     printf("+-------------------------------------+\n");
 }
 
-void 
+void
 print_user_menu(struct Complex c1, struct Complex c2) {
     printf("+---------- Complex numbers ----------+\n");
     printf("     first  complex number: "); print_algebraic_complex(c1);

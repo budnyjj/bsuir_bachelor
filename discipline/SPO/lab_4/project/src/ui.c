@@ -9,7 +9,7 @@
 #define complex2_re -5
 #define complex2_im 3
 
-void 
+void
 complex_process() {
     struct Complex c1, c2, result;
 
@@ -27,10 +27,10 @@ complex_process() {
             printf("Input second complex number.\n");
             c2 = input_complex();
             break;
-        
+
         // complex operations
         case 'a':
-        case 'A':       
+        case 'A':
             result = add(c1, c2);
             print_complex(result);
             break;
