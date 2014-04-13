@@ -27,7 +27,7 @@ mul(struct Complex c1, struct Complex c2) {
 }
 
 struct Complex
-div(struct Complex from, struct Complex to) {
+division(struct Complex from, struct Complex to) {
     struct Complex result;
     result.error = 0;
 

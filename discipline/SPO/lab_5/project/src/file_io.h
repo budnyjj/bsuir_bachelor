@@ -1,7 +1,7 @@
 #ifndef __FILE_IO__
 #define __FILE_IO__
 
-void WriteComplex(char *fname, Complex *buffer, int count);
-int ReadComplex(char *fname, Complex *buffer, int count);
+void writeComplex(char *fname, struct Complex *complex, int count);
+int readComplex(char *fname, struct Complex *complex, int count);
 
 #endif
