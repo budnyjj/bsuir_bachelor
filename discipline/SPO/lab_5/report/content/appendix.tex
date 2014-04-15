@@ -1,0 +1,23 @@
+\renewcommand{\thefigure}{\Asbuk{section}.\arabic{figure}}
+\renewcommand{\thetable}{\Asbuk{section}.\arabic{table}}
+\renewcommand{\thelstlisting}{\Asbuk{section}.\arabic{lstlisting}}
+
+\pagestyle{fancy}
+\fancyhf{}  % clear all header and footer fields
+\fancyfoot[R]{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\setlength{\headheight}{10mm}
+\setlength{\headsep}{\baselineskip}
+\chead{Продолжение приложения \Asbuk{section}}
+
+\section*{ПРИЛОЖЕНИЕ A \\ (справочное) \\ Чтение и запись в файл комплексных чисел с помощью функций Win32 API \\ (к подразделу 2.3)}
+
+\thispagestyle{plain}
+\setcounter{section}{1}
+\setcounter{figure}{0}
+\setcounter{table}{0}
+\setcounter{lstlisting}{0}
+
+\lstinputlisting[language=C]{code/code.c}
