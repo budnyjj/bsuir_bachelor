@@ -1,4 +1,3 @@
-#include "ui.h"
 #include "io.h"
 #include "complex.h"
 #include "interface.h"
@@ -71,11 +70,11 @@ int main() {
             break;
         case 'r':
         case 'R':
-            read_file_interface(complex, &size, &count_of_elements);
+            complex = read_file_interface(complex, &size, &count_of_elements);
             break;
         case 'w':
         case 'W':
-            write_file_interface(complex, &size, &count_of_elements);
+            complex = write_file_interface(complex, &size, &count_of_elements);
             break;
         case 'q':
         case 'Q':
