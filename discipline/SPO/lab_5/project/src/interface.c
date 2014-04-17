@@ -6,23 +6,22 @@
 #include "stdlib.h"
 #include "stdio.h"
 
-#define INPUT_SOURCE_DEFAULT "file.complex"
-#define OUTPUT_SOURCE_DEFAULT "file.complex"
+#define INPUT_SOURCE "file.complex"
+#define OUTPUT_SOURCE "file.complex"
 
 #define COUNT_ELEMENTS_TO_WRITE_DEFAULT 2
-#define COUNT_ELEMENTS_TO_READ_DEFAULT 10
-#define COUNT_ELEMENTS_TO_READ_MAX 10000
-#define MAX_SIZE_READ_ARRAY 8
+#define COUNT_ELEMENTS_TO_READ_DEFAULT 50
+#define COUNT_ELEMENTS_TO_READ_MAX 100000
 
 static int get_index_to_edit_complex(int count_of_elements);
 static int get_count_of_elements_to_rw(int count_of_elements);
 static int get_new_count_to_read();
-static int realloc_complex(struct Complex *complex, int *size, double coeff);
+static int realloc_complex(struct Complex **complex, int *size, double coeff);
 
-void
+struct Complex *
 write_file_interface(struct Complex *complex, int *size, int *count_of_elements) {
     int count_elements_to_write = COUNT_ELEMENTS_TO_WRITE_DEFAULT;
-    char file_source[] = OUTPUT_SOURCE_DEFAULT;
+    char file_source[] = OUTPUT_SOURCE;
 
     while (1) {
         print_write_file_menu(complex, *count_of_elements, count_elements_to_write, file_source);
@@ -50,7 +49,7 @@ write_file_interface(struct Complex *complex, int *size, int *count_of_elements)
         {
             int realloc_error = 0;
             if (*count_of_elements >= *size) {
-                realloc_error = realloc_complex(complex, size, 2.0);
+                realloc_error = realloc_complex(&complex, size, 2.0);
             }
             if (!realloc_error) {
                 printf("Please, input new complex number.\n");
@@ -67,7 +66,7 @@ write_file_interface(struct Complex *complex, int *size, int *count_of_elements)
         {
             if (*count_of_elements > 0) {
                 if (*count_of_elements <= ((*size) * 0.5)) {
-                    realloc_complex(complex, size, 0.5);
+                    realloc_complex(&complex, size, 0.5);
                 }
                 (*count_of_elements)--;
             }
@@ -79,28 +78,30 @@ write_file_interface(struct Complex *complex, int *size, int *count_of_elements)
         }
         case 'w':
         case 'W':
+        {
             if (*count_of_elements >= count_elements_to_write) {
                 writeComplex(file_source, complex, count_elements_to_write);
-                return;
+                return complex;
             }
             else {
                 printf("Change count of elements to write!\n");
                 wait_user_reaction();
                 break;
             }
+        }
         case 'b':
         case 'B':
-            return;
+            return complex;
         default:
             printf("Incorrect input, please choose an existing element\n");
         }
     }
 }
 
-void
+struct Complex *
 read_file_interface(struct Complex *complex, int *size, int *count_of_elements) {
     int count_elements_to_read = COUNT_ELEMENTS_TO_READ_DEFAULT;
-    char file_source[] = INPUT_SOURCE_DEFAULT;
+    char file_source[] = INPUT_SOURCE;
 
     while (1) {
         print_read_file_menu(file_source, count_elements_to_read);
@@ -113,34 +114,34 @@ read_file_interface(struct Complex *complex, int *size, int *count_of_elements) 
             break;
         case 'r':
         case 'R':
-        {
+        {            
             int realloc_error = 0;
             while (count_elements_to_read > *size) {
-                realloc_error = realloc_complex(complex, size, 2.0);
+                realloc_error = realloc_complex(&complex, size, 2.0);
                 if (realloc_error) {
-                    printf("No have memory to read elements!\n");
-                    wait_user_reaction();
-                    break;
+                    return complex;
                 }
             }
+
             if (!realloc_error) {
                 int read_elements = 0;
                 read_elements = readComplex(file_source, complex, count_elements_to_read);
                 *count_of_elements = read_elements;
-                
+
                 if (read_elements) {
-                    while (read_elements <= ((*size)*0.5)) {
-                        realloc_complex(complex, size, 0.5);
-                    }
                     print_read_results(complex, read_elements);
+                    while (read_elements <= ((*size)*0.5)) {
+                        realloc_complex(&complex, size, 0.5);
+                    }
                 }
-                return;
+
+                return complex;
             }
             break;
         }
         case 'b':
         case 'B':
-            return;
+            return complex;
         default:
             printf("Incorrect input, please choose an existing element\n");
         }
@@ -207,17 +208,18 @@ get_count_of_elements_to_rw(int count_of_elements) {
 }
 
 static int
-realloc_complex(struct Complex *complex, int *size, double coeff) {
+realloc_complex(struct Complex **complex, int *size, double coeff) {
     struct Complex * new_complex = 0;
-    new_complex = (struct Complex *) realloc(complex, (int)(coeff * (*size) * sizeof(struct Complex)));
+    new_complex = (struct Complex *) realloc(*complex, (int)(coeff * (*size) * sizeof(struct Complex)));
 
     if (new_complex) {
-        complex = new_complex;
         (*size) = (int) ((*size) * coeff);
+        *complex = new_complex;
         return 0;
     }
     else {
         printf("Realloc error!\n");
+        wait_user_reaction();
         return 1;
     }
 }
