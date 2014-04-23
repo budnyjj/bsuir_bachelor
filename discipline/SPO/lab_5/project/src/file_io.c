@@ -7,6 +7,10 @@
 void 
 writeComplex(char *fname, struct Complex *complex, int count) {
     HANDLE hFile;
+    BOOL isWritten = FALSE;
+    DWORD dwBytesToWrite = sizeof(complex[0]) * count;
+    DWORD dwBytesWritten = 0;
+
     hFile = CreateFileA ((LPCSTR)fname,         // the name of the file to be created or opened
                         GENERIC_WRITE,          // open for writing
                         0,                      // do not share
@@ -20,9 +24,6 @@ writeComplex(char *fname, struct Complex *complex, int count) {
         return;
     }
     
-    BOOL isWritten = FALSE;
-    DWORD dwBytesToWrite = sizeof(complex[0]) * count;
-    DWORD dwBytesWritten = 0;
     isWritten = WriteFile (hFile,              // open file handle
                            complex,            // start of data to write
                            dwBytesToWrite,     // number of bytes to write
@@ -44,6 +45,10 @@ writeComplex(char *fname, struct Complex *complex, int count) {
 int 
 readComplex(char *fname, struct Complex *complex, int count) {
     HANDLE hFile;
+    BOOL isRead = FALSE;
+    DWORD readBytes = 0;
+    LPDWORD lpReadBytes = &readBytes;
+    DWORD bytesToRead = sizeof(complex[0]) * count;
 
     hFile = CreateFileA (fname,                 // the name of the file to be opened
                         GENERIC_READ,           // open for reading
@@ -57,12 +62,6 @@ readComplex(char *fname, struct Complex *complex, int count) {
         print_rw_message("Error! Cannot open file!");
         return 0;
     }
-
-    BOOL isRead = FALSE;
-    DWORD readBytes = 0;
-    LPDWORD lpReadBytes = &readBytes;
-
-    DWORD bytesToRead = sizeof(complex[0]) * count;
 
     isRead = ReadFile(hFile,                // open file handle
                       complex,              // buffer to write bytes

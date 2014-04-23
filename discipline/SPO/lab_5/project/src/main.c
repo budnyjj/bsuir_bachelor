@@ -30,10 +30,11 @@ int main() {
     c2.im = COMPLEX2_IM;
 
     while (1) {
+        char choice;
         print_main_menu(c1, c2);
-        char ch = getchar();
+        choice = getchar();
         clear_input();
-        switch (ch) {
+        switch (choice) {
         case '1':
         {
             int index = 0;
@@ -63,11 +64,14 @@ int main() {
             break;
         case 'd':
         case 'D':
-            result = division(c1, c2);
-            if (!result.error) {
+        {
+            int error = 0;
+            result = division(c1, c2, &error);
+            if (!error) {
                 print_complex(result);
             }
             break;
+        }
         case 'r':
         case 'R':
             complex = read_file_interface(complex, &size, &count_of_elements);
