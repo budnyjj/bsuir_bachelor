@@ -24,8 +24,9 @@ write_file_interface(struct Complex *complex, int *size, int *count_of_elements)
     char file_source[] = OUTPUT_SOURCE;
 
     while (1) {
+        char choice;
         print_write_file_menu(complex, *count_of_elements, count_elements_to_write, file_source);
-        char choice = getchar();
+        choice = getchar();
         clear_input();
         switch (choice) {
         case 'c':
@@ -104,8 +105,9 @@ read_file_interface(struct Complex *complex, int *size, int *count_of_elements) 
     char file_source[] = INPUT_SOURCE;
 
     while (1) {
+        char choice;
         print_read_file_menu(file_source, count_elements_to_read);
-        char choice = getchar();
+        choice = getchar();
         clear_input();
         switch (choice) {
         case 'c':
@@ -151,8 +153,9 @@ read_file_interface(struct Complex *complex, int *size, int *count_of_elements) 
 void
 change_complex_interface(struct Complex *c, struct Complex *source_array, int count_of_elements) {
     while (1) {
+        char choice;
         print_change_complex_menu();
-        char choice = getchar();
+        choice = getchar();
         clear_input();
         switch (choice) {
         case 'e':
@@ -163,9 +166,9 @@ change_complex_interface(struct Complex *c, struct Complex *source_array, int co
         case 'c':
         case 'C':
             if (count_of_elements > 0) {
-            print_complex_array(source_array, count_of_elements);
-            int index = get_index_to_edit_complex(count_of_elements);
-            *c = source_array[index];
+                print_complex_array(source_array, count_of_elements);
+                int index = get_index_to_edit_complex(count_of_elements);
+                *c = source_array[index];
             }
             else {
                 printf("No have existing items!\n");

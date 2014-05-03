@@ -27,13 +27,12 @@ mul(struct Complex c1, struct Complex c2) {
 }
 
 struct Complex
-division(struct Complex from, struct Complex to) {
+division(struct Complex from, struct Complex to, int *error) {
     struct Complex result;
-    result.error = 0;
 
     if (!(to.im) && !(to.re)) {
         printf("Invalid operation (devide by zero error)!\n");
-        result.error = 1;
+        *error = 1;
     }
 
     result.re = (from.re * to.re + from.im * to.im) / (to.re * to.re + to.im * to.im);

@@ -6,7 +6,7 @@
 
 #define PI 3.14159265358979323846
 
-static struct Complex change_complex_form(struct Complex complex);
+static struct Complex change_complex_form(struct Complex complex, int *error);
 
 void
 clear_input() { while(getchar() != '\n'); }
@@ -40,10 +40,8 @@ input_complex() {
 }
 
 static struct Complex 
-change_complex_form(struct Complex complex) {   
+change_complex_form(struct Complex complex, int *error) {   
     struct Complex result;
-    result.error = 0; // no error
-    
     result.re = sqrt(complex.re * complex.re + complex.im * complex.im);
     
     if (complex.re > 0) {
@@ -57,7 +55,7 @@ change_complex_form(struct Complex complex) {
     } else if ((!complex.re) && (complex.im < 0)) {
         result.im = -(PI / 2);
     } else if ((!complex.re) && (!complex.im)) {
-        result.error = 1;
+        *error = 1;
     }
 
     result.im *= 180 / PI;
@@ -78,13 +76,16 @@ print_algebraic_form(struct Complex complex) {
 
 static void
 print_polar_form(struct Complex c) {
+    int error = 0;
     struct Complex polar_complex;
-    polar_complex = change_complex_form(c);
+    polar_complex = change_complex_form(c, &error);
 
-    if (!polar_complex.error)
+    if (!error) {
         printf("%g * e^(%g*i)\n", polar_complex.re, polar_complex.im);
-    else
+    }
+    else {
         printf("Indeterminate polar value!\n");
+    }
 }
 
 void
@@ -173,7 +174,8 @@ void
 print_complex_array(struct Complex *complex, int count) {
     printf("\n");
     if (count > 0) {
-        for (int i = 0; i < count; i++) {
+        int i;
+        for (i = 0; i < count; i++) {
             printf("       a[%d]: ", i);
             print_algebraic_form(complex[i]);
         }
