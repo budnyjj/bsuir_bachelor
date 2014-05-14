@@ -1,5 +1,6 @@
 -- usage example
--- select @avg_price = average_price('milk');
+-- set @avg_price = average_price('milk');
+-- select @avg_price;
 
 delimiter endfunc
 create function average_price(
@@ -7,7 +8,7 @@ create function average_price(
     returns float
 begin
     declare avg_price float;
-    select avg(price) from 
+    select avg(price) from
         warehouse where title = _title into avg_price;
     return avg_price;
 end;

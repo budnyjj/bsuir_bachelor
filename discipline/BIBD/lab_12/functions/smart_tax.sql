@@ -1,5 +1,5 @@
 -- usage example
--- select @tax = smart_tax(1);
+-- set @tax = smart_tax(1); select @tax;
 
 delimiter endfunc
 create function smart_tax(_id int)
@@ -8,9 +8,9 @@ begin
     declare result float;
     declare cost int;
     declare tax_percent int;
-    
+
     select price*count from warehouse
-        where id = _id into cost;  
+        where id = _id into cost;
 
     if cost < 100000 then
         set tax_percent = 10;
