@@ -7,6 +7,9 @@
 
 void filling_complexes(struct Complexes *complexes, HANDLE hThread) {
 	while (1) {
+		printf("--> Second thread suspended\n");
+		SuspendThread(hThread);
+
 		printf("Press q to exit, or any key to continue...\n");
 		char ch;
 		ch = getchar();
@@ -15,8 +18,6 @@ void filling_complexes(struct Complexes *complexes, HANDLE hThread) {
 		}
 		
 		if (complexes->count == 0) {
-			SuspendThread(hThread);
-
 			printf("Count of complex numbers to input: %i\n",
 				complexes->complexes_size);
 			while (complexes->count < complexes->complexes_size) {
@@ -25,6 +26,7 @@ void filling_complexes(struct Complexes *complexes, HANDLE hThread) {
 			}
 			
 			ResumeThread(hThread);
+			printf("--> Second thread resumed\n");
 			Sleep(100);
 		}
 	}
