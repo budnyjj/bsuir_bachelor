@@ -3,6 +3,7 @@
 #include "file_io.h"
 
 #include <Windows.h>
+#include <stdio.h>
 
 #define FILENAME "file.complex"
 
