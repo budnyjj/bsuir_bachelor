@@ -11,7 +11,7 @@ begin
     select passport_code from products
         where code = _code into _passport_code;
     select _passport_code
-        regexp '^[A-Z]{2}-{1}[0-9]{8}' into result;
+        regexp '^[A-Z]{2}-[0-9]{8}$' into result;
     return result;
 end;
 endfunc

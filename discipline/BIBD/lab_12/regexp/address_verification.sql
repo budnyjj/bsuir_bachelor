@@ -11,7 +11,7 @@ begin
     select supplier_address from products
         where code = _code into _address;
     select _address
-        regexp '(Minsk|Grodno)' into result;
+        regexp '^(Minsk|Grodno)$' into result;
     return result;
 end;
 endfunc
