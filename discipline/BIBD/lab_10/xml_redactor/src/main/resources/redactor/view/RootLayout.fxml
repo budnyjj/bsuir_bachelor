@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<BorderPane id="BorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-1.0" minWidth="-1.0" prefHeight="800.0" prefWidth="500.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="redactor.controller.RootController">
+  <center>
+    <TableView id="rowTable" fx:id="tableView" editable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="80.0" tableMenuButtonVisible="false" BorderPane.alignment="CENTER">
+      <BorderPane.margin>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+      </BorderPane.margin>
+    </TableView>
+  </center>
+  <top>
+    <MenuBar>
+      <menus>
+        <Menu mnemonicParsing="false" text="File">
+          <items>
+            <MenuItem mnemonicParsing="false" onAction="#onOpen" text="Open" />
+            <MenuItem mnemonicParsing="false" onAction="#onSave" text="Save" />
+            <MenuItem mnemonicParsing="false" onAction="#onSaveAs" text="Save As" />
+            <MenuItem mnemonicParsing="false" onAction="#onLoadSampleData" text="Load sample data" />
+            <MenuItem mnemonicParsing="false" onAction="#onPrintToConsole" text="Print to console" />
+            <MenuItem mnemonicParsing="false" onAction="#onExit" text="Exit" />
+          </items>
+        </Menu>
+      </menus>
+    </MenuBar>
+  </top>
+</BorderPane>

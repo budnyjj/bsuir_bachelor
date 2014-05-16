@@ -1,0 +1,44 @@
+<table>
+  <row>
+    <firstname type="unicode">test</firstname>
+    <lastname type="unicode">Budny</lastname>
+    <startdate type="date">2013-03-12</startdate>
+    <enddate type="date">2014-12-01</enddate>
+    <customerid type="unicode">123</customerid>
+  </row>
+  <row>
+    <firstname type="unicode">Roman</firstname>
+    <lastname type="unicode">Budny</lastname>
+    <startdate type="date">2013-03-12</startdate>
+    <enddate type="date">2014-12-01</enddate>
+    <customerid type="unicode">roma</customerid>
+  </row>
+  <row>
+    <firstname type="unicode"></firstname>
+    <lastname type="unicode">Anashkevich</lastname>
+    <startdate type="date">2015-03-12</startdate>
+    <enddate type="date">2014-12-01</enddate>
+    <customerid type="unicode">roma</customerid>
+  </row>
+  <row>
+    <firstname type="unicode">Pavel</firstname>
+    <lastname type="unicode">Anashkevich</lastname>
+    <startdate type="date">2015-03-12</startdate>
+    <enddate type="date">2014-12-01</enddate>
+    <customerid type="unicode">pasha</customerid>
+  </row>
+  <row>
+    <firstname type="unicode">sef_new</firstname>
+    <lastname type="unicode">asdf</lastname>
+    <startdate type="date">2013-12-12</startdate>
+    <enddate type="date">2012-12-12</enddate>
+    <customerid type="unicode">32</customerid>
+  </row>
+  <row>
+    <firstname type="unicode">432</firstname>
+    <lastname type="unicode">123</lastname>
+    <startdate type="date">2013-01-12</startdate>
+    <enddate type="date">2014-12-12</enddate>
+    <customerid type="unicode">test_value</customerid>
+  </row>
+</table>
