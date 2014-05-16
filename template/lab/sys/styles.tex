@@ -111,11 +111,20 @@
 \setlist{nosep,listparindent=\parindent}
 \setlist[1]{itemindent=19mm,leftmargin=0em,itemsep=0em,topsep=0em,parsep=0em}             
 \setlist[itemize,1]{label=$-$}
-\setlist[enumerate,1]{label=\asbuk*)}
+\setlist[enumerate,1]{label=\arabic*)}
 
 \setlist[2]{itemindent=6.5em,leftmargin=0em,itemsep=0em,topsep=0em,parsep=0em}             
-\setlist[enumerate,2]{label=\arabic*)}
 
+% Определяем новый стиль для списков,
+% на которые есть ссылки в тексте
+\newlist{reflist}{enumerate*}{1}
+\setlist*[reflist,1]{%
+  label=\asbuk*),
+}
+
+\setlist*[reflist,2]{%
+  label=\arabic*),
+}
 %%% Оформление подписей к плавающим элементам
 
 \captionsetup[figure]{labelsep=endash,

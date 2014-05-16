@@ -3,10 +3,16 @@
 \renewcommand{\thelstlisting}{\Asbuk{section}.\arabic{lstlisting}}
 
 \addcontentsline{toc}{section}{Приложение А}
-\section*{ПРИЛОЖЕНИЕ A \\ (справочное) \\ <название приложения>}
+\section*{ПРИЛОЖЕНИЕ A \\ (справочное) \\ Код создания базы данных с разработанной схемой}
+\label{sec:appendix_a}
 
 \setcounter{section}{1}
 \setcounter{figure}{0}
 \setcounter{table}{0}
 \setcounter{lstlisting}{0}
+
+\lstinputlisting[basicstyle=\small\ttfamily,language=sql,
+  label=lst:sql_create_tables]{code/create_tables.sql}
+
+
 

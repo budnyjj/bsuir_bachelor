@@ -14,7 +14,7 @@
 \widowpenalty=10000		% Запрещаем разрыв страницы после последней строки абзаца
 \interfootnotelinepenalty=10000 % Запрет разрывов сносок
 
-%%% Нумерация %%%
+%%% Нумерация страниц %%%
 
 \fancypagestyle{plain}{%
 \fancyhf{} % clear all header and footer fields
@@ -56,17 +56,27 @@
 %%% Размеры заголовков
 \newcommand{\sectionbreak}{\clearpage}
 
-\titleformat{\section}{\large\bfseries}{\thesection\:}{0em}{}
+\titleformat{\section}{\large\bfseries}{\thesection}{\wordsep}{}
 \titlespacing*{\section}{5ex}{1\baselineskip}{1\baselineskip}
 
 \titleformat{name=\section,numberless}{\large\bfseries\filcenter}{}{0em}{}
 \titlespacing*{name=\section,numberless}{0ex}{1\baselineskip}{1\baselineskip}
 
-\titleformat{name=\subsection}{\normalsize\bfseries}{\thesubsection\:}{0em}{}
+\titleformat{name=\subsection}{\normalsize\bfseries}{\thesubsection}{\wordsep}{}
 \titlespacing*{\subsection}{5ex}{1\baselineskip}{1\baselineskip}
 
 \titleformat{name=\subsection,numberless}{\normalsize\bfseries}{}{0em}{}
 \titlespacing*{name=\subsection,numberless}{0ex}{1\baselineskip}{1\baselineskip}
+
+%%% Нумерация параграфов
+
+\counterwithout{paragraph}{subsubsection}
+\counterwithin{paragraph}{subsection}
+\renewcommand{\theparagraph}{\thesubsection.\arabic{paragraph}}
+\setcounter{secnumdepth}{4}
+
+\titleformat{name=\paragraph}[runin]{\normalsize\bfseries}{\theparagraph}{\wordsep}{}
+\titlespacing*{\paragraph}{5ex}{0em}{\wordsep}
 
 %%% Размеры текста формул %%%
 
@@ -97,10 +107,34 @@
   % \setlength{\belowdisplayskip}{1\baselineskip}
   \setlength{\belowdisplayshortskip}{1\baselineskip}
 }
+           
+%%% Оформление списков
+\AddEnumerateCounter{\asbuk}{\@asbuk}{\cyrm}
 
-             
-\setitemize[0]{itemindent=3.4em,leftmargin=0em,itemsep=0em,topsep=0em,parsep=0em}
-\renewcommand{\labelitemi}{$-$}
+\setlist{nosep,listparindent=\parindent}
+\setlist[1]{itemindent=18mm,leftmargin=0em,itemsep=0em,topsep=0em,parsep=0em}             
+\setlist[itemize,1]{label=$-$}
+\setlist[enumerate,1]{label=\arabic*)}
+
+\setlist[2]{itemindent=6.5em,leftmargin=0em,itemsep=0em,topsep=0em,parsep=0em}             
+
+% Определяем новый стиль для списков,
+% на которые есть ссылки в тексте
+\newlist{reflist}{enumerate*}{1}
+\setlist*[reflist,1]{%
+  label=\asbuk*),
+}
+
+\setlist*[reflist,2]{%
+  label=\arabic*),
+}
+
+%% Нумерация плавающих элементов
+
+\counterwithin{figure}{section}
+\counterwithin{table}{section}
+
+%% Подписи плавающих элементов
 
 \captionsetup[figure]{
   labelsep=endash,
@@ -121,7 +155,7 @@
 }
 
 \lstset{
-basicstyle=\normalsize,
+basicstyle=\small\ttfamily,
 keywordstyle=\bfseries,
 commentstyle=\itshape,
 numbers=left,
