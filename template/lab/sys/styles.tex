@@ -17,7 +17,7 @@
 %%% Интерлиньяж
 \setstretch{1.15}
 
-%%% Нумерация %%%
+%%% Нумерация страниц %%%
 \fancypagestyle{empty}{%
 \fancyhf{} % clear all header and footer fields
 \renewcommand{\headrulewidth}{0pt}
@@ -74,6 +74,16 @@
 
 \titleformat{name=\subsection,numberless}{\normalsize\bfseries}{}{0em}{}
 
+%%% Нумерация параграфов
+
+\counterwithout{paragraph}{subsubsection}
+\counterwithin{paragraph}{subsection}
+\renewcommand{\theparagraph}{\thesubsection.\arabic{paragraph}}
+\setcounter{secnumdepth}{4}
+
+\titleformat{name=\paragraph}[runin]{\normalsize\bfseries}{\theparagraph}{\wordsep}{}
+\titlespacing*{\paragraph}{5ex}{0em}{\wordsep}
+
 %%% Размеры текста формул %%%
 
 \DeclareMathSizes{12}{12}{6}{4}
@@ -125,6 +135,9 @@
 \setlist*[reflist,2]{%
   label=\arabic*),
 }
+
+
+
 %%% Оформление подписей к плавающим элементам
 
 \captionsetup[figure]{labelsep=endash,
