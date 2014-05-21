@@ -36,14 +36,14 @@ def to_dbf(table, dbf_path):
               for idx, header in enumerate(table.headers))
 
     DBFTable = dbf.Table(dbf_path, DBFHeader)
-    with DBFTable:    
+    with DBFTable:
         for row in table.data:
             DBFTable.append(row)
 
 # type conversions for dbf format
 cnv_to = {
-    "str": "C(254)",
-    "unicode": "C(254)",
+    "str": "C(80)",
+    "unicode": "C(80)",
     "int": "N(17,0)",
     "float": "N(17,7)",
     "bool": "L",

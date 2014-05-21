@@ -1,0 +1,11 @@
+apply from: 'javafx.plugin'
+
+repositories {
+    flatDir {
+        dirs '/home/budnyjj/dev/java/lib'
+    }
+}
+
+dependencies {
+    compile group: 'com.thoughtworks', name: 'xstream', version: '1.4.7'
+}

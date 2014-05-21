@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual C++ Express 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "complex_with_dll", "complex_with_dll\complex_with_dll.vcxproj", "{F8054B08-8B5F-486B-A315-6141AB26BD88}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "complex", "..\dll\complex\complex\complex.vcxproj", "{5FC34BC6-2BAE-495E-9DCD-81315DDF36F5}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "io", "..\dll\io\io\io.vcxproj", "{D7BD9E16-5CCC-459B-87E7-6A422870B236}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F8054B08-8B5F-486B-A315-6141AB26BD88}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F8054B08-8B5F-486B-A315-6141AB26BD88}.Debug|Win32.Build.0 = Debug|Win32
+		{F8054B08-8B5F-486B-A315-6141AB26BD88}.Release|Win32.ActiveCfg = Release|Win32
+		{F8054B08-8B5F-486B-A315-6141AB26BD88}.Release|Win32.Build.0 = Release|Win32
+		{5FC34BC6-2BAE-495E-9DCD-81315DDF36F5}.Debug|Win32.ActiveCfg = Debug|Win32
+		{5FC34BC6-2BAE-495E-9DCD-81315DDF36F5}.Debug|Win32.Build.0 = Debug|Win32
+		{5FC34BC6-2BAE-495E-9DCD-81315DDF36F5}.Release|Win32.ActiveCfg = Release|Win32
+		{5FC34BC6-2BAE-495E-9DCD-81315DDF36F5}.Release|Win32.Build.0 = Release|Win32
+		{D7BD9E16-5CCC-459B-87E7-6A422870B236}.Debug|Win32.ActiveCfg = Debug|Win32
+		{D7BD9E16-5CCC-459B-87E7-6A422870B236}.Debug|Win32.Build.0 = Debug|Win32
+		{D7BD9E16-5CCC-459B-87E7-6A422870B236}.Release|Win32.ActiveCfg = Release|Win32
+		{D7BD9E16-5CCC-459B-87E7-6A422870B236}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -29,7 +29,7 @@ class TypeFilters:
         filter_dbf.add_pattern("*.dbf")
         filter_dbf.add_pattern("*.DBF")
         dialog.add_filter(filter_dbf)
-
+1
     def add_any_filter(self, dialog):
         filter_any = Gtk.FileFilter()
         filter_any.set_name("Any files")
