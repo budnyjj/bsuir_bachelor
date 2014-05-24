@@ -7,13 +7,13 @@
 На рисунке~\ref{lst:task_struct} представлена структура, содержащая массив элементов типа Complex.
 
 \begin{lstlisting}[caption=Структура\text{,} содержащая массив элементов типа Complex,label=lst:task_struct]
-  #define COMPLEXES_SIZE 5
+#define COMPLEXES_SIZE 5
 
-  struct Complexes {
-    int count;
-    int complexes_size;
-    struct Complex complexes[COMPLEXES_SIZE];
-  };
+struct Complexes {
+  int count;
+  int complexes_size;
+  struct Complex complexes[COMPLEXES_SIZE];
+};
 \end{lstlisting}
 
 Главный поток программы (функция main()) создаёт вторичный поток, передав в него указатель на структуру типа Complex. Вторичный поток запоминает значение из поля count, открывает файл, и затем в цикле, если значение count изменилось, записывает элементы массива complexes в файл. После этого поток закрывает файл и завершается.
@@ -32,51 +32,38 @@
 \subsection{Исходные данные}
 
 
-На рисунках~\ref{lst:complex_h_code}~-~\ref{lst:file_io_h_code} представлено содержимое наиболее важных заголовочных файлов, реализованных в предыдущих лабораторных работах.
+На рисунке~\ref{lst:complex_h_code} представлено содержимое наиболее важных заголовочных файлов, реализованных в предыдущих лабораторных работах.
 
-\begin{lstlisting}[caption=Исходный код заколовочного файла complex.h,label=lst:complex_h_code]
-  #ifndef __COMPLEX__
-  #define __COMPLEX__
+\begin{lstlisting}[caption=Исходный код заголовочного файла complex.h,label=lst:complex_h_code]
+struct Complex {
+    double re;
+    double im;
+};
 
-  struct Complex {
-      double re;
-      double im;
-  };
-  struct Complex add(struct Complex c1, struct Complex c2);
-  struct Complex sub(struct Complex c1, struct Complex c2);
-  struct Complex mul(struct Complex c1, struct Complex c2);
-  struct Complex division(struct Complex c1, struct Complex c2, int * error);
+struct Complex add(struct Complex c1, struct Complex c2);
+struct Complex sub(struct Complex c1, struct Complex c2);
+struct Complex mul(struct Complex c1, struct Complex c2);
+struct Complex division(struct Complex c1,
+                        struct Complex c2,
+                        int * error);
 
-  void writeComplex(char *fname, struct Complex *complex, int count);
-  int readComplex(char *fname, struct Complex *complex, int count);
+void writeComplex(char *fname,
+                  struct Complex *complex,
+                  int count);
 
-  #endif
+int readComplex(char *fname,
+                struct Complex *complex,
+                int count);
+
+struct Complex input_complex();
+void print_algebraic_form(struct Complex complex);
+void print_polar_form(struct Complex c);
+void print_complex(struct Complex complex);
+void print_complex_array(struct Complex *complex, int count);
 \end{lstlisting}
 
-\begin{lstlisting}[caption=Исходный код заколовочного файла complex\_io.h,label=lst:complex_io_h_code]
-  #ifndef __COMPLEX_IO__
-  #define __COMPLEX_IO__
-
-  struct Complex input_complex();
-  void print_algebraic_form(struct Complex complex);
-  void print_polar_form(struct Complex c);
-  void print_complex(struct Complex complex);
-  void print_complex_array(struct Complex *complex, int count);
-
-  #endif
-\end{lstlisting}
-
-\begin{lstlisting}[caption=Исходный код заколовочного файла file\_io.h,label=lst:file_io_h_code]
-  #ifndef __FILE_IO__
-  #define __FILE_IO__
-
-  void writeComplex(char *fname, struct Complex *complex, int count);
-  int readComplex(char *fname, struct Complex *complex, int count);
-
-  #endif
-\end{lstlisting}
-
-Функции, объявленные в изображенных выше заголовочных файлах использовались при выполнении лабораторной работы №7.
+Функции, объявленные в на рисунке~\ref{lst:complex_h_code},
+были использованы при выполнении лабораторной работы №7.
 
 \subsection{Особенности разработанной программы}
 
@@ -87,7 +74,7 @@
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=150mm,height=80mm]{img/uml}
-  \caption{Диаграмма пакетов UML лабораторной работы №7}\label{fig:uml}
+  \caption{UML диаграмма пакетов лабораторной работы №7}\label{fig:uml}
 \end{figure}
 
 После запуска программы на выполнение главный поток (функция создаёт вторичный поток, передав в него указатель на функцию записи комплексных чисел в файл. В главном потоке пользователь вводит комплексные числа.
