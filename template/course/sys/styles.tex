@@ -33,8 +33,20 @@
 \pagestyle{plain}
 
 %%% Библиография %%%
+
 \makeatletter
-\bibliographystyle{ugost2003s}	% Оформляем библиографию в соответствии с ГОСТ 7.1 2003
+\bibliographystyle{ugost2003s} % Оформляем библиографию в соответствии с ГОСТ 7.1 2003
+
+\let\oldthebibliography=\thebibliography
+\let\endoldthebibliography=\endthebibliography
+\renewenvironment{thebibliography}[1]{
+  \begin{oldthebibliography}{#1}
+    \setlength{\parskip}{0ex}
+    \setlength{\itemsep}{0ex}
+}
+{
+\end{oldthebibliography}
+}
 
 %%% Изображения %%%
 \graphicspath{{images/}} % Пути к изображениям
