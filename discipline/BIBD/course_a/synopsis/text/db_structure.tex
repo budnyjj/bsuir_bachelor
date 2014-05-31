@@ -71,8 +71,6 @@ Enterprise Architect, разработанное компанией Sparx System
 Необходимо отметить, что существуют нормальные формы более высоких порядков, но
 на практике они используются реже.
 
-*** аномалии ***
-
 \subsection{Цели и задачи проектирования базы данных}
 \label{sub:db_structure_aims}
 
@@ -98,8 +96,6 @@ Enterprise Architect, разработанное компанией Sparx System
   \item физическое проектирование.
 \end{itemize}
 
-\pagebreak
-
 Рассмотрим каждый из этапов подробнее.
 
 \textit{Концептуальное (инфологическое) проектирование} --- создание концептуального
@@ -108,11 +104,9 @@ Enterprise Architect, разработанное компанией Sparx System
 
 Концептуальное проектирование базы данных начинается с создания концептуальной
 модели данных предприятия, полностью независимой от любых деталей
-реализации.
-К последним относятся выбранный тип СУБД,
+реализации. К последним относятся выбранный тип СУБД,
 состав программ приложения, используемый язык программирования, конкретная аппаратная
 платформа, вопросы производительности и любые другие физические особенности реализации.
-
 
 \textit{Логическое (даталогическое) проектирование} --- преобразование
 концептульного представления в логическую структуру базы данных,
@@ -147,23 +141,28 @@ Enterprise Architect, разработанное компанией Sparx System
 Разрабатываемый интернет-магазин должен предоставлять актуальную информацию о
 имеющихся в продаже товарах конечному пользователю, позволять совершать покупки.
 
-Так, \textit{пользователь} имеет возможность просматривать все веб-страницы,
-совершать покупки, а также экспортировать данные о товарах в файлы формата xml.
-
-\textit{Администратор} разрабатываемого интернет-магазина просматривает
-и редактирует каталог товаров. Также он имеет возможность
-пополнения каталога товаров путём загрузки информации в базу данных с
-локального носителя.
-
 На рисунке~\ref{fig:use_case} изображена диаграмма прецедентов
 разрабатываемого интернет-магазина.
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=130mm]{pic/use_case.png}
+  \includegraphics[width=100mm]{pic/use_case.png}
   \caption{Диаграмма прецедентов \\ проектируемого интернет-магазина}
   \label{fig:use_case}
 \end{figure}
+
+Так, \textit{пользователь} имеет возможность просматривать все веб-страницы,
+совершать покупки, а также экспортировать данные о товарах в файлы формата xml.
+
+Совершив покупку пользователь автоматически регистрируется в системе,
+тем самым переходя в группу \textit{авторизованных пользователей}.
+Зарегистрированные в системе пользователи могут просматривать сделанные ранее покупки,
+получать назначаемые администратором скидки.
+
+\textit{Администратор} разрабатываемого интернет-магазина просматривает
+и редактирует каталог товаров. Также он имеет возможность
+пополнения каталога товаров путём загрузки информации в базу данных с
+локального носителя.
 
 \paragraph{}
 Пополнение каталога товаров разрабатываемого интернет-магазина должно осуществляться
@@ -175,35 +174,371 @@ Enterprise Architect, разработанное компанией Sparx System
 Исходя из описанных выше минимальных требований к разрабатываемой
 системе, можно выделить следующие необходимые объекты-сущности:
 \begin{itemize}
-  \item <<велосипеды>> --- хранит полное описание велосипеда;
-  \item <<велотовары>> --- хранит полное описание велотовара;
+  \item <<велосипеды>> --- хранит полное описание велосипедов;
+  \item <<велотовары>> --- хранит полное описание велотоваров;
   \item <<товары в наличии>> --- хранит информацию о товарах, находящихся в наличии;
   \item <<заказы товаров>> --- хранит информацию о заказах, ожидающих выполнения;
   \item <<архив заказов>> --- сохраняет информацию о совершенных пользователями
     покупках;
-  \item <<пользователи>> --- хранит информацию о зарегистрированных
-    в системе пользователях.
+  \item <<пользователи>> --- хранит информацию о всех зарегистрированных пользователях.
 \end{itemize}
+
+Отметим, что необходимость существования сущности <<архив заказов>> в разрабатываемой
+системе обусловлена стремлением повысить скорость работы системы. Так, при просмотре
+архивных данных объект <<заказы товаров>> нагружаться не будет.
+
+\pagebreak
 
 На рисунке~\ref{fig:ER_model} представлена ER-модель
 разрабатываемого интернет-магазина.
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=165mm]{pic/ER.png}
+  \includegraphics[width=150mm]{pic/ER.png}
   \caption{ER-модель проектируемого интернет-магазина}
   \label{fig:ER_model}
 \end{figure}
 
-*** рассмотреть некоторые сущности подробнее ***
+%Каждому объекту <<Товары в наличии>> соответствует один объект <<Велосипеды>> или
+%<<Велотовары>> (связь \textit{<<один к одному>>}).
 
+*** написать про отношения ***
+
+\pagebreak
 
 \subsection{Логическое проектирование}
 \label{sub:db_structure_logical_design}
 
+Результатом логического проектирования должна стать схема БД,
+которая представляет собой СУБД-ориентированную модель базы данных.
+
+\paragraph{}
+На основе ER-модели, спроектированной в подразделе~\ref{sub:db_structure_concept_design},
+построим логическую модель базы данных. Схема логической модели
+представлена на рисунке~\ref{fig:logical_model}.
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=150mm]{pic/logical_model.png}
+  \caption{Логическая модель проектируемой базы данных}
+  \label{fig:logical_model}
+\end{figure}
+
+\pagebreak
+
+\paragraph{}
+Объекту <<Велосипеды>> соответствует отношение \textit{<<bicycles>>}, схема которого приведена в
+таблице~\ref{tbl:bicycles_scheme}.
+\begin{table}[h!]
+  \caption{Схема отношения \textit{<<bicycles>>}}
+  \label{tbl:bicycles_scheme}
+  \small{
+    \centering
+    \begin{tabular}{| p{0.32\textwidth} | p{0.29\textwidth} | p{0.3\textwidth} |}
+      \hline
+      Название атрибута в \newline логической модели &
+      Название атрибута в \newline отношении &
+      Тип хранимых данных \\
+
+      \hline
+      Название & product\_name & VARCHAR(255) \\
+
+      \hline
+      Производитель & manufacturer & VARCHAR(255) \\
+
+      \hline
+      Тип велосипеда & type & VARCHAR(20) \\
+
+      \hline
+      Год производства & year & YEAR \\
+
+      \hline
+      Цвет велосипеда & color & VARCHAR(20) \\
+
+      \hline
+      Размер велосипеда & size & CHAR \\
+
+      \hline
+      Количество скоростей & rates\_number & UNSIGNED TINYINT \\
+
+      \hline
+      Вес велосипеда & weight & FLOAT \\
+
+      \hline
+      Тормоза & brakes & VARCHAR(255) \\
+
+      \hline
+      Диаметр колёс & wheels\_diameter & UNSIGNED TINYINT \\
+
+      \hline
+      Материал рамы & frame\_material & VARCHAR(50) \\
+
+      \hline
+      Вилка & fork & VARCHAR(255) \\
+
+      \hline
+      Блокировка вилки & lockout & TINYINT(1) \\
+
+      \hline
+      Ход амортизатора & fork\_move & UNSIGNED TINYINT \\
+
+      \hline
+      Передний переключатель & front\_derailer & VARCHAR(255) \\
+
+      \hline
+      Задний переключатель & rear\_derailer & VARCHAR(255) \\
+
+      \hline
+      Система & cranckset & VARCHAR(255) \\
+
+      \hline
+      Кассета & cassette & VARCHAR(255) \\
+
+      \hline
+      Седло & saddle & VARCHAR(255) \\
+
+      \hline
+      Манетки & shifters & VARCHAR(255) \\
+
+      \hline
+      Цепь & chain & VARCHAR(255) \\
+
+      \hline
+      Руль & handlebar & VARCHAR(255) \\
+
+      \hline
+      Педали & pedals & VARCHAR(255) \\
+
+      \hline
+      Покрышки & tires & VARCHAR(255) \\
+
+      \hline
+      Гарантия & guarantee & VARCHAR(255) \\
+
+      \hline
+      Фотография велосипеда & photo\_path & VARCHAR(255) \\
+
+      \hline
+      Цена & price & FLOAT \\
+
+      \hline
+    \end{tabular}
+  }
+\end{table}
+
+Рассмотрим некоторые атрибуты отношения \textit{<<bicycles>>} подробнее:
+\begin{itemize}
+  \item \textit{<<product\_name>>} является первичным ключом;
+  \item \textit{<<size>>} принимает значения <<M>>, <<L>> или <<XL>>;
+  \item \textit{<<weight>>} указывается в килограммах и обозначает вес велосипеда
+    без педалей в соответствии с международным стандартом [\textbf{ссылка на стандарт}];
+  \item \textit{<<wheels\_diameter>>} хранит значение, указываемое в дюймах;
+  \item \textit{<<lockout>>} хранит значения 1 или 0 и соответствует логическим 
+    значениям <<True>> и <<False>>;
+  \item \textit{<<fork\_move>>} хранит значение, указываемое в миллиметрах.
+\end{itemize}
+
+\paragraph{}
+Объекту <<Велотовары>> соответствует отношение \textit{<<bicycle\_products>>}, схема которого приведена в
+таблице~\ref{tbl:bicycle_products_scheme}.
+\begin{table}[h!]
+  \caption{Схема отношения \textit{<<bicycle\_products>>}}
+  \label{tbl:bicycle_products_scheme}
+  \small{
+    \centering
+    \begin{tabular}{| p{0.32\textwidth} | p{0.29\textwidth} | p{0.3\textwidth} |}
+      \hline
+      Название атрибута в \newline логической модели &
+      Название атрибута в \newline отношении &
+      Тип хранимых данных \\
+
+      \hline
+      Название & product\_name & VARCHAR(255) \\
+
+      \hline
+      Описание & description & VARCHAR(255) \\
+
+      \hline
+      Фотография & photo\_path & VARCHAR(255) \\
+
+      \hline
+      Страна производитель & manufacturing\_country & VARCHAR(255) \\
+
+      \hline
+      Цена & price & FLOAT \\
+
+      \hline
+    \end{tabular}
+  }
+\end{table}
+
+Атрибут \textit{<<product\_name>>} является первичным ключом отношения \textit{<<bicycle\_products>>},
+атрибут \textit{<<photo\_path>>} хранит информацию о расположении фотографии велотовара
+на жестком диске. 
+
+\paragraph{}
+Объекту <<Товары в наличии>> соответствует отношение \textit{<<available\_goods>>}, схема которого приведена в
+таблице~\ref{tbl:available_goods_scheme}.
+\begin{table}[h!]
+  \caption{Схема отношения \textit{<<available\_goods>>}}
+  \label{tbl:available_goods_scheme}
+  \small{
+    \centering
+    \begin{tabular}{| p{0.32\textwidth} | p{0.29\textwidth} | p{0.3\textwidth} |}
+      \hline
+      Название атрибута в \newline логической модели &
+      Название атрибута в \newline отношении &
+      Тип хранимых данных \\
+
+      \hline
+      Название & product\_name & VARCHAR(255) \\
+
+      \hline
+      Количество & count & INTEGER \\
+
+      \hline
+      Наличие & availability & TINYINT(1) \\
+
+      \hline
+    \end{tabular}
+  }
+\end{table}
+
+Атрибут \textit{<<product\_name>>} является первичным ключом и при этом внешним ключом
+отношения \textit{<<bicycle\_products>>}, ссылаясь на таблицы \textit{<<bicycles>>}
+и \textit{<<bicycle\_products>>}.
+
+\paragraph{}
+Объекту <<Заказы товаров>> соответствует отношение \textit{<<goods\_orders>>}, схема которого приведена в
+таблице~\ref{tbl:goods_orders_scheme}.
+\begin{table}[h!]
+  \caption{Схема отношения \textit{<<goods\_orders>>}}
+  \label{tbl:goods_orders_scheme}
+  \small{
+    \centering
+    \begin{tabular}{| p{0.32\textwidth} | p{0.29\textwidth} | p{0.3\textwidth} |}
+      \hline
+      Название атрибута в \newline логической модели &
+      Название атрибута в \newline отношении &
+      Тип хранимых данных \\
+
+      \hline
+      ID заказа & id & INTEGER \\
+
+      \hline
+      Название & product\_name & VARCHAR(255) \\
+
+      \hline
+      Количество & count & INTEGER \\
+
+      \hline
+      Дата заказа & order\_date & DATE \\
+
+      \hline
+      Стоимость товаров & goods\_cost & FLOAT \\
+
+      \hline
+      Статус заказа & order\_status & TINYINT \\
+
+      \hline
+      E-mail & email & VARCHAR(255) \\
+
+      \hline
+    \end{tabular}
+  }
+\end{table}
+
+Атрибут \textit{<<id>>} хранит уникальные целые значения и является первичным ключом.
+Атрибут \textit{<<product\_name>>} является внешним ключом
+и ссылается на таблицы \textit{<<bicycles>>} и \textit{<<bicycle\_products>>}.
+Атрибут \textit{<<email>>} также является внешним ключом и ссылается
+на таблицу \textit{<<users>>}.
+
+\paragraph{}
+Объекту <<Архив заказов>> соответствует отношение \textit{<<orders\_archive>>}, схема которого приведена в
+таблице~\ref{tbl:orders_archive_scheme}.
+\begin{table}[h!]
+  \caption{Схема отношения \textit{<<orders\_archive>>}}
+  \label{tbl:orders_archive_scheme}
+  \small{
+    \centering
+    \begin{tabular}{| p{0.32\textwidth} | p{0.29\textwidth} | p{0.3\textwidth} |}
+      \hline
+      Название атрибута в \newline логической модели &
+      Название атрибута в \newline отношении &
+      Тип хранимых данных \\
+
+      \hline
+      ID заказа & id & INTEGER \\
+
+      \hline
+      Название & product\_name & VARCHAR(255) \\
+
+      \hline
+      Количество & count & INTEGER \\
+
+      \hline
+      Дата заказа & order\_date & DATE \\
+
+      \hline
+      Стоимость товаров & goods\_cost & FLOAT \\
+
+      \hline
+      E-mail & email & VARCHAR(255) \\
+
+      \hline
+    \end{tabular}
+    }
+\end{table}
+
+Атрибуты отношения \textit{<<orders\_archive>>} идентичны атрибутам
+\textit{<<goods\_orders>>}, представленным в таблице~\ref{tbl:goods_orders_scheme}.
+
+\paragraph{}
+
+Объекту <<Пользователи>> соответствует отношение \textit{<<users>>}, схема которого приведена в
+таблице~\ref{tbl:users_scheme}.
+
+\begin{table}[h]
+  \caption{Схема отношения \textit{<<users>>}}
+  \label{tbl:users_scheme}
+  \small{
+    \centering
+    \begin{tabular}{| p{0.32\textwidth} | p{0.29\textwidth} | p{0.3\textwidth} |}
+      \hline
+      Название атрибута в \newline логической модели &
+      Название атрибута в \newline отношении &
+      Тип хранимых данных \\
+
+      \hline
+      E-mail & email & VARCHAR(255) \\
+
+      \hline
+      Пароль & password & VARCHAR(255) \\
+
+      \hline
+      Имя & name & VARCHAR(20) \\
+
+      \hline
+      Номер телефона & phone\_number & VARCHAR(20) \\
+
+      \hline
+      Размер скидки & discount & UNSIGNED TINYINT \\
+
+      \hline
+    \end{tabular}
+    }
+\end{table}
+
+Атрибут \textit{<<email>>} отношения \textit{<<users>>} является первичным ключом.
+Пароль пользователей хранится в зашифрованном виде. Атрибут \textit{<<discount>>}
+хранит информацию о размере скидки, указываемую в процентах.
+
 \subsection{Физическое проектирование}
 \label{sub:db_structure_physical_design}
 
+Главной целью физического проектирования является перенос разработанной логической модели
+на конкретное аппаратное и программное обеспечение. С учетом выбранной СУБД (смотри
+подраздел~\ref{sub:choice_DBMS}) был выполнен данный этап проектирования.
 
-
+*** ссылка на код SQL в приложении ***
 \pagebreak
