@@ -41,6 +41,10 @@ public class Orders implements Serializable {
     @JoinColumn(name = "user_id", nullable = false)
     private Users user;
 
+    public long getId() {
+        return id;
+    }
+
     public Bicycles getBicycle() {
         return bicycle;
     }

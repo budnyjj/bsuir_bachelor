@@ -39,6 +39,10 @@ public class Users implements Serializable {
     @Column(name = "phone_number")
     private String phoneNumber;
 
+    public long getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }

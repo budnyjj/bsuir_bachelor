@@ -1,5 +1,7 @@
 package com.anash.bikeshop.service;
 
+import java.util.List;
+
 public interface Service<Type> {
 
     void create(Type entity);
@@ -9,4 +11,6 @@ public interface Service<Type> {
     void delete(Type entity);
 
     Type getById(long id);
+
+    List<Type> getAll();
 }

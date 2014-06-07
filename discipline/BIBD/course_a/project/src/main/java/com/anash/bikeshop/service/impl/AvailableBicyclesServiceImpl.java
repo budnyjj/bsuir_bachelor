@@ -6,6 +6,8 @@ import com.anash.bikeshop.service.AvailableBicyclesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AvailableBicyclesServiceImpl implements AvailableBicyclesService {
 
@@ -30,5 +32,10 @@ public class AvailableBicyclesServiceImpl implements AvailableBicyclesService {
     @Override
     public AvailableBicycles getById(long id) {
         return null;
+    }
+
+    @Override
+    public List<AvailableBicycles> getAll() {
+        return availableBicyclesRepo.findAll();
     }
 }
