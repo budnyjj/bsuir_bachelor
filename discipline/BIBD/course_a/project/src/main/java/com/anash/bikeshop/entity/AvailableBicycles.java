@@ -24,4 +24,28 @@ public class AvailableBicycles implements Serializable {
 
     @Column(name = "availability")
     private Boolean availability;
+
+    public Bicycles getBicycle() {
+        return bicycle;
+    }
+
+    public void setBicycle(Bicycles bicycle) {
+        this.bicycle = bicycle;
+    }
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
+    }
+
+    public Boolean getAvailability() {
+        return availability;
+    }
+
+    public void setAvailability(Boolean availability) {
+        this.availability = availability;
+    }
 }

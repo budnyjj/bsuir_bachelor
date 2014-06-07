@@ -13,7 +13,7 @@ public class AvailableBicyclesServiceImpl implements AvailableBicyclesService {
     private AvailableBicyclesRepo availableBicyclesRepo;
 
     @Override
-    public void save(AvailableBicycles entity) {
+    public void create(AvailableBicycles entity) {
         availableBicyclesRepo.saveAndFlush(entity);
     }
 

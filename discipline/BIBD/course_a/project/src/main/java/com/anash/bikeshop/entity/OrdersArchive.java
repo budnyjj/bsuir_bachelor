@@ -35,4 +35,44 @@ public class OrdersArchive implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", nullable = false)
     private Users user;
+
+    public Bicycles getBicycle() {
+        return bicycle;
+    }
+
+    public void setBicycle(Bicycles bicycle) {
+        this.bicycle = bicycle;
+    }
+
+    public Integer getOrdersCount() {
+        return ordersCount;
+    }
+
+    public void setOrdersCount(Integer ordersCount) {
+        this.ordersCount = ordersCount;
+    }
+
+    public Double getGoodsCost() {
+        return goodsCost;
+    }
+
+    public void setGoodsCost(Double goodsCost) {
+        this.goodsCost = goodsCost;
+    }
+
+    public Date getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(Date orderDate) {
+        this.orderDate = orderDate;
+    }
+
+    public Users getUser() {
+        return user;
+    }
+
+    public void setUser(Users user) {
+        this.user = user;
+    }
 }

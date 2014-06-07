@@ -32,15 +32,19 @@ public class Users implements Serializable {
     @Column(name = "user_role", nullable = false)
     private UserRole userRole;
 
+    @NotNull
+    @Column(name = "name", nullable = false)
+    private String name;
+
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    public long getId() {
-        return id;
+    public String getName() {
+        return name;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {
@@ -59,11 +63,11 @@ public class Users implements Serializable {
         this.password = password;
     }
 
-    public UserRole getUserRole() {
+    public UserRole getRole() {
         return userRole;
     }
 
-    public void setUserRole(UserRole userRole) {
+    public void setRole(UserRole userRole) {
         this.userRole = userRole;
     }
 

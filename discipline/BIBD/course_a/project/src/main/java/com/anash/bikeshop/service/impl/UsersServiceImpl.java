@@ -13,15 +13,15 @@ public class UsersServiceImpl implements UsersService {
     private UsersRepo usersRepo;
 
     @Override
-    public void save(Users user) {      // Create
-        usersRepo.saveAndFlush(user);
+    public void create(Users user) {      // Create
+        Users createdUser = user;
+        usersRepo.saveAndFlush(createdUser);
     }
 
     @Override
     public Users getById(long id) {     // Read
         return usersRepo.findOne(id);
     }
-
     @Override
     public void update(Users user) {    // Update
         usersRepo.saveAndFlush(user);

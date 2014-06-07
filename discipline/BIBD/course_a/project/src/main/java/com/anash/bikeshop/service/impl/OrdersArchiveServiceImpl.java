@@ -13,7 +13,7 @@ public class OrdersArchiveServiceImpl implements OrdersArchiveService {
     private OrdersArchiveRepo ordersArchiveRepo;
 
     @Override
-    public void save(OrdersArchive ordersArchive) {
+    public void create(OrdersArchive ordersArchive) {
         ordersArchiveRepo.saveAndFlush(ordersArchive);
     }
 

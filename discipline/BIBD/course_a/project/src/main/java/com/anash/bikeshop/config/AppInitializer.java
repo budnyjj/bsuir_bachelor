@@ -13,11 +13,13 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 
     @Override
     protected Class<?>[] getServletConfigClasses() {
-        return new Class<?>[0];
+        return new Class<?>[] {
+                WebConfig.class
+        };
     }
 
     @Override
     protected String[] getServletMappings() {
-        return new String[0];
+        return new String[] { "/" };
     }
 }

@@ -13,7 +13,7 @@ public class BicycleServiceImpl implements BicycleService {
     private BicyclesRepo bicyclesRepo;
 
     @Override
-    public void save(Bicycles bicycles) {
+    public void create(Bicycles bicycles) {
         bicyclesRepo.saveAndFlush(bicycles);
     }
 

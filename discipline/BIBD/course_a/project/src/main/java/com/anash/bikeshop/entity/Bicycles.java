@@ -108,4 +108,228 @@ public class Bicycles implements Serializable {
 
     @Column(name = "price")
     private Double price;
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public String getManufacturer() {
+        return manufacturer;
+    }
+
+    public void setManufacturer(String manufacturer) {
+        this.manufacturer = manufacturer;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Year getYear() {
+        return year;
+    }
+
+    public void setYear(Year year) {
+        this.year = year;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public BicycleSize getSize() {
+        return size;
+    }
+
+    public void setSize(BicycleSize size) {
+        this.size = size;
+    }
+
+    public Byte getRatesNumber() {
+        return ratesNumber;
+    }
+
+    public void setRatesNumber(Byte ratesNumber) {
+        this.ratesNumber = ratesNumber;
+    }
+
+    public Double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Double weight) {
+        this.weight = weight;
+    }
+
+    public String getBrakes() {
+        return brakes;
+    }
+
+    public void setBrakes(String brakes) {
+        this.brakes = brakes;
+    }
+
+    public Byte getWheelsDiameter() {
+        return wheelsDiameter;
+    }
+
+    public void setWheelsDiameter(Byte wheelsDiameter) {
+        this.wheelsDiameter = wheelsDiameter;
+    }
+
+    public FrameMaterial getFrameMaterial() {
+        return frameMaterial;
+    }
+
+    public void setFrameMaterial(FrameMaterial frameMaterial) {
+        this.frameMaterial = frameMaterial;
+    }
+
+    public String getFork() {
+        return fork;
+    }
+
+    public void setFork(String fork) {
+        this.fork = fork;
+    }
+
+    public Boolean getLockout() {
+        return lockout;
+    }
+
+    public void setLockout(Boolean lockout) {
+        this.lockout = lockout;
+    }
+
+    public Integer getForkMove() {
+        return forkMove;
+    }
+
+    public void setForkMove(Integer forkMove) {
+        this.forkMove = forkMove;
+    }
+
+    public String getFrontDerailer() {
+        return frontDerailer;
+    }
+
+    public void setFrontDerailer(String frontDerailer) {
+        this.frontDerailer = frontDerailer;
+    }
+
+    public String getRearDerailer() {
+        return rearDerailer;
+    }
+
+    public void setRearDerailer(String rearDerailer) {
+        this.rearDerailer = rearDerailer;
+    }
+
+    public String getCrackset() {
+        return crackset;
+    }
+
+    public void setCrackset(String crackset) {
+        this.crackset = crackset;
+    }
+
+    public String getCassette() {
+        return cassette;
+    }
+
+    public void setCassette(String cassette) {
+        this.cassette = cassette;
+    }
+
+    public String getSaddle() {
+        return saddle;
+    }
+
+    public void setSaddle(String saddle) {
+        this.saddle = saddle;
+    }
+
+    public String getShifters() {
+        return shifters;
+    }
+
+    public void setShifters(String shifters) {
+        this.shifters = shifters;
+    }
+
+    public String getChain() {
+        return chain;
+    }
+
+    public void setChain(String chain) {
+        this.chain = chain;
+    }
+
+    public String getHandlebar() {
+        return handlebar;
+    }
+
+    public void setHandlebar(String handlebar) {
+        this.handlebar = handlebar;
+    }
+
+    public String getPedals() {
+        return pedals;
+    }
+
+    public void setPedals(String pedals) {
+        this.pedals = pedals;
+    }
+
+    public String getSprockets() {
+        return sprockets;
+    }
+
+    public void setSprockets(String sprockets) {
+        this.sprockets = sprockets;
+    }
+
+    public String getTires() {
+        return tires;
+    }
+
+    public void setTires(String tires) {
+        this.tires = tires;
+    }
+
+    public String getGuarantee() {
+        return guarantee;
+    }
+
+    public void setGuarantee(String guarantee) {
+        this.guarantee = guarantee;
+    }
+
+    public String getPhotoPath() {
+        return photoPath;
+    }
+
+    public void setPhotoPath(String photoPath) {
+        this.photoPath = photoPath;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
 }

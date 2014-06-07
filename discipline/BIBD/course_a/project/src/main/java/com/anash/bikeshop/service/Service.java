@@ -2,7 +2,7 @@ package com.anash.bikeshop.service;
 
 public interface Service<Type> {
 
-    void save(Type entity);
+    void create(Type entity);
 
     void update(Type entity);
 
