@@ -12,6 +12,8 @@ clean:
 	$(RM) *.aux
 	$(RM) *.toc
 	$(RM) *.pdf
+	$(RM) *.blg
+	$(RM) *.bbl
 	$(RM) *~
 	$(RM) *.dvi
 	$(RM) text/*.log
