@@ -1,7 +1,6 @@
 package com.anash.bikeshop.controller;
 
 import com.anash.bikeshop.entity.Users;
-import com.anash.bikeshop.entity.enums.UserRole;
 import com.anash.bikeshop.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,18 +25,18 @@ public class UserController {
         modelAndView.addObject("user", new Users());
         return modelAndView;
     }
+    /**/
+            @RequestMapping(value = "/add", method = RequestMethod.POST)
+            public ModelAndView addingUser(@ModelAttribute Users user) {
+                ModelAndView modelAndView = new ModelAndView("index");
+                //user.setRole(UserRole.USER);
+                //usersService.create(user);
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public ModelAndView addingUser(@ModelAttribute Users user) {
-        ModelAndView modelAndView = new ModelAndView("index");
-        user.setRole(UserRole.USER);
-        usersService.create(user);
+                String message = "User was successfully added.";
+                modelAndView.addObject("message", message);
 
-        String message = "User was successfully added.";
-        modelAndView.addObject("message", message);
-
-        return modelAndView;
-    }
+                return modelAndView;
+            }
 
     @RequestMapping(value = "/list")
     public ModelAndView listOfUsers() {
@@ -60,4 +59,5 @@ public class UserController {
 
         return modelAndView;
     }
+
 }
