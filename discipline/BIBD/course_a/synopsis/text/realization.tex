@@ -7,10 +7,10 @@
 технологий установим следующие программы:
 
 \begin{itemize}
-    \item MySQL 5.5;
-    \item Apache Tomcat 7;
-    \item Apache Maven 3;
-    \item Git.
+  \item MySQL 5.5;
+  \item Apache Tomcat 7;
+  \item Apache Maven 3;
+  \item Git.
 \end{itemize}
 
 На рисунке~\ref{lst:software_install} представлены команды установки данных
@@ -23,31 +23,139 @@ sudo apt-get install maven
 sudo apt-get install git
 \end{lstlisting}
 
+
 \subsection{Создание проекта и настройка компонентов}
 
-Создадим в Intellij IDEA проект, поддерживающий технологию Java EE.
-В настройках проекта укажем путь к установленному Apache Maven,
-настроим использование системы контроля версий git.
-
-Файл pox.xml будет использоваться для конфигурирования зависимостей Apache Maven.
-Содержимое данного файла приведено в приложении~А.
-
-Создадим базу данных, которая будет использоваться в разрабатываемом проекте.
-
-\pagebreak
-
+Создадим базу данных, которую будем использовать для хранения сущностей интернет-магазина.
 Код создания базы данных, используемой в разрабатываемом проекте,
-представлен на рисунке~\ref{lst:db_create}.
+продемонстрирован на рисунке~\ref{lst:db_create}.
 
 \begin{lstlisting}[caption=Команды создания базы данных для проекта,label=lst:db_create]
 mysql -u root -p
 <password>
-create database bikeshopdb;
+create database bikeshopdb default character set utf8;
 exit;
 \end{lstlisting}
 
+Таблицы создавать не нужно, при сборке проект сам будет проверять есть ли
+необходимые таблицы. Если их нет, они будут созданы.
 
-\subsection{Разработка структуры проекта}
+Далее создадим в Intellij IDEA проект, поддерживающий технологию Java EE.
+В настройках проекта укажем путь к установленному Apache Maven,
+настроим использование системы контроля версий git.
+
+В корне проекта создадим папку \textit{src}, в ней будет храниться весь исходный
+код разрабатываемого приложения; В папке src создадим папку \textit{main}, в ней ---
+папки \textit{java}, \textit{resources} и \textit{webapp}.
+
+Папка \textit{java} будет содержать весь исходный код приложения, написанный на Java.
+
+В папке \textit{resources} разместим необходимые файлы с настройками приложения.
+
+Папка \textit{webapp} будет содержать web-страницы, файлы описания стилей, и другие файлы,
+относящиеся к клиентской части приложения.
+
+В корне проекта создадим файл \textit{pox.xml}, он будет использоваться для
+конфигурирования зависимостей Apache Maven. Содержимое данного файла
+приведено в приложении~А.
+
+В папке resources создадим файл \textit{app.properties}. В нём опишем настройки
+соединения с базой данных, а также основные настройки библиотеки Hibernate.
+Содержимое файла app.properties представлено на рисунке~\ref{lst:app_properties}.
+
+\begin{lstlisting}[caption=Содержимое файла app.properties,label=lst:app_properties]
+#DB properties
+db.driver=com.mysql.jdbc.Driver
+db.url=jdbc:mysql://localhost:3306/bikeshopdb
+db.username=<username>
+db.password=<password>
+
+#Hibernate configuration
+hibernate.dialect=org.hibernate.dialect.MySQLDialect
+hibernate.show_sql=true
+entitymanager.packages.to.scan=com.anash.bikeshop.entity
+hibernate.hbm2ddl.auto=createentitymanager.packages.to.scan=com.anash.bikeshop.entity
+\end{lstlisting}
+
+\newpage
+
+\subsection{Разработка серверной части приложения}
+
+Приступим к описанию сущностей приложения. В папке \textit{java} создадим пакет
+\textit{com.anash.bikeshop}, в нём --- пакет \textit{entity}. В данном пакете опишем
+все сущности разрабатываемого интернет-магазина. Создадим классы
+\textit{Bicycles, AvailableBicycles, Orders, OrdersArchive} и \textit{Users}.
+
+Для того, чтобы связать описываемые сущности с базой данных будем использовать
+\textit{аннотации}. Аннотации в Java --- специальная форма синтетических метаданных,
+которая добавляется в исходный код приложения. Аннотации дают необходимую информацию
+для компилятора, библиотеки Hibernate и прочих инструментов разработки~\cite{jpa_entities_design}.
+
+В разрабатываемом проекте будут использованы аннотации, предоставляемые библиотекой
+Hibernate, фреймворком Spring, а также встроенные в язык java (javax.persistence).
+Пример использования аннотации для сущности Users разрабатываемого интернет-магазина
+проиллюстрирован на рисунке~\ref{lst:users_entity}. Полный исходный код описания
+сущности Users представлен в приложении~Б.
+
+\begin{lstlisting}[caption=Пример использования Java-аннотаций,label=lst:users_entity]
+@Entity
+@Table(name = "users")
+public class Users implements Serializable {
+    @Id
+    @GeneratedValue(generator = "increment")
+    @GenericGenerator(name = "increment", strategy = "increment")
+    @Column(name = "id", length = 6, nullable = false)
+    private long id;
+
+    @Email
+    @NotNull
+    @Column(name = "email", nullable = false)
+    private String email;
+
+    ...
+}
+\end{lstlisting}
+
+После описания всех сущностей можно приступать к определению классов и интерфейсов,
+отвечающих за доступ к данным. Создадим пакеты \textit{service} и \textit{repository}.
+
+Пакет \textit{repository} содержит интерфейсы, которые предоставляет Spring Framework.
+Они отвечают за непосредственную работу с данными. Содержимое файла UsersRepo.java
+представлено на рисунке~\ref{lst:users_repo}.
+
+\begin{lstlisting}[caption=Содержимое файла UsersRepo.java,label=lst:users_repo]
+package com.anash.bikeshop.repository;
+
+import com.anash.bikeshop.entity.Users;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface UsersRepo
+        extends JpaRepository<Users, Long> {
+}
+\end{lstlisting}
+
+Пакет \textit{service} содержит интерфейсы и их реализацию, предоставляющие доступ
+к данным посредством использования соответствующих репозиториев.
+
+Создадим интерфейс
+\textit{Service} и объявим в нём методы, представленные на рисунке~\ref{lst:service}.
+
+\begin{lstlisting}[caption=Объявленные в интерфейсе Service методы,label=lst:service]
+void create(Type entity);
+void update(Type entity);
+void delete(Type entity);
+Type getById(long id);
+
+List<Type> getAll();
+\end{lstlisting}
+
+Затем создадим интерфейсы \textit{BicyclesService, AvailableBicyclesService,
+OrdersService, OrdersArchiveService} и \textit{UsersService}, и унаследуем их от
+интерфейса Service.
+
+Пример реализации интерфейса \textit{UsersService} приведен в приложении~В.
+
+\subsection{Разработка клиентской части приложения}
 
 
 \pagebreak
