@@ -16,10 +16,10 @@ public class AvailableBicycles implements Serializable {
     private long id;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "bicycle_id", nullable = false)
+    @JoinColumn(name = "bicycle_id", nullable = false, unique = true)
     private Bicycles bicycle;
 
-    @Column(name = "products_count")
+    @Column(name = "bicycles_count")
     private Integer count;
 
     @Column(name = "availability")

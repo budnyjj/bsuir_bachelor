@@ -109,6 +109,10 @@ public class Bicycles implements Serializable {
     @Column(name = "price")
     private Double price;
 
+    public long getId() {
+        return id;
+    }
+
     public String getProductName() {
         return productName;
     }
