@@ -1,4 +1,53 @@
 \section[Описание деталей реализации]{ОПИСАНИЕ ДЕТАЛЕЙ РЕАЛИЗАЦИИ}
 
+\subsection{Установка программного обеспечения}
+\label{sub:realization_software_install}
+
+Для разработки интернет-магазина с учётом выбранных разделе~\ref{sec:choice}
+технологий установим следующие программы:
+
+\begin{itemize}
+    \item MySQL 5.5;
+    \item Apache Tomcat 7;
+    \item Apache Maven 3;
+    \item Git.
+\end{itemize}
+
+На рисунке~\ref{lst:software_install} представлены команды установки данных
+программ в ОС семейтса Linux.
+
+\begin{lstlisting}[caption=Команды установки необходимого программного обеспечения,label=lst:software_install]
+sudo apt-get install mysql-client mysql-server
+sudo apt-get install tomcat7
+sudo apt-get install maven
+sudo apt-get install git
+\end{lstlisting}
+
+\subsection{Создание проекта и настройка компонентов}
+
+Создадим в Intellij IDEA проект, поддерживающий технологию Java EE.
+В настройках проекта укажем путь к установленному Apache Maven,
+настроим использование системы контроля версий git.
+
+Файл pox.xml будет использоваться для конфигурирования зависимостей Apache Maven.
+Содержимое данного файла приведено в приложении~А.
+
+Создадим базу данных, которая будет использоваться в разрабатываемом проекте.
+
+\pagebreak
+
+Код создания базы данных, используемой в разрабатываемом проекте,
+представлен на рисунке~\ref{lst:db_create}.
+
+\begin{lstlisting}[caption=Команды создания базы данных для проекта,label=lst:db_create]
+mysql -u root -p
+<password>
+create database bikeshopdb;
+exit;
+\end{lstlisting}
+
+
+\subsection{Разработка структуры проекта}
+
 
 \pagebreak

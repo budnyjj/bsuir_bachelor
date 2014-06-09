@@ -6,6 +6,8 @@ import com.anash.bikeshop.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UsersServiceImpl implements UsersService {
 
@@ -13,8 +15,9 @@ public class UsersServiceImpl implements UsersService {
     private UsersRepo usersRepo;
 
     @Override
-    public void save(Users user) {      // Create
-        usersRepo.saveAndFlush(user);
+    public void create(Users user) {      // Create
+        Users createdUser = user;
+        usersRepo.saveAndFlush(createdUser);
     }
 
     @Override
@@ -30,5 +33,10 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public void delete(Users user) {    // Delete
         usersRepo.delete(user);
+    }
+
+    @Override
+    public List<Users> getAll() {
+        return usersRepo.findAll();
     }
 }

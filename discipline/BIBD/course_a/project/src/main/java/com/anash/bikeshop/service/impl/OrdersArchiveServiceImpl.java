@@ -6,6 +6,8 @@ import com.anash.bikeshop.service.OrdersArchiveService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class OrdersArchiveServiceImpl implements OrdersArchiveService {
 
@@ -13,7 +15,7 @@ public class OrdersArchiveServiceImpl implements OrdersArchiveService {
     private OrdersArchiveRepo ordersArchiveRepo;
 
     @Override
-    public void save(OrdersArchive ordersArchive) {
+    public void create(OrdersArchive ordersArchive) {
         ordersArchiveRepo.saveAndFlush(ordersArchive);
     }
 
@@ -30,5 +32,10 @@ public class OrdersArchiveServiceImpl implements OrdersArchiveService {
     @Override
     public OrdersArchive getById(long id) {
         return ordersArchiveRepo.findOne(id);
+    }
+
+    @Override
+    public List<OrdersArchive> getAll() {
+        return ordersArchiveRepo.findAll();
     }
 }

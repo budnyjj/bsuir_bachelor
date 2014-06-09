@@ -2,11 +2,25 @@
 \renewcommand{\thetable}{\Asbuk{section}.\arabic{table}}
 \renewcommand{\thelstlisting}{\Asbuk{section}.\arabic{lstlisting}}
 
-\addcontentsline{toc}{section}{Приложение А}
-\section*{ПРИЛОЖЕНИЕ A \\ (справочное) \\ <название приложения>}
+\addcontentsline{toc}{section}{Приложение А (справочное) Содержимое конфигурационного \\ файла pom.xml}
+\section*{ПРИЛОЖЕНИЕ A \\ (справочное) \\ Содержимое конфигурационного файла pom.xml}
+
+\pagestyle{fancy}
+\fancyhf{}  % clear all header and footer fields
+\fancyfoot[R]{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\setlength{\headheight}{10mm}
+\setlength{\headsep}{\baselineskip}
+\chead{Продолжение приложения \Asbuk{section}}
+
+\thispagestyle{plain}
 
 \setcounter{section}{1}
 \setcounter{figure}{0}
 \setcounter{table}{0}
 \setcounter{lstlisting}{0}
 
+\lstinputlisting[basicstyle=\scriptsize\ttfamily,language=xml,
+  label=lst:pom_xml]{../project/pom.xml}

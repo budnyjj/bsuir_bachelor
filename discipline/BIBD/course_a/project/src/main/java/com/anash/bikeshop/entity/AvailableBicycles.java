@@ -16,12 +16,36 @@ public class AvailableBicycles implements Serializable {
     private long id;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "bicycle_id", nullable = false)
+    @JoinColumn(name = "bicycle_id", nullable = false, unique = true)
     private Bicycles bicycle;
 
-    @Column(name = "products_count")
+    @Column(name = "bicycles_count")
     private Integer count;
 
     @Column(name = "availability")
     private Boolean availability;
+
+    public Bicycles getBicycle() {
+        return bicycle;
+    }
+
+    public void setBicycle(Bicycles bicycle) {
+        this.bicycle = bicycle;
+    }
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
+    }
+
+    public Boolean getAvailability() {
+        return availability;
+    }
+
+    public void setAvailability(Boolean availability) {
+        this.availability = availability;
+    }
 }

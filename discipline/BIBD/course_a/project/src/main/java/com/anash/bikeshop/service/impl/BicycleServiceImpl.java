@@ -6,6 +6,8 @@ import com.anash.bikeshop.service.BicycleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class BicycleServiceImpl implements BicycleService {
 
@@ -13,7 +15,7 @@ public class BicycleServiceImpl implements BicycleService {
     private BicyclesRepo bicyclesRepo;
 
     @Override
-    public void save(Bicycles bicycles) {
+    public void create(Bicycles bicycles) {
         bicyclesRepo.saveAndFlush(bicycles);
     }
 
@@ -30,5 +32,10 @@ public class BicycleServiceImpl implements BicycleService {
     @Override
     public Bicycles getById(long id) {
         return bicyclesRepo.findOne(id);
+    }
+
+    @Override
+    public List<Bicycles> getAll() {
+        return bicyclesRepo.findAll();
     }
 }
