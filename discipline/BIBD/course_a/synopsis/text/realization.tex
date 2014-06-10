@@ -153,9 +153,73 @@ List<Type> getAll();
 OrdersService, OrdersArchiveService} и \textit{UsersService}, и унаследуем их от
 интерфейса Service.
 
-Пример реализации интерфейса \textit{UsersService} приведен в приложении~В.
+Полный исходный код реализации интерфейса \textit{UsersService} приведен в приложении~В.
+
+После описания сервисов и репозиториев для доступа к данным можно приступать
+к написанию контроллеров. В контроллерах будем описывать методы, которые будут
+вызываться в зависимости от перехода на конкретные страницы. Создадим пакет
+\textit{controller}, в котором будем сохранять необходимые контроллеры. Пример описания
+контроллера представлен на рисунке~\ref{lst:controller}.
+
+\begin{lstlisting}[caption=Пример описания контроллера BicycleController,label=lst:controller]
+@Controller
+public class BicycleController {
+
+    @Autowired
+    private BicycleService bicycleService;
+
+    @RequestMapping(value = "/catalog/detail/{id}",
+                    method = RequestMethod.GET)
+    public ModelAndView bicycleDetail(@PathVariable Long id)
+    {
+        ModelAndView mav = new ModelAndView("detail");
+
+        Bicycles bicycle = bicycleService.getById(id);
+        mav.addObject("bicycle", bicycle);
+
+        return mav;
+    }
+
+    ...
+}
+\end{lstlisting}
+
+Из рисунка~\ref{lst:controller} видно, что мы используем BicycleService в качестве ресурса
+для данного контроллера. При переходе
+со страницы \textit{/catalog} на страницу с детальным просмотром конкретного велосипеда
+\textit{/calalog/detail/\{id\}} будет вызван метод \textit{bicycleDetail()}, который принимает в
+качетсве параметра \textit{id} велосипеда. В четырнадцатой строке происходит передача параметра
+на страницу jsp с именем \textit{"bicycle"}.
+
+Также стоит отметить наличие пакета \textit{config} в пакете \textit{com.anash.bikeshop}.
+В нём располагаются основные конфигурации библиотеки Hibernate и отображения web-страниц.
+
+Таким образом мы получаем структуру проекта, аналогичную представленной
+на рисунке~\ref{fig:project_structure}.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=80mm]{pic/project_structure.png}
+  \caption{Структура пакетов \\ серверной части приложения}
+  \label{fig:project_structure}
+\end{figure}
 
 \subsection{Разработка клиентской части приложения}
 
+Создадим структуру папок для клиентской части приложения. В папке \textit{webapp}
+создадим папку \textit{WEB-INF}. В папке \textit{WEB-INF} создадим папку
+\textit{pages}, которая будет содержать JSP-страницы.
+
+Для связи JSP-страниц и контроллеров, описанных в предыдущем подразделе и для
+использования языка Java на JSP-странице могут использоваться \textit{скриплеты}
+или \textit{JSTL}.
+
+\textit{Скриплеты} --- часть кода программы, написанного только на одном языке.
+JSP-скриплеты вставляются в код JSP-страницы в следующем виде:
+\textit{<\% Java-код \%>}.
+
+\textit{JSTL} --- стандартная библиотека тегов JSP. Теги JSP используются
+для общих нужд, таких как разбор XML данных, условная обработка, создание циклов и
+поддержка интернационализации.
 
 \pagebreak
