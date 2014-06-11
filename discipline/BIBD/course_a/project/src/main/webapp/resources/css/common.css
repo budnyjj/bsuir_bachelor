@@ -5,8 +5,25 @@ a:visited {
     color: #ff6600;
 }
 
+p {
+    margin: 0 0 10px 0;
+}
+
 .white-text,
 a.white-text
 .white-text a {
     color: #fff !important;
+}
+
+.button {
+    margin: 20px 0;
+}
+
+.button a,
+a.button {
+    padding: 5px;
+    background-color: #ff7f2a;
+    color: #fff;
+    font-weight: bold;
+    text-decoration: none;
 }

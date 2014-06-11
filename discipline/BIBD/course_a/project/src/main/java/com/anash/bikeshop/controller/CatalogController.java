@@ -22,7 +22,7 @@ public class CatalogController {
         List<Bicycles> bicycles = availableBicyclesService.getAvailableBicyclesList();
         modelAndView.addObject("bicycles", bicycles);
 
-        ArrayList<String> bicycleNames = null;
+        ArrayList<String> bicycleNames = new ArrayList<> ();
         StringBuffer buffer = new StringBuffer();
 
         for (Bicycles bicycle : bicycles) {
