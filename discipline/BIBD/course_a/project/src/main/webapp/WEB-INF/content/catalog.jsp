@@ -5,19 +5,36 @@
 
 <div class="list">
   <c:forEach var="bicycle" items="${bicycles}" >
-    <div class="list-row">
+    <a class="list-row" href="${pageContext.request.contextPath}/catalog/detail/${bicycle.id}">
       <div class="list-title">
-        <h2>${bicycle.manufacturer} ${bicycle.productName} (${bicycle.year})</h2>
+        <h2>${bicycle.manufacturer} ${bicycle.productName}</h2>
       </div>
       <div class="list-image">
         <img src="${pageContext.request.contextPath}/resources/${bicycle.photoPath}" />
       </div>
       <div class="list-teaser">
-        <div>${bicycle.type}</div>
-        <div>${bicycle.size}</div>
-        <div>${bicycle.price}</div>
-        <div><a href="${pageContext.request.contextPath}/catalog/detail/${bicycle.id}">detail</a></div>
+        <div class="field">
+          <span class="bold">Класс: </span>${bicycle.type}
+        </div>
+        <div class="field">
+          <span class="bold">Год выпуска: </span>${bicycle.year}
+        </div>
+        <div class="field">
+          <span class="bold">Размер рамы: </span>${bicycle.size}
+        </div>
+        <div class="field">
+          <span class="bold">Диаметр колес: </span>${bicycle.wheelsDiameter}
+        </div>
+        <div class="field">
+          <span class="bold">Материал рамы: </span>${bicycle.frameMaterial}
+        </div>
+        <div class="field">
+          <span class="bold">Количество скоростей: </span>${bicycle.ratesNumber}
+        </div>
+        <div class="field field-price">
+          <span class="bold">Цена: </span>${bicycle.price} у. е.
+        </div>
       </div>
-    </div>
+    </a>
   </c:forEach>
 </div>

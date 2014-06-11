@@ -10,6 +10,6 @@
     <input type="TextField" name="password" placeholder="пароль..." size=40 />
   </div>
   <div class="button login-button">
-    <a href="#">Войти в систему!</a> 
+    <a class="button login-button" href="#">Войти в систему!</a> 
   </div>
 </form>

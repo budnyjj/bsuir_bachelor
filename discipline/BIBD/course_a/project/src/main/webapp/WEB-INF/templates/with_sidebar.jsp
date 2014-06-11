@@ -7,4 +7,4 @@ request.setAttribute("menu", "/WEB-INF/templates/menu.jsp");
 request.setAttribute("footer", "/WEB-INF/templates/footer.jsp");
 %>
 
-<%@ include file="/WEB-INF/templates/abstract.jsp" %>
+<%@ include file="/WEB-INF/templates/abstract_with_sidebar.jsp" %>

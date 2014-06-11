@@ -7,4 +7,4 @@ request.setAttribute("title", "Вход в систему");
 request.setAttribute("body", "/WEB-INF/content/login.jsp");
 %>
 
-<jsp:include page="/WEB-INF/templates/html.jsp" />
+<jsp:include page="/WEB-INF/templates/no_sidebar.jsp" />

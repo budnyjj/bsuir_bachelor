@@ -83,24 +83,58 @@ ul.user-menu {
     margin: 10px 0;
 }
 
-.list-row {
-    overflow: auto;
-    padding: 10px 0;
+.field-price {
+    margin-top: 20px;
+    font-size: 20px;
 }
 
-.list-image {
-    float: left;
-    margin-right: 10px;
+.detail-image {
+    width: 100%;
+    margin-bottom: 50px;
 }
 
-.list-image img {
-    width: 300px;
+.detail-category {
+    background-color: #552200;
+    color: #ffccaa;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.detail-parameters {
+    width: 100%;
+    padding: 0 10px;
+    margin-bottom: 20px;
+}
+
+.detail-cost {
+    font-size: 20px;
+}
+
+.detail-parameter {
+    width: 40%;
+    padding: 0 10px;
+}
+
+/* SIDEBAR STYLES */
+
+.sidebar {
+    padding: 0 20px 20px 20px;
+}
+
+.filters {
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #ffe6d5;
+    position: fixed;
 }
 
 /* FOOTER STYLES */
 
 .footer {
     padding: 20px;
+    clear: both;
     background-color: #552200;
     color: #ffccaa;
 }

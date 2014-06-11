@@ -7,4 +7,4 @@ request.setAttribute("title", "Связаться с нами");
 request.setAttribute("body", "/WEB-INF/content/contacts.jsp");
 %>
 
-<jsp:include page="/WEB-INF/templates/html.jsp" />
+<jsp:include page="/WEB-INF/templates/no_sidebar.jsp" />
