@@ -153,8 +153,8 @@
                 </configuration>
                 <version>${maven.war.version}</version>
             </plugin>
-
+                  
         </plugins>
-    </build>
+    </build>   
 
 </project>

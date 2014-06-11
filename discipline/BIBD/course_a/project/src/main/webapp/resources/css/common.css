@@ -1,0 +1,12 @@
+a,
+a:hover,
+a:active,
+a:visited {
+    color: #ff6600;
+}
+
+.white-text,
+a.white-text
+.white-text a {
+    color: #fff !important;
+}

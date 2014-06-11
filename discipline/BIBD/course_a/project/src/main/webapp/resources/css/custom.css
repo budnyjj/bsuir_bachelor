@@ -1,0 +1,91 @@
+/* POSITION STYLES */
+
+body {
+    margin: 0;
+    font-family: verdana, arial, sans-serif;
+    font-size: 15px;
+}
+
+.wrap {
+    width: 1100px;
+    margin: 0 auto;
+}
+
+/* HEADER STYLES */
+
+.header {
+    background-color: #ff7f2a;
+    padding: 20px;
+}
+
+.logo {
+    font-size: 36px;
+}
+
+.logo a,
+.logo a:hover,
+.logo a:active,
+.logo a:visited {
+    text-decoration: none;
+}
+
+/* MENU STYLES */
+
+.menu {
+    background-color: #552200;
+    padding: 5px 20px;
+    overflow: auto;
+}
+
+.menu ul {
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+    list-style-type: none;
+}
+
+.menu ul li {
+    float: left;
+}
+
+.menu ul li a,
+.menu ul li a:visited {
+    color: #ffccaa;
+    text-decoration: none;
+}
+
+.menu ul li a:hover,
+.menu ul li a:active {
+    color: #fff;
+    text-decoration: none;
+}
+
+ul.main-menu {
+    float: left;
+}
+
+ul.main-menu li {
+    margin-right: 20px;
+}
+
+ul.user-menu {
+    float: right;
+}
+
+/* CONTENT STYLES */
+
+.content {
+    padding: 0 20px;
+}
+
+/* FOOTER STYLES */
+
+.footer {
+    padding: 20px;
+    background-color: #552200;
+    color: #ffccaa;
+}
+
+.footer p {
+    margin: 0;
+}
