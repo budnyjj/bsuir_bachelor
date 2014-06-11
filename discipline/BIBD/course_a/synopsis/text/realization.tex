@@ -210,6 +210,20 @@ public class BicycleController {
 создадим папку \textit{WEB-INF}. В папке \textit{WEB-INF} создадим папку
 \textit{pages}, которая будет содержать JSP-страницы.
 
+Перед созданием JSP-страниц разработаем макеты страниц для разрабатываемого
+интернет-магазина данного сайта. Макет страницы \textit{login.jsp}
+приведен на рисунке~\ref{fig:wireframe_login}.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=140mm]{../design/wireframe/login.png}
+  \caption{Макет страницы \textit{login.jsp}}
+  \label{fig:wireframe_login}
+\end{figure}
+
+После создания макетов всех JSP страниц можно приступать к вёрстке этих страниц.
+Для вёрстки будем использовать следующий стек технологий: HTML, CSS, JSTL.
+
 Для связи JSP-страниц и контроллеров, описанных в предыдущем подразделе и для
 использования языка Java на JSP-странице могут использоваться \textit{скриплеты}
 или \textit{JSTL}.
@@ -221,5 +235,25 @@ JSP-скриплеты вставляются в код JSP-страницы в 
 \textit{JSTL} --- стандартная библиотека тегов JSP. Теги JSP используются
 для общих нужд, таких как разбор XML данных, условная обработка, создание циклов и
 поддержка интернационализации.
+
+Пример использования языка JSTL на JSP странице \textit{<<>>}
+представлен на рисунке~\ref{lst:jstl_example}.
+
+\begin{lstlisting}[caption=*** CHANGE ME ***, label=lst:jstl_example]
+*** CHANGE ME ***
+\end{lstlisting}
+
+Результат отображения страницы \textit{login.jsp} представлен на
+рисунке~\ref{fig:login_jsp}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=120mm]{pic/login.png}
+  \caption{Результат отображения страницы \textit{login.jsp} \\ в браузере}
+  \label{fig:login_jsp}
+\end{figure}
+
+Легко убедится в том, что желаемый результат получен --- итоговая страница \textit{login.jsp}
+практически полностью совпадает с разработанным ранее макетом.
 
 \pagebreak

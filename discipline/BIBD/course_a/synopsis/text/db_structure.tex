@@ -256,7 +256,7 @@ Enterprise Architect, разработанное компанией Sparx System
       Тип хранимых данных \\
 
       \hline
-      ID & id & INTEGER \\
+      ID & id & BIGINT \\
 
       \hline
       Название & product\_name & VARCHAR(255) \\
@@ -277,10 +277,10 @@ Enterprise Architect, разработанное компанией Sparx System
       Размер велосипеда & size & CHAR \\
 
       \hline
-      Количество скоростей & rates\_number & UNSIGNED TINYINT \\
+      Количество скоростей & rates\_number & TINYINT(4) \\
 
       \hline
-      Вес велосипеда & weight & FLOAT \\
+      Вес велосипеда & weight & DOUBLE \\
 
       \hline
       Тормоза & brakes & VARCHAR(255) \\
@@ -337,7 +337,7 @@ Enterprise Architect, разработанное компанией Sparx System
       Фотография велосипеда & photo\_path & VARCHAR(255) \\
 
       \hline
-      Цена & price & FLOAT \\
+      Цена & price & DOUBLE \\
 
       \hline
     \end{tabular}
@@ -407,13 +407,13 @@ Enterprise Architect, разработанное компанией Sparx System
       Тип хранимых данных \\
 
       \hline
-      ID & id & INTEGER \\
+      ID & id & BIGINT(20) \\
 
       \hline
-      ID велосипеда & bicycle\_id & INTEGER \\
+      ID велосипеда & bicycle\_id & BIGINT(20) \\
 
       \hline
-      Количество & count & INTEGER \\
+      Количество & count & INT \\
 
       \hline
       Наличие & availability & TINYINT(1) \\
@@ -441,25 +441,25 @@ Enterprise Architect, разработанное компанией Sparx System
       Тип хранимых данных \\
 
       \hline
-      ID & id & INTEGER \\
+      ID & id & BIGINT \\
 
       \hline
-      ID велосипеда & bicycle\_id & INTEGER \\
+      ID велосипеда & bicycle\_id & BIGINT \\
 
       \hline
-      Количество & count & INTEGER \\
+      Количество & count & INT \\
 
       \hline
       Дата заказа & order\_date & DATE \\
 
       \hline
-      Стоимость товаров & goods\_cost & FLOAT \\
+      Стоимость товаров & goods\_cost & DOUBLE \\
 
       \hline
-      Статус заказа & order\_status & TINYINT \\
+      Статус заказа & order\_status & VARCHAR(255) \\
 
       \hline
-      ID пользователя & user\_id & INTEGER \\
+      ID пользователя & user\_id & BIGINT(20) \\
 
       \hline
     \end{tabular}
@@ -487,22 +487,22 @@ Enterprise Architect, разработанное компанией Sparx System
       Тип хранимых данных \\
 
       \hline
-      ID & id & INTEGER \\
+      ID & id & BIGINT(20) \\
 
       \hline
-      ID велосипеда & bicycle\_id & INTEGER \\
+      ID велосипеда & bicycle\_id & BIGINT(20) \\
 
       \hline
-      Количество & count & INTEGER \\
+      Количество & count & INT \\
 
       \hline
       Дата заказа & order\_date & DATE \\
 
       \hline
-      Стоимость товаров & goods\_cost & FLOAT \\
+      Стоимость товаров & goods\_cost & DOUBLE \\
 
       \hline
-      ID пользователя & user\_id & INTEGER \\
+      ID пользователя & user\_id & BIGINT(20) \\
 
       \hline
     \end{tabular}
@@ -529,7 +529,7 @@ Enterprise Architect, разработанное компанией Sparx System
       Тип хранимых данных \\
 
       \hline
-      ID & id & INETEGER \\
+      ID & id & BIGINT(20) \\
 
       \hline
       E-mail & email & VARCHAR(255) \\
