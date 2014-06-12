@@ -7,7 +7,6 @@ import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.Year;
 
 @Entity
 @Table(name = "bicycles")
@@ -30,7 +29,7 @@ public class Bicycles implements Serializable {
 
     @Range(min = 1900, max = 2500)
     @Column(name = "year")
-    private Year year;
+    private Integer year;
 
     @Column(name = "color")
     private String color;
@@ -73,8 +72,8 @@ public class Bicycles implements Serializable {
     @Column(name = "rear_derailer")
     private String rearDerailer;
 
-    @Column(name = "crackset")
-    private String crackset;
+    @Column(name = "cranckset")
+    private String cranckset;
 
     @Column(name = "cassette")
     private String cassette;
@@ -93,9 +92,6 @@ public class Bicycles implements Serializable {
 
     @Column(name = "pedals")
     private String pedals;
-
-    @Column(name = "sprockets")
-    private String sprockets;
 
     @Column(name = "tires")
     private String tires;
@@ -137,11 +133,11 @@ public class Bicycles implements Serializable {
         this.type = type;
     }
 
-    public Year getYear() {
+    public Integer getYear() {
         return year;
     }
 
-    public void setYear(Year year) {
+    public void setYear(Integer year) {
         this.year = year;
     }
 
@@ -241,12 +237,12 @@ public class Bicycles implements Serializable {
         this.rearDerailer = rearDerailer;
     }
 
-    public String getCrackset() {
-        return crackset;
+    public String getCranckset() {
+        return cranckset;
     }
 
-    public void setCrackset(String crackset) {
-        this.crackset = crackset;
+    public void setCranckset(String cranckset) {
+        this.cranckset = cranckset;
     }
 
     public String getCassette() {
@@ -295,14 +291,6 @@ public class Bicycles implements Serializable {
 
     public void setPedals(String pedals) {
         this.pedals = pedals;
-    }
-
-    public String getSprockets() {
-        return sprockets;
-    }
-
-    public void setSprockets(String sprockets) {
-        this.sprockets = sprockets;
     }
 
     public String getTires() {

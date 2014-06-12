@@ -44,11 +44,15 @@
       </tr>
       <tr>
         <td class="detail-parameter"><span class="bold">Ход вилки:</span></td>
-        <td class="detail-value">${bicycle.forkMove}</td>
+        <td class="detail-value">${bicycle.forkMove} мм</td>
+      </tr>
+      <tr>
+          <td class="detail-parameter"><span class="bold">Блокировка вилки:</span></td>
+          <td class="detail-value">${bicycle.lockout}</td>
       </tr>
       <tr>
         <td class="detail-parameter"><span class="bold">Диаметр колес:</span></td>
-        <td class="detail-value">${bicycle.wheelsDiameter}</td>
+        <td class="detail-value">${bicycle.wheelsDiameter}"</td>
       </tr>
       <tr>
         <td class="detail-parameter"><span class="bold">Руль:</span></td>
@@ -90,7 +94,7 @@
       </tr>     
       <tr>
         <td class="detail-parameter"><span class="bold">Система:</span></td>
-        <td class="detail-value">${bicycle.crackset}</td>
+        <td class="detail-value">${bicycle.cranckset}</td>
       </tr>
       <tr>
         <td class="detail-parameter"><span class="bold">Кассета:</span></td>
