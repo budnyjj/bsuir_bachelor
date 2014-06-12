@@ -207,16 +207,22 @@ public class BicycleController {
 \subsection{Разработка клиентской части приложения}
 
 Создадим структуру папок для клиентской части приложения. В папке \textit{webapp}
-создадим папку \textit{WEB-INF}. В папке \textit{WEB-INF} создадим папку
-\textit{pages}, которая будет содержать JSP-страницы.
+создадим две папки: \textit{WEB-INF} и \textit{resources}.
 
-Перед созданием JSP-страниц разработаем макеты страниц для разрабатываемого
-интернет-магазина данного сайта. Макет страницы \textit{login.jsp}
-приведен на рисунке~\ref{fig:wireframe_login}.
+Директория \textit{resources} будет содержать ресурсы веб-страниц,
+такие как, например, файлы стилей и фотографии велосипедов.
+
+В директории \textit{WEB-INF} создадим папки \textit{templates} и \textit{content}.
+Папка \textit{templates} будет содержать общие элементы для всех страниц сайта,
+такие как header, footer и др.
+
+Перед созданием JSP-страниц разработаем макеты всех страниц для разрабатываемого
+интернет-магазина. Макет страницы \textit{login.jsp} приведен
+на рисунке~\ref{fig:wireframe_login}.
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=140mm]{../design/wireframe/login.png}
+  \includegraphics[width=160mm]{pic/login_template.png}
   \caption{Макет страницы \textit{login.jsp}}
   \label{fig:wireframe_login}
 \end{figure}
@@ -224,8 +230,7 @@ public class BicycleController {
 После создания макетов всех JSP страниц можно приступать к вёрстке этих страниц.
 Для вёрстки будем использовать следующий стек технологий: HTML, CSS, JSTL.
 
-Для связи JSP-страниц и контроллеров, описанных в предыдущем подразделе и для
-использования языка Java на JSP-странице могут использоваться \textit{скриплеты}
+Для передачи параметров JSP странице могут использоваться \textit{скриплеты}
 или \textit{JSTL}.
 
 \textit{Скриплеты} --- часть кода программы, написанного только на одном языке.
@@ -236,24 +241,38 @@ JSP-скриплеты вставляются в код JSP-страницы в 
 для общих нужд, таких как разбор XML данных, условная обработка, создание циклов и
 поддержка интернационализации.
 
-Пример использования языка JSTL на JSP странице \textit{<<>>}
+\pagebreak
+
+Пример использования языка JSTL на странице \textit{<<catalog.jsp>>}
 представлен на рисунке~\ref{lst:jstl_example}.
 
-\begin{lstlisting}[caption=*** CHANGE ME ***, label=lst:jstl_example]
-*** CHANGE ME ***
+\begin{lstlisting}[caption=Пример использования JSTL на странице \textit{catalog.jsp}, label=lst:jstl_example]
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<div class="list">
+  <c:forEach var="bicycle" items="${bicycles}" >
+    <div class="list-row">
+      <div class="list-title">
+        <h2>${bicycle.manufacturer} ${bicycle.productName} (${bicycle.year})</h2>
+      </div>
+      ...
+    </div>
+  </c:forEach>
+</div>
 \end{lstlisting}
 
-Результат отображения страницы \textit{login.jsp} представлен на
-рисунке~\ref{fig:login_jsp}
+Результат отображения страницы \textit{login.jsp} представлен на рисунке~\ref{fig:login_jsp}
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=120mm]{pic/login.png}
+  \includegraphics[width=160mm]{pic/login_site.png}
   \caption{Результат отображения страницы \textit{login.jsp} \\ в браузере}
   \label{fig:login_jsp}
 \end{figure}
 
 Легко убедится в том, что желаемый результат получен --- итоговая страница \textit{login.jsp}
-практически полностью совпадает с разработанным ранее макетом.
+полностью совпадает с разработанным ранее макетом.
+
+Аналогичным образом были спроектированы все остальные страницы интернет-магазина.
 
 \pagebreak
