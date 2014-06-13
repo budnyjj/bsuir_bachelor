@@ -22,19 +22,6 @@ public class CatalogController {
         List<Bicycles> bicycles = availableBicyclesService.getAvailableBicyclesList();
         modelAndView.addObject("bicycles", bicycles);
 
-        ArrayList<String> bicycleNames = new ArrayList<> ();
-        StringBuffer buffer = new StringBuffer();
-
-        for (Bicycles bicycle : bicycles) {
-            buffer.setLength(0);
-            buffer.append(bicycle.getManufacturer() + " ");
-            buffer.append(bicycle.getProductName() + " (");
-            buffer.append(bicycle.getYear() + ")");
-
-            bicycleNames.add(buffer.toString());
-        }
-        modelAndView.addObject("bicycleNames", bicycleNames);
-
         return modelAndView;
     }
 }

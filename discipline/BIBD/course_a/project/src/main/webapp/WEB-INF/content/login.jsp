@@ -4,7 +4,7 @@
 
 <form id="login-form">
   <div class="user-input">
-    <input type="TextField" name="email" placeholder="логин..." size=40 />
+    <input type="TextField" name="email" placeholder="E-mail..." size=40 />
   </div>
   <div class="user-input">
     <input type="TextField" name="password" placeholder="пароль..." size=40 />

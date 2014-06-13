@@ -15,9 +15,19 @@ public class BicycleController {
     @Autowired
     private BicycleService bicycleService;
 
-    @RequestMapping(value = "/catalog/detail/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/catalog/{id}", method = RequestMethod.GET)
     public ModelAndView bicycleDetail(@PathVariable Long id) {
         ModelAndView modelAndView = new ModelAndView("detail");
+
+        Bicycles bicycle = bicycleService.getById(id);
+        modelAndView.addObject("bicycle", bicycle);
+
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/catalog/{id}/order", method = RequestMethod.GET)
+    public ModelAndView bicycleOrder(@PathVariable Long id) {
+        ModelAndView modelAndView = new ModelAndView("order");
 
         Bicycles bicycle = bicycleService.getById(id);
         modelAndView.addObject("bicycle", bicycle);

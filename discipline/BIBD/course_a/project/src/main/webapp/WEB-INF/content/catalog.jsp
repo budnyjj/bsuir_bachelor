@@ -5,7 +5,7 @@
 
 <div class="list">
   <c:forEach var="bicycle" items="${bicycles}" >
-    <a class="list-row" href="${pageContext.request.contextPath}/catalog/detail/${bicycle.id}">
+    <a class="list-row" href="${pageContext.request.contextPath}/catalog/${bicycle.id}">
       <div class="list-title">
         <h2>${bicycle.manufacturer} ${bicycle.productName}</h2>
       </div>

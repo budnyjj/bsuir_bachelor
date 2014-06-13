@@ -119,7 +119,7 @@
         </td>
         <td class="detail-value">
           <div class="button order-button">
-            <a class="button order-button" href="#">Заказать!</a> 
+            <a class="button order-button" href="${pageContext.request.contextPath}/catalog/${bicycle.id}/order">Заказать!</a> 
           </div>
         </td>
       </tr>
