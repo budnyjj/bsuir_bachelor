@@ -17,7 +17,7 @@ public class BicycleController {
 
     @RequestMapping(value = "/catalog/{id}", method = RequestMethod.GET)
     public ModelAndView bicycleDetail(@PathVariable Long id) {
-        ModelAndView modelAndView = new ModelAndView("detail");
+        ModelAndView modelAndView = new ModelAndView("bicycle_details");
 
         Bicycles bicycle = bicycleService.getById(id);
         modelAndView.addObject("bicycle", bicycle);
