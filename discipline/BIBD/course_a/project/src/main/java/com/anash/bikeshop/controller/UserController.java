@@ -24,10 +24,10 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
-    public ModelAndView bicycleDetail(@PathVariable Long id) {
+    public ModelAndView bicycleDetail(@PathVariable Integer id) {
         ModelAndView modelAndView = new ModelAndView("user_details");
 
-        User user = usersService.getById(id);
+        User user = userService.getById(id);
         modelAndView.addObject("user", user);
 
         Bicycle bicycle = bicycleService.getById(id);

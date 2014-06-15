@@ -13,12 +13,12 @@ import java.util.List;
 public class CatalogController {
 
     @Autowired
-    private AvailableBicycleService availableBicyclesService;
+    private AvailableBicycleService availableBicycleService;
 
     @RequestMapping(value = "/catalog")
     public ModelAndView listOfAvailableBicycles() {
         ModelAndView modelAndView = new ModelAndView();
-        List<Bicycle> bicycles = availableBicyclesService.getAvailableBicyclesList();
+        List<Bicycle> bicycles = availableBicycleService.getAvailableBicyclesList();
         modelAndView.addObject("bicycles", bicycles);
 
         return modelAndView;
