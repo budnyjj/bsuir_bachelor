@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.5.37, for debian-linux-gnu (x86_64)
+-- MySQL dump 10.14  Distrib 5.5.37-MariaDB, for Linux (x86_64)
 --
 -- Host: localhost    Database: bikeshopdb
 -- ------------------------------------------------------
--- Server version	5.5.37-0ubuntu0.12.04.1
+-- Server version	5.5.37-MariaDB-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -113,7 +113,7 @@ CREATE TABLE `orders` (
   KEY `FK_k8kupdtcdpqd57b6j4yq9uvdj` (`user_id`),
   CONSTRAINT `FK_k8kupdtcdpqd57b6j4yq9uvdj` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
   CONSTRAINT `FK_q3pc5qwuyri8snomhqavssmhh` FOREIGN KEY (`bicycle_id`) REFERENCES `bicycles` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -122,6 +122,7 @@ CREATE TABLE `orders` (
 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
+INSERT INTO `orders` VALUES (1,590,'2010-07-04','PROCESSING',1,3),(2,590,'2010-07-04','PROCESSING',1,1),(3,590,'2010-07-04','PROCESSING',1,1);
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -194,4 +195,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-06-15 19:26:42
+-- Dump completed on 2014-06-15 21:45:15
