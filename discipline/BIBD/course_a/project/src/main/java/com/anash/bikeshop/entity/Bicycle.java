@@ -13,7 +13,7 @@ import java.io.Serializable;
 public class Bicycle implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private int id;
 
     @NotNull
     @Column(name = "product_name", nullable = false)
@@ -108,11 +108,11 @@ public class Bicycle implements Serializable {
     @Column(name = "price")
     private Double price;
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
