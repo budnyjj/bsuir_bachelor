@@ -2,4 +2,5 @@ target/
 .idea/
 *.iml
 *.iws
-app.properties
+META-INF/
+pom.xml
