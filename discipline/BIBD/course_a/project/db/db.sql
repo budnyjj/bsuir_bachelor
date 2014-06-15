@@ -31,7 +31,7 @@ CREATE TABLE `available_bicycles` (
   UNIQUE KEY `UK_an44nl7sgw0hthg5al88jw0` (`bicycle_id`),
   KEY `FK_an44nl7sgw0hthg5al88jw0` (`bicycle_id`),
   CONSTRAINT `FK_an44nl7sgw0hthg5al88jw0` FOREIGN KEY (`bicycle_id`) REFERENCES `bicycles` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,7 +40,7 @@ CREATE TABLE `available_bicycles` (
 
 LOCK TABLES `available_bicycles` WRITE;
 /*!40000 ALTER TABLE `available_bicycles` DISABLE KEYS */;
-INSERT INTO `available_bicycles` VALUES (3,NULL,10,1);
+INSERT INTO `available_bicycles` VALUES (4,1,10,1),(5,1,15,2);
 /*!40000 ALTER TABLE `available_bicycles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -81,7 +81,7 @@ CREATE TABLE `bicycles` (
   `wheels_diameter` tinyint(4) NOT NULL,
   `year` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -90,7 +90,7 @@ CREATE TABLE `bicycles` (
 
 LOCK TABLES `bicycles` WRITE;
 /*!40000 ALTER TABLE `bicycles` DISABLE KEYS */;
-INSERT INTO `bicycles` VALUES (1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Fuji',NULL,'pic/0.png',NULL,'Traverse 1.3',27,NULL,NULL,NULL,'m',NULL,NULL,NULL,28,2014);
+INSERT INTO `bicycles` VALUES (1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Fuji',NULL,'pic/1.png',NULL,'Traverse 1.3',27,NULL,NULL,NULL,'M',NULL,NULL,NULL,28,2014),(2,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'GT',NULL,'pic/2.png',NULL,'Timberline 2.0',27,NULL,NULL,NULL,'M',NULL,NULL,NULL,28,2014);
 /*!40000 ALTER TABLE `bicycles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -171,7 +171,7 @@ CREATE TABLE `users` (
   `user_role` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UK_6dotkott2kjsp8vw4d0m25fb7` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -180,6 +180,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES (1,'admin@gmail.com','Admin','admin','8033445553322','ADMIN'),(2,'admin2@gmail.com','Admin2','admin','8033445553322','ADMIN'),(3,'user@gmail.com','User','user','8033445553322','USER');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -192,4 +193,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-06-15 17:29:55
+-- Dump completed on 2014-06-15 18:11:43
