@@ -9,10 +9,10 @@ import java.io.Serializable;
 public class AvailableBicycle implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private int id;
 
     @NotNull
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "bicycle_id", nullable = false, unique = true)
     private Bicycle bicycle;
 
@@ -22,11 +22,11 @@ public class AvailableBicycle implements Serializable {
     @Column
     private Boolean availability;
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 

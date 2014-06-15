@@ -12,7 +12,7 @@ import java.io.Serializable;
 public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private int id;
 
     @Email
     @NotNull
@@ -36,11 +36,11 @@ public class User implements Serializable {
     @Column(name = "phone_number", nullable = false)
     private String phoneNumber;
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
