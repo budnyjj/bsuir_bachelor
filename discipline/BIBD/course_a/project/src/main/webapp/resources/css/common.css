@@ -9,23 +9,49 @@ p {
     margin: 0 0 10px 0;
 }
 
+.flush-left {
+    text-align: left;
+}
+
+.flush-right {
+    text-align: right;
+}
+
 .white-text,
-a.white-text
+a.white-text,
 .white-text a {
     color: #fff !important;
 }
 
-.button {
-    margin: 20px 0;
-    font-size: 20px;
+.brown-text.,
+a.brown-text,
+.brown-text a {
+    color: #2b1100 !important; 
 }
 
-.button a,
-a.button {
+.button {
+    display: block;
+    margin: 5px 0;
     padding: 5px 10px;
+    font-size: 20px;
     background-color: #ff7f2a;
     color: #fff;
     text-decoration: none;
+    text-align: center;
+}
+
+.button:hover,
+.button:active,
+.button:visited {
+    color: #fff;
+}
+
+.approve-button {
+    background-color: green;
+}
+
+.discard-button {
+    background-color: brown;
 }
 
 .bold {
@@ -73,3 +99,47 @@ a.list-row {
 .list-image img {
     width: 300px;
 }
+
+/* TABLE STYLES */
+
+.detail-category {
+    background-color: #552200;
+    color: #ffccaa;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.detail-parameters {
+    width: 100%;
+    margin-bottom: 10px;
+    border-spacing: 0;
+}
+
+.detail-parameters th {
+    background-color: #552200;
+    color: #ffccaa;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.detail-parameters td {
+    padding: 5px 10px;
+}
+
+.detail-image {
+    width: 100%;
+    margin-bottom: 50px;
+}
+
+.detail-cost {
+    font-size: 20px;
+}
+
+.detail-parameter {
+    width: 40%;
+}
+

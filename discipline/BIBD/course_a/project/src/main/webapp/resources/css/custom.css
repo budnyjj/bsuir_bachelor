@@ -88,35 +88,6 @@ ul.user-menu {
     font-size: 20px;
 }
 
-.detail-image {
-    width: 100%;
-    margin-bottom: 50px;
-}
-
-.detail-category {
-    background-color: #552200;
-    color: #ffccaa;
-    font-size: 20px;
-    font-weight: bold;
-    padding: 10px;
-    margin-bottom: 20px;
-}
-
-.detail-parameters {
-    width: 100%;
-    padding: 0 10px;
-    margin-bottom: 20px;
-}
-
-.detail-cost {
-    font-size: 20px;
-}
-
-.detail-parameter {
-    width: 40%;
-    padding: 0 10px;
-}
-
 /* SIDEBAR STYLES */
 
 .sidebar {
