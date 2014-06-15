@@ -143,7 +143,7 @@ CREATE TABLE `orders_archive` (
   KEY `FK_bj5pakxyx6ujgog09474wcpux` (`user_id`),
   CONSTRAINT `FK_bj5pakxyx6ujgog09474wcpux` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
   CONSTRAINT `FK_97beet5p210p64odvrtyji5d7` FOREIGN KEY (`bicycle_id`) REFERENCES `bicycles` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -152,6 +152,7 @@ CREATE TABLE `orders_archive` (
 
 LOCK TABLES `orders_archive` WRITE;
 /*!40000 ALTER TABLE `orders_archive` DISABLE KEYS */;
+INSERT INTO `orders_archive` VALUES (1,590,'2014-06-15',1,3);
 /*!40000 ALTER TABLE `orders_archive` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -180,7 +181,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'admin@gmail.com','Admin','admin','8033445553322','ADMIN'),(2,'admin2@gmail.com','Admin2','admin','8033445553322','ADMIN'),(3,'user@gmail.com','User','user','8033445553322','USER');
+INSERT INTO `users` VALUES (1,'admin@gmail.com','Admin','admin','8033445553322','ADMIN'),(3,'user@gmail.com','User','user','8033445553322','USER');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -193,4 +194,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-06-15 18:11:43
+-- Dump completed on 2014-06-15 19:26:42
