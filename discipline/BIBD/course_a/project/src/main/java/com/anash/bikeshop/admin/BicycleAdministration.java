@@ -1,9 +1,9 @@
 package com.anash.bikeshop.admin;
 
-import com.anash.bikeshop.entity.Orders;
+import com.anash.bikeshop.entity.Bicycle;
 import org.lightadmin.api.config.AdministrationConfiguration;
 import org.lightadmin.api.config.annotation.Administration;
 
-@Administration(Orders.class)
-public class OrdersAdministration extends AdministrationConfiguration<Orders> {
+@Administration(Bicycle.class)
+public class BicycleAdministration extends AdministrationConfiguration<Bicycle> {
 }

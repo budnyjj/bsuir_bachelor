@@ -2,30 +2,30 @@ package com.anash.bikeshop.entity;
 
 import com.anash.bikeshop.entity.enums.BicycleSize;
 import com.anash.bikeshop.entity.enums.FrameMaterial;
-import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "bicycles")
-public class Bicycles implements Serializable {
-
+public class Bicycle implements Serializable {
     @Id
-    @GeneratedValue(generator = "increment")
-    @GenericGenerator(name = "increment", strategy = "increment")
-    @Column(name = "id", length = 6, nullable = false)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
 
+    @NotNull
     @Column(name = "product_name", nullable = false)
     private String productName;
 
+    @NotNull
     @Column(name = "manufacturer", nullable = false)
     private String manufacturer;
 
     @Column(name = "type")
     private String type;
+
 
     @Range(min = 1900, max = 2500)
     @Column(name = "year")
@@ -34,10 +34,12 @@ public class Bicycles implements Serializable {
     @Column(name = "color")
     private String color;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "bicycle_size", nullable = false)
     private BicycleSize size;
 
+    @NotNull
     @Range(min = 1, max = 50)
     @Column(name = "rates_number")
     private Byte ratesNumber;
@@ -48,6 +50,7 @@ public class Bicycles implements Serializable {
     @Column(name = "brakes")
     private String brakes;
 
+    @NotNull
     @Range(min = 1, max = 50)
     @Column(name = "wheels_diameter")
     private Byte wheelsDiameter;
@@ -105,8 +108,12 @@ public class Bicycles implements Serializable {
     @Column(name = "price")
     private Double price;
 
-    public long getId() {
+    public Integer getId() {
         return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getProductName() {

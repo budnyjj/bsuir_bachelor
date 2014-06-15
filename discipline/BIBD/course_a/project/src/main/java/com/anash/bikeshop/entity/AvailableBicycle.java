@@ -1,35 +1,40 @@
 package com.anash.bikeshop.entity;
 
-import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "available_bicycles")
-public class AvailableBicycles implements Serializable {
-
+public class AvailableBicycle implements Serializable {
     @Id
-    @GeneratedValue(generator = "increment")
-    @GenericGenerator(name = "increment", strategy = "increment")
-    @Column(name = "id", length = 6, nullable = false)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @NotNull
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "bicycle_id", nullable = false, unique = true)
-    private Bicycles bicycle;
+    private Bicycle bicycle;
 
     @Column(name = "bicycles_count")
     private Integer count;
 
-    @Column(name = "availability")
+    @Column
     private Boolean availability;
 
-    public Bicycles getBicycle() {
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Bicycle getBicycle() {
         return bicycle;
     }
 
-    public void setBicycle(Bicycles bicycle) {
+    public void setBicycle(Bicycle bicycle) {
         this.bicycle = bicycle;
     }
 
@@ -39,6 +44,8 @@ public class AvailableBicycles implements Serializable {
 
     public void setCount(Integer count) {
         this.count = count;
+        this.availability = count > 0;
+
     }
 
     public Boolean getAvailability() {

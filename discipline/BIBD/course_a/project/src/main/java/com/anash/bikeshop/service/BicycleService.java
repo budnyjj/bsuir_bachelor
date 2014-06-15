@@ -1,6 +1,6 @@
 package com.anash.bikeshop.service;
 
-import com.anash.bikeshop.entity.Bicycles;
+import com.anash.bikeshop.entity.Bicycle;
 
-public interface BicycleService extends Service<Bicycles> {
+public interface BicycleService extends Service<Bicycle> {
 }

@@ -1,7 +1,7 @@
 package com.anash.bikeshop.controller;
 
-import com.anash.bikeshop.entity.Users;
-import com.anash.bikeshop.service.UsersService;
+import com.anash.bikeshop.entity.User;
+import com.anash.bikeshop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -17,17 +17,17 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    private UsersService usersService;
+    private UserService usersService;
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public ModelAndView addUsersPage() {
         ModelAndView modelAndView = new ModelAndView("add-user-form");
-        modelAndView.addObject("user", new Users());
+        modelAndView.addObject("user", new User());
         return modelAndView;
     }
     /**/
             @RequestMapping(value = "/add", method = RequestMethod.POST)
-            public ModelAndView addingUser(@ModelAttribute Users user) {
+            public ModelAndView addingUser(@ModelAttribute User user) {
                 ModelAndView modelAndView = new ModelAndView("index");
                 //user.setRole(UserRole.USER);
                 //usersService.create(user);
@@ -42,16 +42,16 @@ public class UserController {
     public ModelAndView listOfUsers() {
         ModelAndView modelAndView = new ModelAndView("list-of-users");
 
-        List<Users> users = usersService.getAll();
+        List<User> users = usersService.getAll();
         modelAndView.addObject("users", users);
 
         return modelAndView;
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-    public ModelAndView deleteUser(@PathVariable Long id) {
+    public ModelAndView deleteUser(@PathVariable Integer id) {
         ModelAndView modelAndView = new ModelAndView("index");
-        Users user = usersService.getById(id);
+        User user = usersService.getById(id);
         usersService.delete(user);
 
         String message = "User was successfully deleted.";

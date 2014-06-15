@@ -1,7 +1,6 @@
 package com.anash.bikeshop.entity;
 
 import com.anash.bikeshop.entity.enums.UserRole;
-import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.*;
@@ -10,21 +9,18 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "users")
-public class Users implements Serializable {
-
+public class User implements Serializable {
     @Id
-    @GeneratedValue(generator = "increment")
-    @GenericGenerator(name = "increment", strategy = "increment")
-    @Column(name = "id", length = 6, nullable = false)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
 
     @Email
     @NotNull
-    @Column(name = "email", nullable = false)
+    @Column(nullable = false, unique = true)
     private String email;
 
     @NotNull
-    @Column(name = "password", nullable = false)
+    @Column(nullable = false)
     private String password;
 
     @NotNull
@@ -33,14 +29,27 @@ public class Users implements Serializable {
     private UserRole userRole;
 
     @NotNull
-    @Column(name = "name", nullable = false)
+    @Column(nullable = false)
     private String name;
 
-    @Column(name = "phone_number")
+    @NotNull
+    @Column(name = "phone_number", nullable = false)
     private String phoneNumber;
 
-    public long getId() {
+    public Integer getId() {
         return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public UserRole getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(UserRole userRole) {
+        this.userRole = userRole;
     }
 
     public String getName() {
@@ -65,14 +74,6 @@ public class Users implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public UserRole getRole() {
-        return userRole;
-    }
-
-    public void setRole(UserRole userRole) {
-        this.userRole = userRole;
     }
 
     public String getPhoneNumber() {

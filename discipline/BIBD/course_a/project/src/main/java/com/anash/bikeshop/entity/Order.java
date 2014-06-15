@@ -1,64 +1,56 @@
 package com.anash.bikeshop.entity;
 
 import com.anash.bikeshop.entity.enums.OrderStatus;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @Table(name = "orders")
-public class Orders implements Serializable {
-
+public class Order implements Serializable {
     @Id
-    @GeneratedValue(generator = "increment")
-    @GenericGenerator(name = "increment", strategy = "increment")
-    @Column(name = "id", length = 6, nullable = false)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @NotNull
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "bicycle_id", nullable = false)
-    private Bicycles bicycle;
+    private Bicycle bicycle;
 
-    @Min(1)
-    @Column(name = "products_count", nullable = false)
-    private Integer productsCount;
-
+    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "order_status", nullable = false)
     private OrderStatus orderStatus;
 
+    @NotNull
     @Column(name = "goods_cost", nullable = false)
     private Double goodsCost;
 
+    @NotNull
     @Temporal(TemporalType.DATE)
     @Column(name = "order_date", nullable = false)
     private Date orderDate;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    private Users user;
+    private User user;
 
-    public long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public Bicycles getBicycle() {
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Bicycle getBicycle() {
         return bicycle;
     }
 
-    public void setBicycle(Bicycles bicycle) {
+    public void setBicycle(Bicycle bicycle) {
         this.bicycle = bicycle;
-    }
-
-    public Integer getProductsCount() {
-        return productsCount;
-    }
-
-    public void setProductsCount(Integer productsCount) {
-        this.productsCount = productsCount;
     }
 
     public OrderStatus getOrderStatus() {
@@ -85,11 +77,11 @@ public class Orders implements Serializable {
         this.orderDate = orderDate;
     }
 
-    public Users getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(Users user) {
+    public void setUser(User user) {
         this.user = user;
     }
 }
