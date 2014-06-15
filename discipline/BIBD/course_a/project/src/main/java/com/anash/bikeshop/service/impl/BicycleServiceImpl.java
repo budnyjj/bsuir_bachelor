@@ -1,7 +1,7 @@
 package com.anash.bikeshop.service.impl;
 
-import com.anash.bikeshop.entity.Bicycles;
-import com.anash.bikeshop.repository.BicyclesRepo;
+import com.anash.bikeshop.entity.Bicycle;
+import com.anash.bikeshop.repository.BicycleRepo;
 import com.anash.bikeshop.service.BicycleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,30 +12,31 @@ import java.util.List;
 public class BicycleServiceImpl implements BicycleService {
 
     @Autowired
-    private BicyclesRepo bicyclesRepo;
+    private BicycleRepo bicycleRepo;
 
     @Override
-    public void create(Bicycles bicycles) {
-        bicyclesRepo.saveAndFlush(bicycles);
+    public void create(Bicycle bicycle) {
+        Bicycle createdBicycle = bicycle;
+        bicycleRepo.saveAndFlush(createdBicycle);
     }
 
     @Override
-    public void update(Bicycles bicycles) {
-        bicyclesRepo.saveAndFlush(bicycles);
+    public void update(Bicycle bicycle) {
+        bicycleRepo.saveAndFlush(bicycle);
     }
 
     @Override
-    public void delete(Bicycles bicycles) {
-        bicyclesRepo.delete(bicycles);
+    public void delete(Bicycle bicycle) {
+        bicycleRepo.delete(bicycle);
     }
 
     @Override
-    public Bicycles getById(long id) {
-        return bicyclesRepo.findOne(id);
+    public Bicycle getById(Integer id) {
+        return bicycleRepo.findOne(id);
     }
 
     @Override
-    public List<Bicycles> getAll() {
-        return bicyclesRepo.findAll();
+    public List<Bicycle> getAll() {
+        return bicycleRepo.findAll();
     }
 }

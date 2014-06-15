@@ -10,7 +10,7 @@ public interface Service<Type> {
 
     void delete(Type entity);
 
-    Type getById(long id);
+    Type getById(Integer id);
 
     List<Type> getAll();
 }

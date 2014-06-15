@@ -1,18 +1,15 @@
 package com.anash.bikeshop.admin;
 
-import com.anash.bikeshop.entity.Users;
+import com.anash.bikeshop.entity.User;
 import org.lightadmin.api.config.AdministrationConfiguration;
 import org.lightadmin.api.config.annotation.Administration;
+import org.lightadmin.api.config.builder.FieldSetConfigurationUnitBuilder;
+import org.lightadmin.api.config.builder.ScreenContextConfigurationUnitBuilder;
+import org.lightadmin.api.config.unit.FieldSetConfigurationUnit;
+import org.lightadmin.api.config.unit.ScreenContextConfigurationUnit;
 
-@Administration(Users.class)
-public class UsersAdministration extends AdministrationConfiguration<Users> {
-
-    /*
-    @Override
-    public EntityMetadataConfigurationUnit configuration (
-            EntityMetadataConfigurationUnitBuilder configurationBuilder) {
-        return configurationBuilder.nameField("email").build();
-    }
+@Administration(User.class)
+public class UserAdministration extends AdministrationConfiguration<User> {
 
     @Override
     public ScreenContextConfigurationUnit screenContext (
@@ -25,5 +22,5 @@ public class UsersAdministration extends AdministrationConfiguration<Users> {
             FieldSetConfigurationUnitBuilder fragmentBuilder) {
         return fragmentBuilder.field("email").caption("E-mail").build();
     }
-    */
+
 }

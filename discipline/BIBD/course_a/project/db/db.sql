@@ -23,15 +23,15 @@ DROP TABLE IF EXISTS `available_bicycles`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `available_bicycles` (
-  `id` bigint(20) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `availability` tinyint(1) DEFAULT NULL,
   `bicycles_count` int(11) DEFAULT NULL,
-  `bicycle_id` bigint(20) NOT NULL,
+  `bicycle_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UK_an44nl7sgw0hthg5al88jw0` (`bicycle_id`),
   KEY `FK_an44nl7sgw0hthg5al88jw0` (`bicycle_id`),
   CONSTRAINT `FK_an44nl7sgw0hthg5al88jw0` FOREIGN KEY (`bicycle_id`) REFERENCES `bicycles` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,7 +40,7 @@ CREATE TABLE `available_bicycles` (
 
 LOCK TABLES `available_bicycles` WRITE;
 /*!40000 ALTER TABLE `available_bicycles` DISABLE KEYS */;
-INSERT INTO `available_bicycles` VALUES (0,NULL,10,0),(1,NULL,7,1),(2,NULL,15,2),(3,NULL,10,3);
+INSERT INTO `available_bicycles` VALUES (3,NULL,10,1);
 /*!40000 ALTER TABLE `available_bicycles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -52,11 +52,12 @@ DROP TABLE IF EXISTS `bicycles`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `bicycles` (
-  `id` bigint(20) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `brakes` varchar(255) DEFAULT NULL,
   `cassette` varchar(255) DEFAULT NULL,
   `chain` varchar(255) DEFAULT NULL,
   `color` varchar(255) DEFAULT NULL,
+  `cranckset` varchar(255) DEFAULT NULL,
   `fork` varchar(255) DEFAULT NULL,
   `fork_move` int(11) DEFAULT NULL,
   `frame_materials` varchar(255) DEFAULT NULL,
@@ -69,7 +70,7 @@ CREATE TABLE `bicycles` (
   `photo_path` varchar(255) DEFAULT NULL,
   `price` double DEFAULT NULL,
   `product_name` varchar(255) NOT NULL,
-  `rates_number` tinyint(4) DEFAULT NULL,
+  `rates_number` tinyint(4) NOT NULL,
   `rear_derailer` varchar(255) DEFAULT NULL,
   `saddle` varchar(255) DEFAULT NULL,
   `shifters` varchar(255) DEFAULT NULL,
@@ -77,11 +78,10 @@ CREATE TABLE `bicycles` (
   `tires` varchar(255) DEFAULT NULL,
   `type` varchar(255) DEFAULT NULL,
   `weight` double DEFAULT NULL,
-  `wheels_diameter` tinyint(4) DEFAULT NULL,
-  `year` tinyblob,
-  `cranckset` varchar(255) DEFAULT NULL,
+  `wheels_diameter` tinyint(4) NOT NULL,
+  `year` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -90,7 +90,7 @@ CREATE TABLE `bicycles` (
 
 LOCK TABLES `bicycles` WRITE;
 /*!40000 ALTER TABLE `bicycles` DISABLE KEYS */;
-INSERT INTO `bicycles` VALUES (0,'Shimano (M395)','Shimano Altus','KMC (X9)','Черный','Аммортизационная',63,'ALUMINIUM_ALLOY','Shimano Acera','10 лет','Oval (Concepts 200)',NULL,'Fuji','Платформенные','pic/0.png',590,'Traverse 1.3',27,'Shimano Deore','Oval (Concepts P300)','Shimano Acera','XL','Vera (EOS)','Гибридный',13.95,28,'2014','Shimano Acera (Octalink)'),(1,NULL,NULL,NULL,'Черный',NULL,NULL,'ALUMINIUM_ALLOY',NULL,NULL,NULL,NULL,'GT',NULL,'pic/1.png',389,'Timberline 2.0',NULL,NULL,NULL,NULL,'M',NULL,'Горный',NULL,NULL,'2014',NULL),(2,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'GT',NULL,'pic/2.png',499,'Avalanche Sport',NULL,NULL,NULL,NULL,'XL',NULL,'Горный',NULL,NULL,'2014',NULL),(3,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Fuji',NULL,'pic/3.png',720,'Traverse 1.1',NULL,NULL,NULL,NULL,'M',NULL,'Гибридный',NULL,NULL,'2014',NULL);
+INSERT INTO `bicycles` VALUES (1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Fuji',NULL,'pic/0.png',NULL,'Traverse 1.3',27,NULL,NULL,NULL,'m',NULL,NULL,NULL,28,2014);
 /*!40000 ALTER TABLE `bicycles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -102,13 +102,12 @@ DROP TABLE IF EXISTS `orders`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `orders` (
-  `id` bigint(20) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `goods_cost` double NOT NULL,
   `order_date` date NOT NULL,
   `order_status` varchar(255) NOT NULL,
-  `products_count` int(11) NOT NULL,
-  `bicycle_id` bigint(20) NOT NULL,
-  `user_id` bigint(20) NOT NULL,
+  `bicycle_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_q3pc5qwuyri8snomhqavssmhh` (`bicycle_id`),
   KEY `FK_k8kupdtcdpqd57b6j4yq9uvdj` (`user_id`),
@@ -134,17 +133,16 @@ DROP TABLE IF EXISTS `orders_archive`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `orders_archive` (
-  `id` bigint(20) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `goods_cost` double NOT NULL,
   `order_date` date NOT NULL,
-  `orders_count` int(11) NOT NULL,
-  `bicycle_id` bigint(20) NOT NULL,
-  `user_id` bigint(20) NOT NULL,
+  `bicycle_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_97beet5p210p64odvrtyji5d7` (`bicycle_id`),
   KEY `FK_bj5pakxyx6ujgog09474wcpux` (`user_id`),
-  CONSTRAINT `FK_97beet5p210p64odvrtyji5d7` FOREIGN KEY (`bicycle_id`) REFERENCES `bicycles` (`id`),
-  CONSTRAINT `FK_bj5pakxyx6ujgog09474wcpux` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+  CONSTRAINT `FK_bj5pakxyx6ujgog09474wcpux` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+  CONSTRAINT `FK_97beet5p210p64odvrtyji5d7` FOREIGN KEY (`bicycle_id`) REFERENCES `bicycles` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -165,13 +163,14 @@ DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `users` (
-  `id` bigint(20) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `email` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `phone_number` varchar(255) DEFAULT NULL,
+  `phone_number` varchar(255) NOT NULL,
   `user_role` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UK_6dotkott2kjsp8vw4d0m25fb7` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -193,4 +192,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-06-12 13:59:35
+-- Dump completed on 2014-06-15 17:29:55
