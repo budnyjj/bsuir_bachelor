@@ -1,0 +1,63 @@
+.clear-both {
+	clear: both;
+}
+
+.float-left {
+	float: left;
+}
+
+/* NODE STYLES */
+
+.node-teaser {
+	overflow: visible;
+}
+
+.node-teaser .title {
+    margin-bottom: 10px;
+}
+
+.node-teaser .field-name-commerce-price {
+    margin-top: 10px;
+    font-size: 1.286em;
+}
+
+
+
+
+.page-node .group-photos {
+    width: 340px
+}
+
+.page-node .field-name-commerce-price {
+    font-size: 1.286em;
+}
+
+
+
+/* VIEWS STYLES */
+
+.views-widget-filter-commerce_price_amount {
+    width: 240px;
+}
+
+.views-widget-filter-commerce_price_amount #edit-commerce-price-amount-min {
+    float: left;
+    margin-bottom: 10px;
+    width: 3em;
+}
+
+.views-widget-filter-commerce_price_amount #edit-commerce-price-amount-max {
+    float: right;
+    margin-bottom: 10px;
+    width: 3em;
+}
+
+.views-widget-filter-commerce_price_amount .ui-slider {
+    margin: 10px;
+    clear: both;
+}
+
+label[for=edit-commerce-price-amount-max] {
+    display: none;
+}
+
