@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<bicycle_variants>
+  <bicycle_variant>
+    <sku>84DS-L-GREY</sku>
+    <title>8.4 DS LARGE GREY</title>
+    <cost>75000</cost>
+    <is_active>0</is_active>
+    <frame_size>M</frame_size>
+    <color>Серый</color>
+    <photos>sites/default/files/bicycles/trek-grey.jpg</photos>
+  </bicycle_variant>
+  <bicycle_variant>
+    <sku>CROSS-ORANGE-L</sku>
+    <title>CROSSTRAIL LARGE ORANGE</title>
+    <cost>68000</cost>
+    <is_active>0</is_active>
+    <frame_size>L</frame_size>
+    <color>Оранжевый</color>
+    <photos>sites/default/files/bicycles/crosstrail-orange.jpg</photos>
+  </bicycle_variant>
+  <bicycle_variant>
+    <sku>TRA-L-BLACK</sku>
+    <title>TRAVERSE LARGE BLACK</title>
+    <cost>72000</cost>
+    <is_active>0</is_active>
+    <frame_size>L</frame_size>
+    <color>Черный</color>
+    <photos></photos>
+  </bicycle_variant>
+  <bicycle_variant>
+    <sku>84DS-L-WHITE</sku>
+    <title>8.4 DS LARGE WHITE</title>
+    <cost>75000</cost>
+    <is_active>1</is_active>
+    <frame_size>L</frame_size>
+    <color>Белый</color>
+    <photos>sites/default/files/bicycles/trek-white.jpg</photos>
+  </bicycle_variant>
+  <bicycle_variant>
+    <sku>CROSS-BLACK-L</sku>
+    <title>CROSSTRAIL LARGE BLACK</title>
+    <cost>68000</cost>
+    <is_active>1</is_active>
+    <frame_size>L</frame_size>
+    <color>Серый</color>
+    <photos>sites/default/files/bicycles/crosstrail-grey.jpg</photos>
+  </bicycle_variant>
+  <bicycle_variant>
+    <sku>TRA-S-BLACK</sku>
+    <title>TRAVERSE SMALL BLACK</title>
+    <cost>72000</cost>
+    <is_active>1</is_active>
+    <frame_size>S</frame_size>
+    <color>Черный</color>
+    <photos>sites/default/files/bicycles/traverse-1.jpg,sites/default/files/bicycles/traverse-2.jpg</photos>
+  </bicycle_variant>
+  <bicycle_variant>
+    <sku>GT-Aval-Oran-M-2014</sku>
+    <title>GT Avalanche Sport (2014)</title>
+    <cost>49900</cost>
+    <is_active>1</is_active>
+    <frame_size>M</frame_size>
+    <color>Черный</color>
+    <photos>sites/default/files/bicycles/gt_avalanche_sport_2014.jpg</photos>
+  </bicycle_variant>
+  <bicycle_variant>
+    <sku>GT-Aval-Oran-L-2014</sku>
+    <title>GT Avalanche Sport (2014)</title>
+    <cost>49900</cost>
+    <is_active>1</is_active>
+    <frame_size>L</frame_size>
+    <color>Черный</color>
+    <photos>sites/default/files/bicycles/gt_avalanche_sport.jpg</photos>
+  </bicycle_variant>
+  <bicycle_variant>
+    <sku>KROSS-M-BL-2014</sku>
+    <title>Kross Hexagon X9</title>
+    <cost>51900</cost>
+    <is_active>1</is_active>
+    <frame_size>M</frame_size>
+    <color>Черный</color>
+    <photos>sites/default/files/bicycles/kross.jpg,sites/default/files/bicycles/kross2_0.jpg</photos>
+  </bicycle_variant>
+  <bicycle_variant>
+    <sku>KROSS-XL-BL-2014</sku>
+    <title>Kross Hexagon X9</title>
+    <cost>51900</cost>
+    <is_active>1</is_active>
+    <frame_size>XL</frame_size>
+    <color>Черный</color>
+    <photos>sites/default/files/bicycles/kross2.jpg,sites/default/files/bicycles/kross_0.jpg</photos>
+  </bicycle_variant>
+</bicycle_variants>

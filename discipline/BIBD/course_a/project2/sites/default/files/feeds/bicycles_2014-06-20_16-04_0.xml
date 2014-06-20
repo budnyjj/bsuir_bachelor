@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<bicycles>
+  <bicycle>
+    <sku>TRA-S-BLACK</sku>
+    <manufacturer>Fuji</manufacturer>
+    <class>Горный</class>
+    <model>Traverse 1.1</model>
+    <creation_date>2014</creation_date>
+    <description>&lt;p&gt;Самый&lt;br /&gt;
+лучший&lt;br /&gt;
+велосипед!&lt;/p&gt;
+</description>
+    <weight>12.00</weight>
+    <warranty>3 года.</warranty>
+    <frame_material>Алюминий</frame_material>
+    <wheels_diameter>28&quot;</wheels_diameter>
+    <number_speeds>30</number_speeds>
+    <front_speed_selector>Shimano (LX)</front_speed_selector>
+    <rear_speed_selector>Shimano Deore XT</rear_speed_selector>
+    <crankset>Shimano (LX)</crankset>
+    <handlebar>OVAL</handlebar>
+    <shifters>Shimano (LX)</shifters>
+    <cassette>Shimano (LX)</cassette>
+    <fork_type>Пружинно-масляная</fork_type>
+    <fork_move>80 мм</fork_move>
+    <lockout>1</lockout>
+    <brakes_type>Дисковые гидравлические</brakes_type>
+    <brakes_name>Hayes Dual-Sport</brakes_name>
+    <tyres_type>Грязевые</tyres_type>
+    <tyres_name>VERA</tyres_name>
+    <pedals>OVAL</pedals>
+    <chain>KMC X10</chain>
+    <saddle>OVAL</saddle>
+  </bicycle>
+  <bicycle>
+    <sku>CROSS-BLACK-L</sku>
+    <manufacturer>Specialized</manufacturer>
+    <class>Гибридный</class>
+    <model>Crosstrail Sport Disc</model>
+    <creation_date>2014</creation_date>
+    <description>&lt;p&gt;
+&lt;p&gt;Еще один неплохой велосипед.&lt;/p&gt;
+&lt;/p&gt;
+</description>
+    <weight>14.00</weight>
+    <warranty>12 месяцев</warranty>
+    <frame_material>Алюминий</frame_material>
+    <wheels_diameter>28&quot;</wheels_diameter>
+    <number_speeds>27</number_speeds>
+    <front_speed_selector>Shimano (M390)</front_speed_selector>
+    <rear_speed_selector>Shimano Acera</rear_speed_selector>
+    <crankset>Shimano Acera</crankset>
+    <handlebar>Specialized</handlebar>
+    <shifters>Shimano Acera</shifters>
+    <cassette>Shimano Acera</cassette>
+    <fork_type>Пружинно-масляная</fork_type>
+    <fork_move>63 мм</fork_move>
+    <lockout>1</lockout>
+    <brakes_type>Дисковые гидравлические</brakes_type>
+    <brakes_name>Tektro</brakes_name>
+    <tyres_type>Грязевые</tyres_type>
+    <tyres_name>Kenda</tyres_name>
+    <pedals>Specialized</pedals>
+    <chain>KMC X9</chain>
+    <saddle>Specialized</saddle>
+  </bicycle>
+  <bicycle>
+    <sku>84DS-L-WHITE</sku>
+    <manufacturer>Trek</manufacturer>
+    <class>Гибридный</class>
+    <model>8.4 DS</model>
+    <creation_date>2013</creation_date>
+    <description>&lt;p&gt;
+&lt;p&gt;Trek открывает новый стиль катания Dual Sport. Велосипеды Dual Sport созданы и разработаны Гари Фишером - отцом горных велосипедов. За базу взята рама от горных велосипедов с колесами 29 дюймов с использованием сплава Alpha Gold Aluminium. Модели Trek 8.1 DS, 8.2 DS, Trek 8.3 DS и Trek 8.4 DS с 28-ми дюймовыми колесами - это универсальные велосипеды для достижения большой скорости на дальних расстояниях и для использования в туризме. Они обладают скоростью дорожного велосипеда и прочностью горного. Покупайте "два в одном" и Вы будете первыми в Беларуси и одними из первых в мире, кто опробовал новый стиль.&lt;/p&gt;
+&lt;/p&gt;
+</description>
+    <weight>12.80</weight>
+    <warranty>1 год.</warranty>
+    <frame_material>Алюминий</frame_material>
+    <wheels_diameter>28&quot;</wheels_diameter>
+    <number_speeds>27</number_speeds>
+    <front_speed_selector>Shimano Alivio</front_speed_selector>
+    <rear_speed_selector>Shimano Deore</rear_speed_selector>
+    <crankset>Shimano Alivio M431</crankset>
+    <handlebar>Bontrager</handlebar>
+    <shifters>Shimano Alivio</shifters>
+    <cassette>SRAM PG-950</cassette>
+    <fork_type>Пружинно-масляная</fork_type>
+    <fork_move>63 мм</fork_move>
+    <lockout>1</lockout>
+    <brakes_type>Дисковые гидравлические</brakes_type>
+    <brakes_name>Hayes Dual-Sport</brakes_name>
+    <tyres_type>Грязевые</tyres_type>
+    <tyres_name>Kenda</tyres_name>
+    <pedals>платформенные</pedals>
+    <chain>KMC X9</chain>
+    <saddle>Bontrager Evoke 1</saddle>
+  </bicycle>
+  <bicycle>
+    <sku>GT-Aval-Oran-M-2014,GT-Aval-Oran-L-2014</sku>
+    <manufacturer>GT</manufacturer>
+    <class>Горный</class>
+    <model>Avalanche Sport</model>
+    <creation_date>2014</creation_date>
+    <description>&lt;p&gt;Хороший велосипед GT&lt;/p&gt;
+</description>
+    <weight>13.00</weight>
+    <warranty>10 лет</warranty>
+    <frame_material>Алюминий</frame_material>
+    <wheels_diameter>26&quot;</wheels_diameter>
+    <number_speeds>27</number_speeds>
+    <front_speed_selector>Shimano Alivio (RD-M430)</front_speed_selector>
+    <rear_speed_selector>Shimano Alivio (RD-M430)</rear_speed_selector>
+    <crankset>SR Suntour XCM (T414)</crankset>
+    <handlebar>All Terra</handlebar>
+    <shifters>Shimano (SL-M370, Rapid Fire)</shifters>
+    <cassette>Sunrace (CS-M90)</cassette>
+    <fork_type>Пружинно-масляная</fork_type>
+    <fork_move>100 мм</fork_move>
+    <lockout>1</lockout>
+    <brakes_type>Дисковые гидравлические</brakes_type>
+    <brakes_name>Promax (Decipher Hydraulic Disc)</brakes_name>
+    <tyres_type>Грязевые</tyres_type>
+    <tyres_name>All Terra (MTB)</tyres_name>
+    <pedals>GT Slim Line Flat Pedal</pedals>
+    <chain>KMC (Z99)</chain>
+    <saddle>All Terra (Tacoma)</saddle>
+  </bicycle>
+  <bicycle>
+    <sku>KROSS-M-BL-2014,KROSS-XL-BL-2014</sku>
+    <manufacturer>Kross</manufacturer>
+    <class>Горный</class>
+    <model>Hexagon X9</model>
+    <creation_date>2014</creation_date>
+    <description>&lt;p&gt;Хороший велосипед Kross!&lt;/p&gt;
+</description>
+    <weight>14.63</weight>
+    <warranty>10 лет</warranty>
+    <frame_material>Алюминий</frame_material>
+    <wheels_diameter>28&quot;</wheels_diameter>
+    <number_speeds>27</number_speeds>
+    <front_speed_selector>Shimano Acera (M370)</front_speed_selector>
+    <rear_speed_selector>Shimano Deore (M592)</rear_speed_selector>
+    <crankset>SR Suntour XCM </crankset>
+    <handlebar>KROSS</handlebar>
+    <shifters>Shimano Altus (M370)</shifters>
+    <cassette>Shimano (HG20-9)</cassette>
+    <fork_type>Пружинно-масляная</fork_type>
+    <fork_move>100 мм</fork_move>
+    <lockout>1</lockout>
+    <brakes_type>Дисковые гидравлические</brakes_type>
+    <brakes_name>Shimano M395</brakes_name>
+    <tyres_type>Грязевые</tyres_type>
+    <tyres_name>Rubena</tyres_name>
+    <pedals>Kross Pedal</pedals>
+    <chain>KMC (Z99)</chain>
+    <saddle>Selle Royal Mach (Custom)</saddle>
+  </bicycle>
+</bicycles>
