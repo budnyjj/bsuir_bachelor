@@ -15,23 +15,27 @@ public class OrderServiceImpl implements OrderService {
     private OrderRepo orderRepo;
 
     @Override
-    public void create(Order order) {
-        Order createdOrder = order;
-        orderRepo.saveAndFlush(createdOrder);
+    public Order save(Order order) {
+        Order createdOrder;
+        //createdOrder = orderRepo.saveAndFlush(order);
+        createdOrder = orderRepo.saveAndFlush(order);
+        return createdOrder;
     }
 
+    /*
     @Override
     public void update(Order orders) {
         orderRepo.saveAndFlush(orders);
     }
+    */
 
     @Override
-    public void delete(Order orders) {
-        orderRepo.saveAndFlush(orders);
+    public void delete(Integer id) {
+        orderRepo.delete(id);
     }
 
     @Override
-    public Order getById(Integer id) {
+    public Order findById(Integer id) {
         return orderRepo.findOne(id);
     }
 

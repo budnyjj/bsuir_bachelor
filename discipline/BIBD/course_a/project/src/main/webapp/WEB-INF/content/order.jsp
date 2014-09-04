@@ -9,7 +9,7 @@
   <span class="bold">Цена: </span>${bicycle.price} у. е.
 </div>
 
-<form id="order-form">
+<form id="order-form" method="POST" modelAttribute="user" action="${pageContext.request.contextPath}/catalog/${id}/order">
   <div class="user-input">
     <input type="TextField" name="email" placeholder="E-mail..." size=40 />
   </div>
@@ -17,9 +17,9 @@
     <input type="TextField" name="password" placeholder="Пароль..." size=40 />
   </div>
   <div class="user-input">
-    <input type="TextField" name="contactNumber" placeholder="Контактный номер телефона..." size=40 />
+    <input type="TextField" name="phoneNumber" placeholder="Контактный номер телефона..." size=40 />
   </div>
   <div class="button login-button">
-    <a class="button login-button" href="#">Подтвердить заказ!</a> 
+    <input type="submit" value="Подтвердить заказ!" />
   </div>
 </form>

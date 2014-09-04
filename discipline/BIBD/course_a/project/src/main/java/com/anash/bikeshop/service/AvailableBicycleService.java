@@ -9,4 +9,6 @@ public interface AvailableBicycleService extends Service<AvailableBicycle> {
 
     List<Bicycle> getAvailableBicyclesList();
 
+    AvailableBicycle findAvailableBicycleByBicycleId(Integer id);
+
 }

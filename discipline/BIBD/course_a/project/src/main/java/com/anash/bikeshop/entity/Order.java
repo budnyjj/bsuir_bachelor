@@ -15,7 +15,7 @@ public class Order implements Serializable {
     private Integer id;
 
     @NotNull
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "bicycle_id", nullable = false)
     private Bicycle bicycle;
 
@@ -33,7 +33,7 @@ public class Order implements Serializable {
     @Column(name = "order_date", nullable = false)
     private Date orderDate;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 

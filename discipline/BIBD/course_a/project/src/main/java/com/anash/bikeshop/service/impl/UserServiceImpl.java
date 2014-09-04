@@ -15,23 +15,26 @@ public class UserServiceImpl implements UserService {
     private UserRepo userRepo;
 
     @Override
-    public void create(User user) {
-        User createdUser = user;
-        userRepo.saveAndFlush(createdUser);
+    public User save(User user) {
+        User createdUser;
+        createdUser = userRepo.saveAndFlush(user);
+        return createdUser;
     }
 
+    /*
     @Override
     public void update(User user) {
         userRepo.saveAndFlush(user);
     }
+    */
 
     @Override
-    public void delete(User user) {
-        userRepo.delete(user);
+    public void delete(Integer id) {
+        userRepo.delete(id);
     }
 
     @Override
-    public User getById(Integer id) {
+    public User findById(Integer id) {
         return userRepo.findOne(id);
     }
 

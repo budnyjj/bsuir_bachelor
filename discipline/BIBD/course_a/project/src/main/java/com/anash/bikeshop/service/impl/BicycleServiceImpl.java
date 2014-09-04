@@ -15,23 +15,24 @@ public class BicycleServiceImpl implements BicycleService {
     private BicycleRepo bicycleRepo;
 
     @Override
-    public void create(Bicycle bicycle) {
-        Bicycle createdBicycle = bicycle;
-        bicycleRepo.saveAndFlush(createdBicycle);
+    public Bicycle save(Bicycle bicycle) {
+        Bicycle createdBicycle;
+        createdBicycle = bicycleRepo.saveAndFlush(bicycle);
+        return createdBicycle;
     }
-
+/*
     @Override
     public void update(Bicycle bicycle) {
         bicycleRepo.saveAndFlush(bicycle);
     }
-
+*/
     @Override
-    public void delete(Bicycle bicycle) {
-        bicycleRepo.delete(bicycle);
+    public void delete(Integer id) {
+        bicycleRepo.delete(id);
     }
 
     @Override
-    public Bicycle getById(Integer id) {
+    public Bicycle findById(Integer id) {
         return bicycleRepo.findOne(id);
     }
 

@@ -17,23 +17,24 @@ public class AvailableBicycleServiceImpl implements AvailableBicycleService {
     private AvailableBicycleRepo availableBicycleRepo;
 
     @Override
-    public void create(AvailableBicycle availableBicycle) {
-        AvailableBicycle createdAvailableBicycle = availableBicycle;
-        availableBicycleRepo.saveAndFlush(createdAvailableBicycle);
+    public AvailableBicycle save(AvailableBicycle availableBicycle) {
+        AvailableBicycle createdAvailableBicycle;
+        createdAvailableBicycle = availableBicycleRepo.saveAndFlush(availableBicycle);
+        return createdAvailableBicycle;
     }
-
+/*
     @Override
     public void update(AvailableBicycle entity) {
         availableBicycleRepo.saveAndFlush(entity);
     }
-
+*/
     @Override
-    public void delete(AvailableBicycle entity) {
-        availableBicycleRepo.delete(entity);
+    public void delete(Integer id) {
+        availableBicycleRepo.delete(id);
     }
 
     @Override
-    public AvailableBicycle getById(Integer id) {
+    public AvailableBicycle findById(Integer id) {
         return availableBicycleRepo.findOne(id);
     }
 
@@ -52,5 +53,19 @@ public class AvailableBicycleServiceImpl implements AvailableBicycleService {
             bicycles.add(availableBicycle.getBicycle());
 
         return bicycles;
+    }
+
+    @Override
+    public AvailableBicycle findAvailableBicycleByBicycleId(Integer id) {
+        List<AvailableBicycle> availableBicycles = getAll();
+
+        AvailableBicycle availableBicycle = null;
+        for (AvailableBicycle ab : availableBicycles) {
+            if (ab.getBicycle().getId() == id) {
+                availableBicycle = ab;
+            }
+        }
+
+        return availableBicycle;
     }
 }

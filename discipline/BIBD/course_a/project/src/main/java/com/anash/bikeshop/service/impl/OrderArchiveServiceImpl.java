@@ -16,23 +16,24 @@ public class OrderArchiveServiceImpl implements OrderArchiveService {
     private OrderArchiveRepo orderArchiveRepo;
 
     @Override
-    public void create(OrderArchive orderArchive) {
-        OrderArchive createdArchive = orderArchive;
-        orderArchiveRepo.saveAndFlush(createdArchive);
+    public OrderArchive save(OrderArchive orderArchive) {
+        OrderArchive createdArchive;
+        createdArchive = orderArchiveRepo.saveAndFlush(orderArchive);
+        return  createdArchive;
     }
-
+/*
     @Override
     public void update(OrderArchive ordersArchive) {
         orderArchiveRepo.saveAndFlush(ordersArchive);
     }
-
+*/
     @Override
-    public void delete(OrderArchive ordersArchive) {
-        orderArchiveRepo.delete(ordersArchive);
+    public void delete(Integer id) {
+        orderArchiveRepo.delete(id);
     }
 
     @Override
-    public OrderArchive getById(Integer id) {
+    public OrderArchive findById(Integer id) {
         return orderArchiveRepo.findOne(id);
     }
 

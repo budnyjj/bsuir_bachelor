@@ -47,8 +47,8 @@
             <td class="flush-left">${user.name}</td>
             <td class="flush-left">${user.phoneNumber}</td>
             <td class="flush-left">
-                <a class="button approve-button" href="#">Подтвердить</a> 
-                <a class="button discard-button" href="#">Отменить</a> 
+                class="button approve-button" <input name="action" type="submit" value="Подтвердить"/>
+                class="button discard-button" <input name="action" type="submit" value="Отменить" />
             </td>
           </tr>
         </c:forEach>

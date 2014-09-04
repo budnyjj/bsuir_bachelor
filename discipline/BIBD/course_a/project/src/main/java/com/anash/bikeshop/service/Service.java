@@ -4,13 +4,13 @@ import java.util.List;
 
 public interface Service<Type> {
 
-    void create(Type entity);
+    Type save(Type entity);
 
-    void update(Type entity);
+    // void update(Type entity);
 
-    void delete(Type entity);
+    void delete(Integer id);
 
-    Type getById(Integer id);
+    Type findById(Integer id);
 
     List<Type> getAll();
 }
