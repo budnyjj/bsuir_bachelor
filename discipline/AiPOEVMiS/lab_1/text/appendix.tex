@@ -2,26 +2,22 @@
 \renewcommand{\thetable}{\Asbuk{section}.\arabic{table}}
 \renewcommand{\thelstlisting}{\Asbuk{section}.\arabic{lstlisting}}
 
-\chead{\vspace{1ex}Продолжение приложения А}
 \pagestyle{fancy}
+\fancyhf{} % clear all header and footer fields
+\fancyfoot[R]{\thepage} 
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\setlength{\headheight}{10mm}
+\setlength{\headsep}{\baselineskip}
+\chead{Продолжение приложения \Asbuk{section}}
+
+\section*{ПРИЛОЖЕНИЕ A\\(справочное)\\Программа вывода сообщения <<Hello, world!>> на экран\\(к разделу 3)}
+\label{sec:appendix_a}
 \thispagestyle{plain} 
-
-\begin{landscape}
-\section*{ПРИЛОЖЕНИЕ A\\(справочное)\\<название приложения>\\(к подразделу <номер подраздела>)}
-
 \setcounter{section}{1}
 \setcounter{figure}{0}
 \setcounter{table}{0}
 \setcounter{lstlisting}{0}
 
-В редких случаях бывает удобно выделять объемные рисунки и таблицы, а также листиниги в приложения:
-  
-\begin{figure}[h]
-\centering
-  \includegraphics[width=0.8\linewidth]{pic/excel}
-  \caption{Рабочий лист Excel с результатами решения базовой задачи линейного программирования}
-\end{figure}
-
-\end{landscape}
-
-\newpage
+\lstinputlisting{code/HELLO_1.ASM}
