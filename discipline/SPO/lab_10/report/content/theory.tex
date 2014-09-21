@@ -1,0 +1,37 @@
+\section{ТЕОРЕТИЧЕСКИЕ СВЕДЕНИЯ}
+
+Пример команды PowerShell, используемой для получения списка запущенных процессов,
+представлен на рисунке~\ref{lst:get_processes}.
+
+\begin{lstlisting}[caption=Команда получения списка запущенных процессов, label=lst:get_processes]
+  Get-WmiObject -Class win32_process
+\end{lstlisting}
+
+Стандартный блок кода для добавления справочной информации о программе (help) продемонстрирован
+на рисунке~\ref{lst:help_structure}.
+
+\begin{lstlisting}[caption=Стандартная форма добавления справки к программе, label=lst:help_structure]
+  <#
+  .SYNOPSIS
+      <short description>
+  .DESCRIPTION
+      <full description>
+  .PARAMETER
+      <parameters>
+  .EXAMPLE
+      <run example>
+  .NOTES
+      <additional notes>
+  .LINK
+      <additional links>
+  #>
+\end{lstlisting}
+
+После добавления справочной информации о программе, вызвать данную справку можно будет командой,
+изображенной на рисунке~\ref{lst:help_call}.
+\begin{lstlisting}[caption=Пример вызова справки к программе, label=lst:help_call]
+  Get-Help \.ProgramName
+\end{lstlisting}
+
+
+\newpage
