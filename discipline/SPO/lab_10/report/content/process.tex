@@ -10,12 +10,12 @@
 
 \subsection{Детали реализации программы}
 
-Получим список процессов, затем отсортируем его по времени создания процесса.
+Получим список процессов, отсортируем его по приоритету, затем по времени создания процесса.
 Команды, реализующие данные действия, представлены на рисунке~\ref{lst:get_and_sort_processes}.
 
 \begin{lstlisting}[caption=Получение и сортировка списка запущенных процессов, label=lst:get_and_sort_processes]
   $processes = Get-WmiObject -Class win32_process
-  $sorted_processes = $($processes | Sort-Object CreationDate -Descending)
+  $sorted_processes = $($processes | Sort-Object Priority, CreationDate)
 \end{lstlisting}
 
 Для вывода цветного текста в консоль PowerShell используем команду, представленную на рисунке~\ref{lst:color_text}.
@@ -33,6 +33,14 @@
   \centering
   \includegraphics[width=150mm,height=90mm]{img/process}
   \caption{Вывод списка процессов с использованием командной оболочки PowerShell}\label{fig:process}
+\end{figure}
+
+Вывод статистической информации о процессах продемонстрирован на рисунке~\ref{fig:statistics}.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=80mm,height=40mm]{img/statistics}
+  \caption{Вывод статистической информации о процессах \\ с помощью командной оболочки PowerShell}\label{fig:statistics}
 \end{figure}
 
 Исходный текст разработанной программы расположен в приложении~А.
