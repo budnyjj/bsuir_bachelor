@@ -21,8 +21,6 @@
 
   contour(X1, X2, Z1)
   contour(X1, X2, Z2)
-  % mesh(X1, X2, Z1)
-  % mesh(X1, X2, Z2)
   hold off
 
   %%%%% function %%%%%

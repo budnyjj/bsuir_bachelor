@@ -1,0 +1,12 @@
+function y = normal(x)
+
+y = zeros(size(x));
+
+for i = 1:numel(x)
+    alpha_1 = unifrnd(0, 1)
+    alpha_2 = unifrnd(0, 1)
+    c = 2 * pi
+    r = sqrt(-2 * ln(alpha_1))
+    phi = c / alpha_2
+    y(i) = 
+end

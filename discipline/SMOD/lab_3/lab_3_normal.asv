@@ -1,0 +1,12 @@
+num = 20
+a = 0
+sigma = 2 
+
+hold on
+grid on
+for i=1:num
+    plot(our_normal(a, sigma), -0.2, 'o', 'MarkerSize', 8, )
+    plot(normrnd(a, sigma), 0.2, 'o', 'MarkerSize', 8, )
+end
+hold off
+

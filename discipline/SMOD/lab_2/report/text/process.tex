@@ -15,7 +15,22 @@
 
 \subsection{Теоретические сведения}
 
-Приведём формулы, которые будут использованы для построения графиков.
+Плотность вероятности \textit{двухмерного нормального распределения}:
+\begin{equation}
+    f_{\overline{\xi}}(x_1, x_2) =
+    \dfrac{1}{2 \pi \sigma_1 \sigma_2 \sqrt{1-r_{1,2}^2}} \hspace{1mm} exp \Big(-\dfrac{1}{2}\phi(x_1, x_2) \Big),
+\end{equation}
+
+\noindent где параметр $ \phi(x_1, x_2) $ определяется следующим образом: 
+
+\begin{equation*}
+    \phi(x_1, x_2) = \dfrac{1}{1-r_{1,2}^2}
+    \Bigg(
+    \dfrac{(x_1 - a_1)^2}{\sigma_1^2} - 
+    2r_{1,2} \dfrac{(x_1 - a_1)}{\sigma_1} \dfrac{(x_2 - a_2)}{\sigma_2} +
+    \dfrac{(x_2 - a_2)^2}{\sigma_2^2} 
+    \Bigg).
+\end{equation*}
 
 Плотность вероятности \textit{произведения одномерных гамма-распределений}:
 \begin{equation}
@@ -30,48 +45,39 @@
     \end{aligned}
   \end{equation}
 
-Плотность вероятности \textit{двухмерного нормального распределения}:
-\begin{equation}
-    \begin{aligned}
-      f_{\overline{\xi}}(x_1, x_2) =
-      \left\{
-        \begin{aligned}
-          \dfrac{1}{2 \pi \sigma_1 \sigma_2 \sqrt{1-r_{1,2}^2}} \hspace{1mm} exp \Big(-\dfrac{1}{2}\phi(x_1, x_2) \Big).
-        \end{aligned}
-      \right.
-    \end{aligned}
-  \end{equation}
-
-\newpage
 \subsection{Многомерное нормальное распределение}
 
 Графики поверхностей двухмерного нормального распределения представлены
-на рисунках~\ref{pic:normal_mesh_start}~-~\ref{pic:normal_mesh_end}.
+на рисунках~\ref{pic:normal_mesh_start}--\ref{pic:normal_mesh_end}.
 
-\begin{figure}[h]
-  \begin{minipage}[h]{0.49\linewidth}
-    \includegraphics[width=1\linewidth]{../pic/new/normal_mesh_1}
-    \caption{График поверхностей двухмерного нормального распределения при}
+\begin{figure}[h!]
+  \begin{minipage}[h!]{0.47\linewidth}
+    \includegraphics[width=1\linewidth]{pic/new/normal_mesh_1}
+    \caption{П.~в. нормального распределения при
+    $ R = \big[1, 0.5, 0.5, 1 \big] $
+  }
     \label{pic:normal_mesh_start}
   \end{minipage}
   \hfill
-  \begin{minipage}[h]{0.49\linewidth}
+  \begin{minipage}[h!]{0.47\linewidth}
     \vspace{4mm}
-    \includegraphics[width=1\linewidth]{../pic/new/normal_mesh_2}
-    \caption{График поверхностей двухмерного нормального распределения при}
+    \includegraphics[width=1\linewidth]{pic/new/normal_mesh_2}
+    \caption{П.~в. нормального распределения при
+    $ R = \big[1, 0.5, 0.5, 5 \big] $}
   \end{minipage}
 \end{figure}
 
-\begin{figure}[h]
-  \begin{minipage}[h]{0.49\linewidth}
-    \includegraphics[width=1\linewidth]{../pic/new/normal_mesh_3}
-    \caption{График поверхностей двухмерного нормального распределения при}
+\begin{figure}[h!]
+  \begin{minipage}[h!]{0.47\linewidth}
+    \includegraphics[width=1\linewidth]{pic/new/normal_mesh_3}
+    \caption{П.~в. нормального распределения при
+    $ R = \big[5, 0.5, 0.5, 1 \big] $}
   \end{minipage}
   \hfill
-  \begin{minipage}[h]{0.49\linewidth}
-    \vspace{4mm}
-    \includegraphics[width=1\linewidth]{../pic/new/normal_mesh_4}
-    \caption{График поверхностей двухмерного нормального распределения при}
+  \begin{minipage}[h!]{0.47\linewidth}
+    \includegraphics[width=1\linewidth]{pic/new/normal_mesh_4}
+    \caption{П.~в. нормального распределения при
+    $ R = \big[5, 0.5, 0.5, 5 \big] $}
     \label{pic:normal_mesh_end}
   \end{minipage}
 \end{figure}
@@ -79,81 +85,93 @@
 \newpage
 
 Графики линий равных уровней плотности вероятности нормального распределения при различных
-параметрах приведены на рисунках~\ref{pic:normal_contour_start}~-~\ref{pic:normal_contour_end}.
+параметрах приведены на рисунках~\ref{pic:normal_contour_start}--\ref{pic:normal_contour_end}.
 
-\begin{figure}[h]
-  \begin{minipage}[h]{0.49\linewidth}
-    \includegraphics[width=1\linewidth]{../pic/new/normal_contour_1}
-    \caption{Графики линий равных уровней плотности вероятности нормального распределения при }
+\begin{figure}[h!]
+  \begin{minipage}[h!]{0.47\linewidth}
+    \includegraphics[width=1\linewidth]{pic/new/normal_contour_1}
+    \caption{линии уровня п.~в.
+      нормального распределения при $ R = \big[3, 0, 0, 3 \big] $}
     \label{pic:normal_contour_start}
   \end{minipage}
   \hfill
-  \begin{minipage}[h]{0.49\linewidth}
+  \begin{minipage}[h!]{0.47\linewidth}
     \vspace{4mm}
-    \includegraphics[width=1\linewidth]{../pic/new/normal_contour_2}
-    \caption{Графики линий равных уровней плотности вероятности нормального распределения при }
+    \includegraphics[width=1\linewidth]{pic/new/normal_contour_2}
+    \caption{линии уровня п.~в.
+      нормального распределения при $ R = \big[3, 0.5, 0.5, 3 \big] $}
   \end{minipage}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[h!]
   \centering
-  \includegraphics[width=0.58\linewidth]{../pic/new/normal_contour_3}
-  \caption{Графики линий равных уровней плотности вероятности нормального распределения при }
+  \includegraphics[width=0.5\linewidth]{pic/new/normal_contour_3}
+  \caption{линии уровня п.~в. \\
+    нормального распределения при \\
+    $ R = \big[3, 1, 1, 3 \big] $}
   \label{pic:normal_contour_end}
 \end{figure}
 
-\newpage
+\newpage 
 
 \subsection{Произведение одномерных гамма-распределений}
 
-Графики поверхностей произведения одномерных гамма-распределений продемонстрированы
-на рисунках~\ref{pic:gamma_mesh_start}~-~\ref{pic:gamma_mesh_end}.
+Графики поверхностей произведения одномерных гамма-распределений
+продемонстрированы 
+на рисунках~\ref{pic:gamma_mesh_start}--\ref{pic:gamma_mesh_end}.
 
-\begin{figure}[h]
-  \begin{minipage}[h]{0.49\linewidth}
-    \includegraphics[width=1\linewidth]{../pic/new/gamma_mesh_1}
-    \caption{График поверхности произведения одномерных гамма-распределений при }\label{pic:gamma_mesh_start}
+\begin{figure}[h!]
+  \begin{minipage}[h!]{0.47\linewidth}
+    \includegraphics[width=1\linewidth]{pic/new/gamma_mesh_1}
+    \caption{П.~в. произведения одномерных гамма-распределений при 
+    $ A = \big[1, 1\big], B = \big[ 1, 1 \big] $
+    }\label{pic:gamma_mesh_start}
   \end{minipage}
   \hfill
-  \begin{minipage}[h]{0.49\linewidth}
-    \vspace{4mm}
-    \includegraphics[width=1\linewidth]{../pic/new/gamma_mesh_2}
-    \caption{График поверхности произведения одномерных гамма-распределений при }
+  \begin{minipage}[h!]{0.47\linewidth}
+    \includegraphics[width=1\linewidth]{pic/new/gamma_mesh_2}
+    \caption{П.~в. произведения одномерных гамма-распределений при 
+      $ A = \big[1, 1\big], B = \big[ 2, 1 \big] $}
   \end{minipage}
 \end{figure}
 
-\begin{figure}[h]
-  \begin{minipage}[h]{0.49\linewidth}
-    \includegraphics[width=1\linewidth]{../pic/new/gamma_mesh_3}
-    \caption{График поверхности произведения одномерных гамма-распределений при}
+\begin{figure}[h!]
+  \begin{minipage}[h!]{0.47\linewidth}
+    \includegraphics[width=1\linewidth]{pic/new/gamma_mesh_3}
+    \caption{П.~в. произведения одномерных гамма-распределений при
+      $ A = \big[1, 1\big], B = \big[ 1, 5 \big] $}
   \end{minipage}
   \hfill
-  \begin{minipage}[h]{0.49\linewidth}
+  \begin{minipage}[h!]{0.47\linewidth}
     \vspace{4mm}
-    \includegraphics[width=1\linewidth]{../pic/new/gamma_mesh_4}
-    \caption{График поверхности произведения одномерных гамма-распределений при}
+    \includegraphics[width=1\linewidth]{pic/new/gamma_mesh_4}
+    \caption{П.~в. произведения одномерных гамма-распределений при
+      $ A = \big[1, 2\big], B = \big[ 1, 1 \big] $}
   \end{minipage}
 \end{figure}
 
 \newpage
 
-\begin{figure}[h]
-  \begin{minipage}[h]{0.49\linewidth}
-    \includegraphics[width=1\linewidth]{../pic/new/gamma_mesh_5}
-    \caption{График поверхности произведения одномерных гамма-распределений при }
+\begin{figure}[h!]
+  \begin{minipage}[h!]{0.47\linewidth}
+    \includegraphics[width=1\linewidth]{pic/new/gamma_mesh_5}
+    \caption{П.~в. произведения одномерных гамма-распределений при 
+      $ A = \big[1, 3\big], B = \big[ 1, 1 \big] $}
   \end{minipage}
   \hfill
-  \begin{minipage}[h]{0.49\linewidth}
+  \begin{minipage}[h!]{0.47\linewidth}
     \vspace{4mm}
-    \includegraphics[width=1\linewidth]{../pic/new/gamma_mesh_6}
-    \caption{График поверхности произведения одномерных гамма-распределений при}
+    \includegraphics[width=1\linewidth]{pic/new/gamma_mesh_6}
+    \caption{П.~в. произведения одномерных гамма-распределений при
+      $ A = \big[1, 5\big], B = \big[ 1, 1 \big] $}
   \end{minipage}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[h!]
   \centering
-  \includegraphics[width=0.58\linewidth]{../pic/new/gamma_mesh_7}
-  \caption{График поверхности произведения одномерных гамма-распределений при}\label{pic:gamma_mesh_end}
+  \includegraphics[width=0.5\linewidth]{pic/new/gamma_mesh_7}
+  \caption{П.~в. произведения \\ одномерных гамма-распределений \\
+    при $ A = \big[1, 10\big], B = \big[ 1, 1 \big] $}\label{pic:gamma_mesh_end}
 \end{figure}
 
 \newpage
@@ -161,64 +179,71 @@
 Графики линий равных уровней плотности вероятности гамма-распределений при различных
 параметрах приведены на рисунках~\ref{pic:gamma_contour_start}~-~\ref{pic:gamma_contour_end}.
 
-\begin{figure}[h]
-  \begin{minipage}[h]{0.49\linewidth}
-    \includegraphics[width=1\linewidth]{../pic/gamma_contour_1}
-    \caption{График линий уровней плотности вероятности гамма-распределений при}
+\begin{figure}[h!]
+  \begin{minipage}[h!]{0.47\linewidth}
+    \includegraphics[width=1\linewidth]{pic/gamma_contour_1}
+    \caption{Линии уровня п.~в. произведения одномерных гамма-распределений при
+      $ A = \big[1, 1\big], B = \big[ 1, 1 \big] $}
     \label{pic:gamma_contour_start}
   \end{minipage}
   \hfill
-  \begin{minipage}[h]{0.49\linewidth}
-    \vspace{4mm}
-    \includegraphics[width=1\linewidth]{../pic/gamma_contour_2}
-    \caption{График линий уровней плотности вероятности гамма-распределений при}
+  \begin{minipage}[h!]{0.47\linewidth}
+    \includegraphics[width=1\linewidth]{pic/gamma_contour_2}
+    \caption{Линии уровня п.~в. произведения одномерных гамма-распределений при
+      $ A = \big[2, 1\big], B = \big[ 1, 1 \big] $}
   \end{minipage}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[h!]
   \centering
-  \includegraphics[width=0.58\linewidth]{../pic/gamma_contour_3}
-  \caption{График линий уровней плотности вероятности гамма-распределений при}
+  \includegraphics[width=0.5\linewidth]{pic/gamma_contour_3}
+  \caption{Линии уровня п.~в произведения одномерных 
+    гамма-распределений при
+      $ A = \big[2, 1\big], B = \big[ 2, 1 \big] $}
   \label{pic:gamma_contour_end}
 \end{figure}
 
 \newpage
 
-\subsection{Эллипс рассеяния и две функции регрессии}
+\subsection{Функции регрессии двухмерного
+  нормального распределения}
 
-Графики эллипса рассеяния и две функции регрессии при различных параметрах
-представлены на рисунках~\ref{pic:normal_regr_start}~-~\ref{pic:normal_regr_end}.
+Зависимость эллипса рассеяния и функций регрессии от параметров распределения изображена на рисунках~\ref{pic:normal_regr_start}--\ref{pic:normal_regr_end}.
 
-\begin{figure}[h]
-  \begin{minipage}[h]{0.49\linewidth}
-    \includegraphics[width=1\linewidth]{../pic/new/normal_regr_1}
-    \caption{График эллипса рассеяния и двух функций регрессии при}\label{pic:normal_regr_start}
+\begin{figure}[h!]
+  \begin{minipage}[h!]{0.47\linewidth}
+    \includegraphics[width=1\linewidth]{pic/new/normal_regr_1}
+    \caption{Эллипс рассеяния и функции регрессии 
+       нормального распределения при
+    $ R = \big[1, 0, 0, 1 \big] $
+}\label{pic:normal_regr_start}
   \end{minipage}
   \hfill
-  \begin{minipage}[h]{0.49\linewidth}
+  \begin{minipage}[h!]{0.47\linewidth}
     \vspace{4mm}
-    \includegraphics[width=1\linewidth]{../pic/new/normal_regr_2}
-    \caption{График эллипса рассеяния и двух функций регрессии при}
+    \includegraphics[width=1\linewidth]{pic/new/normal_regr_2}
+    \caption{Эллипс рассеяния и функции регрессии 
+       нормального распределения при
+      $ R = \big[1, 0.3, 0.3, 1 \big] $
+    }
   \end{minipage}
 \end{figure}
 
-\begin{figure}[h]
-  \begin{minipage}[h]{0.49\linewidth}
-    \includegraphics[width=1\linewidth]{../pic/new/normal_regr_3}
-    \caption{График эллипса рассеяния и двух функций регрессии при}
+\begin{figure}[h!]
+  \begin{minipage}[h!]{0.47\linewidth}
+    \includegraphics[width=1\linewidth]{pic/new/normal_regr_3}
+    \caption{График эллипса рассеяния и двух функций регрессии при
+      $ R = \big[1, 0.6, 0.6, 1 \big] $}
   \end{minipage}
   \hfill
-  \begin{minipage}[h]{0.49\linewidth}
+  \begin{minipage}[h!]{0.47\linewidth}
     \vspace{4mm}
-    \includegraphics[width=1\linewidth]{../pic/new/normal_regr_4}
-    \caption{График эллипса рассеяния и двух функций регрессии при}
+    \includegraphics[width=1\linewidth]{pic/new/normal_regr_4}
+    \caption{Эллипс рассеяния и функции регрессии 
+       нормального распределения при
+      $ R = \big[1, 0.9, 0.9, 1 \big] $
+    }\label{pic:normal_regr_end}
   \end{minipage}
-\end{figure}
-
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=0.6\linewidth]{../pic/new/normal_regr_5}
-  \caption{График эллипса рассеяния и двух функций регрессии при}\label{pic:normal_regr_end}
 \end{figure}
 
 \newpage
