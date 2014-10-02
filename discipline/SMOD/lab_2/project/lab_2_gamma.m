@@ -1,11 +1,12 @@
-[X1, X2] = meshgrid(0:.2:5, 0:.2:5);
+[X1, X2] = meshgrid(-1:.2:5, -1:.2:5);
 
-A = [1, 1];
-B = [2, 1];
- 
+A = [1, 10];
+B = [1, 1];
+
 Z = gamma_rasp(X1, X2, A, B);
 
 hold on
+grid on
 
 contour(X1, X2, Z)
 % mesh(X1, X2, Z)
