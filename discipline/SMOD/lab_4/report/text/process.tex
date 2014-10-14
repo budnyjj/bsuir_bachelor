@@ -65,41 +65,124 @@ y = a_y + r_{x,y} \dfrac{\sigma_y}{\sigma_x}(x - a_x).
 $ a_y $, $ \sigma_y $ --- математическое ожидание и среднее квадратичное отклонение функции;
 $ r_{x,y} $ --- коэффициент корреляции между аргументом и функцией.
 
-\subsection{Моделирование случайных величин, распределенных по \\ нормальному закону}
+\newpage 
 
-% Диаграммы рассеяния случайных величин с двухмерным нормальным законом распределения представлены
-% на рисунках~\ref{pic:normal_mesh_start}--\ref{pic:normal_mesh_end}.
+\subsection{Моделирование двумерных случайных величин, \\ распределенных по нормальному закону}
 
-% \begin{figure}[h!]
-%   \begin{minipage}[h!]{0.47\linewidth}
-%     \includegraphics[width=1\linewidth]{pic/new/normal_mesh_1}
-%     \caption{П.~в. нормального распределения при
-%     $ R = \big[1, 0.5, 0.5, 1 \big] $
-%   }
-%     \label{pic:normal_mesh_start}
-%   \end{minipage}
-%   \hfill
-%   \begin{minipage}[h!]{0.47\linewidth}
-%     \vspace{4mm}
-%     \includegraphics[width=1\linewidth]{pic/new/normal_mesh_2}
-%     \caption{П.~в. нормального распределения при
-%     $ R = \big[1, 0.5, 0.5, 5 \big] $}
-%   \end{minipage}
-% \end{figure}
+Диаграммы рассеяния случайных величин с двухмерным нормальным законом распределения представлены
+на рисунках~\ref{pic:normal_start}--\ref{pic:normal_end}.
 
-% \begin{figure}[h!]
-%   \begin{minipage}[h!]{0.47\linewidth}
-%     \includegraphics[width=1\linewidth]{pic/new/normal_mesh_3}
-%     \caption{П.~в. нормального распределения при
-%     $ R = \big[5, 0.5, 0.5, 1 \big] $}
-%   \end{minipage}
-%   \hfill
-%   \begin{minipage}[h!]{0.47\linewidth}
-%     \includegraphics[width=1\linewidth]{pic/new/normal_mesh_4}
-%     \caption{П.~в. нормального распределения при
-%     $ R = \big[5, 0.5, 0.5, 5 \big] $}
-%     \label{pic:normal_mesh_end}
-%   \end{minipage}
-% \end{figure}
+\begin{figure}[h!]
+  \begin{minipage}[h!]{0.47\linewidth}
+    \includegraphics[width=1\linewidth]{pic/normal_our_1}
+    \caption{Случайные величины, полученные по реализованному алгоритму,
+      при $ R = \big[3, 0, 0, 3 \big] $
+  }
+    \label{pic:normal_start}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[h!]{0.47\linewidth}
+    \vspace{4mm}
+    \includegraphics[width=1\linewidth]{pic/normal_matlab_1}
+    \caption{Случайные величины, полученные средствами Matlab,
+      при $ R = \big[3, 0, 0, 3 \big] $
+    }
+  \end{minipage}
+\end{figure}
+
+\begin{figure}[h!]
+  \begin{minipage}[h!]{0.47\linewidth}
+    \includegraphics[width=1\linewidth]{pic/normal_our_2}
+    \caption{Диаграмма рассеяния случайных величин, распределенных по нормальному закону,
+      при $ R = \big[1, 0, 0, 10 \big] $
+  }
+  \end{minipage}
+  \hfill
+  \begin{minipage}[h!]{0.47\linewidth}
+    \includegraphics[width=1\linewidth]{pic/normal_our_3}
+    \caption{Диаграмма рассеяния случайных величин, распределенных по нормальному закону,
+      при $ R = \big[1, 0.5, 0.5, 1 \big] $
+  }
+  \end{minipage}
+\end{figure}
+
+\begin{figure}[h!]
+  \begin{minipage}[h!]{0.47\linewidth}
+    \includegraphics[width=1\linewidth]{pic/normal_our_4}
+    \caption{Диаграмма рассеяния случайных величин, распределенных по нормальному закону,
+      при $ R = \big[1, -0.5, -0.5, 1 \big] $
+  }
+  \end{minipage}
+  \hfill
+  \begin{minipage}[h!]{0.47\linewidth}
+    \includegraphics[width=1\linewidth]{pic/normal_our_5}
+    \caption{Диаграмма рассеяния случайных величин, распределенных по нормальному закону,
+      при $ R = \big[1, -0.5, -0.5, 0.5 \big] $
+  }
+  \label{pic:normal_end}
+  \end{minipage}
+\end{figure}
+
+\newpage 
+
+\subsection{Моделирование двумерных случайных величин, \\ 
+  c распределением, равным произведению одномерных \\
+  хи-квадрат раcпределений}
+
+Диаграммы рассеяния случайных величин c распределением, 
+равным произведению одномерных хи-квадрат раcпределений~\ref{pic:hi_start}--\ref{pic:hi_end}.
+
+\begin{figure}[h!]
+  \begin{minipage}[h!]{0.47\linewidth}
+    \includegraphics[width=1\linewidth]{pic/hi_our_1}
+    \caption{Случайные величины, полученные по реализованному алгоритму,
+      при $ k = 1 $
+  }
+    \label{pic:hi_start}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[h!]{0.47\linewidth}
+    \vspace{4mm}
+    \includegraphics[width=1\linewidth]{pic/hi_matlab_1}
+    \caption{Случайные величины, полученные средствами Matlab,
+      при $ k = 1 $
+    }
+  \end{minipage}
+\end{figure}
+
+\begin{figure}[h!]
+  \begin{minipage}[h!]{0.47\linewidth}
+    \includegraphics[width=1\linewidth]{pic/hi_our_3}
+    \caption{Случайные величины, полученные по реализованному алгоритму,
+      при $ k = 3 $
+  }
+  \end{minipage}
+  \hfill
+  \begin{minipage}[h!]{0.47\linewidth}
+    \vspace{4mm}
+    \includegraphics[width=1\linewidth]{pic/hi_matlab_3}
+    \caption{Случайные величины, полученные средствами Matlab,
+      при $ k = 3 $
+    }
+  \end{minipage}
+\end{figure}
+
+\begin{figure}[h!]
+  \begin{minipage}[h!]{0.47\linewidth}
+    \includegraphics[width=1\linewidth]{pic/hi_our_5}
+    \caption{Случайные величины, полученные по реализованному алгоритму,
+      при $ k = 5 $
+  }
+  \end{minipage}
+  \hfill
+  \begin{minipage}[h!]{0.47\linewidth}
+    \vspace{4mm}
+    \includegraphics[width=1\linewidth]{pic/hi_matlab_5}
+    \caption{Случайные величины, полученные средствами Matlab,
+      при $ k = 5 $
+    }
+    \label{pic:hi_end}
+  \end{minipage}
+\end{figure}
 
 \newpage
