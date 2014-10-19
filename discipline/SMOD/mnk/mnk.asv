@@ -1,0 +1,29 @@
+% input data
+x = [0, 110, 195, 410, 540];
+y = [33, 24, 20, 13, 12];
+
+% transposed versions
+x_t = x.'
+y_t = y.'
+
+% init parameter values
+init_params = [0, 0]
+
+% basic_estimates(1) -- a_0
+% basic_estimates(2) -- alpha_0
+basic_estimates = search_basic_estimates(x(1:2), y(1:2), init_params).'
+a_0 = basic_estimates(1);
+alpha_0 = basic_estimates(2);
+
+q_1 = arrayfun(@(vals) diff_f_by_a(vals, a_0, alpha_0), x);
+q_2 = arrayfun(@(vals) diff_f_by_alpha(vals, a_0, alpha_0), x);
+
+% target function
+appr_f = arrayfun(@(vals) f(vals, a_0, alpha_0), x);
+appr_f_t = appr_f.';
+
+% transposed version of Q
+Qt = [q_1; q_2].';
+
+eff_estimates = basic_estimates + inv(Q_t*Q)*Q_t*(y_t - appr_f_t)
+
