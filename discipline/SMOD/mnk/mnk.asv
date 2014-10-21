@@ -2,28 +2,42 @@
 x = [0, 110, 195, 410, 540];
 y = [33, 24, 20, 13, 12];
 
-% transposed versions
-x_t = x.'
-y_t = y.'
+mean_x = [mean(x(1)), mean(x(2))];
+mean_y = [mean(y(1)), mean(y(2))];
+
+appr_x = [min(x):10:max(x)];
 
 % init parameter values
-init_params = [0, 0]
+init_params = [0, 0];
 
 % basic_estimates(1) -- a_0
 % basic_estimates(2) -- alpha_0
-basic_estimates = search_basic_estimates(x(1:2), y(1:2), init_params).'
-a_0 = basic_estimates(1);
-alpha_0 = basic_estimates(2);
+basic_estimates = search_basic_estimates(mean_x, mean_y, init_params);
+a_0 = basic_estimates(1)
+alpha_0 = basic_estimates(2)
 
-q_1 = arrayfun(@(vals) diff_f_by_a(vals, a_0, alpha_0), x);
-q_2 = arrayfun(@(vals) diff_f_by_alpha(vals, a_0, alpha_0), x);
+% eff_estimates by iteration
+num_iter = 10
+eff_estimates_per_iter = [];
 
-% target function
-appr_f = arrayfun(@(vals) f(vals, a_0, alpha_0), x);
-appr_f_t = appr_f.';
+hold on
+plot(x, y, '.k')
+plot(appr_x, arrayfun(@(vals) f(vals, a_0, alpha_0), appr_x), 'b-')
 
-% transposed version of Q
-Qt = [q_1; q_2].';
+for i = 1:num_iter
+    cur_eff_estimates = search_eff_estimates(basic_estimates, x, y, @f, i)
+    a = cur_eff
+    plot(appr_x, arrayfun(@(vals) f(vals, a, alpha), appr_x), 'r-')
+    %eff_estimates_per_iter = [eff_estimates_per_iter cur_eff_estimates];
+end
 
-eff_estimates = basic_estimates + inv(Q_t*Q)*Q_t*(y_t - appr_f_t)
 
+
+ 
+hold off
+
+
+% eff_a
+%plot(1:num_iter, eff_estimates_per_iter(1,:), 'b-')
+% eff_alpha
+% plot(1:num_iter, eff_estimates_per_iter(2,:), 'r-')
