@@ -43,33 +43,54 @@
 упаковки в течение 48 часов.
 Предусмотреть подсчёт количества годных и бракованных изделий каждого типа.
 
+По результатам моделирования найти среднее время технологического цикла,
+т.е. среднее время от поступления заявки (изделия для обработки, задачи для решения и т.д.)
+до окончания всех операций с данной заявкой
+
 \subsection{Решение задачи}
 
 Разработанная GPSS-модель представлена в приложении~А. После выполнения сеанса
 моделирования исходной задачи, получим отчёт, представленные на
-рисунках~\ref{pic:report_1}~-~\ref{pic:report_3}.
+рисунках~\ref{pic:report_1}--\ref{pic:report_3}.
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[width=0.75\linewidth]{pic/report_1}
+  \includegraphics[width=0.7\linewidth]{pic/report_1}
   \caption{Выходные данные имитационной модели}
   \label{pic:report_1}
 \end{figure}
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[width=0.75\linewidth]{pic/report_2}
+  \includegraphics[width=0.7\linewidth]{pic/report_2}
   \caption{Статистика исполнения команд имитационной модели}
   \label{pic:report_2}
 \end{figure}
 
-\newpage
+% \newpage
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[width=0.9\linewidth]{pic/report_3}
-  \caption{Статистика использования узлов имитируемой СМО}
+  \includegraphics[width=0.7\linewidth]{pic/report_3}
+  \caption{Статистика использования узлов моделируемой СМО}
   \label{pic:report_3}
 \end{figure}
+
+Перечислим основные результаты моделирования СМО:
+
+\begin{itemize}
+\item число годных изделий типа И1 --- 244;
+\item число годных изделий типа И2 --- 645;
+\item число годных изделий типа И3 --- 388;
+\item число бракованных изделий типа И1 --- 13;
+\item число бракованных изделий типа И2 --- 27;
+\item число бракованных изделий типа И3 --- 18.
+\end{itemize}
+
+Среднее время технологического цикла в моделируемой СМО определяется следующим образом:
+
+\begin{equation*}
+  \bar{t} = \dfrac{861 * 16{,}194 + 476 * 14{,}230 + 1278 * 10{,}534}{861 + 476 + 1278} = 13{,}07 \: \text{(мин)}
+\end{equation*}
 
 \newpage

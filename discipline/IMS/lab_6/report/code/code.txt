@@ -1,50 +1,50 @@
-TIP     FUNCTION        RN1,D3
+TIP             FUNCTION        RN1,D3
 0.2,1/0.7,2/1,3
 
-MEAN    FUNCTION        P1,D3
+MEAN            FUNCTION        P1,D3
 1,5/2,10/3,15
 
-SKV     FUNCTION        P1,D3
+SKV             FUNCTION        P1,D3
 1,0.5/2,1/3,1
 
-BRAKOVAN      FUNCTION     RN6,D2
+BRAKOVAN        FUNCTION        RN6,D2
 0.95,0/1,1
 
-        GENERATE          (EXPONENTIAL(1,0,20))
+                GENERATE        (EXPONENTIAL(1,0,20))
 
-         ASSIGN             1,FN$TIP
-         ASSIGN          2,FN$BRAKOVAN
+                ASSIGN          1,FN$TIP
+                ASSIGN          2,FN$BRAKOVAN
 
-         SELECT NU          3,1,2,,,VYB_OCH
-         TRANSFER           ,PROV
-VYB_OCH     SELECT MIN          3,1,2,,Q
+                SELECT NU       3,1,2,,,VYB_OCH
+                TRANSFER        ,PROV
+VYB_OCH         SELECT MIN      3,1,2,,Q
 
-PROV     QUEUE              P3
-         SEIZE             P3
-         DEPART              P3
-         ADVANCE              (EXPONENTIAL(2,0,15))
-        RELEASE              P3
+PROV            QUEUE           P3
+                SEIZE           P3
+                DEPART          P3
+                ADVANCE         (EXPONENTIAL(2,0,15))
+                RELEASE         P3
 
-         TEST E              P2,0,BRAK     
+                TEST E          P2,0,BRAK
 
-UPAK     QUEUE              UPAK_OCH
-         SEIZE              UPAK_MAS
-         DEPART              UPAK_OCH
-          ADVANCE              (NORMAL(3,FN$MEAN,FN$SKV))
-         SAVEVALUE          P1+,1
+UPAK            QUEUE           UPAK_OCH
+                SEIZE           UPAK_MAS
+                DEPART          UPAK_OCH
+                ADVANCE         (NORMAL(3,FN$MEAN,FN$SKV))
+                SAVEVALUE       P1+,1
 
-KON_UPAK     RELEASE          UPAK_MAS
-         TRANSFER          ,KON
-BRAK     TEST E             P1,1,BR_2or3
-          SAVEVALUE          BRAK_1+,1
-         TRANSFER          ,KON
-BR_2or3 TEST E          P1,2,BR_3
-          SAVEVALUE          BRAK_2+,1
-         TRANSFER          ,KON
-BR_3      SAVEVALUE          BRAK_3+,1
-KON         SAVEVALUE          TOTAL+,1
-         TERMINATE
+KON_UPAK        RELEASE         UPAK_MAS
+                TRANSFER        ,KON
+BRAK            TEST E          P1,1,BR_2or3
+                SAVEVALUE       BRAK_1+,1
+                TRANSFER        ,KON
+BR_2or3         TEST E          P1,2,BR_3
+                SAVEVALUE       BRAK_2+,1
+                TRANSFER        ,KON
+BR_3            SAVEVALUE       BRAK_3+,1
+KON             SAVEVALUE       TOTAL+,1
+                TERMINATE
 
-         GENERATE          28800
-         TERMINATE          1
-         START              1     
+                GENERATE        28800
+                TERMINATE       1
+                START           1
