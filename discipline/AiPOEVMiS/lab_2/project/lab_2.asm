@@ -36,16 +36,24 @@ _end_:
 
 ;; ax = length of essential part BCD number
 LenBCD      macro mem,len
-    mov si, offset mem
-    mov cx, len
-    call LenBCDp
+    mov     si, offset mem
+    mov     cx, len
+    call    LenBCDp
     endm
 
+;; Check, if BCD number is equal to zero, and place result in CF
+IsZeroBCD      macro mem,len
+    mov     si, offset mem
+    mov     cx, len
+    call    IsZeroBCDp
+    endm
+        
 ;; Align position of BCD number by
 ;; right border of memory:
 ;; [12343---] => [---12343]
 AlignBCD    macro mem,len,max_size
     Init    mem,max_size,mem,len
+    mov     cx, len
     call    CpBCDp
 
     mov     di, offset mem
@@ -54,7 +62,7 @@ AlignBCD    macro mem,len,max_size
     sub     cx, len    
     call    SetZerop
     endm
-
+        
 ; Copy mem2 to mem1
 CpBCD   macro   mem1,mem2,max_size
     Init mem1,max_size,mem2,max_size   
@@ -67,59 +75,134 @@ CpBCD   macro   mem1,mem2,max_size
 ;; In:
 ;; mem1 -- first operand
 ;; sign1 -- sign of first operand
-;;
+;; pos_dot1 -- position of dot in first operand
+;; 
 ;; mem2 -- second operand
 ;; sign2 -- sign of second operand
+;; pos_dot2 -- position of dot in second operand 
 ;;
 ;; max_size -- maximal size of mem1 and mem2
 ;; 
 ;; Out: 
 ;; len_mem1 -- essential part length of mem1 (result)
-AddBCD	macro	mem1,sign1, mem2,sign2, max_size,len_mem1
-        local _mem1_gz_,_mem1_gz_mem2_gz_,_mem1_gz_mem2_lz_,_mem1_lz_,_mem1_lz_mem2_gz_,_mem1_lz_mem2_lz_,_end_
-    mov al, sign1
-    cmp al, 0
-    je _mem1_gz_
-    jmp _mem1_lz_
-        
-_mem1_gz_:                      ; mem1 > 0
-    mov al, sign2
-    cmp al, 0
-    je _mem1_gz_mem2_gz_
-    jmp _mem1_gz_mem2_lz_
-        
-_mem1_lz_:                      ; mem1 < 0
-    mov al, sign2
-    cmp al, 0
-    je _mem1_lz_mem2_gz_
-    jmp _mem1_lz_mem2_lz_
+AddBCD	macro	mem1,len_mem1,sign1,pos_dot1, mem2,len_mem2,sign2,pos_dot2, max_size
+        local _compare_signs_,_signs_equal_,_signs_not_equal_,_mem1_gz_mem2_,_mem1_lz_mem2,_rest1_gz_rest2_,_rest1_lz_rest2_,_corrections_,_end_
 
-_mem1_gz_mem2_gz_:
-;; mem1 > 0, mem2 > 0
+    ;; copy mem2 to temporary place 
+    ;; CpBCD   mem_overhead,mem2,max_size 
+        
+    ;; adjust bcd by dot pos
+    mov     ax, pos_dot1
+    mov     dx, pos_dot2
+    cmp     ax, dx
+    jg      _rest1_gz_rest2_
+    jl      _rest1_lz_rest2_
+
+    CpBCD   mem_overhead,mem2,max_size    
+    jmp     _compare_signs_
+        
+_rest1_gz_rest2_:
+    ;; pos_dot1 > pos_dot2  
+
+    mov     di, offset mem_overhead
+    mov     cx, max_size
+    call    SetZerop
+
+    ;; si = offset mem2 - 1 + max_size
+    mov     si, offset mem2
+    add     si, max_size
+    sub     si, 1
+
+    ;; di = offset mem_overhead+max_size-(pos_dot1-pos_dot2)-1   
+    mov     di, offset mem_overhead
+    add     di, max_size
+    add     di, pos_dot2
+    sub     di, pos_dot1
+    sub     di, 1
+
+    mov     cx, len_mem2
+    call    CpBCDp   
+    jmp     _compare_signs_
+
+_rest1_lz_rest2_:
+    ;; pos_dot1 < pos_dot2  
+
+    mov     di, offset mem_overhead
+    mov     cx, max_size
+    call    SetZerop
+
+    ;; si = offset mem2 - 1 + max_size
+    mov     si, offset mem1
+    add     si, max_size
+    sub     si, 1
+
+    ;; di = offset mem_overhead+max_size-(pos_dot2 - pos_dot1)-1   
+    mov     di, offset mem_overhead
+    add     di, max_size
+    sub     di, pos_dot2
+    add     di, pos_dot1
+    sub     di, 1
+
+    mov     cx, len_mem1
+    call    CpBCDp
+
+    CpBCD   mem1, mem_overhead, max_size
+
+    jmp     _compare_signs_ 
+        
+_compare_signs_: 
+    mov     ah, sign1
+    mov     al, sign2
+    xor     ah, al
+    cmp     ah, 0
+       
+    je      _signs_equal_
+    jmp     _signs_not_equal_
+        
+_signs_equal_:
+;; sign1 == sign2
 ;; mem1 = mem1 + mem2
-    Init	mem1,max_size,mem2,max_size
+;; sign1 = sign1
+    Init	mem1,max_size,mem_overhead,max_size
 	call	AddBCDp
-    jmp _end_
+    jmp     _corrections_
 
-_mem1_gz_mem2_lz_:
-;; mem1 > 0, mem2 < 0
-;;  
-    jmp _end_
+_signs_not_equal_:      
+;; sign1 != sign2
+;; mem1 = max(mem1, mem2) - min(mem1, mem2)
+;; sign1 = sign(max(mem1, mem2))
+    mov     di, offset mem1
+    mov     si, offset mem_overhead
+    mov     cx, max_size
+    call    CmpBCDp
+    jc      _mem1_gz_mem2_
+    jmp     _mem1_lz_mem2_
         
-_mem1_lz_mem2_gz_:
-;; mem1 < 0, mem2 > 0
-    
-    jmp _end_
-
-_mem1_lz_mem2_lz_:
-;; mem1 < 0, mem2 < 0
+_mem1_gz_mem2_:      
+    Init	mem1,max_size,mem_overhead,max_size
+	call	SubBCDp
+    jmp     _corrections_
         
-    jmp _end_
+_mem1_lz_mem2_:
+    mov al, sign2
+    mov sign1, al
+         
+    Init	mem_overhead,max_size,mem1,max_size
+	call	SubBCDp
+    CpBCD   mem1,mem_overhead,max_size
         
-
-_end_:  
-    LenBCD  mem1,max_size
+    jmp     _corrections_
+        
+_corrections_:        
+    LenBCD  mem1,max_size        
     mov     len_mem1,ax
+    ;; check, if result == 0, and set sign to 0
+    IsZeroBCD mem1,max_size
+    jnc     _end_
+    mov     sign1, 0
+    jmp     _end_
+        
+_end_:       
 	endm
 
 ;; Subtraction of BCD numbers
@@ -137,11 +220,83 @@ _end_:
 ;; Out: 
 ;; len_mem1 -- essential part length of mem1 (result)        
 SubBCD	macro	mem1,sign1, mem2,sign2, max_size,len_mem1
-	Init	mem1,max_size,mem2,max_size
-	call	SubBCDp
+        local _signs_equal_,_signs_not_equal_,_mem1_gz_mem2_,_mem1_gz_mem2_gz_0_,_mem1_lz_mem2_lz_0_,_mem1_lz_mem2,_mem1_lz_mem2_,_mem2_gz_mem1_gz_0_,_mem2_lz_mem1_lz_0_,_mem1_sub_mem2_,_mem2_sub_mem1_,_corrections_,_end_
+    mov     ah, sign1
+    mov     al, sign2
+    xor     ah, al
+    cmp     ah, 0
+    je      _signs_equal_
+    jmp     _signs_not_equal_
+   
+_signs_not_equal_:      
+;; sign1 != sign2
+;; mem1 = max(mem1, mem2) - min(mem1, mem2)
+;; sign1 = sign(max(mem1, mem2))
+    Init	mem1,max_size,mem2,max_size
+	call	AddBCDp
+    jmp     _corrections_
+     
+_signs_equal_:
+;; sign1 == sign2
+;; mem1 = mem1 + mem2
+;; sign1 = sign1
+    mov     di, offset mem1
+    mov     si, offset mem2
+    mov     cx, max_size
+    call    CmpBCDp
+    jc      _mem1_gz_mem2_
+    jmp     _mem1_lz_mem2_
 
+;; by absolute value        
+_mem1_gz_mem2_:                 
+    mov     al, sign2                
+    cmp     al, 0
+    je      _mem1_gz_mem2_gz_0_
+    jmp     _mem1_lz_mem2_lz_0_       
+
+;; by absolute value
+_mem1_lz_mem2_:
+    mov     al, sign2
+    mov     al, 0
+    je      _mem2_gz_mem1_gz_0_
+    jmp     _mem2_lz_mem1_lz_0_       
+        
+_mem1_gz_mem2_gz_0_:      
+    jmp     _mem1_sub_mem2_
+
+_mem1_lz_mem2_lz_0_:      
+    jmp     _mem1_sub_mem2_
+
+_mem2_gz_mem1_gz_0_:
+    mov     sign1, 1
+    jmp     _mem2_sub_mem1_
+
+_mem2_lz_mem1_lz_0_:
+    mov     sign1, 1
+    jmp     _mem2_sub_mem1_
+  
+_mem1_sub_mem2_:     
+    Init	mem1,max_size,mem2,max_size
+	call	SubBCDp
+    jmp     _corrections_
+
+_mem2_sub_mem1_:
+    CpBCD   mem_overhead,mem2,max_size
+    Init	mem_overhead,max_size,mem1,max_size
+	call	SubBCDp
+    CpBCD   mem1,mem_overhead,max_size
+    jmp     _corrections_
+        
+_corrections_:  
     LenBCD  mem1,max_size
-    mov     len_mem1,ax    
+    mov     len_mem1,ax
+
+    IsZeroBCD mem1,max_size
+    jnc     _end_
+    mov     sign1, 0
+    jmp     _end_
+    
+_end_:          
 	endm
 
 ;; Multiplication of BCD numbers
@@ -160,7 +315,7 @@ SubBCD	macro	mem1,sign1, mem2,sign2, max_size,len_mem1
 ;; Out: 
 ;; len_mem1 -- essential part length of mem1 (result)        
 MulBCD	macro	mem1,sign1, mem2,sign2, max_size,len_mem1
-        local   _mul_  
+        local   _mul_,_end_
     ;; determine sign of result
     mov     ah, sign1
     mov     al, sign2
@@ -176,6 +331,13 @@ _mul_:
 
     LenBCD  mem1,max_size
     mov     len_mem1,ax
+
+    IsZeroBCD mem1,max_size
+    jnc     _end_
+    mov     sign1, 0
+    jmp     _end_
+
+_end_:  
 	endm
 
 ;; Division of BCD numbers
@@ -194,7 +356,7 @@ _mul_:
 ;; Out: 
 ;; len_mem1 -- essential part length of mem1 (result)        
 DivBCD	macro	mem1,sign1, mem2,sign2, max_size,len_mem1
-        local   _div_
+        local   _div_,_end_
     ;; determine sign of result
     mov     ah, sign1
     mov     al, sign2
@@ -210,7 +372,14 @@ _div_:
 	call	DivBCDp
 
     LenBCD  mem1, max_size
-    mov     len_mem1, ax    
+    mov     len_mem1, ax
+
+    IsZeroBCD mem1,max_size
+    jnc     _end_
+    mov     sign1, 0
+    jmp     _end_
+
+_end_:  
 	endm
 
 ;; Print single character stored in al
@@ -236,9 +405,9 @@ OutStr macro str
     pop     ax
     endm
 
-;; print BCD-number to screen with dot and sign       
+;; Print BCD-number to screen with dot and sign       
 OutBCD	macro	mem,max_size,len,pos_dot,sign
-        local _minus_,_out_,_integer_part_,_dot_,_rest_part_
+        local _minus_,_out_,_integer_,_rational_,_end_
     push    ax
         
     mov     al, sign
@@ -254,41 +423,53 @@ _minus_:
 _out_:      
     mov     ax, pos_dot
     cmp     ax, 0
-    je      _rest_part_
-    jmp     _integer_part_
+    je      _integer_       
+    jmp     _rational_    
         
-_integer_part_:     
+_integer_:     
     ;; si = (offset mem) + (max_size - len)
-    ;; cx = pos_dot
-    mov     ax, max_size
+    ;; cx = len
+    mov     ax, offset mem
+    add     ax, max_size
     sub     ax, len
-    add     ax, offset mem
-    mov     si, ax              
-    mov     cx, pos_dot    
-	call	OutBCDp
-    jmp     _dot_
+    mov     si, ax
         
-_dot_:
-    mov     al, 46
-    OutChar al
-    jmp     _rest_part_
-
-_rest_part_:
-    ;; si = (offset mem) + (max_size - len + pos_dot)        
-    ;; cx = len - pos_dot                        
-    mov     ax, max_size
+    mov     cx, len
+        
+	call	OutBCDp
+    jmp     _end_
+        
+_rational_:
+    ;; print integer part
+    ;; si = (offset mem) + (max_size - len)
+    ;; cx = len - pos_dot    
+    mov     ax, offset mem
+    add     ax, max_size
     sub     ax, len
-    add     ax, pos_dot
-    add     ax, offset mem
     mov     si, ax
 
     mov     cx, len
     sub     cx, pos_dot
     call    OutBCDp
 
-    OutStr  newline
-    pop     ax
+    ;; print dot
+    mov     al, 46
+    OutChar al
+
+    ;; print rest part
+    ;; si = (offset mem) + (max_size - pos_dot)
+    ;; cx = pos_dot    
+    mov     ax, offset mem
+    add     ax, max_size
+    sub     ax, pos_dot
+    mov     si, ax
+
+    mov     cx, pos_dot
+    call    OutBCDp
         
+_end_:
+    OutStr  newline
+    pop     ax    
 	endm
 
 ; Input single character to al        
@@ -373,7 +554,7 @@ sign_a      db  0
 ; addition
 b           db  0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,2
 ; length of essential part
-len_b       dw  0                      
+len_b       dw  2                      
 ; dot position
 pos_b       dw  0
 ; sign (0 -- plus, 1 -- minus)
@@ -410,13 +591,39 @@ rep movsb
 ;; Size of memory specified in cx
 SetZerop proc
     cld
-    push ax
-    mov al, 0
+    push    ax
+    mov     al, 0
 rep stosb 
-    pop ax
+    pop     ax
     ret
     endp
 
+;; Check, if BCD is equal to zero
+;; Set CF=1, if true, CF=0 otherwise 
+IsZeroBCDp proc
+    push    ax
+    cld
+_is_zero_loop_:  
+    lodsb
+    cmp     al, 0
+    jne     _is_zero_false_
+    loop    _is_zero_loop_
+        
+    jmp     _is_zero_true_
+
+_is_zero_true_:
+    stc    
+    jmp _is_zero_end_
+        
+_is_zero_false_:        
+    clc                         
+    jmp _is_zero_end_
+
+_is_zero_end_:
+    pop ax
+    ret
+    endp
+        
 ;; Determine essential part size of BCD number
 ;; Store result in ax 
 LenBCDp proc
@@ -426,7 +633,7 @@ _len_next_:
     lodsb
     cmp al, 0
     je _len_dec_
-    jmp _len_end_               ; встретили первую значимую цифру
+    jmp _len_is_zero_               ; встретили первую значимую цифру
         
 _len_dec_:
     jmp _len_loop_
@@ -434,8 +641,20 @@ _len_dec_:
 _len_loop_: 
     loop _len_next_
 
+_len_is_zero_:
+    cmp     cx, 0
+    je      _len_zero_
+    jmp     _len_not_zero_
+        
+_len_zero_:
+    mov     ax, 1
+    jmp     _len_end_
+
+_len_not_zero_:
+    mov     ax, cx
+    jmp     _len_end_
+        
 _len_end_:  
-    mov ax, cx
     ret
     endp
 
@@ -728,7 +947,7 @@ InBCDp	proc
 ; процедура ввода BCD-чисел с клавиатуры
 ; не учитывает ведущие нули
 ; помещает в ax число успешно считанных цифр,
-; помещает в bx число цифр до запятой,
+; помещает в bx число цифр после запятой,
 ; помещает в dl 0 или 1 в зависимости от знака
 	cld 
     mov     dx, 0                   ; число считанных цифр
@@ -795,9 +1014,15 @@ _dot_:
         
 _success_:
     mov     ax, dx
-    mov     dx, si
+    cmp     bx, 0
+    jne     _correct_pos_dot_
     jmp     _exit_
 
+_correct_pos_dot_:
+     sub    dx, bx
+     mov    bx, dx
+     jmp    _exit_
+        
 _extended_:
     InChar
     jmp     _loop_
@@ -807,6 +1032,7 @@ _error_:
     jmp     _exit_
 
 _exit_:
+    mov     dx, si    
     OutStr newline                  ; вывод новой строки
     ret
 	endp
@@ -846,9 +1072,9 @@ _cf_:                           ; Celsius to Farengheit
     cmp     len_a, 0            ; length of input is 0
     je      _main_menu_
 
-    DivBCD  a,sign_a, k1,sign_k1, len_mem,len_a  ; /5
-   	MulBCD	a,sign_a, k2,sign_k2, len_mem,len_a  ; *9
-    ;; AddBCD  a,sign_a, b,sign_b, len_mem,len_a  ; +32
+   	;; MulBCD	a,sign_a, k2,sign_k2, len_mem,len_a  ; *9        
+    ;; DivBCD  a,sign_a, k1,sign_k1, len_mem,len_a  ; /5
+    AddBCD  a,len_a,sign_a,pos_a, b,len_b,sign_b,pos_b, len_mem ; +32
         
     OutStr  cf_answer
     OutBCD  a,len_mem,len_a,pos_a,sign_a
@@ -866,8 +1092,8 @@ _fc_:                            ; Farengheit to Celsius
     je      _main_menu_
 
     ;; SubBCD  a,sign_a, b,sign_b, len_mem,len_a   ; -32 
-    MulBCD  a,sign_a, k1,sign_k1, len_mem,len_a  ; *5
-    DivBCD	a,sign_a, k2,sign_k2, len_mem,len_a  ; /9
+    ;; MulBCD  a,sign_a, k1,sign_k1, len_mem,len_a  ; *5
+    ;; DivBCD	a,sign_a, k2,sign_k2, len_mem,len_a  ; /9
         
     OutStr  fc_answer
     OutBCD  a,len_mem,len_a,pos_a,sign_a
