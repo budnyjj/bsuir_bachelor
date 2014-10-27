@@ -35,10 +35,23 @@ _end_:
     endm
 
 ;; ax = length of essential part BCD number
-LenBCD      macro mem,len
+LenBCD      macro mem,len_mem,pos_dot, max_size
+            local _start_zero_,_end_
+        
     mov     si, offset mem
-    mov     cx, len
+    mov     cx, max_size
     call    LenBCDp
+
+    cmp     ax, pos_dot
+    je      _start_zero_
+    jmp     _end_
+        
+_start_zero_:
+    inc     ax
+    jmp     _end_
+
+_end_:  
+    mov     len_mem, ax    
     endm
 
 ;; Check, if BCD number is equal to zero, and place result in CF
@@ -87,9 +100,6 @@ CpBCD   macro   mem1,mem2,max_size
 ;; len_mem1 -- essential part length of mem1 (result)
 AddBCD	macro	mem1,len_mem1,sign1,pos_dot1, mem2,len_mem2,sign2,pos_dot2, max_size
         local _compare_signs_,_signs_equal_,_signs_not_equal_,_mem1_gz_mem2_,_mem1_lz_mem2,_rest1_gz_rest2_,_rest1_lz_rest2_,_corrections_,_end_
-
-    ;; copy mem2 to temporary place 
-    ;; CpBCD   mem_overhead,mem2,max_size 
         
     ;; adjust bcd by dot pos
     mov     ax, pos_dot1
@@ -194,8 +204,8 @@ _mem1_lz_mem2_:
     jmp     _corrections_
         
 _corrections_:        
-    LenBCD  mem1,max_size        
-    mov     len_mem1,ax
+    LenBCD  mem1,len_mem1,pos_dot1,max_size
+        
     ;; check, if result == 0, and set sign to 0
     IsZeroBCD mem1,max_size
     jnc     _end_
@@ -219,8 +229,69 @@ _end_:
 ;; 
 ;; Out: 
 ;; len_mem1 -- essential part length of mem1 (result)        
-SubBCD	macro	mem1,sign1, mem2,sign2, max_size,len_mem1
-        local _signs_equal_,_signs_not_equal_,_mem1_gz_mem2_,_mem1_gz_mem2_gz_0_,_mem1_lz_mem2_lz_0_,_mem1_lz_mem2,_mem1_lz_mem2_,_mem2_gz_mem1_gz_0_,_mem2_lz_mem1_lz_0_,_mem1_sub_mem2_,_mem2_sub_mem1_,_corrections_,_end_
+SubBCD	macro	mem1,len_mem1,sign1,pos_dot1, mem2,len_mem2,sign2,pos_dot2, max_size
+        local   _compare_signs_,_signs_equal_,_signs_not_equal_,_mem1_gz_mem2_,_mem1_gz_mem2_gz_0_,_mem1_lz_mem2_lz_0_,_mem1_lz_mem2,_mem1_lz_mem2_,_mem2_gz_mem1_gz_0_,_mem2_lz_mem1_lz_0_,_mem1_sub_mem2_,_mem2_sub_mem1_,_corrections_,_end_
+
+    ;; adjust bcd by dot pos
+    mov     ax, pos_dot1
+    mov     dx, pos_dot2
+    cmp     ax, dx
+    jg      _rest1_gz_rest2_
+    jl      _rest1_lz_rest2_
+
+    CpBCD   mem_overhead,mem2,max_size    
+    jmp     _compare_signs_
+        
+_rest1_gz_rest2_:
+    ;; pos_dot1 > pos_dot2  
+
+    mov     di, offset mem_overhead
+    mov     cx, max_size
+    call    SetZerop
+
+    ;; si = offset mem2 - 1 + max_size
+    mov     si, offset mem2
+    add     si, max_size
+    sub     si, 1
+
+    ;; di = offset mem_overhead+max_size-(pos_dot1-pos_dot2)-1   
+    mov     di, offset mem_overhead
+    add     di, max_size
+    add     di, pos_dot2
+    sub     di, pos_dot1
+    sub     di, 1
+
+    mov     cx, len_mem2
+    call    CpBCDp   
+    jmp     _compare_signs_
+
+_rest1_lz_rest2_:
+    ;; pos_dot1 < pos_dot2  
+
+    mov     di, offset mem_overhead
+    mov     cx, max_size
+    call    SetZerop
+
+    ;; si = offset mem2 - 1 + max_size
+    mov     si, offset mem1
+    add     si, max_size
+    sub     si, 1
+
+    ;; di = offset mem_overhead+max_size-(pos_dot2 - pos_dot1)-1   
+    mov     di, offset mem_overhead
+    add     di, max_size
+    sub     di, pos_dot2
+    add     di, pos_dot1
+    sub     di, 1
+
+    mov     cx, len_mem1
+    call    CpBCDp
+
+    CpBCD   mem1, mem_overhead, max_size
+
+    jmp     _compare_signs_ 
+        
+_compare_signs_: 
     mov     ah, sign1
     mov     al, sign2
     xor     ah, al
@@ -232,7 +303,7 @@ _signs_not_equal_:
 ;; sign1 != sign2
 ;; mem1 = max(mem1, mem2) - min(mem1, mem2)
 ;; sign1 = sign(max(mem1, mem2))
-    Init	mem1,max_size,mem2,max_size
+    Init	mem1,max_size,mem_overhead,max_size
 	call	AddBCDp
     jmp     _corrections_
      
@@ -241,7 +312,7 @@ _signs_equal_:
 ;; mem1 = mem1 + mem2
 ;; sign1 = sign1
     mov     di, offset mem1
-    mov     si, offset mem2
+    mov     si, offset mem_overhead
     mov     cx, max_size
     call    CmpBCDp
     jc      _mem1_gz_mem2_
@@ -276,20 +347,19 @@ _mem2_lz_mem1_lz_0_:
     jmp     _mem2_sub_mem1_
   
 _mem1_sub_mem2_:     
-    Init	mem1,max_size,mem2,max_size
+    Init	mem1,max_size,mem_overhead,max_size
 	call	SubBCDp
     jmp     _corrections_
 
 _mem2_sub_mem1_:
-    CpBCD   mem_overhead,mem2,max_size
     Init	mem_overhead,max_size,mem1,max_size
 	call	SubBCDp
     CpBCD   mem1,mem_overhead,max_size
+        
     jmp     _corrections_
         
 _corrections_:  
-    LenBCD  mem1,max_size
-    mov     len_mem1,ax
+    LenBCD  mem1,len_mem1,pos_dot1,max_size
 
     IsZeroBCD mem1,max_size
     jnc     _end_
@@ -314,13 +384,18 @@ _end_:
 ;; 
 ;; Out: 
 ;; len_mem1 -- essential part length of mem1 (result)        
-MulBCD	macro	mem1,sign1, mem2,sign2, max_size,len_mem1
+MulBCD	macro	mem1,len_mem1,sign1,pos_dot1, mem2,len_mem2,sign2,pos_dot2, max_size
         local   _mul_,_end_
     ;; determine sign of result
     mov     ah, sign1
     mov     al, sign2
     xor     ah, al
     mov     sign1, ah
+
+    ;; determine dot position of result
+    mov     ax, pos_dot1
+    add     ax, pos_dot2
+    mov     pos_dot1, ax
         
 _mul_:  
     ;; copy mem2 number to temporary place
@@ -329,8 +404,7 @@ _mul_:
     Init	mem1,max_size,mem_overhead,max_size
 	call	MulBCDp
 
-    LenBCD  mem1,max_size
-    mov     len_mem1,ax
+    LenBCD  mem1,len_mem1,pos_dot1,max_size
 
     IsZeroBCD mem1,max_size
     jnc     _end_
@@ -355,13 +429,18 @@ _end_:
 ;; 
 ;; Out: 
 ;; len_mem1 -- essential part length of mem1 (result)        
-DivBCD	macro	mem1,sign1, mem2,sign2, max_size,len_mem1
+DivBCD	macro	mem1,len_mem1,sign1,pos_dot1, mem2,len_mem2,sign2,pos_dot2, max_size
         local   _div_,_end_
     ;; determine sign of result
     mov     ah, sign1
     mov     al, sign2
     xor     ah, al
     mov     sign1, ah
+
+    ;; TODO: determine dot position of result
+    ;; mov     ax, pos_dot1
+    ;; sub     ax, pos_dot2
+    ;; mov     pos_dot1, ax
         
 _div_:  
     ;; copy mem2 number to temporary place
@@ -371,8 +450,7 @@ _div_:
 	mov	    cx,max_size
 	call	DivBCDp
 
-    LenBCD  mem1, max_size
-    mov     len_mem1, ax
+    LenBCD  mem1,len_mem1,pos_dot1, max_size
 
     IsZeroBCD mem1,max_size
     jnc     _end_
@@ -509,6 +587,34 @@ OutMenu macro
     OutStr  var_quit
     OutStr  newline
     endm
+
+;; Create new file
+;; if already exists, truncate it
+;; Put in f_handle new file handler
+NewFile macro f_name,f_handle
+    mov     ah, 3ch
+    mov     cx, 0
+    mov     dx, offset f_name
+    int     21h
+    mov     f_handle, ax    
+    endm
+        
+;; Close file with file_handle       
+CloseFile macro f_handle
+    push    bx
+    mov     ah, 3eh
+    mov     bx, f_handle
+    int     21h
+    pop     bx
+    endm
+
+;; Write string to file using f_handle
+OutFStr macro   f_handle,str,len_str
+    mov     ah, 40h
+    mov     bx, f_handle
+    mov     cx, len_str
+    mov     dx, offset str
+    endm
         
 stk segment stack
 stk ends
@@ -534,14 +640,22 @@ var_fc      db  '2) Convert Farengheit to Celsius', CR, LF, EOS
 var_quit    db  'q) Quit from program', CR, LF, EOS
         
 cf_prpmt    db  'Input temperature level by Celsius scale', CR, LF, EOS
+len_cf_prpmt dw $-cf_prpmt
+        
 cf_answer   db  'Temperature level by Farengheit scale is: ', EOS
-
+len_cf_answer dw $-cf_answer
+        
 fc_prpmt    db  'Input temperature level by Farengheit scale', CR, LF, EOS
+len_fc_prpmt dw $-fc_prpmt
+        
 fc_answer   db  'Temperature level by Celsius scale is: ', EOS
-
+len_fc_answer dw $-fc_answer
+        
 in_prpmt    db  '(for example, -12345.6789) and press <Enter>: ', EOS
 
-
+f_name      db  'C:\result\result.txt',00
+f_handle    dw  1 dup(?)
+        
 ; input value
 a	        db	len_mem dup(?)
 ; length of essential part
@@ -562,11 +676,19 @@ sign_b      db  0
 
 ; first coefficient
 k1          db  0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5
+; length of essential part
+len_k1      dw  1                      
+; dot position
+pos_k1      dw  0
 ; sign (0 -- plus, 1 -- minus)
 sign_k1     db  0
         
 ; second coefficient
 k2          db   0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9
+; length of essential part
+len_k2      dw  1                      
+; dot position
+pos_k2      dw  0
 ; sign (0 -- plus, 1 -- minus)
 sign_k2     db  0
         
@@ -631,30 +753,12 @@ LenBCDp proc
        
 _len_next_:
     lodsb
-    cmp al, 0
-    je _len_dec_
-    jmp _len_is_zero_               ; встретили первую значимую цифру
-        
-_len_dec_:
-    jmp _len_loop_
-        
-_len_loop_: 
-    loop _len_next_
+    cmp     al, 0
+    jne     _len_end_           ; first essential digit
+    loop    _len_next_
 
-_len_is_zero_:
-    cmp     cx, 0
-    je      _len_zero_
-    jmp     _len_not_zero_
-        
-_len_zero_:
-    mov     ax, 1
-    jmp     _len_end_
-
-_len_not_zero_:
-    mov     ax, cx
-    jmp     _len_end_
-        
 _len_end_:  
+    mov     ax, cx
     ret
     endp
 
@@ -1042,7 +1146,9 @@ main	proc
 	mov	    ds,ax
 	mov	    es,ax
 
-_begin_:        
+_begin_:
+    NewFile  f_name, f_handle
+        
     OutStr  prg_desc_1
     OutStr  prg_desc_2
     OutStr  newline
@@ -1067,19 +1173,22 @@ _cf_:                           ; Celsius to Farengheit
     OutStr  cf_prpmt
     OutStr  in_prpmt
 
+    OutFStr f_handle,cf_prpmt,len_cf_prpmt
+        
     InBCD   a, len_input,len_mem, len_a,pos_a,sign_a
         
     cmp     len_a, 0            ; length of input is 0
     je      _main_menu_
 
-   	;; MulBCD	a,sign_a, k2,sign_k2, len_mem,len_a  ; *9        
-    ;; DivBCD  a,sign_a, k1,sign_k1, len_mem,len_a  ; /5
+   	MulBCD	a,len_a,sign_a,pos_a, k2,len_k2,sign_k2,pos_k2, len_mem ; *9        
+    DivBCD  a,len_a,sign_a,pos_a, k1,len_k1,sign_k1,pos_k1, len_mem  ; /5
     AddBCD  a,len_a,sign_a,pos_a, b,len_b,sign_b,pos_b, len_mem ; +32
         
     OutStr  cf_answer
     OutBCD  a,len_mem,len_a,pos_a,sign_a
         
     OutStr  newline
+
     jmp     _main_menu_
         
 _fc_:                            ; Farengheit to Celsius
@@ -1091,9 +1200,9 @@ _fc_:                            ; Farengheit to Celsius
     cmp     len_a, 0            ; length of input is 0
     je      _main_menu_
 
-    ;; SubBCD  a,sign_a, b,sign_b, len_mem,len_a   ; -32 
-    ;; MulBCD  a,sign_a, k1,sign_k1, len_mem,len_a  ; *5
-    ;; DivBCD	a,sign_a, k2,sign_k2, len_mem,len_a  ; /9
+    SubBCD  a,len_a,sign_a,pos_a, b,len_b,sign_b,pos_b, len_mem   ; -32 
+    MulBCD  a,len_a,sign_a,pos_a, k1,len_k1,sign_k1,pos_k1, len_mem  ; *5
+    DivBCD	a,len_a,sign_a,pos_a, k2,len_k2,sign_k2,pos_k2, len_mem  ; /9
         
     OutStr  fc_answer
     OutBCD  a,len_mem,len_a,pos_a,sign_a
@@ -1101,7 +1210,9 @@ _fc_:                            ; Farengheit to Celsius
     OutStr  newline
     jmp     _main_menu_
 
-_end_:  
+_end_:
+    CloseFile f_handle
+        
 	mov	    ax,4c00h
 	int	    21h
     main	endp
