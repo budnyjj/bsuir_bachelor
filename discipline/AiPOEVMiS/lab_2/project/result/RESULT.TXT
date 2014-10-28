@@ -1,0 +1,93 @@
+Input (Fahrengheit): 32.32
+Output (Celsius): 0.17
+
+Input (Celsius): 00.00000000
+Output (Fahrengheit): 32.00000000
+
+Input (Fahrengheit): 00000.00000
+Output (Celsius): -17.77777
+
+Input (Fahrengheit): 32
+Output (Celsius): 0
+
+Input (Fahrengheit): -3
+Output (Celsius): -19
+
+Input (Celsius): -3
+Output (Fahrengheit): 27
+
+Input (Fahrengheit): 1
+Output (Celsius): -17
+
+Input (Celsius): 1
+Output (Fahrengheit): 33
+
+Input (Celsius): 1.1
+Output (Fahrengheit): 33.9
+
+Input (Celsius): 1.11
+Output (Fahrengheit): 33.99
+
+Input (Celsius): 2
+Output (Fahrengheit): 35
+
+Input (Celsius): -4.333333
+Output (Fahrengheit): 24.200001
+
+Input (Fahrengheit): -2222222222
+Output (Celsius): -1234567918
+
+Input (Fahrengheit): 2222222222
+Output (Celsius): 1234567883
+
+Input (Fahrengheit): 222
+Output (Celsius): 105
+
+Input (Celsius): 2222222222
+Output (Fahrengheit): 4000000031
+
+Input (Celsius): 1111111111
+Output (Fahrengheit): 2000000031
+
+Input (Celsius): 2
+Output (Fahrengheit): 35
+
+Input (Fahrengheit): 1111111111
+Output (Celsius): 617283932
+
+Input (Celsius): 1111111111
+Output (Fahrengheit): 2000000031
+
+Input (Celsius): 1111111111
+Output (Fahrengheit): 2000000031
+
+Input (Celsius): 4444444444
+Output (Fahrengheit): 8000000031
+
+Input (Celsius): 3333333333
+Output (Fahrengheit): 6000000031
+
+Input (Celsius): 8888888888
+Output (Fahrengheit): 16000000030
+
+Input (Celsius): 9999999999
+Output (Fahrengheit): 18000000030
+
+Input (Celsius): 1000000000
+Output (Fahrengheit): 1800000032
+
+Input (Celsius): 9999999999
+Output (Fahrengheit): 18000000030
+
+Input (Celsius): 2222222222
+Output (Fahrengheit): 4000000031
+
+Input (Fahrengheit): 2222221111
+Output (Celsius): 1234567266
+
+Input (Celsius): 8888888888
+Output (Fahrengheit): 16000000030
+
+Input (Fahrengheit): 000000001
+Output (Celsius): -17
+

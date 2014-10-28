@@ -332,10 +332,8 @@ _mem1_lz_mem2_:
     je      _mem2_gz_mem1_gz_0_
     jmp     _mem2_lz_mem1_lz_0_       
         
-_mem1_gz_mem2_gz_0_:      
-    jmp     _mem1_sub_mem2_
-
-_mem1_lz_mem2_lz_0_:      
+_mem1_gz_mem2_gz_0_:
+_mem1_lz_mem2_lz_0_:              
     jmp     _mem1_sub_mem2_
 
 _mem2_gz_mem1_gz_0_:
@@ -550,6 +548,83 @@ _end_:
     pop     ax    
 	endm
 
+;; Write BCD-number as string to mem_buffer with dot and sign
+;; Set mem_buffer_len = length(str(BCD-number))
+BCD2Str	macro	mem,max_size,len,pos_dot,sign, mem_buffer,mem_buffer_len
+        local   _minus_,_out_,_integer_,_rational_,_end_
+    push    ax
+    push    dx                  ; number of wrote chars
+        
+    xor     dx, dx    
+    mov     di, offset mem_buffer
+        
+    mov     al, sign
+    cmp     al, 1
+    je      _minus_
+    jmp     _out_
+
+_minus_:
+    mov     al, 45
+    stosb
+    inc     dx    
+    jmp     _out_
+
+_out_:      
+    mov     ax, pos_dot
+    cmp     ax, 0
+    je      _integer_       
+    jmp     _rational_    
+        
+_integer_:     
+    ;; si = (offset mem) + (max_size - len)
+    ;; cx = len
+    mov     ax, offset mem
+    add     ax, max_size
+    sub     ax, len
+    mov     si, ax
+    mov     cx, len
+
+	call	BCD2Strp            ; don't change dx
+
+    jmp     _end_
+        
+_rational_:
+    ;; print integer part
+    ;; si = (offset mem) + (max_size - len)
+    ;; cx = len - pos_dot    
+    mov     ax, offset mem
+    add     ax, max_size
+    sub     ax, len
+    mov     si, ax
+
+    mov     cx, len
+    sub     cx, pos_dot
+    call    BCD2Strp
+
+    ;; print dot
+    mov     al, 46
+    stosb
+    inc     dx
+        
+    ;; print rest part
+    ;; si = (offset mem) + (max_size - pos_dot)
+    ;; cx = pos_dot    
+    mov     ax, offset mem
+    add     ax, max_size
+    sub     ax, pos_dot
+    mov     si, ax
+
+    mov     cx, pos_dot
+    call    BCD2Strp
+        
+_end_:
+    add     dx, len
+    mov     mem_buffer_len, dx
+        
+    pop     dx
+    pop     ax
+	endm
+        
 ; Input single character to al        
 InChar  macro
         mov	    ah,08h
@@ -614,6 +689,12 @@ OutFStr macro   f_handle,str,len_str
     mov     bx, f_handle
     mov     cx, len_str
     mov     dx, offset str
+    int     21h
+    endm
+
+OutFBCD macro f_handle, mem,max_size,mem_len,pos_dot,sign, mem_buffer,mem_buffer_len
+    BCD2Str     mem,max_size,mem_len,pos_dot,sign, mem_buffer,mem_buffer_len
+    OutFStr     f_handle,mem_buffer,mem_buffer_len        
     endm
         
 stk segment stack
@@ -631,6 +712,8 @@ len_input   equ     10
 len_size    equ     2                       
 
 newline     db  CR, LF, EOS
+len_newline dw  2               ; without EOS
+        
 prg_desc_1  db  'This program can be used to convert temperature', CR, LF, EOS
 prg_desc_2  db  'beetween Celsius and Farengheit scales.', CR, LF, EOS
 slct_prmpt  db  'Select direction of convertation (1,2), or press q to exit', CR, LF, EOS  
@@ -640,19 +723,23 @@ var_fc      db  '2) Convert Farengheit to Celsius', CR, LF, EOS
 var_quit    db  'q) Quit from program', CR, LF, EOS
         
 cf_prpmt    db  'Input temperature level by Celsius scale', CR, LF, EOS
-len_cf_prpmt dw $-cf_prpmt
-        
 cf_answer   db  'Temperature level by Farengheit scale is: ', EOS
-len_cf_answer dw $-cf_answer
-        
-fc_prpmt    db  'Input temperature level by Farengheit scale', CR, LF, EOS
-len_fc_prpmt dw $-fc_prpmt
-        
-fc_answer   db  'Temperature level by Celsius scale is: ', EOS
-len_fc_answer dw $-fc_answer
-        
+fc_prpmt    db  'Input temperature level by Farengheit scale', CR, LF, EOS     
+fc_answer   db  'Temperature level by Celsius scale is: ', EOS        
 in_prpmt    db  '(for example, -12345.6789) and press <Enter>: ', EOS
 
+c_i_log     db  'Input (Celsius): '
+len_c_i_log dw  $-c_i_log
+
+c_o_log     db  'Output (Celsius): '
+len_c_o_log dw  $-c_o_log
+
+f_i_log     db  'Input (Fahrengheit): '
+len_f_i_log dw  $-f_i_log
+
+f_o_log     db  'Output (Fahrengheit): '
+len_f_o_log dw  $-f_o_log      
+        
 f_name      db  'C:\result\result.txt',00
 f_handle    dw  1 dup(?)
         
@@ -693,9 +780,14 @@ pos_k2      dw  0
 sign_k2     db  0
         
 ; additional memory for mul and div purpouses
-mem_overhead db 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+mem_overhead db 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0        
+buffer       db  512 dup(?)
+
+; special buffer for bcd->str convertion purpouses
+len_mem_cnv  equ len_mem+2
+mem_cnv      db len_mem_cnv dup(?)
+len_cnv      dw 0
         
-buffer      db  512 dup(?)
 data	    ends
 
 code	    segment
@@ -1038,15 +1130,28 @@ OutBCDp	proc
 ;процедура вывода BCD-чисел на экран
 	mov	    ah,06h
 	cld
-_out_:
+_outbcd_out_:
 	lodsb
 	or	    al,30h
 	mov	    dl,al
 	int	    21h
-	loop	_out_
+	loop	_outbcd_out_
 	ret
 	endp
 
+BCD2Strp	proc
+;процедура вывода BCD-чисел в буффер
+	mov	    ah,06h
+	cld
+_bcd2str_out_:
+	lodsb
+	or	    al,30h
+    stosb
+	loop	_bcd2str_out_
+	ret
+	endp
+
+        
 InBCDp	proc
 ; процедура ввода BCD-чисел с клавиатуры
 ; не учитывает ведущие нули
@@ -1096,6 +1201,9 @@ _not_digit_:
 
 _minus_:
     inc     cx
+        
+    cmp     si, 0                   ; запрет ввода более одного минуса
+    jne     _loop_
         
     cmp     dx, 0                   ; ввод минуса только в начале числа   
     jne     _loop_
@@ -1147,7 +1255,7 @@ main	proc
 	mov	    es,ax
 
 _begin_:
-    NewFile  f_name, f_handle
+    NewFile  f_name,f_handle
         
     OutStr  prg_desc_1
     OutStr  prg_desc_2
@@ -1159,13 +1267,13 @@ _main_menu_:
 _main_menu_choose_variant_:     
     InChar                      ; Choose variant
 
-    cmp al, 31h                  ; '1'
+    cmp al, 31h                 ; '1'
     je _cf_
-    cmp al, 32h                  ; '2'
+    cmp al, 32h                 ; '2'
     je _fc_
     cmp al, 113                 ; q
     je _end_    
-    cmp al, 81                 ; Q
+    cmp al, 81                  ; Q
     je _end_
     jmp _main_menu_choose_variant_
         
@@ -1173,41 +1281,58 @@ _cf_:                           ; Celsius to Farengheit
     OutStr  cf_prpmt
     OutStr  in_prpmt
 
-    OutFStr f_handle,cf_prpmt,len_cf_prpmt
+    OutFStr f_handle,c_i_log,len_c_i_log
         
     InBCD   a, len_input,len_mem, len_a,pos_a,sign_a
         
     cmp     len_a, 0            ; length of input is 0
     je      _main_menu_
 
-   	MulBCD	a,len_a,sign_a,pos_a, k2,len_k2,sign_k2,pos_k2, len_mem ; *9        
+    OutFBCD f_handle, a,len_mem,len_a,pos_a,sign_a, mem_cnv,len_cnv
+    OutFStr f_handle,newline,len_newline      
+        
+   	MulBCD	a,len_a,sign_a,pos_a, k2,len_k2,sign_k2,pos_k2, len_mem ; *9       
     DivBCD  a,len_a,sign_a,pos_a, k1,len_k1,sign_k1,pos_k1, len_mem  ; /5
     AddBCD  a,len_a,sign_a,pos_a, b,len_b,sign_b,pos_b, len_mem ; +32
         
     OutStr  cf_answer
-    OutBCD  a,len_mem,len_a,pos_a,sign_a
-        
+    OutBCD  a,len_mem,len_a,pos_a,sign_a        
     OutStr  newline
 
+    OutFStr f_handle, f_o_log,len_f_o_log    
+    OutFBCD f_handle, a,len_mem,len_a,pos_a,sign_a, mem_cnv,len_cnv
+    OutFStr f_handle, newline,len_newline
+
+    OutFStr f_handle, newline,len_newline   
     jmp     _main_menu_
         
 _fc_:                            ; Farengheit to Celsius
     OutStr  fc_prpmt
     OutStr  in_prpmt
 
+    OutFStr f_handle, f_i_log,len_f_i_log
+                
     InBCD   a,len_input,len_mem,len_a,pos_a,sign_a
         
     cmp     len_a, 0            ; length of input is 0
     je      _main_menu_
 
+    OutFBCD f_handle, a,len_mem,len_a,pos_a,sign_a, mem_cnv,len_cnv
+    OutFStr f_handle, newline,len_newline      
+        
     SubBCD  a,len_a,sign_a,pos_a, b,len_b,sign_b,pos_b, len_mem   ; -32 
     MulBCD  a,len_a,sign_a,pos_a, k1,len_k1,sign_k1,pos_k1, len_mem  ; *5
     DivBCD	a,len_a,sign_a,pos_a, k2,len_k2,sign_k2,pos_k2, len_mem  ; /9
         
     OutStr  fc_answer
     OutBCD  a,len_mem,len_a,pos_a,sign_a
-        
     OutStr  newline
+
+    OutFStr f_handle, c_o_log,len_c_o_log    
+    OutFBCD f_handle, a,len_mem,len_a,pos_a,sign_a, mem_cnv,len_cnv
+    OutFStr f_handle, newline,len_newline
+
+    OutFStr f_handle, newline,len_newline        
     jmp     _main_menu_
 
 _end_:
