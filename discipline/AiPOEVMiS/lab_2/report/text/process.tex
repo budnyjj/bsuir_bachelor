@@ -2,145 +2,149 @@
 
 \subsection{Разработка пользовательского интерфейса}
 
-При разработке пользовательского интерфейса примем во внимание:
+При разработке пользовательского интерфейса будем
+руководствоваться следующими соображениями:
 \begin{itemize}
-
     \item пользователь должен иметь возможность выбирать направление
     конвертации (из градусов Цельсия в градусы Фаренгейта, или наоборот);
 
-    \item пользователь должен иметь возможность вводить только числа --- как целые, так и дробные,
-    при этом разделитель (<<точка>>) при вводе может встретиться только один раз;
+    \item пользователь должен иметь возможность вводить только числа --- как целые,
+      так и дробные, при этом разделитель (<<точка>>) при вводе может встретиться
+      только один раз;
 
-    \item пользователь может вводить отрицательные числа, при этом знак <<минус>> при вводе
-    может встретиться только один раз перед числом;
+    \item пользователь может вводить отрицательные числа,
+      при этом знак <<минус>> при вводе может встретиться только один раз в начале ввода;
 
     \item пользователь может завершить программу с помощью горячей клавиши;
-
 \end{itemize}
 
 На основе вышеперечисленных требований реализуем пользовательский интерфейс.
 Создадим меню, в котором пользователю будет дана возможность перейти к конвертации
-по одному из направлений, либо выйти. Принцип построения меню на языке машинных
-команд представлен на рисунке~\ref{lst:menu}.
+в выбранном направлении, либо выйти. Принцип построения меню на языке Ассемблер
+представлен на рисунке~\ref{lst:menu}.
 
-\begin{lstlisting}[caption=Принцип построения пользователького меню на языке машинных команд,
+\begin{lstlisting}[caption=Принцип построения пользователького меню,
 label=lst:menu,language={[x86masm]Assembler},basicstyle=\scriptsize\ttfamily]
-    OutMenu macro
-        OutStr  slct_prmpt
-        OutStr  var_cf
-        OutStr  var_fc
-        OutStr  var_quit
-        OutStr  newline
-        endm
-  ...
-  code segment
-  _main_menu_:
-      OutMenu
+ OutMenu macro
+     OutStr  slct_prmpt
+     OutStr  var_cf
+     OutStr  var_fc
+     OutStr  var_quit
+     OutStr  newline
+     endm
+ ...
+ code segment
+ _main_menu_:
+     OutMenu
 
-  _main_menu_choose_variant_:
-      InChar                      ; Choose variant
-      cmp al, 31h                 ; '1'
-      je _cf_
-      cmp al, 32h                 ; '2'
-      je _fc_
-      cmp al, 113                 ; q
-      je _end_
-      cmp al, 81                  ; Q
-      je _end_
-      jmp _main_menu_choose_variant_
-  ...
+ _main_menu_choose_variant_:
+     InChar                      ; Choose variant
+     cmp al, 31h                 ; '1'
+     je _cf_
+     cmp al, 32h                 ; '2'
+     je _fc_
+     cmp al, 113                 ; q
+     je _end_
+     cmp al, 81                  ; Q
+     je _end_
+     jmp _main_menu_choose_variant_
+ ...
 \end{lstlisting}
 
 \subsection{Пользовательский ввод данных}
 
-Для ввода BCD-числа используем процедуру, значимая часть которой
+Для ввода BCD-числа будем использовать процедуру, значительная часть которой
 приведена на рисунке~\ref{lst:input_proc}.
 
-\begin{lstlisting}[caption={Часть процедуры, используемой для пользователького ввода данных},
+\begin{lstlisting}[caption={Процедура обработки пользователького ввода данных},
 label=lst:input_proc,language={[x86masm]Assembler},basicstyle=\scriptsize\ttfamily]
-  ...
-  InBCDp  proc
-    cld
-      mov     dx, 0
-      mov     bx, 0
-      mov     si, 0
-  _in_:
-      InChar
-      cmp     al, 0                   ; extended keystroke
-      je      _extended_
-      cmp     al, 13                  ; enter
-      je      _success_
-      cmp     al, 113                 ; q
-      je      _error_
-      cmp     al, 81                  ; Q
-      je      _error_
-      cmp     al, 45                  ; got -
-      je      _minus_
-      cmp     al,46                   ; got .
-      je      _dot_
-      cmp     al, 30h                 ; got char with code <= 30h
-      jl      _not_digit_
-      cmp     al, 3Ah                 ; got char with code >= 40h
-      jge     _not_digit_
-      jmp     _digit_
-  ...
-  endp
-  ...
+ InBCDp  proc
+   cld
+     mov     dx, 0
+     mov     bx, 0
+     mov     si, 0
+ _in_:
+     InChar
+     cmp     al, 0                   ; extended keystroke
+     je      _extended_
+     cmp     al, 13                  ; enter
+     je      _success_
+     cmp     al, 113                 ; q
+     je      _error_
+     cmp     al, 81                  ; Q
+     je      _error_
+     cmp     al, 45                  ; got -
+     je      _minus_
+     cmp     al,46                   ; got .
+     je      _dot_
+     cmp     al, 30h                 ; got char with code <= 30h
+     jl      _not_digit_
+     cmp     al, 3Ah                 ; got char with code >= 40h
+     jge     _not_digit_
+     jmp     _digit_
+ ...
+ endp
+ ...
 \end{lstlisting}
 
-Макрос, вызывающий данную процедуру, представлен на рисунке~\ref{lst:input_macros}.
+Макрос, помещающий нужные аргументы в регистры и вызывающий данную процедуру,
+представлен на рисунке~\ref{lst:input_macros}.
 
-\begin{lstlisting}[caption={Макрос, вызывающий процедуру пользователького ввода данных},
+\begin{lstlisting}[caption={Макрос обработки пользовательского ввода},
 label=lst:input_macros,language={[x86masm]Assembler},basicstyle=\scriptsize\ttfamily]
-  ...
-  InBCD macro mem,len_input,max_size,len_read,pos_dot,sign
-    mov     di,offset mem
-    mov     cx,len_input
-    call  InBCDp
-    mov     len_read, ax
-    mov     pos_dot, bx
-    mov     sign, dl
+ InBCD macro mem,len_input,max_size,len_read,pos_dot,sign
+   mov     di,offset mem
+   mov     cx,len_input
+   call  InBCDp
+   mov     len_read, ax
+   mov     pos_dot, bx
+   mov     sign, dl
 
-    AlignBCD mem,len_read,max_size
-  endm
-  ...
+   AlignBCD mem,len_read,max_size
+ endm
 \end{lstlisting}
 
-\subsection{Получение результата}
+\subsection{Вычисление результата}
 
 Приведём последовательность получения результата на примере перевода числа из
-градусов Цельсия в градусы Фаренгейта. Последовательность конвертации с использованием
-машинных команд представлена на рисунке~\ref{lst:convertion_main}.
+градусов Цельсия в градусы Фаренгейта. Последовательность конвертации на языке 
+Ассемблер представлена на рисунке~\ref{lst:convertion_main}.
 
-\begin{lstlisting}[caption={Последовательность конвертации с использованием макроподстановок в языке Ассемблер},
-label=lst:convertion_main,language={[x86masm]Assembler},basicstyle=\scriptsize\ttfamily]
-  ...
-  DivBCD  a,sign_a, k1,sign_k1, len_mem,len_a   ; /5
-  MulBCD  a,sign_a, k2,sign_k2, len_mem,len_a   ; *9
-  AddBCD  a,sign_a, b,sign_b, len_mem,len_a     ; +32
-  ...
+\begin{lstlisting}[caption={Последовательность конвертации с
+    использованием макроподстановок в языке Ассемблер},
+  label=lst:convertion_main,language={[x86masm]Assembler},basicstyle=\scriptsize\ttfamily]
+ ...
+ DivBCD  a,sign_a, k1,sign_k1, len_mem,len_a   ; /5
+ MulBCD  a,sign_a, k2,sign_k2, len_mem,len_a   ; *9
+ AddBCD  a,sign_a, b,sign_b, len_mem,len_a     ; +32
+ ...
 \end{lstlisting}
 
 Рассмотрим команды, представленные на рисунке~\ref{lst:convertion_main} подробнее.
-\textit{DivBCD}, \textit{MullBCD}, \textit{AddBCD} --- макросы, имеющие следующие параметры:
+\textit{DivBCD}, \textit{MulBCD}, \textit{AddBCD} --- макросы, имеющие следующие параметры:
 \begin{itemize}
-
   \item \textit{a} --- число, вводимое пользователем (первый операнд);
   \item \textit{sign\_a} --- знак первого операнда;
   \item \textit{k1 (k2, b)} --- второй операнд;
   \item \textit{sign\_k1 (sign\_k1, sign\_b)} ---  знак второго операнда;
   \item \textit{len\_mem} --- максимальный размер операндов;
-  \item \textit{len\_a} --- длинна исходного числа (первого операнда).
-
+  \item \textit{len\_a} --- длина исходного числа (первого операнда).
 \end{itemize}
 
-Таким образом результат конвертации получается путём умножения исходного числа на $\dfrac{9}{5}$ и
-прибавления к полученному значению 32.
-
+Таким образом, результат конвертации получается путём умножения
+исходного числа на $\frac{9}{5}$ и прибавления к полученному значению 32.
 
 \subsection{Вывод результата на экран}
 
-\textbf{***}
+Для вывода BCD-числа на экран пользователя используется 
+макрос \textit{OutBCD}, сигнатура которого представлена на рисунке~\ref{lst:out_bcd}.
+Этот макрос производит вывод BCD-числа, расположенного
+в области памяти \textit{mem} размера \textit{max\_size},
+длиной \textit{len}, знаком \textit{sign} и позицией точки \textit{pos\_dot}.
 
+\begin{lstlisting}[caption={Сигнатура макроса вывода BCD-числа на экран пользователя},
+label=lst:out_bcd,language={[x86masm]Assembler}]
+ OutBCD	macro	mem,max_size,len,pos_dot,sign
+\end{lstlisting}
 
 Исходный текст разработанной программы находится в приложении~А.
