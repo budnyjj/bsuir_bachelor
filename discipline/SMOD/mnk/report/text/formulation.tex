@@ -1,0 +1,31 @@
+\section{ПОСТАНОВКА ЗАДАЧИ}
+
+Даны некоторые экспериментальные данные, приведенные в таблице~\ref{tbl:source_data}.
+Эти данные носят случайный характер.
+
+\begin{table}[h!]
+  \caption{Исходные данные}
+  \label{tbl:source_data}
+  \small{
+    \centering
+    \begin{tabular}{| p{0.14\textwidth} | p{0.14\textwidth} | p{0.14\textwidth} | p{0.14\textwidth} | p{0.14\textwidth} | p{0.14\textwidth} |}
+      \hline
+
+      $x$ & 0 & 110 & 195 & 410 & 540 \\ \hline
+      $y$ & 33 & 24 & 20 & 13 & 12 \\
+
+      \hline
+    \end{tabular}
+  }
+\end{table}
+
+Пользуясь предположением, что величина $ y $ связана с велиной $ x $ соотношением~\ref{eq:appr_f},
+необходимо подобрать наиболее подходящие значения параметров $ a $ и $\alpha $ данного соотношения:
+\begin{equation}
+\label{eq:appr_f}
+  y = f(x) = ae^{-\alpha x}.
+\end{equation}
+
+Для поиска оптимального значения параметров использовать метод наименьших квадратов.
+
+\newpage

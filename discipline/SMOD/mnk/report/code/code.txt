@@ -1,0 +1,113 @@
+ %%%%% main file %%%%%
+
+ % input data
+ x = [0, 110, 195, 410, 540];
+ y = [33, 24, 20, 13, 12];
+
+ mean_x = [mean(x(1)), mean(x(2))];
+ mean_y = [mean(y(1)), mean(y(2))];
+
+ appr_x = [min(x):10:max(x)];
+
+ % init parameter values
+ init_params = [0, 0];
+
+ % basic_estimates(1) -- a_0
+ % basic_estimates(2) -- alpha_0
+ basic_estimates = search_basic_estimates(mean_x, mean_y, init_params);
+ a_0 = basic_estimates(1)
+ alpha_0 = basic_estimates(2)
+
+ % eff_estimates by iteration
+ num_iter = 10
+ eff_estimates_per_iter = [];
+
+ hold on
+ plot(x, y, '.k')
+ plot(appr_x, arrayfun(@(vals) f(vals, a_0, alpha_0), appr_x), 'b-')
+
+ for i = 1:num_iter
+     cur_eff_estimates = search_eff_estimates(basic_estimates, x, y, @f, i);
+     a = cur_eff_estimates(1);
+     alpha = cur_eff_estimates(2);
+
+     plot(appr_x, arrayfun(@(vals) f(vals, a, alpha), appr_x), 'r-')
+     eff_estimates_per_iter = [eff_estimates_per_iter cur_eff_estimates];
+ end
+
+ hold off
+
+ eff_estimates_per_iter()
+
+ % a per number of iterations
+ plot(1:num_iter, eff_estimates_per_iter(1,:))
+
+ % alpha per number of iterations
+ plot(1:num_iter, eff_estimates_per_iter(2,:))
+
+ hold off
+
+ % eff_a
+ plot(1:num_iter, eff_estimates_per_iter(1,:), 'b-')
+ % eff_alpha
+ plot(1:num_iter, eff_estimates_per_iter(2,:), 'r-')
+
+ %%%%% target function %%%%%
+ function y = f(x, a, alpha)
+     y = a*exp(-alpha*x);
+ end
+
+ %%%%% arrayfun function %%%%%
+ function dst_array = arrayfun(func, src_array)
+    [rows cols] = size(src_array);
+    dst_array = zeros(rows, cols);
+    for i = 1:rows
+        for j = 1:cols
+            dst_array(i,j) = func(src_array(i,j));
+        end
+    end
+ end
+
+ %%%%% diff_f_by_a function %%%%%
+ function y = diff_f_by_a(x, a, alpha)
+     y = exp(-alpha*x);
+ end
+
+ %%%%% diff_f_by_alpha function %%%%%
+ function y = diff_f_by_alpha(x, a, alpha)
+     y = -a*x*exp(-alpha*x);
+ end
+
+ %%%%% search_basic_estimates %%%%%
+ function basic_estimates = search_basic_estimates(x, y, init_params)
+     % search solution of nonlinear equations system
+     % (a, alpha) based on proposed (x[1:2], y[1:2]) values
+     % specified params in form (start_a, start_alpha)
+     basic_estimates = fsolve(@target_function, init_params);
+     function f = target_function(params)
+     % target function. x(1), x(2) and y(1), y(2) are parameters
+         a = params(1);
+         alpha = params(2);
+         f = [a.*exp(-alpha.*x(1))-y(1);a.*exp(-alpha.*x(2))-y(2)];
+     end
+ end
+
+ %%%%% search_eff_estimates %%%%%
+ function eff_estimates = search_eff_estimates(basic_estimates, x, y, f, num_iter)
+     y_t = y.';
+     eff_estimates = basic_estimates.';
+
+     for i = 1:num_iter
+         a_0 = eff_estimates(1);
+         alpha_0 = eff_estimates(2);
+
+         q_1 = arrayfun(@(vals) diff_f_by_a(vals, a_0, alpha_0), x);
+         q_2 = arrayfun(@(vals) diff_f_by_alpha(vals, a_0, alpha_0), x);
+
+         Q_t = [q_1; q_2];
+         Q = Q_t.';
+
+         appr_f_t = arrayfun(@(vals) f(vals, a_0, alpha_0), x).';
+         eff_estimates = eff_estimates + inv(Q_t*Q)*Q_t*(y_t - appr_f_t);
+     end
+ end
