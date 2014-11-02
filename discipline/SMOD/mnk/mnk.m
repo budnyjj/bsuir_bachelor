@@ -1,9 +1,17 @@
-% input data
-x = [0, 110, 195, 410, 540];
-y = [33, 24, 20, 13, 12];
+clear
 
-mean_x = [mean(x(1)), mean(x(2))];
-mean_y = [mean(y(1)), mean(y(2))];
+real_a = 30
+real_alpha = 0.005
+
+% input data
+err_a = 0
+err_sigma = 2
+
+x = [0:7:500];
+y = generate(@(vals) f(vals, real_a, real_alpha), x, err_a, err_sigma)
+
+mean_x = [x(1), x(20)];
+mean_y = [y(1), y(20)];
 
 appr_x = [min(x):10:max(x)];
 
@@ -17,11 +25,11 @@ a_0 = basic_estimates(1)
 alpha_0 = basic_estimates(2)
 
 % eff_estimates by iteration
-num_iter = 10
+num_iter = 5
 eff_estimates_per_iter = [];
 
 hold on
-%plot(x, y, '.k')
+plot(x, y, '.k')
 %plot(appr_x, arrayfun(@(vals) f(vals, a_0, alpha_0), appr_x), 'b-')
 
 for i = 1:num_iter
@@ -29,7 +37,7 @@ for i = 1:num_iter
     a = cur_eff_estimates(1);
     alpha = cur_eff_estimates(2);
     
-    %plot(appr_x, arrayfun(@(vals) f(vals, a, alpha), appr_x), 'r-')
+    plot(appr_x, arrayfun(@(vals) f(vals, a, alpha), appr_x), 'r-')
     eff_estimates_per_iter = [eff_estimates_per_iter cur_eff_estimates];
 end
 
@@ -37,18 +45,11 @@ hold off
 
 eff_estimates_per_iter()
 
-% a per number of iterations
-%plot(1:num_iter, eff_estimates_per_iter(1,:))
-
-% alpha per number of iterations
-%plot(1:num_iter, eff_estimates_per_iter(2,:))
-
-
- 
-hold off
-
+basic_quality = quality(@(vals) f(vals, a_0, alpha_0), x, y)
+eff_quality = quality(@(vals) f(vals, a, alpha), x, y)
 
 % eff_a
-%plot(1:num_iter, eff_estimates_per_iter(1,:), 'b-')
+% plot(1:num_iter, eff_estimates_per_iter(1,:), 'b-')
+
 % eff_alpha
 % plot(1:num_iter, eff_estimates_per_iter(2,:), 'r-')
