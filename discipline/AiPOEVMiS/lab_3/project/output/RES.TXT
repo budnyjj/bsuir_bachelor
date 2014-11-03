@@ -1,0 +1,12 @@
+C:\input\a.txt && C:\input\b.txt && C:\input\c.txt:
+C
+
+C:\input\b.txt && C:\input\c.txt && C:\input\d.txt:
+D
+
+C:\input\a.txt && C:\input\c.txt && C:\input\d.txt:
+
+
+C:\input\a.txt && C:\input\b.txt && C:\input\d.txt:
+
+
