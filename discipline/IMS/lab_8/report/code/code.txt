@@ -1,0 +1,49 @@
+ STAN_A      STORAGE     2
+ STAN_B      STORAGE     1
+
+ VR_ST_A     TABLE       M1,5,5,10
+ VR_ST_B     TABLE       M1,5,5,10
+
+             INITIAL     X$DET_A,20
+             INITIAL     X$DET_B,30
+
+             GENERATE    ,,,2
+             ASSIGN      1,1
+ RAB_ST_1    TEST G      X$DET_A,0,NALADKA
+             ENTER       STAN_A
+             SAVEVALUE   DET_A-,1
+             ADVANCE     (NORMAL(1,3,0.33))
+             LEAVE       STAN_A
+             TRANSFER    ,RAB_ST_1
+
+             GENERATE    ,,,1
+             ASSIGN      1,2
+ RAB_ST_2    TEST G      X$DET_B,0,NALADKA
+             ENTER       STAN_B
+             SAVEVALUE   DET_B-,1
+             ADVANCE     (NORMAL(2,3,0.33))
+             LEAVE       STAN_B
+             TRANSFER    ,RAB_ST_2
+
+ NALADKA     MARK
+             QUEUE       OCH_NALAD
+             SEIZE       OPERATOR
+             DEPART      OCH_NALAD
+             TEST E      P1,1,TIP_ST_2
+             ADVANCE     15,5
+             SAVEVALUE   DET_A,20
+             RELEASE     OPERATOR
+             TABULATE    VR_ST_A
+             TRANSFER    ,KONEC
+
+ TIP_ST_2    ADVANCE     20,5
+             SAVEVALUE   DET_B,30
+             RELEASE     OPERATOR
+             TABULATE    VR_ST_B
+
+ KONEC       TEST E      P1,1,RAB_ST_2
+             TRANSFER    ,RAB_ST_1
+
+             GENERATE    6000
+             TERMINATE   1
+             START       1
