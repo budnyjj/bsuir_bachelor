@@ -1,0 +1,126 @@
+; asm extension
+
+default rel                     ; relative address mode
+global  c_f:function
+global  f_c:function
+    
+segment .data
+    input       dq 0
+    output      dq 0
+    nine        dq 9.e0
+    five        dq 5.e0
+    thirty_two  dq 32.e0
+
+segment .text
+c_f:
+    push        rbp
+    mov         rbp, rsp
+
+    movlps      [input], xmm0
+    
+    finit
+
+    fld        qword  [input]
+    fmul       qword  [nine]
+    fdiv       qword  [five]
+    fadd       qword  [thirty_two]
+    fstp       qword  [output]
+                       
+    movlps     xmm0,  [output]
+    
+    mov        rsp, rbp
+    pop        rbp
+    ret
+
+f_c:
+    push        rbp
+    mov         rbp, rsp
+
+    movlps     [input], xmm0    
+    
+    finit
+    fld        qword  [input]
+    fsub       qword  [thirty_two]
+    fmul       qword  [five]
+    fdiv       qword  [nine]
+
+    fstp       qword  [output]
+
+    movlps     xmm0,  [output]
+    
+    pop        rbp
+    ret
+
+/* C extension */
+
+#include <python2.7/Python.h>
+
+extern double c_f(double c);
+extern double f_c(double f);
+
+static PyObject *
+py_ext_c2f(PyObject *self, PyObject *args)
+{
+  double c;
+  
+  if (!PyArg_ParseTuple(args, "d", &c))
+    return NULL;
+
+  return Py_BuildValue("d", c_f(c));
+}
+
+static PyObject *
+py_ext_f2c(PyObject *self, PyObject *args)
+{
+  double f;
+  
+  if (!PyArg_ParseTuple(args, "d", &f))
+    return NULL;
+  return Py_BuildValue("d", f_c(f));
+}
+
+static PyMethodDef ModuleMethods[] = {
+  {
+    "c2f", py_ext_c2f, METH_VARARGS, "Convert Celsius to Fahrengheit"
+  },
+  {
+    "f2c", py_ext_f2c, METH_VARARGS, "Convert Fahrengheit to Celsius"
+  },
+  {NULL, NULL, 0, NULL}
+};
+
+PyMODINIT_FUNC
+inittemperature(void)
+{
+  Py_InitModule("temperature", ModuleMethods);
+}
+
+/* Python extension setup */
+
+from distutils.core import setup, Extension
+
+setup(
+    name = "Temperature",
+    version = "0.0.0.1",
+    description = "Temperature convertion functions",
+    author = "Raman Budny",
+    ext_modules = [Extension("temperature",
+                             sources = ['temperature/tmp_module.c'],
+                             # link with asm lib
+                             extra_link_args = ['temperature/asm/tmp.o']),],
+)
+
+/* Main program */
+
+import temperature as tmp
+
+c = [x / 0.8 for x in range(-100, 100, 5)]
+f = map(tmp.c2f, c)
+
+plt.xlabel("Celsius")
+plt.ylabel("Fahrenheight")
+plt.grid(True)
+plt.plot(c, f,
+         color="b", linestyle="--",
+         marker=".", markersize=10, mfc="r")
+plt.show()
