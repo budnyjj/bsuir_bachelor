@@ -1097,9 +1097,25 @@ rep movsb
     mov ds, ax
     mov es, ax
     OutBCD  a, len_mem, len_a, pos_a, sign_a
+
+    ;AddBCD   a,len_a,sign_a,pos_a, a,len_a,sign_a,pos_a, len_mem
+
+    MulBCD   a,len_a,sign_a,pos_a, a,7,0,5, len_mem     ; *9
+
     ;MulBCD  a,len_a,sign_a,pos_a, k2,len_k2,sign_k2,pos_k2, len_mem     ; *9
     ;DivBCD  a,len_a,sign_a,pos_a, k1,len_k1,sign_k1,pos_k1, len_mem     ; /5
-     AddBCD  a,len_a,sign_a,pos_a, b,len_b,sign_b,pos_b,     len_mem     ; +32
+    ;MulBCD  a,len_a,sign_a,pos_a, b,len_b,sign_b,pos_b, len_mem     ; /32
+
+    ;mov al, a
+    ;OutChar al
+
+    ;AddBCD  a,len_a,sign_a,pos_a, b,len_b,sign_b,pos_b,     len_mem     ; +32
+
+    ;mov al, a
+    ;add al, 30h
+    ;OutChar al
+
+    ;OutStr newline
 
     OutBCD  a, len_mem, len_a, pos_a, sign_a
 
