@@ -2,7 +2,7 @@
 ;; di = len1-1+offset mem1
 ;; si = len2-1+offset mem2
 ;; cx = min(len1, len2)
-Init	macro   mem1,len1,mem2,len2
+Init    macro   mem1,len1,mem2,len2
     local _assign_len1_,_assign_len2_,_end_
     push    ax
     push    dx
@@ -10,12 +10,12 @@ Init	macro   mem1,len1,mem2,len2
     mov     ax, len1
     sub     ax,1
     add     ax, offset mem1
-    mov	    di,ax
+    mov     di,ax
 
     mov     dx, len2
     sub     dx, 1
     add     dx, offset mem2
-	mov	    si,dx
+    mov     si,dx
 
     mov     ax, len1
     cmp     ax, len2
@@ -98,7 +98,7 @@ CpBCD   macro   mem1,mem2,max_size
 ;;
 ;; Out:
 ;; len_mem1 -- essential part length of mem1 (result)
-AddBCD	macro	mem1,len_mem1,sign1,pos_dot1, mem2,len_mem2,sign2,pos_dot2, max_size
+AddBCD  macro   mem1,len_mem1,sign1,pos_dot1, mem2,len_mem2,sign2,pos_dot2, max_size
         local _compare_signs_,_signs_equal_,_signs_not_equal_,_mem1_gz_mem2_,_mem1_lz_mem2,_rest1_gz_rest2_,_rest1_lz_rest2_,_corrections_,_end_
 
     ;; adjust bcd by dot pos
@@ -173,8 +173,8 @@ _signs_equal_:
 ;; sign1 == sign2
 ;; mem1 = mem1 + mem2
 ;; sign1 = sign1
-    Init	mem1,max_size,mem_overhead,max_size
-	call	AddBCDp
+    Init    mem1,max_size,mem_overhead,max_size
+    call    AddBCDp
     jmp     _corrections_
 
 _signs_not_equal_:
@@ -189,16 +189,16 @@ _signs_not_equal_:
     jmp     _mem1_lz_mem2_
 
 _mem1_gz_mem2_:
-    Init	mem1,max_size,mem_overhead,max_size
-	call	SubBCDp
+    Init    mem1,max_size,mem_overhead,max_size
+    call    SubBCDp
     jmp     _corrections_
 
 _mem1_lz_mem2_:
     mov al, sign2
     mov sign1, al
 
-    Init	mem_overhead,max_size,mem1,max_size
-	call	SubBCDp
+    Init    mem_overhead,max_size,mem1,max_size
+    call    SubBCDp
     CpBCD   mem1,mem_overhead,max_size
 
     jmp     _corrections_
@@ -213,7 +213,7 @@ _corrections_:
     jmp     _end_
 
 _end_:
-	endm
+    endm
 
 ;; Subtraction of BCD numbers
 ;; Store result of subtraction in mem1
@@ -229,7 +229,7 @@ _end_:
 ;;
 ;; Out:
 ;; len_mem1 -- essential part length of mem1 (result)
-SubBCD	macro	mem1,len_mem1,sign1,pos_dot1, mem2,len_mem2,sign2,pos_dot2, max_size
+SubBCD  macro   mem1,len_mem1,sign1,pos_dot1, mem2,len_mem2,sign2,pos_dot2, max_size
         local   _compare_signs_,_signs_equal_,_signs_not_equal_,_mem1_gz_mem2_,_mem1_gz_mem2_gz_0_,_mem1_lz_mem2_lz_0_,_mem1_lz_mem2,_mem1_lz_mem2_,_mem2_gz_mem1_gz_0_,_mem2_lz_mem1_lz_0_,_mem1_sub_mem2_,_mem2_sub_mem1_,_corrections_,_end_
 
     ;; adjust bcd by dot pos
@@ -303,8 +303,8 @@ _signs_not_equal_:
 ;; sign1 != sign2
 ;; mem1 = max(mem1, mem2) - min(mem1, mem2)
 ;; sign1 = sign(max(mem1, mem2))
-    Init	mem1,max_size,mem_overhead,max_size
-	call	AddBCDp
+    Init    mem1,max_size,mem_overhead,max_size
+    call    AddBCDp
     jmp     _corrections_
 
 _signs_equal_:
@@ -345,13 +345,13 @@ _mem2_lz_mem1_lz_0_:
     jmp     _mem2_sub_mem1_
 
 _mem1_sub_mem2_:
-    Init	mem1,max_size,mem_overhead,max_size
-	call	SubBCDp
+    Init    mem1,max_size,mem_overhead,max_size
+    call    SubBCDp
     jmp     _corrections_
 
 _mem2_sub_mem1_:
-    Init	mem_overhead,max_size,mem1,max_size
-	call	SubBCDp
+    Init    mem_overhead,max_size,mem1,max_size
+    call    SubBCDp
     CpBCD   mem1,mem_overhead,max_size
 
     jmp     _corrections_
@@ -365,7 +365,7 @@ _corrections_:
     jmp     _end_
 
 _end_:
-	endm
+    endm
 
 ;; Multiplication of BCD numbers
 ;; Store lower part of result in mem1,
@@ -382,7 +382,7 @@ _end_:
 ;;
 ;; Out:
 ;; len_mem1 -- essential part length of mem1 (result)
-MulBCD	macro	mem1,len_mem1,sign1,pos_dot1, mem2,len_mem2,sign2,pos_dot2, max_size
+MulBCD  macro   mem1,len_mem1,sign1,pos_dot1, mem2,len_mem2,sign2,pos_dot2, max_size
         local   _mul_,_end_
     ;; determine sign of result
     mov     ah, sign1
@@ -399,8 +399,11 @@ _mul_:
     ;; copy mem2 number to temporary place
     CpBCD   mem_overhead,mem2,max_size
 
-    Init	mem1,max_size,mem_overhead,max_size
-	call	MulBCDp
+    ;CpBCD   mem1,mem_overhead,max_size
+
+    Init    mem1,max_size,mem_overhead,max_size
+
+    call    MulBCDp
 
     LenBCD  mem1,len_mem1,pos_dot1,max_size
 
@@ -410,7 +413,7 @@ _mul_:
     jmp     _end_
 
 _end_:
-	endm
+    endm
 
 ;; Division of BCD numbers
 ;; Store result of division in mem1,
@@ -427,7 +430,7 @@ _end_:
 ;;
 ;; Out:
 ;; len_mem1 -- essential part length of mem1 (result)
-DivBCD	macro	mem1,len_mem1,sign1,pos_dot1, mem2,len_mem2,sign2,pos_dot2, max_size
+DivBCD  macro   mem1,len_mem1,sign1,pos_dot1, mem2,len_mem2,sign2,pos_dot2, max_size
         local   _div_,_end_
     ;; determine sign of result
     mov     ah, sign1
@@ -443,10 +446,10 @@ DivBCD	macro	mem1,len_mem1,sign1,pos_dot1, mem2,len_mem2,sign2,pos_dot2, max_siz
 _div_:
     ;; copy mem2 number to temporary place
     CpBCD   mem_overhead,mem2,max_size
-	mov	    di,offset mem1
-	mov	    si,offset mem_overhead
-	mov	    cx,max_size
-	call	DivBCDp
+    mov     di,offset mem1
+    mov     si,offset mem_overhead
+    mov     cx,max_size
+    call    DivBCDp
 
     LenBCD  mem1,len_mem1,pos_dot1, max_size
 
@@ -456,7 +459,7 @@ _div_:
     jmp     _end_
 
 _end_:
-	endm
+    endm
 
 ;; Print single character stored in al
 OutChar macro char
@@ -482,7 +485,7 @@ OutStr macro str
     endm
 
 ;; Print BCD-number to screen with dot and sign
-OutBCD	macro	mem,max_size,len,pos_dot,sign
+OutBCD  macro   mem,max_size,len,pos_dot,sign
         local _minus_,_out_,_integer_,_rational_,_end_
     push    ax
 
@@ -512,7 +515,7 @@ _integer_:
 
     mov     cx, len
 
-	call	OutBCDp
+    call    OutBCDp
     jmp     _end_
 
 _rational_:
@@ -546,11 +549,11 @@ _rational_:
 _end_:
     OutStr  newline
     pop     ax
-	endm
+    endm
 
 ;; Write BCD-number as string to mem_buffer with dot and sign
 ;; Set mem_buffer_len = length(str(BCD-number))
-BCD2Str	macro	mem,max_size,len,pos_dot,sign, mem_buffer,mem_buffer_len
+BCD2Str macro   mem,max_size,len,pos_dot,sign, mem_buffer,mem_buffer_len
         local   _minus_,_out_,_integer_,_rational_,_end_
     push    ax
     push    dx                  ; number of wrote chars
@@ -584,7 +587,7 @@ _integer_:
     mov     si, ax
     mov     cx, len
 
-	call	BCD2Strp            ; don't change dx
+    call    BCD2Strp            ; don't change dx
 
     jmp     _end_
 
@@ -623,7 +626,145 @@ _end_:
 
     pop     dx
     pop     ax
-	endm
+    endm
+
+
+; copy value pointed by far ptr to local memory
+ptr2local_word macro far_ptr_src, mem_dest
+    push ds
+    push si
+
+    ; construct far_ptr value
+    mov ds, word ptr [ far_ptr_src + 2 ]
+    mov si, word ptr [ far_ptr_src ]
+    mov ax, [ds:si]
+
+    ; set local data segment
+    mov bx, @data
+    mov ds, bx
+
+    ; write data pointed by far_ptr to local mem
+    mov mem_dest, ax
+
+    pop si
+    pop ds
+    endm
+
+; copy value pointed by far ptr to local memory
+ptr2local_byte macro far_ptr_src, mem_dest
+    push ds
+    push si
+
+    ; construct far_ptr value
+    mov ds, word ptr [ far_ptr_src + 2 ]
+    mov si, word ptr [ far_ptr_src ]
+    mov al, [ds:si]
+
+    ; set local data segment
+    mov bx, @data
+    mov ds, bx
+
+    ; write data pointed by far_ptr to local mem
+    mov mem_dest, al
+
+    pop si
+    pop ds
+    endm
+
+; copy far_src to local mem
+ptr2local_mem macro far_ptr_src, mem_dest, len_mem
+    push ds
+    push si
+
+    ; source
+    mov ds, word ptr [ far_ptr_src + 2 ]
+    mov si, word ptr [ far_ptr_src ]
+
+    ; dest
+    mov ax, @data
+    mov es, ax
+    lea di, mem_dest
+
+    ; length
+    mov cx, len_mem
+
+    cld
+rep movsb
+
+    pop si
+    pop ds
+    endm
+
+; copy local memory value into pointer
+local_word2ptr macro mem_src, far_ptr_dest
+    push ds
+    push si
+
+    ; set local data segment
+    mov bx, @data
+    mov ds, bx
+
+    ; read local mem
+    mov ax, mem_src
+
+    ; construct far_ptr value
+    mov ds, word ptr [ far_ptr_dest + 2 ]
+    mov si, word ptr [ far_ptr_dest ]
+
+    ; write local mem to pointer
+    mov [ds:si], ax
+
+    pop si
+    pop ds
+    endm
+
+; copy local memory value into pointer
+local_byte2ptr macro mem_src, far_ptr_dest
+    push ds
+    push si
+
+    ; set local data segment
+    mov bx, @data
+    mov ds, bx
+
+    ; read local mem
+    mov al, mem_src
+
+    ; construct far_ptr value
+    mov ds, word ptr [ far_ptr_dest + 2 ]
+    mov si, word ptr [ far_ptr_dest ]
+
+    ; write local mem to pointer
+    mov [ds:si], al
+
+    pop si
+    pop ds
+    endm
+
+; copy local mem to far pointer
+local_mem2ptr macro mem_src, far_ptr_dest, len_mem
+    push ds
+    push si
+
+    ; source
+    mov ax, @data
+    mov ds, ax
+    lea si, mem_src
+
+    ; dest
+    mov es, word ptr [ far_ptr_dest + 2 ]
+    mov di, word ptr [ far_ptr_dest ]
+
+    ; length
+    mov cx, len_mem
+
+    cld
+rep movsb
+
+    pop si
+    pop ds
+    endm
+
 
 .MODEL small
 
@@ -643,18 +784,8 @@ len_size    equ     2
 newline     db  CR, LF, EOS
 len_newline dw  2               ; without EOS
 
-;prg_desc_1  db  'This program can be used to convert temperature', CR, LF, EOS
-;prg_desc_2  db  'beetween Celsius and Farengheit scales.', CR, LF, EOS
-;slct_prmpt  db  'Select direction of convertation (1,2), or press q to exit', CR, LF, EOS
-
-;cf_prpmt    db  'Input temperature level by Celsius scale', CR, LF, EOS
-;cf_answer   db  'Temperature level by Farengheit scale is: ', EOS
-;fc_prpmt    db  'Input temperature level by Farengheit scale', CR, LF, EOS
-;fc_answer   db  'Temperature level by Celsius scale is: ', EOS
-;in_prpmt    db  '(for example, -12345.6789) and press <Enter>: ', EOS
-
 ; input value
-a	        db	len_mem dup(?)
+a           db  len_mem dup(?)
 ; length of essential part
 len_a       dw  0
 ; dot position
@@ -666,40 +797,40 @@ sign_a      db  0
 temp           dw  len_mem dup(?)
 
 ; addition
-b           db  0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,2
+thirty_two    db  0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,2
 ; length of essential part
-len_b       dw  2
+len_thirty_two  dw  2
 ; dot position
-pos_b       dw  0
+pos_thirty_two  dw  0
 ; sign (0 -- plus, 1 -- minus)
-sign_b      db  0
+sign_thirty_two db  0
 
 ; first coefficient
-k1          db  0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5
+five          db  0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5
 ; length of essential part
-len_k1      dw  1
+len_five      dw  1
 ; dot position
-pos_k1      dw  0
+pos_five      dw  0
 ; sign (0 -- plus, 1 -- minus)
-sign_k1     db  0
+sign_five     db  0
 
 ; second coefficient
-k2          db   0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9
+nine          db   0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9
 ; length of essential part
-len_k2      dw  1
+len_nine      dw  1
 ; dot position
-pos_k2      dw  0
+pos_nine      dw  0
 ; sign (0 -- plus, 1 -- minus)
-sign_k2     db  0
+sign_nine     db  0
 
 ; additional memory for mul and div purpouses
-mem_overhead db 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-buffer       db  512 dup(?)
+mem_overhead  db 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+buffer        db  512 dup(?)
 
 ; special buffer for bcd->str convertion purpouses
-len_mem_cnv  equ len_mem+2
-mem_cnv      db len_mem_cnv dup(?)
-len_cnv      dw 0
+len_mem_cnv   equ len_mem+2
+mem_cnv       db len_mem_cnv dup(?)
+len_cnv       dw 0
 
 
 .CODE
@@ -766,301 +897,301 @@ _len_end_:
     endp
 
 ;; Add two BCD numbers without signs
-AddBCDp	proc
-	push	ax
-	push	di
-	push	si
-	push	cx
-	std
-	clc
+AddBCDp proc
+    push    ax
+    push    di
+    push    si
+    push    cx
+    std
+    clc
 _add_:
-	lodsb
-	adc	al,[di]
-	aaa
-	stosb
-	loop	_add_
-	pop	cx
-	pop	si
-	pop	di
-	pop	ax
-	ret
-	endp
+    lodsb
+    adc al,[di]
+    aaa
+    stosb
+    loop    _add_
+    pop cx
+    pop si
+    pop di
+    pop ax
+    ret
+    endp
 
 ;; Subtract two BCD numbers without signs
-SubBCDp	    proc
-	push	ax
-	push	di
-	push	si
-	push	cx
-	std
-	clc
+SubBCDp     proc
+    push    ax
+    push    di
+    push    si
+    push    cx
+    std
+    clc
 _sub_:
-	lodsb
-	sbb	    [di],al
-	mov	    al,[di]
-	aas
-	stosb
-	loop	_sub_
-	pop	    cx
-	pop	    si
-	pop	    di
-	pop	    ax
-	ret
-	endp
+    lodsb
+    sbb     [di],al
+    mov     al,[di]
+    aas
+    stosb
+    loop    _sub_
+    pop     cx
+    pop     si
+    pop     di
+    pop     ax
+    ret
+    endp
 
 ;; Multiplicate two BCD numbers without signs
-MulBCDp	proc
-	push	ax
-	push	bx
-	push	di
-	push	si
-	push	cx
-	std
-	mov	    bx,offset buffer
-	mov	    dh,cl
-	push	bx
-	shl	    cx,1
-	xor	    al,al
+MulBCDp proc
+    push    ax
+    push    bx
+    push    di
+    push    si
+    push    cx
+    std
+    mov     bx,offset buffer
+    mov     dh,cl
+    push    bx
+    shl     cx,1
+    xor     al,al
 
 _null_:
-	mov	    [bx],al
-	inc	    bx
-	loop	_null_
-	mov	    cl,dh
-	pop	    bx
+    mov     [bx],al
+    inc     bx
+    loop    _null_
+    mov     cl,dh
+    pop     bx
 
 _mul_o_:
-	xor	    dl,dl
-	push	cx
-	push	bx
-	push	si
-	mov	    cl,dh
+    xor     dl,dl
+    push    cx
+    push    bx
+    push    si
+    mov     cl,dh
 
 _mul_i_:
-	lodsb
-	mul	    byte ptr [di]
-	aam
-	add	    al,dl
-	aaa
-	add	    al,[bx]
+    lodsb
+    mul     byte ptr [di]
+    aam
+    add     al,dl
+    aaa
+    add     al,[bx]
 
-	aaa
-	mov	    dl,ah
-	xor	    ah,ah
-	mov	    [bx],al
-	inc	    bx
-	loop	_mul_i_
-	mov	    [bx],dl
-	pop	    si
-	pop	    bx
-	inc	    bx
-	dec	    di
+    aaa
+    mov     dl,ah
+    xor     ah,ah
+    mov     [bx],al
+    inc     bx
+    loop    _mul_i_
+    mov     [bx],dl
+    pop     si
+    pop     bx
+    inc     bx
+    dec     di
 
-	pop	    cx
-	loop	_mul_o_
-	mov	    cl,dh
-	sub	    bx,cx
-	add	    di,cx
+    pop     cx
+    loop    _mul_o_
+    mov     cl,dh
+    sub     bx,cx
+    add     di,cx
 
 _move_l_:
-	mov	    al,[bx]
-	inc	    bx
-	stosb
-	loop	_move_l_
-	mov	    cl,dh
-	mov	    di,si
+    mov     al,[bx]
+    inc     bx
+    stosb
+    loop    _move_l_
+    mov     cl,dh
+    mov     di,si
 
 _move_h_:
-	mov	    al,[bx]
-	inc	    bx
-	stosb
-	loop	_move_h_
-	pop	    cx
-	pop	    si
-	pop	    di
-	pop	    bx
-	pop	    ax
-	ret
-	endp
+    mov     al,[bx]
+    inc     bx
+    stosb
+    loop    _move_h_
+    pop     cx
+    pop     si
+    pop     di
+    pop     bx
+    pop     ax
+    ret
+    endp
 
 ;; вспомогательная процедура для операции деления
 ;; производит вызов процедуры вычитания
 ;; без начальной инициализации
-SubInvBCDp	proc
-	push	si
-	push	di
-	add 	si,cx
-	dec	    si
-	add	    di,cx
-	dec	    di
-	call	SubBCDp
-	pop	    di
-	pop	    si
-	ret
-	endp
+SubInvBCDp  proc
+    push    si
+    push    di
+    add     si,cx
+    dec     si
+    add     di,cx
+    dec     di
+    call    SubBCDp
+    pop     di
+    pop     si
+    ret
+    endp
 
 ;; Compare two BCD numbers
 ;; Set CF=0, if [si]>[di], else CF=1
-CmpBCDp	proc
-	push	ax
-	push	di
-	push	si
-	push	cx
-	cld
+CmpBCDp proc
+    push    ax
+    push    di
+    push    si
+    push    cx
+    cld
 _cmp_:
-	lodsb
-	cmp	al,[di]
-	jl	    _less_
-	jg	    _greater_
-	inc	    di
-	loop	_cmp_
+    lodsb
+    cmp al,[di]
+    jl      _less_
+    jg      _greater_
+    inc     di
+    loop    _cmp_
 _less_:
-	stc
-	jc	    _cmp_q_
+    stc
+    jc      _cmp_q_
 _greater_:
-	clc
+    clc
 _cmp_q_:
-	pop	    cx
-	pop	    si
-	pop	    di
-	pop	    ax
-	ret
-	endp
+    pop     cx
+    pop     si
+    pop     di
+    pop     ax
+    ret
+    endp
 
 ;; процедура инициализации буфера
 ;; для операции деления
-PrepareForDiv	proc
-	cld
+PrepareForDiv   proc
+    cld
     ;; 0,[di] -> buffer
-	push	di
-	push	si
-	push	di
-	pop	    si
-	mov	    di,offset buffer
-	xor	    al,al
-	push	cx
-	stosb
-	rep	    movsb
+    push    di
+    push    si
+    push    di
+    pop     si
+    mov     di,offset buffer
+    xor     al,al
+    push    cx
+    stosb
+    rep     movsb
     ;;  0,[si] -> buffer
-	pop	    cx
-	stosb
-	pop	    si
-	push	cx
+    pop     cx
+    stosb
+    pop     si
+    push    cx
 
 _find_:
-	lodsb
-	dec	    cx
-	cmp	    al,0
-	je	    _find_
-	dec	    si
-	inc	    cx
-	mov	    dx,cx
-	rep     movsb
-	pop	    cx
-	push	cx
+    lodsb
+    dec     cx
+    cmp     al,0
+    je      _find_
+    dec     si
+    inc     cx
+    mov     dx,cx
+    rep     movsb
+    pop     cx
+    push    cx
 
     ;; 0,0..0 -> buffer
-	xor	    al,al
-	rep	    stosb
+    xor     al,al
+    rep     stosb
 
     ;; reassign registers
-	mov	    di,offset buffer
-	pop	    cx
-	mov	    si,di
-	inc	    cx
-	add	    si,cx
-	pop	    bx
-	ret
-	endp
+    mov     di,offset buffer
+    pop     cx
+    mov     si,di
+    inc     cx
+    add     si,cx
+    pop     bx
+    ret
+    endp
 
 ;; Divide two BCD numbers
-DivBCDp	proc
-	push	ax	;сохраним изменяемые регистры
-	push	bx
-	push	di
-	push	si
-	push	cx
-	push	di
-	call	PrepareForDiv	;подготовим буфер
-	xor	    ax,ax	;в al - очередная цифра результата
-			;в ah - количество цифр в результате
-	call	CmpBCDp
-	jnc	    _next_1_
+DivBCDp proc
+    push    ax  ;сохраним изменяемые регистры
+    push    bx
+    push    di
+    push    si
+    push    cx
+    push    di
+    call    PrepareForDiv   ;подготовим буфер
+    xor     ax,ax   ;в al - очередная цифра результата
+            ;в ah - количество цифр в результате
+    call    CmpBCDp
+    jnc     _next_1_
 _div_:
-	call	CmpBCDp
-	jnc	    _next_
-	inc	    al
-	call	SubInvBCDp
-	jmp	    _div_
+    call    CmpBCDp
+    jnc     _next_
+    inc     al
+    call    SubInvBCDp
+    jmp     _div_
 _next_:
-	mov	    [bx],al	;сохраним очередную цифру
-	inc	    bx	;уменьшим порядок делимого
+    mov     [bx],al ;сохраним очередную цифру
+    inc     bx  ;уменьшим порядок делимого
 _next_1_:
-	inc	    di
-	dec	    cx
-	xor	    al,al
-	inc	    ah
-	cmp	    cx,dx	;сравним порядки делимого и делителя
-	jne	    _div_
-	dec	    ah
-	pop	    di
-	pop	    cx
-	push	cx
+    inc     di
+    dec     cx
+    xor     al,al
+    inc     ah
+    cmp     cx,dx   ;сравним порядки делимого и делителя
+    jne     _div_
+    dec     ah
+    pop     di
+    pop     cx
+    push    cx
 ;пересылаем результат из буфера в операнды
-	mov	    si,di
-	add	    di,cx
-	push	cx
-	mov	    cl,ah
-	add	    si,cx
-	dec	    si
-	dec	    di
-	std
-rep	movsb
-	pop	    cx
-	sub	    cl,ah
-	xor	    al,al
-rep	stosb
-	pop	    cx
-	pop	    si
-	push	si
-	push	cx
-	mov	    di,si
-	mov 	si,offset buffer
-	inc	    si
-	cld
-rep	movsb
-	pop	    cx	;восстановим регистры
-	pop	    si
-	pop	    di
-	pop	    bx
-	pop	    ax
-	ret
-	endp
+    mov     si,di
+    add     di,cx
+    push    cx
+    mov     cl,ah
+    add     si,cx
+    dec     si
+    dec     di
+    std
+rep movsb
+    pop     cx
+    sub     cl,ah
+    xor     al,al
+rep stosb
+    pop     cx
+    pop     si
+    push    si
+    push    cx
+    mov     di,si
+    mov     si,offset buffer
+    inc     si
+    cld
+rep movsb
+    pop     cx  ;восстановим регистры
+    pop     si
+    pop     di
+    pop     bx
+    pop     ax
+    ret
+    endp
 
-OutBCDp	proc
+OutBCDp proc
 ;процедура вывода BCD-чисел на экран
-	mov	    ah,06h
-	cld
+    mov     ah,06h
+    cld
 _outbcd_out_:
-	lodsb
-	or	    al,30h
-	mov	    dl,al
-	int	    21h
-	loop	_outbcd_out_
-	ret
-	endp
+    lodsb
+    or      al,30h
+    mov     dl,al
+    int     21h
+    loop    _outbcd_out_
+    ret
+    endp
 
-BCD2Strp	proc
+BCD2Strp    proc
 ;процедура вывода BCD-чисел в буффер
-	mov	    ah,06h
-	cld
+    mov     ah,06h
+    cld
 _bcd2str_out_:
-	lodsb
-	or	    al,30h
+    lodsb
+    or      al,30h
     stosb
-	loop	_bcd2str_out_
-	ret
-	endp
+    loop    _bcd2str_out_
+    ret
+    endp
 
 public _CF
 _CF proc far
@@ -1068,85 +1199,49 @@ _CF proc far
     mov  bp, sp
     push es
     push ds
+    push si
 
-    mov ax, [bp + 10]   ; len_a
-    mov len_a, ax
+    ; copy ptr_src array to local variable a
+    ptr2local_mem bp+6, a, len_mem
 
-    mov ax, [bp + 12]   ; pos_a
-    mov pos_a, ax
+    ; copy len_a to local mem
+    ptr2local_word bp+10, len_a
 
-    mov ax, [bp + 14]   ; sign_a
-    mov sign_a, al
+    ; copy pos_a to local mem
+    ptr2local_word bp+14, pos_a
 
-    cld
-    ; source
-    mov ds, word ptr [bp + 8]
-    mov si, word ptr [bp + 6]
-
-    ; dest
-    mov ax, @data
-    mov es, ax
-    lea di, a
-
-    ; length
-    mov cx, 20
-rep movsb
-
+    ; copy sign_a to local mem
+    ptr2local_byte bp+18, sign_a
 
     mov ax, @data
     mov ds, ax
     mov es, ax
-    OutBCD  a, len_mem, len_a, pos_a, sign_a
 
-    ;AddBCD   a,len_a,sign_a,pos_a, a,len_a,sign_a,pos_a, len_mem
+    ; convert Celsius to Farengheit, store result in a
+    MulBCD  a,len_a,sign_a,pos_a, nine,len_nine,sign_nine,pos_nine, len_mem ; *9
+    DivBCD  a,len_a,sign_a,pos_a, five,len_five,sign_five,pos_five, len_mem ; /5
+    AddBCD  a,len_a,sign_a,pos_a, thirty_two,len_thirty_two,sign_thirty_two,pos_thirty_two, len_mem ; +32
 
-    MulBCD   a,len_a,sign_a,pos_a, a,7,0,5, len_mem     ; *9
+    ; copy local sign_a into remote pointer
+    local_byte2ptr sign_a, bp+18
 
-    ;MulBCD  a,len_a,sign_a,pos_a, k2,len_k2,sign_k2,pos_k2, len_mem     ; *9
-    ;DivBCD  a,len_a,sign_a,pos_a, k1,len_k1,sign_k1,pos_k1, len_mem     ; /5
-    ;MulBCD  a,len_a,sign_a,pos_a, b,len_b,sign_b,pos_b, len_mem     ; /32
+    ; copy local pos_a into remote pointer
+    local_word2ptr pos_a, bp+14
 
-    ;mov al, a
-    ;OutChar al
+    ; copy local len_a into remote pointer
+    local_word2ptr len_a, bp+10
 
-    ;AddBCD  a,len_a,sign_a,pos_a, b,len_b,sign_b,pos_b,     len_mem     ; +32
+    ; copy local mem into remote pointer
+    local_mem2ptr a, bp+6, len_mem
 
-    ;mov al, a
-    ;add al, 30h
-    ;OutChar al
-
-    ;OutStr newline
-
-    OutBCD  a, len_mem, len_a, pos_a, sign_a
-
-
-    ; return value
-    cld
-    ; source
-    mov ax, @data
-    mov ds, ax
-    lea si, a
-
-    ; dest
-    mov es, word ptr [bp + 8]
-    mov di, word ptr [bp + 6]
-
-    mov cx, 20
-rep movsb
-
-
-;    MulBCD  mem,val_len,sign,dot_pos, k2,len_k2,sign_k2,pos_k2, len_mem ; *9
-;    DivBCD  a,len_a,sign_a,pos_a, k1,len_k1,sign_k1,pos_k1, len_mem  ; /5
-;    AddBCD  a,len_a,sign_a,pos_a, b,len_b,sign_b,pos_b, len_mem ; +32
-
+    pop si
     pop ds
     pop es
-
     pop bp
     ret
 _CF endp
 
 _end_:
-	mov	    ax,4c00h
-	int	    21h
+    mov     ax,4c00h
+    int     21h
 end
