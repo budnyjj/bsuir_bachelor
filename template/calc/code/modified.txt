@@ -1,0 +1,33 @@
+TIME_MIN FUNCTION    X$ZAPAS,C2
+0,11.76/20,0
+TIME_MAX FUNCTION    X$ZAPAS,C2
+0,23.53/20,0
+         INITIAL     X$MIN_VAL,3
+         INITIAL     X$ZAPAS,20
+
+         GENERATE    ,,,1
+
+NEW      TEST LE     X$ZAPAS,X$MIN_VAL,HEAT
+         ADVANCE     (UNIFORM(1,FN$TIME_MIN,FN$TIME_MAX))
+         SAVEVALUE   ZAPAS,20
+
+HEAT     SAVEVALUE   ZAPAS-,1
+         SEIZE       HEAT_1
+         ADVANCE     10,4
+         RELEASE     HEAT_1
+         SEIZE       HEAT_2
+         ADVANCE     10,4
+         RELEASE     HEAT_2
+         SEIZE       HEAT_3
+         ADVANCE     10,4
+         RELEASE     HEAT_3
+         SEIZE       COOL
+         ADVANCE     (EXPONENTIAL(1,0,8))
+         RELEASE     COOL
+
+         SAVEVALUE   FINISH+,1
+         TRANSFER    ,NEW
+
+         GENERATE    6000
+         TERMINATE   1
+         START       1

@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="481.46448"
+   height="381.08795"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.5 r10040"
+   sodipodi:docname="scheme.svg"
+   inkscape:export-filename="/home/budnyjj/univer/GIT/discipline/IMS/calc_b/synopsis/pic/scheme.png"
+   inkscape:export-xdpi="200"
+   inkscape:export-ydpi="200">
+  <defs
+     id="defs4">
+    <marker
+       inkscape:stockid="Arrow1Lstart"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lstart"
+       style="overflow:visible">
+      <path
+         id="path3934"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt"
+         transform="matrix(0.8,0,0,0.8,10,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend"
+       style="overflow:visible">
+      <path
+         id="path3937"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="2.8284271"
+     inkscape:cx="188.00441"
+     inkscape:cy="223.40423"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="1916"
+     inkscape:window-height="1057"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0">
+    <sodipodi:guide
+       orientation="0,1"
+       position="235.5,281.3055"
+       id="guide3047" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="262.64285,224.87693"
+       id="guide3049" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="414.7322,92.271319"
+       id="guide3051" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="0.5,95.591219"
+       id="guide3053" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="139.07143,147.73407"
+       id="guide3055" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="542.64285,93.448359"
+       id="guide3057" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="298.39906,281.3055"
+       id="guide3132" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="273.04568,291.18299"
+       id="guide3134" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="203.71428,300.94836"
+       id="guide3136" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="342.64285,281.3055"
+       id="guide3138" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="481.85714,161.87693"
+       id="guide4374" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="351.10714,28.626929"
+       id="guide4984" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="65.357143,144.37693"
+       id="guide5823" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="32.357143,158.37693"
+       id="guide5833" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="273.04568,142.03396"
+       id="guide6025" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="97.152863,338.9632"
+       id="guide6033" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="184.8341,366.54036"
+       id="guide6225" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="320.31937,258.09397"
+       id="guide6478" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-56.642857,-111.15115)">
+    <g
+       id="g3007"
+       transform="translate(167.14358,-211.89252)">
+      <rect
+         y="323.37793"
+         x="93.57579"
+         height="55.876762"
+         width="138.11754"
+         id="rect2989"
+         style="fill:#f2f2f2;stroke:#000000;stroke-width:0.66852707;stroke-linecap:butt;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+      <flowRoot
+         transform="translate(35,19.142857)"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Times New Roman;-inkscape-font-specification:Times New Roman"
+         id="flowRoot2999"
+         xml:space="preserve"><flowRegion
+           id="flowRegion3001"><rect
+             y="321.64789"
+             x="85.714287"
+             height="19.285719"
+             width="89.999992"
+             id="rect3003" /></flowRegion><flowPara
+           style="font-size:14px"
+           id="flowPara3005">Бункер (20 кг)</flowPara></flowRoot>    </g>
+    <g
+       id="g3067"
+       transform="translate(-62,56)">
+      <rect
+         y="211.48541"
+         x="461.65552"
+         height="55.876762"
+         width="138.11754"
+         id="rect2989-5"
+         style="fill:#f2f2f2;stroke:#000000;stroke-width:0.66852707;stroke-linecap:butt;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+      <flowRoot
+         transform="translate(392.36544,-100.82109)"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Times New Roman;-inkscape-font-specification:Times New Roman"
+         id="flowRoot2999-7"
+         xml:space="preserve"><flowRegion
+           id="flowRegion3001-0"><rect
+             y="321.64789"
+             x="85.714287"
+             height="38.463959"
+             width="110.49169"
+             id="rect3003-6" /></flowRegion><flowPara
+           style="font-size:14px;text-align:center;text-anchor:middle"
+           id="flowPara3005-0">Нагреватель 1 </flowPara><flowPara
+           style="font-size:14px;text-align:center;text-anchor:middle"
+           id="flowPara3059">(6-14 мин)</flowPara></flowRoot>    </g>
+    <g
+       transform="translate(-62.487361,139.15267)"
+       id="g3067-9">
+      <rect
+         y="211.48541"
+         x="461.65552"
+         height="55.876762"
+         width="138.11754"
+         id="rect2989-5-5"
+         style="fill:#f2f2f2;stroke:#000000;stroke-width:0.66852707;stroke-linecap:butt;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+      <flowRoot
+         transform="translate(392.36544,-100.82109)"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Times New Roman;-inkscape-font-specification:Times New Roman"
+         id="flowRoot2999-7-5"
+         xml:space="preserve"><flowRegion
+           id="flowRegion3001-0-8"><rect
+             y="321.64789"
+             x="85.714287"
+             height="38.463959"
+             width="110.49169"
+             id="rect3003-6-4" /></flowRegion><flowPara
+           style="font-size:14px;text-align:center;text-anchor:middle"
+           id="flowPara3005-0-3">Нагреватель 2 </flowPara><flowPara
+           style="font-size:14px;text-align:center;text-anchor:middle"
+           id="flowPara3059-2">(6-14 мин)</flowPara></flowRoot>    </g>
+    <g
+       transform="translate(-62.487361,223.58125)"
+       id="g3067-3">
+      <rect
+         y="211.48541"
+         x="461.65552"
+         height="55.876762"
+         width="138.11754"
+         id="rect2989-5-58"
+         style="fill:#f2f2f2;stroke:#000000;stroke-width:0.66852707;stroke-linecap:butt;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+      <flowRoot
+         transform="translate(392.36544,-100.82109)"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Times New Roman;-inkscape-font-specification:Times New Roman"
+         id="flowRoot2999-7-2"
+         xml:space="preserve"><flowRegion
+           id="flowRegion3001-0-84"><rect
+             y="321.64789"
+             x="85.714287"
+             height="38.463959"
+             width="110.49169"
+             id="rect3003-6-43" /></flowRegion><flowPara
+           style="font-size:14px;text-align:center;text-anchor:middle"
+           id="flowPara3005-0-9">Нагреватель 3 </flowPara><flowPara
+           style="font-size:14px;text-align:center;text-anchor:middle"
+           id="flowPara3059-8">(6-14 мин)</flowPara></flowRoot>    </g>
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot3140"
+       style="font-size:14px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Times New Roman;-inkscape-font-specification:Times New Roman"><flowRegion
+         id="flowRegion3142"><rect
+           id="rect3144"
+           width="131.42857"
+           height="43.92857"
+           x="274.64285"
+           y="291.64789"
+           style="font-size:14px" /></flowRegion><flowPara
+         id="flowPara3146"></flowPara></flowRoot>    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Lend)"
+       d="m 329.68854,166.6479 0,44.28571"
+       id="path3160"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.7224732px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 399.28571,238.79075 69.9827,0"
+       id="path4376"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Lend)"
+       d="m 469.36054,238.79075 0,28.57143"
+       id="path4378"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Lend)"
+       d="m 471.36054,323.03204 0,26.83014"
+       id="path4562"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Lend)"
+       d="m 471.36054,406.46932 0,28.92858"
+       id="path4748"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0" />
+    <g
+       id="g4974"
+       transform="translate(-263.672,-82.142857)">
+      <rect
+         y="518.13806"
+         x="447.42252"
+         height="55.876762"
+         width="166.62689"
+         id="rect2989-5-58-8"
+         style="fill:#f2f2f2;stroke:#000000;stroke-width:0.73428917;stroke-linecap:butt;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+      <flowRoot
+         transform="translate(368.67304,205.26015)"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Times New Roman;-inkscape-font-specification:Times New Roman"
+         id="flowRoot2999-7-2-7"
+         xml:space="preserve"><flowRegion
+           id="flowRegion3001-0-84-3"><rect
+             y="321.64789"
+             x="85.714287"
+             height="48.565483"
+             width="154.43333"
+             id="rect3003-6-43-9" /></flowRegion><flowPara
+           style="font-size:14px;text-align:center;text-anchor:middle"
+           id="flowPara3005-0-9-4">Форма </flowPara><flowPara
+           style="font-size:14px;text-align:center;text-anchor:middle"
+           id="flowPara3059-8-8">(8 мин, эксп. случ. вел.)</flowPara></flowRoot>    </g>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.98825675px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Lend)"
+       d="m 399.42857,463.61218 -47.69161,0"
+       id="path5174"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0" />
+    <g
+       id="g5825">
+      <rect
+         y="267.36218"
+         x="122"
+         height="55.876762"
+         width="138.35713"
+         id="rect2989-5-58-8-5"
+         style="fill:#f2f2f2;stroke:#000000;stroke-width:0.66910666;stroke-linecap:butt;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+      <flowRoot
+         transform="translate(29.08929,-45.57639)"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Times New Roman;-inkscape-font-specification:Times New Roman"
+         id="flowRoot2999-7-2-7-4"
+         xml:space="preserve"><flowRegion
+           id="flowRegion3001-0-84-3-5"><rect
+             y="321.64789"
+             x="85.714287"
+             height="48.565483"
+             width="154.43333"
+             id="rect3003-6-43-9-7" /></flowRegion><flowPara
+           style="font-size:14px;text-align:center;text-anchor:middle"
+           id="flowPara3005-0-9-4-2">Заполнение бункера </flowPara><flowPara
+           style="font-size:14px;text-align:center;text-anchor:middle"
+           id="flowPara3059-8-8-7">(10-20 мин)</flowPara></flowRoot>    </g>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 260.35714,238.79075 -64.64285,0"
+       id="path5837"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Lend)"
+       d="m 195.71429,238.79075 0,28.57143"
+       id="path5839"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 195.71429,322.36219 0,27.84296"
+       id="path6027"
+       inkscape:connector-type="orthogonal"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 195.71429,350.20515 89,350.20515"
+       id="path6029"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Lend)"
+       d="m 89,153.48733 171.35714,0"
+       id="path6037"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.96644336px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 89,350.20515 89,153.39201"
+       id="path6039"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 183.5,463.61218 -126.357143,0"
+       id="path6227"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 57.142857,463.61218 0,-337.91343"
+       id="path6229"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Lend)"
+       d="m 57.142857,125.69875 203.214283,0"
+       id="path6231"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0" />
+    <g
+       id="g6436">
+      <rect
+         transform="matrix(0.92599552,-0.37753449,0.92698575,0.37509655,0,0)"
+         y="458.58185"
+         x="-177.90765"
+         height="75.13652"
+         width="74.814705"
+         id="rect3130"
+         style="fill:#f2f2f2;stroke:#000000;stroke-width:0.74631363;stroke-linecap:butt;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+      <flowRoot
+         transform="translate(7.8571429,-62.427069)"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Times New Roman;-inkscape-font-specification:Times New Roman"
+         id="flowRoot3148"
+         xml:space="preserve"><flowRegion
+           id="flowRegion3150"><rect
+             y="291.64789"
+             x="272.5"
+             height="62.857143"
+             width="142.85715"
+             id="rect3152" /></flowRegion><flowPara
+           style="font-size:14px"
+           id="flowPara3154">В бункере &gt; 3 кг?</flowPara></flowRoot>    </g>
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot6443"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Times New Roman;-inkscape-font-specification:Times New Roman"
+       transform="translate(70.784993,115.74734)"><flowRegion
+         id="flowRegion6445"><rect
+           id="rect6447"
+           width="36.769543"
+           height="17.677679"
+           x="356.73538"
+           y="104.6092" /></flowRegion><flowPara
+         id="flowPara6449"
+         style="font-size:14px">да</flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot6443-4"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Times New Roman;-inkscape-font-specification:Times New Roman"
+       transform="translate(-138.15568,115.98981)"><flowRegion
+         id="flowRegion6445-6"><rect
+           id="rect6447-9"
+           width="36.769543"
+           height="17.677679"
+           x="356.73538"
+           y="104.6092" /></flowRegion><flowPara
+         id="flowPara6449-4"
+         style="font-size:14px">нет</flowPara></flowRoot>  </g>
+</svg>
