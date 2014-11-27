@@ -1,0 +1,279 @@
+* MIN_VAL = 0
+
+FACILITY         ENTRIES  UTIL.   AVE. TIME AVAIL. OWNER PEND INTER RETRY DELAY
+ HEAT_1             155    0.251       9.702  1        0    0    0     0      0
+ HEAT_2             155    0.257       9.932  1        0    0    0     0      0
+ HEAT_3             155    0.266      10.286  1        1    0    0     0      0
+ COOL               154    0.205       7.975  1        0    0    0     0      0
+
+
+SAVEVALUE               RETRY       VALUE
+ MIN_VAL                  0              0                            
+ ZAPAS                    0          5.000                            
+ FINISH                   0        154.000      
+
+* MIN_VAL = 1                      
+
+FACILITY         ENTRIES  UTIL.   AVE. TIME AVAIL. OWNER PEND INTER RETRY DELAY
+ HEAT_1             154    0.253       9.844  1        0    0    0     0      0
+ HEAT_2             154    0.252       9.831  1        1    0    0     0      0
+ HEAT_3             153    0.266      10.434  1        0    0    0     0      0
+ COOL               153    0.210       8.220  1        0    0    0     0      0
+
+
+SAVEVALUE               RETRY       VALUE
+ MIN_VAL                  0          1.000                            
+ ZAPAS                    0         18.000                            
+ FINISH                   0        153.000   
+
+* MIN_VAL = 2
+
+FACILITY         ENTRIES  UTIL.   AVE. TIME AVAIL. OWNER PEND INTER RETRY DELAY
+ HEAT_1             154    0.250       9.735  1        1    0    0     0      0
+ HEAT_2             153    0.252       9.875  1        0    0    0     0      0
+ HEAT_3             153    0.265      10.381  1        0    0    0     0      0
+ COOL               153    0.213       8.341  1        0    0    0     0      0
+
+
+SAVEVALUE               RETRY       VALUE
+ MIN_VAL                  0          2.000                            
+ ZAPAS                    0         10.000                            
+ FINISH                   0        153.000   
+
+* MIN_VAL = 3
+   
+FACILITY         ENTRIES  UTIL.   AVE. TIME AVAIL. OWNER PEND INTER RETRY DELAY
+ HEAT_1             154    0.253       9.842  1        0    0    0     0      0
+ HEAT_2             154    0.260      10.139  1        1    0    0     0      0
+ HEAT_3             153    0.257      10.060  1        0    0    0     0      0
+ COOL               153    0.210       8.224  1        0    0    0     0      0
+
+
+SAVEVALUE               RETRY       VALUE
+ MIN_VAL                  0          3.000                            
+ ZAPAS                    0         19.000                            
+ FINISH                   0        153.000 
+
+* MIN_VAL = 4
+  
+FACILITY         ENTRIES  UTIL.   AVE. TIME AVAIL. OWNER PEND INTER RETRY DELAY
+ HEAT_1             157    0.254       9.713  1        1    0    0     0      0
+ HEAT_2             156    0.265      10.177  1        0    0    0     0      0
+ HEAT_3             156    0.259       9.979  1        0    0    0     0      0
+ COOL               156    0.200       7.694  1        0    0    0     0      0
+
+
+SAVEVALUE               RETRY       VALUE
+ MIN_VAL                  0          4.000                            
+ ZAPAS                    0          7.000                            
+ FINISH                   0        156.000  
+
+* MIN_VAL = 5
+                  
+FACILITY         ENTRIES  UTIL.   AVE. TIME AVAIL. OWNER PEND INTER RETRY DELAY
+ HEAT_1             155    0.256       9.925  1        0    0    0     0      0
+ HEAT_2             155    0.257       9.949  1        0    0    0     0      0
+ HEAT_3             155    0.259      10.038  1        0    0    0     0      0
+ COOL               155    0.204       7.900  1        1    0    0     0      0
+
+
+SAVEVALUE               RETRY       VALUE
+ MIN_VAL                  0          5.000                            
+ ZAPAS                    0         15.000                            
+ FINISH                   0        154.000 
+       
+* MIN_VAL = 6
+   
+FACILITY         ENTRIES  UTIL.   AVE. TIME AVAIL. OWNER PEND INTER RETRY DELAY
+ HEAT_1             157    0.260       9.954  1        0    0    0     0      0
+ HEAT_2             157    0.253       9.684  1        1    0    0     0      0
+ HEAT_3             156    0.265      10.178  1        0    0    0     0      0
+ COOL               156    0.200       7.676  1        0    0    0     0      0
+
+
+SAVEVALUE               RETRY       VALUE
+ MIN_VAL                  0          6.000                            
+ ZAPAS                    0         17.000                            
+ FINISH                   0        156.000
+
+* MIN_VAL = 7
+
+FACILITY         ENTRIES  UTIL.   AVE. TIME AVAIL. OWNER PEND INTER RETRY DELAY
+ HEAT_1             156    0.257       9.888  1        0    0    0     0      0
+ HEAT_2             156    0.254       9.769  1        1    0    0     0      0
+ HEAT_3             155    0.268      10.388  1        0    0    0     0      0
+ COOL               155    0.202       7.801  1        0    0    0     0      0
+
+
+SAVEVALUE               RETRY       VALUE
+ MIN_VAL                  0          7.000                            
+ ZAPAS                    0          7.000                            
+ FINISH                   0        155.000
+
+* MIN_VAL = 8
+                   
+FACILITY         ENTRIES  UTIL.   AVE. TIME AVAIL. OWNER PEND INTER RETRY DELAY
+ HEAT_1             154    0.253       9.841  1        0    0    0     0      0
+ HEAT_2             154    0.253       9.864  1        1    0    0     0      0
+ HEAT_3             153    0.267      10.464  1        0    0    0     0      0
+ COOL               153    0.208       8.142  1        0    0    0     0      0
+
+
+SAVEVALUE               RETRY       VALUE
+ MIN_VAL                  0          8.000                            
+ ZAPAS                    0         10.000                            
+ FINISH                   0        153.000
+
+* MIN_VAL = 9
+
+FACILITY         ENTRIES  UTIL.   AVE. TIME AVAIL. OWNER PEND INTER RETRY DELAY
+ HEAT_1             154    0.251       9.795  1        1    0    0     0      0
+ HEAT_2             153    0.261      10.232  1        0    0    0     0      0
+ HEAT_3             153    0.256      10.038  1        0    0    0     0      0
+ COOL               153    0.211       8.267  1        0    0    0     0      0
+
+
+SAVEVALUE               RETRY       VALUE
+ MIN_VAL                  0          9.000                            
+ ZAPAS                    0          9.000                            
+ FINISH                   0        153.000 
+
+* MIN_VAL = 10
+
+FACILITY         ENTRIES  UTIL.   AVE. TIME AVAIL. OWNER PEND INTER RETRY DELAY
+ HEAT_1             154    0.256       9.977  1        0    0    0     0      0
+ HEAT_2             154    0.255       9.944  1        1    0    0     0      0
+ HEAT_3             153    0.254       9.953  1        0    0    0     0      0
+ COOL               153    0.212       8.302  1        0    0    0     0      0
+
+
+SAVEVALUE               RETRY       VALUE
+ MIN_VAL                  0         10.000                            
+ ZAPAS                    0         16.000                            
+ FINISH                   0        153.000  
+
+* MIN_VAL = 11
+
+FACILITY         ENTRIES  UTIL.   AVE. TIME AVAIL. OWNER PEND INTER RETRY DELAY
+ HEAT_1             154    0.256       9.977  1        0    0    0     0      0
+ HEAT_2             154    0.255       9.944  1        1    0    0     0      0
+ HEAT_3             153    0.254       9.953  1        0    0    0     0      0
+ COOL               153    0.212       8.302  1        0    0    0     0      0
+
+
+SAVEVALUE               RETRY       VALUE
+ MIN_VAL                  0         10.000                            
+ ZAPAS                    0         16.000                            
+ FINISH                   0        153.000 
+
+* MIN_VAL = 12                          
+
+FACILITY         ENTRIES  UTIL.   AVE. TIME AVAIL. OWNER PEND INTER RETRY DELAY
+ HEAT_1             150    0.252      10.093  1        1    0    0     0      0
+ HEAT_2             149    0.253      10.201  1        0    0    0     0      0
+ HEAT_3             149    0.245       9.846  1        0    0    0     0      0
+ COOL               149    0.228       9.187  1        0    0    0     0      0
+
+
+SAVEVALUE               RETRY       VALUE
+ MIN_VAL                  0         12.000                            
+ ZAPAS                    0         14.000                            
+ FINISH                   0        149.000 
+
+* MIN_VAL = 13
+
+FACILITY         ENTRIES  UTIL.   AVE. TIME AVAIL. OWNER PEND INTER RETRY DELAY
+ HEAT_1             155    0.261      10.093  1        0    0    0     0      0
+ HEAT_2             155    0.256       9.901  1        0    0    0     0      0
+ HEAT_3             155    0.261      10.106  1        1    0    0     0      0
+ COOL               154    0.201       7.823  1        0    0    0     0      0
+
+
+SAVEVALUE               RETRY       VALUE
+ MIN_VAL                  0         13.000                            
+ ZAPAS                    0         19.000                            
+ FINISH                   0        154.000
+
+* MIN_VAL = 14
+
+FACILITY         ENTRIES  UTIL.   AVE. TIME AVAIL. OWNER PEND INTER RETRY DELAY
+ HEAT_1             154    0.259      10.098  1        0    0    0     0      0
+ HEAT_2             154    0.260      10.128  1        0    0    0     0      0
+ HEAT_3             154    0.250       9.736  1        1    0    0     0      0
+ COOL               153    0.209       8.181  1        0    0    0     0      0
+
+
+SAVEVALUE               RETRY       VALUE
+ MIN_VAL                  0         14.000                            
+ ZAPAS                    0         16.000                            
+ FINISH                   0        153.000  
+
+* MIN_VAL = 15
+
+FACILITY         ENTRIES  UTIL.   AVE. TIME AVAIL. OWNER PEND INTER RETRY DELAY
+ HEAT_1             158    0.262       9.946  1        1    0    0     0      0
+ HEAT_2             157    0.265      10.122  1        0    0    0     0      0
+ HEAT_3             157    0.256       9.793  1        0    0    0     0      0
+ COOL               157    0.194       7.414  1        0    0    0     0      0
+
+
+SAVEVALUE               RETRY       VALUE
+ MIN_VAL                  0         15.000                            
+ ZAPAS                    0         17.000                            
+ FINISH                   0        157.000         
+
+* MIN_VAL = 16
+
+FACILITY         ENTRIES  UTIL.   AVE. TIME AVAIL. OWNER PEND INTER RETRY DELAY
+ HEAT_1             154    0.252       9.810  1        0    0    0     0      0
+ HEAT_2             154    0.258      10.038  1        1    0    0     0      0
+ HEAT_3             153    0.256      10.047  1        0    0    0     0      0
+ COOL               153    0.212       8.313  1        0    0    0     0      0
+
+
+SAVEVALUE               RETRY       VALUE
+ MIN_VAL                  0         16.000                            
+ ZAPAS                    0         18.000                            
+ FINISH                   0        153.000
+
+* MIN_VAL = 17
+
+FACILITY         ENTRIES  UTIL.   AVE. TIME AVAIL. OWNER PEND INTER RETRY DELAY
+ HEAT_1             156    0.254       9.773  1        0    0    0     0      0
+ HEAT_2             156    0.260       9.982  1        0    0    0     0      0
+ HEAT_3             156    0.265      10.186  1        0    0    0     0      0
+ COOL               156    0.199       7.661  1        1    0    0     0      0
+
+
+SAVEVALUE               RETRY       VALUE
+ MIN_VAL                  0         17.000                            
+ ZAPAS                    0         17.000                            
+ FINISH                   0        155.000 
+
+* MIN_VAL = 18
+
+FACILITY         ENTRIES  UTIL.   AVE. TIME AVAIL. OWNER PEND INTER RETRY DELAY
+ HEAT_1             153    0.250       9.807  1        0    0    0     0      0
+ HEAT_2             153    0.261      10.217  1        0    0    0     0      0
+ HEAT_3             153    0.254       9.948  1        0    0    0     0      0
+ COOL               153    0.214       8.381  1        1    0    0     0      0
+
+
+SAVEVALUE               RETRY       VALUE
+ MIN_VAL                  0         18.000                            
+ ZAPAS                    0         19.000                            
+ FINISH                   0        152.000
+
+* MIN_VAL = 19                      
+
+FACILITY         ENTRIES  UTIL.   AVE. TIME AVAIL. OWNER PEND INTER RETRY DELAY
+ HEAT_1             157    0.258       9.870  1        0    0    0     0      0
+ HEAT_2             157    0.253       9.654  1        0    0    0     0      0
+ HEAT_3             157    0.266      10.178  1        1    0    0     0      0
+ COOL               156    0.200       7.680  1        0    0    0     0      0
+
+
+SAVEVALUE               RETRY       VALUE
+ MIN_VAL                  0         19.000                            
+ ZAPAS                    0         19.000                            
+ FINISH                   0        156.000 

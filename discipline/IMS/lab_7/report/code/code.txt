@@ -1,49 +1,51 @@
-        GENERATE   ,,,1
-        SPLIT      1,PLATA
-        SPLIT      1,KORPUS
- 
- DETAL  ADVANCE    (EXPONENTIAL(1,0,60))
-        SPLIT      1,DETAL
-        SPLIT      39
- 
-        ASSEMBLE   8
-        ASSIGN     1,8
- DETAL8 MATCH      PLATA1
- 
-        QUEUE      OCH_ZAKR
-        SEIZE      STAN_ZAKR
-        DEPART     OCH_ZAKR
- 
- MNT    ADVANCE    (NORMAL(4,3,0.5))
-        LOOP       1,MNT
-        RELEASE    STAN_ZAKR
- 
-        ASSEMBLE   2
- 
- S_PLATA MATCH     KORPUS1
- 
-         QUEUE     OCH_USTAN
-         SEIZE     STAN_USTAN
-         DEPART    OCH_USTAN
-         ADVANCE   3.5,1.5
-         RELEASE   STAN_USTAN
-         ASSEMBLE  2
- 
-         TRANSFER ,THE_END
- 
- PLATA   ADVANCE  (EXPONENTIAL(2,0,10))
-         SPLIT    1,PLATA
- PLATA1  MATCH    DETAL8
- 
- KORPUS  ADVANCE (EXPONENTIAL(3,0,10))
-         SPLIT 1 ,KORPUS
-         SPLIT   9
- KORPUS1 MATCH   S_PLATA
- 
- THE_END SAVEVALUE GOTOV+,1
-         TERMINATE
- 
-         GENERATE 6000
-         TERMINATE 1
- 
-         START 1
+          GENERATE        ,,,1
+          SPLIT           1,DETAL
+          SPLIT           1,PLATA
+          SPLIT           1,KORPUS
+
+DETAL     ADVANCE         (EXPONENTIAL(1,0,60))
+          SPLIT           1,DETAL
+          SPLIT           39
+          ASSEMBLE        8
+
+DETAL8    MATCH           PLATA1
+DETAL8_M  ASSEMBLE        2
+
+          ASSIGN          1,8
+          QUEUE           OCH_ZAKR
+          SEIZE           STAN_ZAKR
+          DEPART          OCH_ZAKR
+
+MNT       ADVANCE         (NORMAL(4,3,0.5))
+          LOOP            1,MNT
+
+          RELEASE         STAN_ZAKR
+S_PLATA   MATCH           KORPUS1
+
+S_PLATA_M ASSEMBLE        2
+
+          QUEUE           OCH_USTAN
+          SEIZE           STAN_USTAN
+          DEPART          OCH_USTAN
+          ADVANCE         3.5,1.5
+          RELEASE         STAN_USTAN
+          TRANSFER        ,THE_END
+
+PLATA     ADVANCE         (EXPONENTIAL(2,0,10))
+          SPLIT           1,PLATA
+PLATA1    MATCH           DETAL8
+          TRANSFER        ,DETAL8_M
+
+KORPUS    ADVANCE         (EXPONENTIAL(3,0,10))
+          SPLIT           1,KORPUS
+          SPLIT           9
+KORPUS1   MATCH           S_PLATA
+          TRANSFER        ,S_PLATA_M
+
+THE_END   SAVEVALUE       GOTOV+,1
+          TERMINATE
+
+          GENERATE        6000
+          TERMINATE       1
+
+          START           1

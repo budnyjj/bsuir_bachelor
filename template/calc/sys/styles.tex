@@ -1,5 +1,6 @@
- %%% Макет страницы %%%
+%%% Макет страницы %%%
 \geometry{a4paper,top=20mm,bottom=27mm,left=30mm,right=15mm}
+\setstretch{1.15}
 
 %%% Язык текста %%%
 \selectlanguage{russian}
@@ -11,11 +12,7 @@
 \sloppy				% Избавляемся от переполнений
 \clubpenalty=10000		% Запрещаем разрыв страницы после первой строки абзаца
 \widowpenalty=10000		% Запрещаем разрыв страницы после последней строки абзаца
-\interfootnotelinepenalty=10000 % Запрет разрывы сносок
-
-%%% Требования СТП %%%
-%%% Интерлиньяж
-\setstretch{1.15}
+\interfootnotelinepenalty=10000 % Запрет разрывов сносок
 
 %%% Нумерация страниц %%%
 \fancypagestyle{empty}{%
@@ -36,8 +33,20 @@
 \pagestyle{plain}
 
 %%% Библиография %%%
+
 \makeatletter
-\bibliographystyle{ugost2003s}	% Оформляем библиографию в соответствии с ГОСТ 7.1 2003
+\bibliographystyle{ugost2003s} % Оформляем библиографию в соответствии с ГОСТ 7.1 2003
+
+\let\oldthebibliography=\thebibliography
+\let\endoldthebibliography=\endthebibliography
+\renewenvironment{thebibliography}[1]{
+  \begin{oldthebibliography}{#1}
+    \setlength{\parskip}{0ex}
+    \setlength{\itemsep}{0ex}
+}
+{
+\end{oldthebibliography}
+}
 
 %%% Изображения %%%
 \graphicspath{{images/}} % Пути к изображениям
@@ -45,34 +54,36 @@
 %%% Содержание %%%
 \renewcommand{\cfttoctitlefont}{\hfil \large\bfseries}
 
-\renewcommand{\cftsecaftersnum}{}
+\setlength{\cftparskip}{0em}
+\setlength{\cftbeforesecskip}{0em}
+\setlength{\cftaftertoctitleskip}{1\baselineskip}
+
+\renewcommand{\cftsecaftersnumb}{\:}
 \renewcommand{\cftsecfont}{}   
 \renewcommand{\cftsecpagefont}{\normalsize}
 \renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
-
-\setlength{\cftparskip}{0em}
-\setlength{\cftbeforesecskip}{0em}
-\setlength{\cftaftertoctitleskip}{\baselineskip}
 \setlength{\cftsecindent}{0em}
-\setlength{\cftsecnumwidth}{1ex}
+\setlength{\cftsecnumwidth}{0.6em}
 
-\setlength{\cftsubsecindent}{1em}
-\setlength{\cftsubsecnumwidth}{2ex}
+\setlength{\cftsubsecindent}{0.7em}
+\setlength{\cftsubsecnumwidth}{1.5em}
 
+%%% Требования ЕСКД/СТП %%%
 
 %%% Размеры заголовков
 \newcommand{\sectionbreak}{\clearpage}
 
-\titleformat{\section}{\large\bfseries}{\thesection}{0.7em}{}
-\titlespacing*{\section}{13mm}{\baselineskip}{\baselineskip}
+\titleformat{\section}{\large\bfseries}{\thesection}{\wordsep}{}
+\titlespacing*{\section}{5ex}{1\baselineskip}{1\baselineskip}
 
 \titleformat{name=\section,numberless}{\large\bfseries\filcenter}{}{0em}{}
-\titlespacing*{name=\section,numberless}{0ex}{\baselineskip}{\baselineskip}
+\titlespacing*{name=\section,numberless}{0ex}{1\baselineskip}{1\baselineskip}
 
-\titleformat{name=\subsection}{\normalsize\bfseries}{\thesubsection}{0.7em}{}
-\titlespacing*{\subsection}{13mm}{\baselineskip}{\baselineskip}
+\titleformat{name=\subsection}{\normalsize\bfseries}{\thesubsection}{\wordsep}{}
+\titlespacing*{\subsection}{5ex}{1\baselineskip}{1\baselineskip}
 
 \titleformat{name=\subsection,numberless}{\normalsize\bfseries}{}{0em}{}
+\titlespacing*{name=\subsection,numberless}{0ex}{1\baselineskip}{1\baselineskip}
 
 %%% Нумерация параграфов
 
@@ -87,6 +98,15 @@
 %%% Размеры текста формул %%%
 
 \DeclareMathSizes{12}{12}{6}{4}
+
+%%% Расстояние между формулами
+
+\AtBeginDocument{%
+  \setlength\abovedisplayskip{\baselineskip}%
+  \setlength\belowdisplayskip{\baselineskip}%
+  \setlength\abovedisplayshortskip{\baselineskip}%
+  \setlength\belowdisplayshortskip{\baselineskip}%
+}
 
 %%% Оформление текста
 
@@ -104,18 +124,8 @@
  % костыль для того, чтобы убрать расстояние от картинки до текста
 \setlength{\abovecaptionskip}{0pt}
 \setlength{\belowcaptionskip}{0pt}
-
-%%% Расстояние между формулами
-
-\AtBeginDocument{%
-  \setlength\abovedisplayskip{\baselineskip}%
-  \setlength\belowdisplayskip{\baselineskip}%
-  \setlength\abovedisplayshortskip{\baselineskip}%
-  \setlength\belowdisplayshortskip{\baselineskip}%
-}
-
+           
 %%% Оформление списков
-
 \AddEnumerateCounter{\asbuk}{\@asbuk}{\cyrm}
 
 \setlist{nosep,listparindent=\parindent}
@@ -136,65 +146,58 @@
   label=\arabic*),
 }
 
-%%% Оформление подписей к плавающим элементам
+%% Нумерация плавающих элементов
 
-\captionsetup[figure]{labelsep=endash,
+\counterwithin{figure}{section}
+\counterwithin{table}{section}
+
+\makeatletter
+\AtBeginDocument{%
+\renewcommand{\thetable}{\thesection.\arabic{table}}
+\renewcommand{\thelstlisting}{\thesection.\arabic{lstlisting}}
+\renewcommand{\thefigure}{\thesection.\arabic{figure}}
+\let\c@lstlisting\c@figure}
+\makeatother 
+
+%% Подписи плавающих элементов
+
+\captionsetup[figure]{
+  labelsep=endash,
   justification=centering,
   singlelinecheck=false,
   position=bottom,
-  skip=1\baselineskip
-}
-
-\captionsetup[subfigure]{margin=0pt,
-  position=bottom,
-  font=normalsize,
-  labelformat=simple,
-  labelsep=endash,
-  skip=\baselineskip}
+  skip=1\baselineskip}
 
 \captionsetup[table]{
   labelsep=endash,
   justification=raggedright,
   singlelinecheck=false,
-  skip=0pt}
+  position=top,
+  skip=0ex}
 
-\captionsetup[lstlisting]{labelsep=endash,
-  justification=centering,
-  singlelinecheck=false,
-  skip=\baselineskip}
+\captionsetup[lstlisting]{
+  labelsep=endash
+}
 
 \lstset{
-  basicstyle=\small\ttfamily,
-  keywordstyle=\bfseries,
-  commentstyle=\itshape,
-  numbers=none,
-  stepnumber=1,
-  frame=single,
-  framesep=0ex,
-  resetmargins=true,
-  captionpos=b,
-  keepspaces=true,
-  breaklines=true,
-  floatplacement=!h,
-  aboveskip=1.2\baselineskip,
-  belowskip=\baselineskip,
-  abovecaptionskip=\baselineskip,
-  belowcaptionskip=0pt}
+basicstyle=\small\ttfamily,
+keywordstyle=\bfseries,
+commentstyle=\itshape,
+numberstyle=\small\ttfamily,
+numbers=left,
+stepnumber=1,
+frame=single,
+resetmargins=true,
+xleftmargin=1.5em,
+xrightmargin=0.5em,
+captionpos=b,
+keepspaces=true,
+breaklines=true,
+aboveskip=1.2\baselineskip,
+belowskip=1\baselineskip,
+abovecaptionskip=1\baselineskip}
 
 \renewcommand{\arraystretch}{1.5}
-
-%%% Нумерация плавающих элементов %%%
-
-\renewcommand{\thesubfigure}{\asbuk{subfigure}}
-
-%%% Совместная нумерация для рисунков и листингов
-
-\makeatletter
-\AtBeginDocument{%
-\renewcommand{\thelstlisting}{\arabic{lstlisting}}
-\renewcommand{\thefigure}{\arabic{figure}}
-\let\c@lstlisting\c@figure}
-\makeatother 
 
 %%% Настройка размеров вертикальных отступов
 

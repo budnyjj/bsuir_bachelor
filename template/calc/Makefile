@@ -15,5 +15,5 @@ clean:
 	$(RM) text/*.dvi
 
 
-.PHONY: clean bib compile
+.PHONY: clean compile
 
