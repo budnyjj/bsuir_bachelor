@@ -6,7 +6,7 @@ Function Get-OS_Arch() {
     } elseif ($arch -Like "*32*") {
         $arch = 32
     }
-    
+
     $arch
 }
 
@@ -16,10 +16,6 @@ if ($python) {
     Write-Host "Python is already installed on your host! Skip installation"
 } else {
     Write-Host "Installing python 2.7..."
-
-    # $dist_pythons = $(dir .\msi\).Name
-
-    # Write-Host $dist_pythons
 
     $arch = Get-OS_Arch
     if ($arch -eq 32) {
