@@ -5,10 +5,10 @@
 Лабораторная работа состоит из двух частей. В первой части необходимо написать
 программу на языке C, которая будет строить график зависимости температуры,
 выраженной в градусах Цельсия и градусах Фаренгейта. Конвертацию температуры
-будет осуществлять процедура, написанная на ассемблере.
+должна осуществлять процедура, написанная на ассемблере.
 
-Во второй части лабораторной работы требуется организовать вызов процедур
-языка высокого уровня из ассемблера.
+Во второй части лабораторной работы требуется организовать вызов процедуры
+языка высокого уровня из ассемблера (на примере вычисления факториала).
 
 \subsection{Вызов процедура ассемблера из языка C}
 
@@ -32,7 +32,7 @@ label=lst:prototype,language={C},basicstyle=\scriptsize\ttfamily]
 \begin{itemize}
 
   \item buff --- вычисляемое значение, хранимое в формате указателя на массив из цифр;
-  \item val\_len --- длинна массива buff;
+  \item val\_len --- длина массива buff;
   \item dot\_pos --- позиция разделителя (запятой);
   \item sign\_val --- знак передаваемого числа.
 
@@ -69,6 +69,7 @@ label=lst:proc,language={[x86masm]Assembler},basicstyle=\scriptsize\ttfamily]
 который занимает четыре байта. Он состоит из адреса сегмента данных и адреса смещения.
 Для получения значения по дальнему указателю необходимо проделать операции,
 приведенные на рисунке~\ref{lst:ptr2local}.
+
 \begin{lstlisting}[label=lst:ptr2local,caption={Запись значения, получаемого
 по дальнему указателю в локальную память},language={[x86masm]Assembler},basicstyle=\scriptsize\ttfamily]
  ...
@@ -116,11 +117,12 @@ label=lst:proc,language={[x86masm]Assembler},basicstyle=\scriptsize\ttfamily]
 процедуры --- перезаписи значений, хранимых по указателю в стеке в соответствии
 со значениями, хранимыми в локальной памяти.
 
-Результат работы программы построения диаграммы приведен на рисунке~\ref{pic:part_1}.
+Результат работы программы приведен на рисунке~\ref{pic:part_1}.
+
 \begin{figure}[h!]
   \centering
   \includegraphics[width=0.8\linewidth]{pic/part_1}
-  \caption{Результат работы программы построения диаграммы}
+  \caption{Результат работы программы построения диаграммы температурной зависимости}
   \label{pic:part_1}
 \end{figure}
 
@@ -128,11 +130,61 @@ label=lst:proc,language={[x86masm]Assembler},basicstyle=\scriptsize\ttfamily]
 
 \subsection{Вызов процедур и функций языка C из ассемблера}
 
+Разработаем в соответствии с заданием программу на языке Ассемблер, 
+которая использует объектный модуль, написанный на языке C.
+Разработка будет производиться под управлением 64-битной операционной системой 
+на базе ядра linux (arch linux).
 
+Объектный модуль, написанный на языке С, приведен на рисунке~\ref{lst:factorial_c}.
 
+\begin{lstlisting}[caption=Исходный текст модуля на языке C,
+label=lst:factorial_c,language={C},basicstyle=\scriptsize\ttfamily]
+ unsigned long
+ factorial(unsigned long x) {
+   if (x == 0)
+     return 1;
+   else
+     return x * factorial(x-1);
+ }
+ 
+ void
+ flush_stdin() {
+   while (getchar() != '\n');
+ }
+\end{lstlisting}
 
+В данном модуле находятся две функции:
+\begin{itemize}
+\item factorial --- производит вычисление факториала своего аргумента рекурсивным методом;
+\item flush\_stdin --- вспомогательная функция, выполняющая очисткку потока ввода.
+\end{itemize}
 
+Эти функции вызываются в основном модуле программы, написанном на языке Ассемблер, 
+как показано на рисунке~\ref{lst:factorial_call_asm}.
+
+\begin{lstlisting}[caption=Вызов процедуры вычисления факториала,
+label=lst:factorial_call_asm,language={[x86masm]Assembler},basicstyle=\scriptsize\ttfamily]
+ global main
+     
+ extern factorial
+
+ ...
+ mov     rdi, [input]
+ call    factorial
+ mov     [result], rax
+ ...
+\end{lstlisting}
+
+Здесь четко видно, что передача параметров вызываемой процедуре осуществляется через 64-битный
+регистр rdi, а возвращаемое значение --- через rax.
+
+Результат работы программы приведен на рисунке~\ref{pic:part_2}.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.8\linewidth]{pic/part_2}
+  \caption{Результат работы программы \\ вычисления факториала}
+  \label{pic:part_2}
+\end{figure}
 
 Исходный текст разработанной программы находится в приложении~Б.
-
-\pagebreak
