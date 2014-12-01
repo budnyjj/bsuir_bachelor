@@ -1,0 +1,39 @@
+\renewcommand{\thefigure}{\Asbuk{section}.\arabic{figure}}
+\renewcommand{\thetable}{\Asbuk{section}.\arabic{table}}
+\renewcommand{\thelstlisting}{\Asbuk{section}.\arabic{lstlisting}}
+
+\pagestyle{fancy}
+\fancyhf{}  % clear all header and footer fields
+\fancyfoot[R]{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\setlength{\headheight}{10mm}
+\setlength{\headsep}{\baselineskip}
+\chead{Продолжение приложения \Asbuk{section}}
+
+\section*{ПРИЛОЖЕНИЕ A \\ (справочное) \\
+  Скрипт установки Python 2.7 \\
+  в ОС Windows (к подразделу 3.2)}
+\thispagestyle{plain}
+\setcounter{section}{1}
+\setcounter{figure}{0}
+\setcounter{table}{0}
+\setcounter{lstlisting}{0}
+
+\lstinputlisting[basicstyle=\scriptsize\ttfamily]{code/code_install.txt}
+
+\setlength{\headheight}{10mm}
+\setlength{\headsep}{\baselineskip}
+\chead{Продолжение приложения \Asbuk{section}}
+
+\section*{ПРИЛОЖЕНИЕ Б \\ (справочное) \\
+  Скрипт удаления выбираемых пользователем программ \\
+  в ОС Windows (к подразделу 3.2)}
+\thispagestyle{plain}
+\setcounter{section}{2}
+\setcounter{figure}{0}
+\setcounter{table}{0}
+\setcounter{lstlisting}{0}
+
+\lstinputlisting[language=VBScript,basicstyle=\scriptsize\ttfamily]{code/code_delete.txt}

@@ -1,0 +1,41 @@
+\renewcommand{\thefigure}{\Asbuk{section}.\arabic{figure}}
+\renewcommand{\thetable}{\Asbuk{section}.\arabic{table}}
+\renewcommand{\thelstlisting}{\Asbuk{section}.\arabic{lstlisting}}
+
+\pagestyle{fancy}
+\fancyhf{} % clear all header and footer fields
+\fancyfoot[R]{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\setlength{\headheight}{10mm}
+\setlength{\headsep}{\baselineskip}
+\chead{Продолжение приложения \Asbuk{section}}
+
+\section*{ПРИЛОЖЕНИЕ A\\(справочное)\\
+  Программа построения диаграммы \\
+  шкалы Фаренгейта (к подразделу 3.2)}
+\label{sec:appendix_a}
+\thispagestyle{plain}
+\setcounter{section}{1}
+\setcounter{figure}{0}
+\setcounter{table}{0}
+\setcounter{lstlisting}{0}
+
+\lstinputlisting[basicstyle=\scriptsize\ttfamily,language={C}]{code/part_1.txt}
+
+\setlength{\headheight}{10mm}
+\setlength{\headsep}{\baselineskip}
+\chead{Продолжение приложения \Asbuk{section}}
+
+\section*{ПРИЛОЖЕНИЕ Б\\(справочное)\\Программа вычисления факториала
+  (к подразделу 3.3)}
+
+\thispagestyle{plain}
+\setcounter{section}{2}
+\setcounter{figure}{0}
+\setcounter{table}{0}
+\setcounter{lstlisting}{0}
+
+\lstinputlisting[language=C,basicstyle=\scriptsize\ttfamily]{code/part_2.txt}
+
