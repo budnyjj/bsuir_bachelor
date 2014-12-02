@@ -8,14 +8,14 @@
 
 \subsection{Детали реализации скриптов}
 
-В качестве программы для установки на компьютер выберем Python 2.7,
+В качестве программы для установки на компьютер выберем Python~2.7,
 так как данная программа имеет установщик msi с возможностью
 тихого и пассивного режимов установки.
 
-Для начала проверим, установлен Python 2.7 на компьютере, или нет. Если
+Для начала проверим, установлен Python~2.7 на компьютере, или нет. Если
 программа уже была установлена, то выводим сообщение и завершаем процесс
 установки, в обратном случае --- начинаем процесс установки. Код, выполняющий
-данные операции представлен на рисунке~\ref{lst:install_python}.
+данные операции, представлен на рисунке~\ref{lst:install_python}.
 
 \begin{lstlisting}[caption=Проверка на существование Python 2.7 в системе,
 label=lst:install_python,basicstyle=\scriptsize\ttfamily]
@@ -45,7 +45,7 @@ label=lst:get_arch,basicstyle=\scriptsize\ttfamily]
   }
 \end{lstlisting}
 
-Зная битность системы, можем начать установку программы. В случае 32-битной
+Зная битность системы, можем начать установку программы. В случае~32-битной
 системы, установка будет выполняться следующей командой:
 
 \textit{.\textbackslash msi\textbackslash python-2.7.6.msi /passive}
@@ -108,12 +108,16 @@ label=lst:delete_program,basicstyle=\scriptsize\ttfamily,language=VBScript]
   \label{fig:process}
 \end{figure}
 
+\vspace{-0.3\baselineskip}
+
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=100mm,height=45mm]{img/delete_confirmation}
   \caption{Подтверждение удаления программы}
   \label{fig:delete_confirmation}
 \end{figure}
+
+\vspace{-0.3\baselineskip}
 
 Исходный текст разработанного скрипта расположен в приложении~Б.
 
