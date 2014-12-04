@@ -1,0 +1,78 @@
+ <job>
+  <script language = "VBScript">
+
+   Const APPS_IN_LIST = 15
+
+   Dim strComputer
+   Dim objWMIService
+   Dim iProduct
+   Dim choice
+   strComputer = "."
+   Dim productsArr()
+   Set objWMIService = GetObject("winmgmts:\\" & strComputer & "\root\cimv2")
+
+   Do While True
+    Set cProducts = objWMIService.ExecQuery("SELECT Name FROM Win32_Product")
+
+    count = cProducts.Count
+    ReDim productsArr(cProducts.Count)
+
+    iProduct = 1
+    For Each oProduct in cProducts
+     productsArr(iProduct) = oProduct.Name
+     iProduct = iProduct + 1
+    Next
+
+    headerMsg = "Please, input number of application to uninstall" & vbCrLf
+    headerMsg = headerMsg & "or press 'Enter' to view more applications" & vbCrLf
+    headerMsg = headerMsg & "[ installed apps: " & cProducts.Count & " ]" & vbCrLf & vbCrLf
+
+    For i = 0 To UBound(productsArr) Step APPS_IN_LIST
+     bodyMsg = ""
+
+     j = 1
+     Do While (j <= APPS_IN_LIST) And (j + i <= UBound(productsArr))
+      bodyMsg = bodyMsg & (i+j) & ". " & productsArr(i+j) & vbCrLf
+      j = j + 1
+     Loop
+
+     choice = InputBox(headerMsg & bodyMsg)
+
+     ' IsEmpty(choice) = True when user press Cancel button
+     if ((choice = "q") Or IsEmpty(choice)) Then
+      exit Do
+     elseif (Len(choice) = 0) Then ' user pressed enter, do nothing
+     elseif isNumeric(choice) Then
+
+      if (CInt(choice) > i) And (CInt(choice) < (i+j)) Then
+
+       choice = CInt(choice)
+       confirmation = InputBox("Do you realy want to uninstall " & productsArr(choice) & "? (y/n)")
+       if (confirmation = "q") Or (confirmation = "n") Or IsEmpty(confirmation) Then
+        exit Do
+       end if
+
+       query = "SELECT * FROM Win32_Product WHERE Name ='" & productsArr(choice) & "'"
+       Set cProducts = objWMIService.ExecQuery(query)
+
+       For Each product in cProducts
+        product.Uninstall()
+       Next
+
+       MsgBox(productsArr(choice) & " succesfully deleted!")
+       exit for
+      else
+       MsgBox("Incorrect choice: " & choice)
+       exit Do
+      end if
+
+     else
+      MsgBox("Incorrect choice: " & choice)
+      exit Do
+     end if
+
+    Next
+   Loop
+
+  </script>
+ </job>
