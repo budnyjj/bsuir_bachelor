@@ -1,0 +1,94 @@
+\section{ХОД РАБОТЫ}
+
+\subsection{Постановка задачи}
+
+Необходимо написать программу, выполняющую наложение пары изображений друг на друга.
+Процесс обработки пикселей изображения должен выполняться в функции,
+написанной на языке Ассемблер с использованием MMX-команд.
+
+\subsection{Особенности разработанной программы}
+
+Основной модуль программы написан на языке программирования высокого уровня --- С++ с
+использованием специализированной библиотеки обработки изображений Magick++. 
+Данная библиотека позволяет считывать и записывать изображения практически 
+во всех популярных форматах: BMP, GIF, PNG, JPG, TIFF.
+
+Основной модуль программы выполняет разбор аргументов командной строки,
+производит считываение изображений в оперативную память, после этого
+предоставляет низкоуровневый доступ к пикселям изображения в виде 
+массива байтов, как показано на рисунке~\ref{lst:low_access}:
+
+\begin{lstlisting}[caption=Предоставление низкоуровневого доступа к изображению,
+label=lst:low_access,language={C++},basicstyle=\scriptsize\ttfamily]
+
+ // Write raw pixels of a
+ unsigned char * raw_pixels_a = (unsigned char *) calloc(columns*rows, SIZE_RGBA);
+   
+ image_a.write(0, 0, columns, rows, "RGBA", CharPixel, raw_pixels_a);
+
+ // Write raw pixels of b
+ unsigned char * raw_pixels_b = (unsigned char *) calloc(columns*rows, SIZE_RGBA);
+
+ image_b.write(0, 0, columns, rows, "RGBA", CharPixel, raw_pixels_b);
+   
+ // Allocate raw pixels of res
+ unsigned char * raw_pixels_res = (unsigned char *) calloc(columns*rows, SIZE_RGBA);
+
+ // call ASM
+ merge_raw_pixels(raw_pixels_a, raw_pixels_b, raw_pixels_res, rows*columns);
+ end_MMX();
+   
+ // Write chages to result image
+ image_res.read(columns, rows, "RGBA", CharPixel, raw_pixels_res);
+   
+ // Write result image to file 
+ image_res.write(path_dst);
+\end{lstlisting}
+
+Функция merge\_raw\_pixels, представленная на рисунке~\ref{lst:merge}
+выполняет наложение изображений друг на друга.
+
+\begin{lstlisting}[caption=Функция наложения изображений,
+label=lst:merge,language={[x86masm]Assembler},basicstyle=\scriptsize\ttfamily]
+ global  merge_raw_pixels:function
+ global  end_MMX:function
+     
+ segment .text
+ merge_raw_pixels:
+     
+ .process:    
+     movq        mm0, [rdi]
+     movq        mm1, [rsi]
+     pmaxub      mm0, mm1
+     movq        [rdx], mm0
+ 
+     add         rdi, 8
+     add         rsi, 8
+     add         rdx, 8
+     
+     sub         rcx, 2
+     jrcxz       .end
+     jmp         .process
+     
+ .end:    
+     ret
+ 
+ end_MMX:
+     emms
+     ret
+\end{lstlisting}
+
+Данная фунцкия принимает пару указателей на массивы пикселей исходных изображений,
+указатель на массив пикселей результирующего изображения, а также число пикселей
+подлежащих обработке. Далее она в цикле выполняет следующие операции:
+\begin{enumerate}
+\item загрузка двух пикселей (восьми байт) первого изображения в регистр mm0;
+\item загрузка двух пикселей (восьми байт) второго изображения в регистр mm1;
+\item помещение максимума из сравниваемых пар пикселей в регистр mm0;
+\item помещение содержимого регистра mm0 в память по адресу результирующего изображения.
+\end{enumerate}
+
+Данный цикл выполняется (rows*columns)/2 раз, 
+так каз за одну итерацию производится обработка двух пикселей.
+
+Исходный текст разработанной программы находится в приложении~А.
