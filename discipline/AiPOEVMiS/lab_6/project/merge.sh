@@ -11,7 +11,7 @@ OUTPUT_IMG_DIR="output/img"
 OUTPUT_VIDEO_DIR="output/video"
 
 echo "Merge images..."
-for img_name in $(ls $INPUT_IMG_DIR_A/*morph.png | xargs -n1 basename)
+for img_name in $(ls $INPUT_IMG_DIR_A/*.morph.png | xargs -n1 basename)
 do
     echo "Process $img_name"
     ${MERGE_BIN} -o $OUTPUT_IMG_DIR/$img_name\

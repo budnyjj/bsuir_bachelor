@@ -4,6 +4,7 @@
 #include <iostream>
 #include <sstream>
 #include <algorithm>
+#include <new>
 
 #include <cstdlib>
 #include <getopt.h>
@@ -109,7 +110,7 @@ merge_images(string path_src_1, string path_src_2, string path_dst) {
   unsigned char * raw_pixels_a = (unsigned char *) calloc(columns*rows, SIZE_RGBA);
   if (!raw_pixels_a) {
     cout << "Error: cannot allocate memory." << endl;
-    // return 1;
+    throw bad_alloc();
   }
     
   image_a.write(0, 0, columns, rows, "RGBA", CharPixel, raw_pixels_a);
@@ -119,7 +120,7 @@ merge_images(string path_src_1, string path_src_2, string path_dst) {
   if (!raw_pixels_b) {
     cout << "Error: cannot allocate memory." << endl;
     free(raw_pixels_a);
-    // return 1;
+    throw bad_alloc();
   }
 
   image_b.write(0, 0, columns, rows, "RGBA", CharPixel, raw_pixels_b);
@@ -130,7 +131,7 @@ merge_images(string path_src_1, string path_src_2, string path_dst) {
     cout << "Error: cannot allocate memory." << endl;
     free(raw_pixels_a);
     free(raw_pixels_b);
-    // return 1;
+    throw bad_alloc();
   }
 
   // call ASM
@@ -152,13 +153,8 @@ merge_images(string path_src_1, string path_src_2, string path_dst) {
 int main(int argc, char **argv) 
 {
   Args args = parse_args(argc, argv);
-  
-  InitializeMagick(*argv);
-  // Construct the image object. Separating image construction from the 
-  // the read operation ensures that a failure to read the image file 
-  // doesn't render the image object useless. 
-  
   try { 
+    InitializeMagick(*argv);    
     merge_images(args.path_src_1, args.path_src_2, args.path_dst);
   } 
   catch( Exception &error_ ) { 
