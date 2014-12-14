@@ -1,0 +1,1394 @@
+/**
+   @file hf.c
+   @brief Main function
+   @author Roman Budny
+*/
+
+#include <stdio.h>
+#include <stdlib.h>
+
+#include <io_options.h>
+#include <compress.h>
+#include <decompress.h>
+
+/**
+   @brief Main function
+   @param argc Number of console arguments
+   @param argv Array of  console arguments
+   @return 0 if success, 1 if fail
+ */
+int
+main (int argc, char *argv[])
+{
+
+  struct io_options options;
+  if (!get_options(argc, argv, &options))
+    exit(1);
+
+  switch (options.command)
+    {
+    case CREATE:
+      {
+        if (!compress(options.src_filename, options.dest_filename,
+                      options.verbose))
+          {
+            fprintf(stderr, "Some errors happened. Aborting.\n");
+            exit(1);
+          }
+	break;
+      }
+    case EXTRACT:
+      {
+        if (!decompress(options.src_filename,
+                        options.dest_filename,
+                        options.verbose))
+          {
+            fprintf(stderr, "Some errors happened. Aborting.\n");
+            exit(1);
+          }
+        break;
+      }
+    default:
+      puts("This functionality was not implemented yet!");
+      break;
+    }
+  
+  exit (0);
+}
+
+/**
+   @file io_options.c
+   @brief Provides parse command line options
+
+   @author Roman Budny
+*/
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <getopt.h>
+
+#include <p_utils.h>
+#include <io_options.h>
+
+const char* program_name;
+
+static void
+print_usage (FILE* stream)
+{
+  const char * usage_msg =
+    " -c --create DEST_FILENAME   "
+    "Create a new archive and store it in DEST_FILENAME\n"
+    " -x --extract DEST_FILENAME  "
+    "Extract an existing archive to DEST_FILENAME\n"
+    " -h --help                   "
+    "Display this help message\n"
+    " -v --verbose                "
+    "Display info messages\n"
+    " -d --debug                  "
+    "Display debug messages\n";
+
+  fprintf (stream, "Usage: %s [COMMAND...] [SRC_FILENAME]\n", program_name);
+  fprintf (stream, usage_msg);
+}
+
+static void
+init_options(struct io_options *const opts)
+/* Initialize options structure with default values */
+{
+  opts->command = NONE;
+  opts->src_filename = NULL;
+  opts->dest_filename = NULL;
+  opts->verbose = QUIET;
+}
+
+static void
+cli_get_options (int argc, char *const * argv,
+             struct io_options *const options)
+{
+  int next_option = -1;
+  int num_files;
+  char * short_options = "c:dhvx:";
+
+  const struct option long_options[] =
+    {
+      {"create", required_argument, NULL, 'c'},
+      {"debug", required_argument, NULL, 'd'},
+      {"help", no_argument, NULL, 'h'},
+      {"extract", required_argument, NULL, 'x'},
+      {"verbose", no_argument, NULL, 'v'},
+      {NULL, 0, NULL, 0}
+    };
+
+  program_name = argv[0];
+
+  while (1) {
+
+    next_option = getopt_long(argc, argv, short_options,
+                               long_options, NULL);
+
+    if (next_option == -1)
+      break;
+
+    switch (next_option)
+      {
+      case 'c':
+        {
+          if (options->command == NONE)
+            {
+              options->command = CREATE;
+              options->dest_filename = optarg;
+            }
+          else
+            {
+              fprintf(stderr,
+                      "Please specify only one COMMAND!\n");
+              print_usage (stderr);
+              exit(1);
+            }
+          break;
+        }
+      case 'd':
+        {
+          options->verbose = DEBUG;
+          break;
+        }
+      case 'h':
+        {
+          print_usage (stdout);
+          exit(0);
+        }
+      case 'v':
+        {
+          options->verbose = INFO;
+          break;
+        }
+      case 'x':
+        {
+          if (options->command == NONE)
+            {
+              options->command = EXTRACT;
+              options->dest_filename = optarg;
+            }
+          else /* already specified command */
+            {
+              fprintf(stderr,
+                      "Please specify only one COMMAND!\n");
+              print_usage (stderr);
+              exit(1);
+            }
+          break;
+        }
+      case '?': /* invalid option */
+        {
+          print_usage(stderr);
+          exit(1);
+        }
+      default:
+        abort (); /* smth else */
+      }
+  }
+
+  num_files = argc - optind;
+
+  if (num_files == 1)
+    options->src_filename = argv[optind];
+  else if (num_files > 1)
+    {
+      fprintf(stderr,
+              "This program cannot work with "
+              "more than one file per launch!\n");
+      print_usage(stderr);
+      exit(1);
+    }
+}
+
+static int
+get_file_size(const char *const filename)
+{
+  int file_size = 0;
+
+  FILE* f = fopen(filename, "r");
+
+  fseek(f, 0, SEEK_END);
+  file_size = ftell(f);
+
+  fclose(f);
+
+  return file_size;
+}
+
+static int
+check_options(const struct io_options *const options)
+{
+  if (options->command == NONE)
+    {
+      fprintf(stderr, "Please specify COMMAND!\n");
+      print_usage(stderr);
+      return 0;
+    }
+
+  if (options->src_filename == NULL)
+    {
+      fprintf(stderr, "Please specify source file!\n");
+      return 0;
+    }
+
+  if (options->src_filename == NULL)
+    {
+      fprintf(stderr, "Please specify destiantion file!\n");
+      return 0;
+    }
+  
+  if (access(options->src_filename, R_OK) == -1) /* non-existing src*/
+    {
+      fprintf(stderr, "Please specify existing source file!\n");
+      return 0;
+    }
+
+  if (!get_file_size(options->src_filename)) /* src is empty */
+    {
+      fprintf(stderr, "Please specify non-empty source file!\n");
+      return 0;
+    }
+
+  return 1;
+}
+
+/** @brief Parse and check command line options
+    
+    Parse and check command line options from argc and argc,
+    and store them in dest_opts.
+
+    @param argc Number of command line options
+    @param argv Array of command line options
+    @param dest_opts Struct to store options in
+ */
+int
+get_options(int argc, char ** argv,
+               struct io_options *const dest_opts)
+{
+  CHKPTR(argv);
+  CHKPTR(dest_opts);
+
+  init_options(dest_opts);
+  cli_get_options(argc, argv, dest_opts);
+  return check_options(dest_opts);
+}
+
+
+/**
+   @file compress.c
+   @brief Provides compress functionality
+
+   @author Roman Budny
+*/
+
+#include <stdio.h>
+
+#include <compress.h>
+
+#include <ppl.h>
+#include <ppl_tree.h>
+#include <code_tbl.h>
+#include <io_code.h>
+#include <p_utils.h>
+#include <header_t.h>
+
+/** @brief Compress and write src contents to destination
+    
+    Compress contents of src with codes, specified in code_tbl,
+    and write variant to dest.
+
+    @param src Source file
+    @param dest Destination file
+    @param char_code Array of huffman codes
+    @param archive_info Information about archive
+    @param verbose Verbosity level
+ */
+static void
+write_data(FILE* src, FILE* dest, 
+           const struct hf_code *const code_tbl,
+           struct header_t *const archive_info,
+           verbosity_t verbose)
+{
+  int ch; /* character from input */
+  int cur_buf_index = 0; /* current index in buffer */
+  int cur_offset = 0; /* current offset in bit_set */
+  int max_offset = sizeof(code_t)*8;
+
+  code_t code_buffer[CODE_BUFFER_SIZE] = {0};
+
+  CHKPTR(src);
+  CHKPTR(dest);
+  CHKPTR(code_tbl);
+  CHKPTR(archive_info);
+
+  archive_info->buffer_size = CODE_BUFFER_SIZE;
+
+  while ((ch = fgetc(src)) != EOF)
+    {
+      int code_size = code_tbl[ch].size;
+
+      code_buffer[cur_buf_index] |= (code_tbl[ch].code >> cur_offset);
+
+      if (cur_offset + code_size < max_offset)
+	/* enough space in cur code_t elem to place code */
+	{
+	  cur_offset += code_size;
+	}
+      else
+	/* need to place it in separate code_t elements*/
+	{
+	  if (cur_buf_index < CODE_BUFFER_SIZE - 1)
+	    /* second part of code will be also placed in buffer */
+	    {
+	      cur_buf_index++;
+	    }
+	  else
+	    /* end of buffer, we need to write compressed data
+               to dest write rest to beginning */
+	    {
+              fwrite(code_buffer, sizeof(code_t), CODE_BUFFER_SIZE, dest); 
+      
+	      clear_code_buffer(code_buffer); 
+	      cur_buf_index = 0; /* reset index */
+	    }
+	  code_buffer[cur_buf_index] |= (code_tbl[ch].code << (max_offset - cur_offset));
+	  cur_offset -= (max_offset - code_size);
+	}
+    }
+  if (cur_offset || cur_buf_index) /* we need to write rest to file */
+    {
+      fwrite(code_buffer, sizeof(code_t), cur_buf_index + 1, dest);    
+      clear_code_buffer(code_buffer);
+    }  
+ 
+  if (verbose == DEBUG)
+    printf("END DATA POSITION: %ld\n", ftell(dest));
+
+  archive_info->last_offset = cur_offset + 1;
+}
+
+/** @brief Make archive from source contents and write it to destination
+    
+    This function wraps write_data function
+
+    @param src_fname Filename of source
+    @param dest_fname Filename of destination
+    @param char_ppl Array of character popularity
+    @param char_code Array of huffman codes
+    @param archive_info Information about archive
+    @param verbose Verbosity level
+
+    @see write_data
+
+    @return 1 if succeed, 0 otherwise
+ */
+static int
+write_archive(const char *const src_fname, const char *const dest_fname,
+              const ppl_t *const char_ppl,
+              const struct hf_code *const char_code,
+              struct header_t archive_info, verbosity_t verbose)
+{
+  FILE* src_file = NULL;
+  FILE* dest_file = fopen(dest_fname, "wb");
+
+  CHKPTR(char_ppl);
+  CHKPTR(char_code);
+
+  if (verbose == DEBUG)
+    printf("HEADER INFO POSITION: %ld\n", ftell(dest_file));
+
+  /* Reserve place for header at the beginning of dest_file */
+  fwrite(&archive_info, sizeof(archive_info), 1, dest_file);
+      
+  if (verbose == DEBUG)
+    printf("BEGIN OF HUFFMAN CODES POSITION: %ld\n", ftell(dest_file));
+
+  archive_info.num_code = write_ppl(char_ppl, dest_file);
+
+  if (!archive_info.num_code)
+    {
+      fprintf(stderr, "Can't export character popularity to archive!\n");
+      fclose(dest_file);
+      return 0;
+    }
+
+  if (verbose == DEBUG)
+    printf("BEGIN OF ENCODED CHARACTERS POSITION: %ld\n", ftell(dest_file));
+
+  src_file = fopen(src_fname, "r");
+  write_data(src_file, dest_file, char_code, &archive_info, verbose);
+  fclose(src_file);
+  src_file = NULL;
+
+  if (verbose == INFO || verbose == DEBUG)
+    {
+      printf("=== ARCHIVE INFO ===\n");
+      printf("NUMBER OF ENCODED CHARACTERS: %ld\n", archive_info.num_char);
+      printf("NUMBER OF CODES: %d\n", archive_info.num_code);
+      printf("CODE BUFFER SIZE: %d\n", archive_info.buffer_size);
+      printf("OFFSET IN LAST BYTE: %d\n", archive_info.last_offset);
+    }
+
+  /* Update header info at the beginning of dest_file */
+  fseek(dest_file, 0, SEEK_SET);
+  fwrite(&archive_info, sizeof(archive_info), 1, dest_file);
+
+  fclose(dest_file);
+  dest_file = NULL;
+
+  return 1;
+}
+
+/** @brief Wrapper function for complex compress purpouse
+    
+    Wraps utility functions in self-explainable body.
+    Return 1 if succeed, 0 otherwise.
+
+    @param src_fname Source filename
+    @param dest_fname Destination filename
+    @param verbose Verbosity level
+ */
+int
+compress(const char *const src_fname,
+         const char *const dest_fname,
+         verbosity_t verbose)
+{
+  ppl_t char_ppl[MAX_PPL_SIZE] = {0};
+  struct node_t * ppl_tree = NULL; 
+  struct hf_code char_code[MAX_CODE_TBL_SIZE] = {{0, CODE_NOT_EXISTS}};
+  struct header_t archive_info = {0}; /* contains info about archive */
+
+  FILE* src_file = NULL;
+
+  CHKPTR(src_fname);
+  CHKPTR(dest_fname);
+  
+  src_file = fopen(src_fname, "r");
+  archive_info.num_char = calculate_ppl(src_file, char_ppl, verbose);
+  fclose(src_file);
+  
+  if (!archive_info.num_char)
+    {
+      fprintf(stderr, "Can't read source!\n");
+      return 0;
+    }
+
+  ppl_tree = build_tree(char_ppl);
+
+  if (!ppl_tree)
+    {
+      fprintf(stderr, "Error of memory allocation!\n");
+      return 0;
+    }
+
+  tree_export_code(ppl_tree, char_code, verbose);
+  clear_tree(ppl_tree);
+
+  return write_archive(src_fname, dest_fname,
+                       char_ppl, char_code,
+                       archive_info, verbose);
+}
+
+
+/**
+   @file decompress.c
+   @brief Provides decompress functionality
+
+   @author Roman Budny
+*/
+
+#include <stdio.h>
+
+#include <decompress.h>
+
+#include <ppl.h>
+#include <ppl_tree.h>
+#include <bit_set.h>
+#include <io_code.h>
+#include <p_utils.h>
+#include <header_t.h>
+
+static void
+read_data(FILE* src, FILE* dest,
+          const struct node_t *const ppl_tree,
+          struct header_t archive_info,
+          verbosity_t verbose)
+{
+  int cur_elem_num = 0;
+
+  int max_offset = sizeof(code_t)*8;
+  code_t code_buffer[CODE_BUFFER_SIZE];
+  code_t bit_set[MAX_BIT_SET_SIZE];
+  const struct node_t * cur_node = ppl_tree;
+
+  CHKPTR(src);
+  CHKPTR(dest);
+  CHKPTR(ppl_tree);
+
+  fill_bit_set_pos(bit_set);
+  clear_code_buffer(code_buffer);
+
+  while ((cur_elem_num =
+          fread(code_buffer, sizeof(code_t), archive_info.buffer_size, src))) 
+    {
+      int i, j;
+
+      if (!feof(src)) /* this is not end of file */
+        {
+          for (i = 0; i < cur_elem_num; i++)
+            {
+              for (j = 0; j < max_offset; j++)
+                {
+                  if (cur_node->o_char != NULL_CHAR) /* found char */
+                    {
+                      fputc(cur_node->o_char, dest);
+                      cur_node = ppl_tree;
+                    }
+                  if (code_buffer[i] & bit_set[j])
+                    cur_node = cur_node->left;
+                  else
+                    cur_node = cur_node->right;
+                }
+            }
+        }
+      else /* this is end of file */
+        {
+          for (i = 0; i < cur_elem_num - 1; i++) /* read all except last elem*/
+            {
+              for (j = 0; j < max_offset; j++)
+                {
+                  if (cur_node->o_char != NULL_CHAR) /* found char */
+                    {
+                      fputc(cur_node->o_char, dest);
+                      cur_node = ppl_tree;
+                    }
+                  if (code_buffer[i] & bit_set[j])
+                    cur_node = cur_node->left;
+                  else
+                    cur_node = cur_node->right;
+                }
+            }
+          for (j = 0; j < archive_info.last_offset; j++) /*read last elem in code buffer */
+            {
+              if (cur_node->o_char != NULL_CHAR) /* found char */
+                {
+                  fputc(cur_node->o_char, dest);
+                  cur_node = ppl_tree;
+                }
+              if (code_buffer[cur_elem_num - 1] & bit_set[j])
+                cur_node = cur_node->left;
+              else
+                cur_node = cur_node->right;
+            }
+        }
+    }
+}
+
+static void
+read_archive(const char* src_fname, const char* dest_fname,
+             const struct node_t *const ppl_tree,
+             struct header_t archive_info, long int data_offset,
+             verbosity_t verbose) 
+/* Read and decompress data from src and store it in dest */
+{
+  FILE* src_file = NULL;
+  FILE* dest_file = NULL;
+  
+  src_file = fopen(src_fname, "rb");
+  fseek(src_file, data_offset, SEEK_SET);
+
+
+  dest_file = fopen(dest_fname, "w");
+  read_data(src_file, dest_file,
+            ppl_tree, archive_info, verbose);
+  fclose(dest_file);
+  dest_file = NULL;
+
+  fclose(src_file);
+  src_file = NULL;
+}
+
+static void
+read_single_char(const ppl_t *const src_ppl,
+                 const char *const dest_fname,
+                 long int num_char)
+{
+  int i, single_char;
+  FILE* dest_file = NULL;
+
+  CHKPTR(src_ppl);
+  CHKPTR(dest_fname);
+
+  single_char = char_with_max_ppl(src_ppl);
+
+  dest_file = fopen(dest_fname, "w");
+  for (i = 0; i < num_char; i++)
+    fputc(single_char, dest_file);
+
+  fclose(dest_file);
+}
+
+/** @brief Wrapper function for complex decompress purpouse
+    
+    Wraps utility functions in self-explainable body.
+    Return 1 if succeed, 0 otherwise.
+
+    @param src_fname Source filename
+    @param dest_fname Destination filename
+    @param verbose Verbosity level
+ */
+int
+decompress(const char *const src_fname,
+         const char *const dest_fname,
+         verbosity_t verbose)
+{
+  ppl_t char_ppl[MAX_PPL_SIZE] = {0};
+  struct header_t archive_info = {0, 0, 0}; /* contains info about archive */
+  long int data_offset = 0;
+  FILE* src_file = NULL;
+
+  CHKPTR(src_fname);
+  CHKPTR(dest_fname);
+
+  src_file = fopen(src_fname, "r");
+  fread(&archive_info, sizeof(archive_info), 1, src_file);
+  data_offset = read_ppl(src_file, char_ppl, archive_info.num_code, verbose);
+  fclose(src_file);
+  src_file = NULL;
+
+  if (verbose == INFO || verbose == DEBUG)
+    {
+      printf("=== ARCHIVE INFO ===\n");
+      printf("NUMBER OF ENCODED CHARACTERS: %ld\n", archive_info.num_char);
+      printf("NUMBER OF CODES: %d\n", archive_info.num_code);
+      printf("CODE BUFFER SIZE: %d\n", archive_info.buffer_size);
+      printf("OFFSET IN LAST BYTE: %d\n", archive_info.last_offset);
+    }
+
+  if (archive_info.num_code == 1) /* src file contatins data of single character */
+    {
+      read_single_char(char_ppl, dest_fname, archive_info.num_char);
+    }
+  else
+    {
+      struct node_t * ppl_tree = NULL; 
+      ppl_tree = build_tree(char_ppl);
+      if (!ppl_tree)
+        {
+          fprintf(stderr, "Error of memory allocation!\n");
+          return 0;
+        }
+
+      read_archive(src_fname, dest_fname, ppl_tree,
+                   archive_info, data_offset, verbose);
+
+      clear_tree(ppl_tree);
+    }
+
+  return 1;
+}
+
+
+/**
+   @file ppl.c
+   @brief Popularity utilities
+   @author Roman Budny
+*/
+
+#include <stdio.h>
+#include <ppl.h>
+#include <p_utils.h>
+
+static void
+clear_ppl(ppl_t *const ppl)
+/* Fill ppl array with zeros */
+{
+  int i;
+  for (i = 0; i < MAX_PPL_SIZE; ++i)
+    ppl[i] = 0;
+}
+
+static void
+print_ppl(const ppl_t *const ppl)
+{
+  int i, j;
+  const int factor = 80; /* max bar chart width */
+
+  ppl_t max_ppl = 0;
+
+  for (i = 0; i < MAX_PPL_SIZE; i++)
+    if (max_ppl < ppl[i])
+      max_ppl = ppl[i];
+
+  puts("=== CHARACTER POPULARITY TABLE ===");
+  for (i = 0; i < MAX_PPL_SIZE; ++i)
+    {
+      int bar_width = (((double) ppl[i]) * factor) / max_ppl;
+      printf("%c: %10ld [", i, ((long int) ppl[i]));
+      for (j = 0; j < bar_width; ++j) 
+        printf("#");
+      printf("]\n");
+    }
+  puts("==================================");
+}
+
+/**
+   @brief Calculate character popularity
+
+   Calculate popularity of charaters from source file.
+
+   @param src Source file
+   @param dest_ppl Array of character popularities
+   @param verbose Verbosity level
+   @return Number of read characters if succeed, 0 otherwise.
+ */
+long int
+calculate_ppl(FILE* src, ppl_t *const dest_ppl,
+              verbosity_t verbose)
+{
+  int ch;
+  long int total = 0L;
+
+  CHKPTR(src);
+  CHKPTR(dest_ppl);
+  
+  clear_ppl(dest_ppl);
+
+  while ((ch = fgetc(src)) != EOF)
+    {
+      dest_ppl[ch]++;
+      total++;
+    }
+
+  if (verbose == DEBUG)
+    print_ppl(dest_ppl);
+
+  return total;
+}
+
+/**
+   @brief Read character popularity
+
+   Write character popularity to destination file.
+   Return offset of end.
+
+   @param src_ppl Array of character popularities
+   @param dest Destination file
+   @return Number of coded characters if suceed, 0 otherwise
+ */
+int
+write_ppl(const ppl_t *const src_ppl, FILE* dest)
+/* Write character popularity to file */
+/* Return number of coded characters if suceed, 0 otherwise */
+{
+  int i, num_code = 0;
+
+  for (i = 0; i < MAX_PPL_SIZE; i++)
+    if (src_ppl[i])
+      num_code++;
+
+  for (i = 0; i < MAX_PPL_SIZE; i++)
+    if (src_ppl[i])
+      {
+        fwrite(&i, sizeof(i), 1, dest);
+        fwrite(&src_ppl[i], sizeof(src_ppl[i]), 1, dest);
+      }
+
+  return num_code;
+}
+
+/**
+   @brief Read character popularity
+
+   Read character popularity from source file.
+   Return offset of end.
+
+   @param src Source file
+   @param dest_ppl Array of character popularities
+   @param num_code Number of character codes
+   @param verbose Verbosity level
+   @return Offset of end
+ */
+long int
+read_ppl(FILE* src, ppl_t *const dest_ppl,
+         int num_code, verbosity_t verbose)
+{
+  int i, ch;
+
+  for (i = 0; i < num_code; i++)
+    {
+      fread(&ch, sizeof(ch), 1, src);
+      fread(&dest_ppl[ch], sizeof(dest_ppl[ch]), 1, src);
+    }
+
+  if (verbose == DEBUG)
+    print_ppl(dest_ppl);
+
+  return ftell(src);
+}
+
+/**
+   @brief Get code of character with maximmum popularity 
+
+   Get code of character with maximmum popularity 
+
+   @param src_ppl Array of character popularities
+   @return Code of character with maximum polularity
+ */
+int 
+char_with_max_ppl(const ppl_t *const src_ppl)
+{
+  int i, char_with_max_ppl = 0;
+  ppl_t max_ppl = 0;
+
+  CHKPTR(src_ppl);
+
+  for (i = 0; i < MAX_PPL_SIZE; i++)
+    {
+      if (src_ppl[i] > max_ppl)
+        {
+          max_ppl = src_ppl[i];
+          char_with_max_ppl = i;
+        }
+    }
+
+  return char_with_max_ppl;
+}
+
+
+/**
+   @file ppl_tree.c
+   @brief Huffman tree utilities
+   @author Roman Budny
+*/
+
+#include <stdio.h>
+#include <ppl_tree.h>
+#include <bit_set.h>
+#include <p_utils.h>
+
+/* Recursive traverse on NOT NULL tree. */
+/* Assume that size of code_tbl >= maximal character code */
+/* Assume that each not NULL_CHAR node have both children */
+static void
+export_code(const struct node_t *const cur_node,
+            struct hf_code *const code_tbl,
+            code_t cur_code,
+            int cur_level,
+            const code_t *const bit_set)
+{
+  if (cur_node->o_char != NULL_CHAR)
+    {
+      code_tbl[cur_node->o_char].code = cur_code;
+      code_tbl[cur_node->o_char].size = cur_level;
+      return;
+    }
+  else
+    {
+      export_code(cur_node->left, code_tbl,
+                    cur_code | bit_set[cur_level],
+                    cur_level + 1, bit_set);
+
+      export_code(cur_node->right, code_tbl,
+                    cur_code, cur_level + 1, bit_set);
+    }
+}
+
+/**
+   @brief Build Huffman tree based on character popularity 
+
+   Build Huffman tree based on character popularity
+
+   @param src_ppl Array of character popularities
+   @return Pointer to the root of Huffman tree
+ */
+struct node_t *
+build_tree(const ppl_t *const src_ppl)
+{
+  struct heap h;
+
+  CHKPTR(src_ppl);
+
+  init_heap(&h);
+
+  if (fill_heap(src_ppl, &h)) /* succeed memory allocation */
+    {
+      int i, num_of_chars = 0;
+
+      build_heap(&h);
+
+      num_of_chars = h.size;
+      for (i = 0; i < num_of_chars - 1; ++i)
+        {
+          struct node_t * n = init_node();
+          n->left = heap_extract_min(&h);
+          n->right = heap_extract_min(&h);
+          n->ppl = n->left->ppl + n->right->ppl;
+          heap_insert(n, &h);
+        }
+
+      CHKPTR(heap_get_min(&h)); /* test ptr value */
+      return heap_extract_min(&h);
+    }
+  else
+    return NULL;
+}
+
+/**
+   @brief Export character codes from Huffman tree to code table
+
+   Export character codes from Huffman tree to code table
+
+   @param src_tree Huffman tree
+   @param dst_code_tbl Destination code table
+   @param verbose Level of verbosity
+ */
+void
+tree_export_code(const struct node_t *const src_tree,
+                 struct hf_code *const dst_code_tbl,
+                 verbosity_t verbose)
+{
+  int init_level = 0;
+  code_t init_code = 0;
+
+  code_t bit_set[MAX_BIT_SET_SIZE]; /* array of bits with 2^i LSB values, i -- index */ 
+
+  CHKPTR(src_tree);
+  CHKPTR(dst_code_tbl);
+
+  fill_bit_set_pos(bit_set);
+
+  if (verbose == DEBUG)
+    print_bit_set(bit_set);
+
+  export_code(src_tree, dst_code_tbl, init_code, init_level, bit_set);
+
+  if (verbose == DEBUG)
+    print_code_tbl(dst_code_tbl);
+}
+
+/* Free memory, which was allocated for popularity tree */
+/* Assume that each not NULL_CHAR node have both children */
+static void
+clear_node(struct node_t * cur_node)
+{
+  if (cur_node->o_char == NULL_CHAR)
+    {
+      clear_node(cur_node->left);
+      clear_node(cur_node->right);
+    }
+  FREE(cur_node);
+}
+
+/**
+   @brief Clear all data from Huffman data
+
+   Clear all data from Huffman data.
+   This is a wrapper around recursive function clear_node.
+
+   @param ppl_tree Huffman tree
+ */
+void
+clear_tree(struct node_t * ppl_tree)
+{
+  CHKPTR(ppl_tree);
+  clear_node(ppl_tree);
+}
+
+
+/**
+   @file ppl_heap.c
+   @brief Heap utilities
+   @author Roman Budny
+*/
+
+#include <stdlib.h>
+#include <stdio.h>
+
+#include <ppl_heap.h>
+#include <p_utils.h>
+
+/**
+   @brief Initialize heap
+   @param h Source heap
+ */
+void
+init_heap(struct heap *const h)
+{
+  int i;
+
+  CHKPTR(h);
+
+  for (i = 0; i < MAX_HEAP_SIZE; ++i)
+    {
+      h->data[i] = NULL;
+    }
+  h->size = 0;
+}
+
+static void
+clear_heap(struct heap *const h, int max_index)
+/* Free allocated memory for heap elements in range [0; max_index] */
+{
+  int i;
+
+  CHKPTR(h);
+
+  for (i = 0; i < max_index; ++i)
+    {
+      FREE(h->data[i]);
+    }
+  h->size = 0;
+}
+
+/**
+   @brief Fill heap with character popularities
+   @param src_ppl Source array of popularity
+   @param dst_heap Destination heap
+ */
+int
+fill_heap(const ppl_t *const src_ppl, struct heap *const dst_heap)
+{
+  int i, heap_index;
+
+  CHKPTR(src_ppl);
+  CHKPTR(dst_heap);
+
+  heap_index = 0;
+  for (i = 0; i < MAX_HEAP_SIZE; ++i)
+    {
+      if (src_ppl[i]) /* Non zero popularity */
+        {
+          struct node_t * n = malloc(sizeof(struct node_t));
+
+          if (n)
+            {
+              n->o_char = i; /* set character code */
+              n->ppl = src_ppl[i]; /* set popularity */
+              n->left = NULL;
+              n->right = NULL;
+              dst_heap->data[heap_index] = n;
+              heap_index++;
+            }
+          else
+            {
+              FREE(n);
+              clear_heap(dst_heap, heap_index + 1);
+              return 0;
+            }
+        }
+    }
+
+  dst_heap->size = heap_index;
+  return 1;
+}
+
+/* Core min heap functionality */
+/* See T. H. Cormen, C. E. Leiserson "Introduction to Algorithms" */
+static void
+swap(struct node_t * data[], int i, int j)
+/* Swap pointers in heap data array */
+{
+  struct node_t * pi = data[i];
+  data[i] = data[j];
+  data[j] = pi;
+}
+
+static int
+parent(int i)
+{
+  if (i)
+    return (i-1)/2;
+  else
+    return 0;
+}
+
+static int
+left(int i)
+{
+  return 2*i+1;
+}
+
+static int
+right(int i)
+{
+  return (i+1)*2;
+}
+
+/* Support heap property */
+static void
+heapify(struct heap *const h, int i)
+{
+  int l = left(i);
+  int r = right(i);
+  int smallest;
+
+  if ((l < h->size) && (h->data[l]->ppl < h->data[i]->ppl))
+    smallest = l;
+  else
+    smallest = i;
+
+  if ((r < h->size) && (h->data[r]->ppl < h->data[smallest]->ppl))
+    smallest = r;
+
+  if (smallest != i)
+    {
+      swap(h->data, i, smallest);
+      heapify(h, smallest);
+    }
+}
+
+/**
+   @brief Build heap from array
+   @param h Pointer to heap
+ */
+void
+build_heap(struct heap *const h)
+{
+  int i;
+
+  CHKPTR(h);
+
+  for (i = (h->size/2)-1; i >= 0; i--)
+    heapify(h, i);
+}
+
+/**
+   @brief Get minimal value from heap
+   @param h Pointer to heap
+ */
+struct node_t *
+heap_get_min(const struct heap *const h)
+{
+  CHKPTR(h);
+
+  if (h->size < 1)
+    return NULL;
+  return h->data[0];
+}
+
+/**
+   @brief Extract data with minimal value from heap
+   @param h Pointer to heap
+ */
+struct node_t *
+heap_extract_min(struct heap *const h)
+{
+  struct node_t * min;
+
+  CHKPTR(h);
+
+  if (h->size == 0)
+    return NULL;
+
+  min = h->data[0];
+  h->data[0] = h->data[(h->size)-1];
+  h->data[(h->size)-1] = NULL;
+  (h->size)--;
+
+  heapify(h, 0);
+
+  return min;
+}
+
+/**
+   @brief Insert data to  heap
+   @param src_node Source data node
+   @param dst_heap Pointer to heap
+ */
+void
+heap_insert(struct node_t * src_node, struct heap *const dst_heap)
+{
+  int i = 0;
+
+  CHKPTR(dst_heap);
+  CHKPTR(src_node);
+
+  i = (dst_heap->size)++;
+
+  while ((i > 0) && (dst_heap->data[parent(i)]->ppl > src_node->ppl))
+    {
+      dst_heap->data[i] = dst_heap->data[parent(i)];
+      i = parent(i);
+    }
+  dst_heap->data[i] = src_node;
+}
+
+
+/**
+   @file code_tbl.c
+   @brief Code table utilities
+   @author Roman Budny
+*/
+
+#include <stdio.h>
+#include <code_tbl.h>
+#include <p_utils.h>
+
+/* Print huffman code properties assigned to character */
+static void 
+print_code(int character, struct hf_code code)
+{
+  printf("%c: %4d: ", character, code.size);
+  print_bits(code.code);
+  printf("\n");
+}
+
+/**
+   @brief Print content of code table
+   @param tbl Code table
+ */
+void 
+print_code_tbl(const struct hf_code *const tbl)
+{
+  int i;
+
+  CHKPTR(tbl);
+  
+  puts("=== TABLE OF ASSIGNED HUFFMAN CODES ===");
+
+  for (i = 0; i < MAX_CODE_TBL_SIZE; ++i)
+      print_code(i, tbl[i]);
+
+  puts("=======================================");
+}
+
+
+/**
+   @file bit_set.c
+   @brief Bit set utilities
+   @author Roman Budny
+*/
+
+#include <stdio.h>
+#include <bit_set.h>
+
+/**
+   @brief Fill bit set diagonal with ones"
+   @param dest_bit_set Bit set
+ */
+void
+fill_bit_set_pos(code_t * dest_bit_set)
+{
+  int i;
+  int size = sizeof(code_t);
+  code_t val = 1 << (size*8 - 1);
+
+  for (i = 0; i < MAX_BIT_SET_SIZE; ++i)
+    {
+      dest_bit_set[i] = val;
+      val >>= 1;
+    }
+}
+
+/**
+   @brief Print bit values of code_t data type
+   @param bits Source bits
+ */
+void
+print_bits(code_t bits)
+{
+  int i;
+  int size = sizeof(code_t);
+  code_t max_pow = 1 << (size*8 - 1);
+
+  for (i = 0; i < size*8; ++i)
+    {
+      printf("%u", bits & max_pow ? 1 : 0); /* print last bit and shift left. */
+      bits <<= 1;
+    }
+}
+
+/**
+   @brief Print set of bit values
+
+   Print set of bit values of code_t data type.
+   Assume that size of array is more than MAX_BIT_SET_SIZE.
+
+   @param bit_set Source set of bits
+ */
+void
+print_bit_set(code_t * bit_set)
+{
+  int i;
+
+  puts("=== BITSET ===");
+
+  for (i = 0; i < MAX_BIT_SET_SIZE; ++i)
+    {
+      print_bits(bit_set[i]);
+      printf("\n");
+    }
+
+  puts("==============");
+
+}
+
+
+/**
+   @file io_code.c
+   @brief I/O code utils
+   @author Roman Budny
+*/
+
+#include <io_code.h>
+#include <bit_set.h>
+
+/**
+   @brief Clear code buffer
+   @param code_buffer Code buffer
+ */
+void clear_code_buffer(code_t *const code_buffer)
+{
+  int i;
+
+  for (i = 0; i < CODE_BUFFER_SIZE; ++i)
+    {
+      code_buffer[i] = 0;
+    }
+}
+
+
+/**
+   @file node_t.c
+   @brief Node utils
+   @author Roman Budny
+*/
+
+#include <node_t.h>
+
+/**
+   @brief Initialize node
+   @return Node with safe values
+ */
+struct node_t *
+init_node()
+{
+  struct node_t * n = calloc(1, sizeof(struct node_t));
+  n->o_char = NULL_CHAR;
+  n->left = NULL;
+  n->right = NULL;
+
+  return n;
+}
+
+/**
+   @brief Copy node
+
+   @param src_node Source node
+   @return Pointer to copy of source node
+ */
+struct node_t *
+copy_node(struct node_t * src_node)
+{
+  struct node_t * dest_node = malloc(sizeof(struct node_t));
+  dest_node->o_char = src_node->o_char;
+  dest_node->ppl = src_node->ppl;
+  dest_node->left = src_node->left; 
+  dest_node->right = src_node->right;
+
+  return dest_node;
+}

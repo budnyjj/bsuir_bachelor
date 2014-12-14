@@ -1,202 +1,137 @@
 \section[Руководство пользователя]{РУКОВОДСТВО ПОЛЬЗОВАТЕЛЯ}
 \label{sec:user_manual}
 
-Рассмотреть процесс установки программы (linux \& win).
-Перечислить консольные аргументы.
-% \subsection{Просмотр данных о наградах}
-% \label{ssec:help_awards_list}
+\subsection{Системные требования}
 
-% Для того, чтобы перейти на страницу списка наград,
-% необходимо нажать на пункт меню <<узнагароды>> (\textit{http://nagrady.by/award/list}),
-% расположенный в правой верхней части страницы, 
-% как показано на рисунке~\ref{fig:awards_link}.
-% Ссылка на страницу списка наград отмечена красным цветом.
+Для установки и использования приложения должен использоваться 
+X86-совместимый компьютер с тактовой частотой процессора не менее 500 МГц,
+объемом оперативной памяти не менее 128 МБ под управлением операционных систем
+на базе ядра GNU/Linux, *BSD, Windows.
 
-% \begin{figure}[h]
-%   \centering
-%   \includegraphics[width=160mm]{pic/help_awards_link.png}
-%   \caption{Ссылка на список наград}
-%   \label{fig:awards_link}
-% \end{figure}
+Для успешной сборки приложения на компьютере пользователя должна быть
+предварительно установлена утилита GNU Make и компилятор языка C.
+Данные программы находятся в репозиториях всех дистрибутивов на базе GNU/Linux,
+*BSD, а также доступны в Windows в рамках использования пакетов программ 
+Cygwin и MinGW~\cite{cygwin, mingw}.
 
-% Для того, чтобы просмотреть данные о конкретной награде,
-% необходимо выполнить следующие действия:
-% \begin{enumerate}
-% \item Перейти на страницу списка наград.
-% \item Выбрать награду, нажав на ссылку с названием нужной награды. 
-% \end{enumerate}
+\subsection{Установка}
 
-% \subsection{Просмотр данных о награжденных}
-% \label{ssec:help_awarded_list}
+Установка разрабатываемой программы предполагает загрузку исходного текста
+программы и компиляцию этого исходного текста.
 
-% Для того, чтобы перейти на страницу списка наград,
-% необходимо нажать на пункт меню <<узнагароджаныя>> (\textit{http://nagrady.by/awarded/list}),
-% расположенный в правой верхней части страницы, 
-% как показано на рисунке~\ref{fig:awarded_link}.
-% Ссылка на страницу списка награжденных отмечена красным цветом.
+% Возможны два варианта загрузки исходного кода: в виде архива и 
+% в виде репозитория git. Рассмотрим каждый из них.
 
-% \begin{figure}[h]
-%   \centering
-%   \includegraphics[width=160mm]{pic/help_awarded_link.png}
-%   \caption{Ссылка на список награжденных}
-%   \label{fig:awarded_link}
-% \end{figure}
+Для того, чтобы загрузить исходный код в виде архива в операционной системе 
+на базе GNU/Linux, достаточно выполнить
+команды, представленные на рисунке~\ref{lst:zip_installation}.
 
-% Для того, чтобы просмотреть данные о конкретном факте награждения,
-% необходимо выполнить следующие действия:
-% \begin{enumerate}
-% \item Перейти на страницу списка награжденных.
-% \item Выбрать награду, нажав на ссылку с именем награжденного. 
-% \end{enumerate}
+\begin{lstlisting}[basicstyle=\scriptsize\ttfamily,
+                   numberstyle=\scriptsize\ttfamily,
+                   xleftmargin=7mm,
+                   language=bash,
+                   caption=Команды установки архиватора \\ 
+                   без создания репозитория,
+                   label=lst:zip_installation]
+wget https://github.com/budnyjj/huffman/archive/master.zip
+unzip master.zip
+cd master
+make
+\end{lstlisting}
 
-% В результате вы будете находиться на странице с информацией о
-% факте награждения, как показано на рисунке~\ref{fig:awarded_info}.
+Первая команда загружает архив с исходным кодом с сервиса github.com,
+вторая производит распаковку архива с исходным кодом,
+третья меняет текущую директорию на директорию с исходным кодом,
+четвертая производит сборку приложения.
 
-% \begin{figure}[h]
-%   \centering
-%   \includegraphics[width=160mm]{pic/help_awarded_info.png}
-%   \caption{Страница с информацией о награжденном}
-%   \label{fig:awarded_info}
-% \end{figure}
+% Для того, чтобы загрузить исходный код в виде репозитория git в
+% операционной системе на базе GNU/Linux, достаточно выполнить
+% команды, представленные на рисунке~\ref{lst:git_installation}.
 
-% \subsection{Экспорт данных о фактах награждения}
-% \label{ssec:help_export_awarded}
+% \begin{lstlisting}[basicstyle=\scriptsize\ttfamily,
+%                    numberstyle=\scriptsize\ttfamily,
+%                    xleftmargin=7mm,
+%                    language=bash,
+%                    caption=Команды установки архиватора \\ 
+%                    с созданием репозитория,
+%                    label=lst:git_installation]
+% git clone https://github.com/budnyjj/huffman
+% cd huffman
+% make
+% \end{lstlisting}
 
-% Для того, чтобы экспортировать данные на локальный носитель,
-% необходимо выполнить следующие шаги:
-% \begin{enumerate}
-% \item Перейти на страницу экспорта данных, 
-%   нажав на пункт меню <<дадзеныя>> (\textit{http://nagrady.by/opendata}),
-%   расположенный в правой верхней части страницы, 
-%   как показано на рисунке~\ref{fig:opendata_link}.
-
-% \begin{figure}[h]
-%   \centering
-%   \includegraphics[width=160mm]{pic/help_opendata_link.png}
-%   \caption{Ссылка на страницу экспорта данных о награжденных}
-%   \label{fig:opendata_link}
-% \end{figure}
-
-% \item Воспользовавшись фильтрами по названию награды и дате награждения,
-%   выбрать интересующий набор данных.
-% \item Нажать кнопку \textit{<<CSV>>} или \textit{<<XML>>} в нижней части страницы, 
-%   как показано на рисунке~\ref{fig:opendata_download} 
-%   для экспорта в формате csv или xml соответственно.
-% \end{enumerate}
-
-% \begin{figure}[h]
-%   \centering
-%   \includegraphics[width=150mm]{pic/help_opendata_download.png}
-%   \caption{Кнопка экспорта данных о награжденных}
-%   \label{fig:opendata_download}
-% \end{figure}
+% Первая команда загружает делает локальную копию репозитория с сервиса github.com,
+% вторая меняет текущую директорию на директорию с исходным кодом,
+% третья производит сборку приложения.
 
 
-% \subsection{Авторизация}
-% \label{ssec:help_authorization}
+\subsection{Использование}
 
-% Для выполнения административных операций 
-% (импорт и редатирование данных)
-% пользователь должен войти в учетную запись администратора
-% (пройти авторизацию).
+После успешной сборки исполняемый файл архиватора находится по адресу
+\texttt{bin/hf}. На рисунке~\ref{lst:hf_cmd_usage} представлены доступные опции
+командной строки.
 
-% Для этого необходимо выполнить следующие действия:
-% \begin{enumerate}
-% \item Перейти по ссылке \textit{http://nagrady.by/user/login}.
-% \item Ввести в поле \textit{<<Імя карыстальніка>>} имя учетной записи пользователя.
-% \item Ввести в поле \textit{<<Пароль>>} пароль от учетной записи пользователя. 
-% \item Нажать на кнопку \textit{<<Уваход у сістэму>>}.
-% \end{enumerate}
+\begin{lstlisting}[basicstyle=\scriptsize\ttfamily,
+                   numberstyle=\scriptsize\ttfamily,
+                   xleftmargin=7mm,
+                   language=bash,
+                   caption=Доступные опции \\
+                   командной строки архиватора,
+                   label=lst:hf_cmd_usage]
+./bin/hf -h 
+Usage: ./bin/hf [COMMAND...] [SRC_FILENAME]
+ -c --create DEST_FILENAME   Create a new archive and store it in DEST_FILENAME
+ -x --extract DEST_FILENAME  Extract an existing archive to DEST_FILENAME
+ -h --help                   Display this help message
+ -v --verbose                Display info messages
+ -d --debug                  Display debug messages
+\end{lstlisting}
 
-% На рисунке~\ref{fig:login_page} изображена страница входа в учетную запись администратора.
+Исходя из текстовой подсказки о вариантах использования, можно сделать вывод,
+что опция \texttt{-c} используется для создания архива,
+опция \texttt{-x} используется для распаковки архива,
+а опции \texttt{-v}, \texttt{-d} используются для показа доплнительных
+информационных и отладочных сообщений соответственно.
 
-% \begin{figure}[h]
-%   \centering
-%   {
-%     \setlength{\fboxsep}{0pt}%
-%     \setlength{\fboxrule}{1pt}%
-%     \fbox{  \includegraphics[width=150mm]{pic/login_page.png}}
-%   }
-%   \caption{Страница авторизации}
-%   \label{fig:login_page}
-% \end{figure}
+На рисунке~\ref{lst:hf_examples_usage} представлены примеры использования
+архиватора.
 
-% После успешной авторизации на каждой странице появится панель управления контентом сайта. 
+\begin{lstlisting}[basicstyle=\scriptsize\ttfamily,
+                   numberstyle=\scriptsize\ttfamily,
+                   xleftmargin=7mm,
+                   language=bash,
+                   caption=Примеры использования архиватора,
+                   label=lst:hf_examples_usage]
+./bin/hf -vc file.txt.hf file.txt 
+=== ARCHIVE INFO ===
+NUMBER OF ENCODED CHARACTERS: 100395
+NUMBER OF CODES: 95
+CODE BUFFER SIZE: 4096
+OFFSET IN LAST BYTE: 10
 
-% \subsection{Импорт данных о фактах награждения}
-% \label{ssec:help_import_awarded}
+./bin/hf -vx new_file.txt file.txt.hf
+=== ARCHIVE INFO ===
+NUMBER OF ENCODED CHARACTERS: 100395
+NUMBER OF CODES: 95
+CODE BUFFER SIZE: 4096
+OFFSET IN LAST BYTE: 10
+\end{lstlisting}
 
-% Для того, чтобы импортировать данные о наградах на сайт,
-% необходимо сделать следующие шаги:
+Первый пример представляет собой архивацию исходного файла \texttt{file.txt}
+c сохранением архива \texttt{file.txt.hf} и выводом информации об архиве.
+Второй пример --- распаковка архива \texttt{file.txt.hf}
+в текстовый файл \texttt{new\_file.txt} и выводом информации об архиве.
 
-% \begin{enumerate}
-% \item Пройти авторизацию на сайте в соответствии с подразделом~\ref{ssec:help_authorization}.
-% \item После входа на сайт в качестве администратора перейти по ссылке <<Імпарт>>.
-% \item На странице <<Узнагароды>>, показанной на рисунке~\ref{fig:import_page}
-%   нажать на кнопку \textit{<<Choose File>>}.
-% \item Выбрать файл с данными о фактах награждения в машиночитаемом формате.
-% \item Опционально: выбрать разделитель, настроив поле \textit{<<Delimiter>>}.
-% \item Опционально: можно отключить использование заголовков csv-файлов,
-%    отметив поле \textit{<<No Headers>>}.
-% \item Нажать на кнопку <<Імпарт>> для импорта содержимого файла в базу данных сервиса.
-% \end{enumerate}
+\subsection{Документация}
 
-% \begin{figure}[h]
-%   \centering
-%   \includegraphics[width=150mm]{pic/import_page.png}
-%   \caption{Страница импорта данных о фактах награждения}
-%   \label{fig:import_page}
-% \end{figure}
+Автоматически сгенерированная к программе представлена в виде набора
+html-файлов. Для того, ознакомиться с ней, следует открыть в веб-браузере
+файл \texttt{index.html}, находящийся по адресу \texttt{doc/html/index.html}.
+На рисунке~\ref{pic:documentation} приведен пример страницы документации.
 
-% \subsection{Редактирование данных о наградах}
-% \label{ssec:help_edit_awards}
-
-% Для того, чтобы отредактировать данные об определенной награде,
-% необходимо сделать следующие шаги:
-
-% \begin{enumerate}
-% \item Пройти авторизацию на сайте в соответствии с подразделом~\ref{ssec:help_authorization}.
-% \item После входа на сайт в качестве администратора
-%    перейти по ссылке <<Кіраванне ўзнагародамі>>.
-% \item На странице <<Кіраванне ўзнагародамі>> перейти по ссылке \textit{<<Edit>>},
-%   расположенной в одной строке с названием требуемой награды.
-% \item Отредактировать содержимое полей награды желаемым образом.
-% \item Нажать на кнопку \textit{<<Save>>} для сохранения изменений.
-% \end{enumerate}
-
-% Интерфейс редактирования данных о наградах приведен
-% на рисунке~\ref{fig:awards_edit_page}.
-
-% \begin{figure}[h]
-%   \centering
-%   \includegraphics[width=150mm]{pic/awards_edit_page.png}
-%   \caption{Интерфейс редактирования данных о награде}
-%   \label{fig:awards_edit_page}
-% \end{figure}
-
-
-% \subsection{Редактирование данных о фактах награждения}
-% \label{ssec:help_edit_awarded}
-
-% Для того, чтобы отредактировать данные о факте награждения,
-% необходимо сделать следующие шаги:
-
-% \begin{enumerate}
-% \item Пройти авторизацию на сайте в соответствии с подразделом~\ref{ssec:help_authorization}.
-% \item После входа на сайт в качестве администратора
-%    перейти по ссылке <<Кіраванне ўзнагароджанымі>>.
-% \item На странице \textit{<<Content>>} перейти по ссылке \textit{<<Edit>>},
-%   расположенной в одной строке с именем требуемого награжденного.
-% \item Отредактировать содержимое полей награды желаемым образом.
-% \item Нажать на кнопку \textit{<<Save>>} для сохранения изменений.
-% \end{enumerate}
-
-% Интерфейс редактирования данных о фактах награждения приведен 
-% на рисунке~\ref{fig:awarded_edit_page}.
-
-% \begin{figure}[h]
-%   \centering
-%   \includegraphics[width=160mm]{pic/awarded_edit_page.png}
-%   \caption{Интерфейс редактирования данных о награжденном}
-%   \label{fig:awarded_edit_page}
-% \end{figure}
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=150mm]{pic/documentation.png}
+  \caption{Пример страницы документации}
+  \label{pic:documentation}
+\end{figure}

@@ -2,8 +2,8 @@
 \renewcommand{\thetable}{\Asbuk{section}.\arabic{table}}
 \renewcommand{\thelstlisting}{\Asbuk{section}.\arabic{lstlisting}}
 
-\addcontentsline{toc}{section}{Приложение А (справочное) Команды создания базы данных}
-\section*{ПРИЛОЖЕНИЕ A \\ (справочное) \\ Исходный текст архиватора}
+\addcontentsline{toc}{section}{Приложение А (справочное) Исходный текст программного продукта}
+\section*{ПРИЛОЖЕНИЕ A \\ (справочное) \\ Исходный текст программного продукта}
 \label{sec:appendix_a}
 
 \pagestyle{fancy}
@@ -23,5 +23,9 @@
 \setcounter{table}{0}
 \setcounter{lstlisting}{0}
 
-% \lstinputlisting[basicstyle=\small\ttfamily,language=sql,
-%   label=lst:sql_create_tables]{code/create_tables.sql}
+\lstinputlisting[basicstyle=\scriptsize\ttfamily,
+                 numberstyle=\scriptsize\ttfamily,
+                 xleftmargin=10mm,
+                 language=C
+                 % caption=Исходный текст программного продукта
+                 ]{code/code.txt}
