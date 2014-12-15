@@ -112,16 +112,17 @@
 
 \setlength{\parskip}{0pt}
 \setlength{\parindent}{12mm}
+\raggedbottom
 
 %%% Расстояние между плавающими элементами
 
 \setlength{\floatsep}{14pt}     % between top floats
 \setlength{\textfloatsep}{14pt} % between top/bottom floats and text
-\setlength{\intextsep}{14pt}    % between text and float
+\setlength{\intextsep}{20pt}    % between text and float
 \setlength{\dbltextfloatsep}{14pt}
 \setlength{\dblfloatsep}{14pt}
 
- % костыль для того, чтобы убрать расстояние от картинки до текста
+% костыль для того, чтобы убрать расстояние от картинки до текста
 \setlength{\abovecaptionskip}{0pt}
 \setlength{\belowcaptionskip}{0pt}
            
@@ -166,14 +167,16 @@
   justification=centering,
   singlelinecheck=false,
   position=bottom,
-  skip=14pt}
+  belowskip=-8pt,
+  parskip=0pt,
+  skip=20pt}
 
 \captionsetup[table]{
   labelsep=endash,
   justification=raggedright,
   singlelinecheck=false,
   position=top,
-  skip=0mm}
+  skip=0pt}
 
 \captionsetup[lstlisting]{
   labelsep=endash
