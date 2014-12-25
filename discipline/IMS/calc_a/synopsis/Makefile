@@ -1,10 +1,10 @@
 default: compile
 
 compile:
-	pdflatex course.tex
+	pdflatex calc.tex
 
 bib:
-	bibtex8 -B course.aux
+	bibtex8 -B calc.aux
 
 clean:
 	$(RM) *.log
