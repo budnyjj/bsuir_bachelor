@@ -15,36 +15,36 @@ N_EDINIC    FUNCTION    P1,D3
 1,1/2,1/3,2
 
 RABOCHIE    STORAGE 	3
-            GENERATE    (EXPONENTIAL(6,0,20))           
+            GENERATE    (EXPONENTIAL(6,0,20))
             ASSIGN      1,FN$TIP_NEISP
             ASSIGN      2,FN$VREMYA
             ASSIGN      3,1
-    
+
 POVTOR      LINK        OZHIDANIE,P2,REMONT
 REMONT      ENTER       RABOCHIE,FN$N_EDINIC
-            UNLINK      OZHIDANIE,REMONT,1 
+            UNLINK      OZHIDANIE,REMONT,1
 	    ADVANCE     P2
             LEAVE       RABOCHIE,FN$N_EDINIC
 
 PROVERKA    SEIZE       PROVER
-            ADVANCE     (EXPONENTIAL(7,0,8))    
+            ADVANCE     (EXPONENTIAL(7,0,8))
             RELEASE     PROVER
-            
+
             TEST E      P3,1,POVT_REM
             TRANSFER    850,,ISPRAVN
             ASSIGN      1,FN$TIP_POVT
             ASSIGN      2,FN$VREMYA
             ASSIGN      3,2
             TRANSFER    ,POVTOR
-    
+
 POVT_REM    TRANSFER    100,,NEISPRAVN
-    
+
 ISPRAVN     SAVEVALUE   P1+,1
             TRANSFER    ,KONEC
 
 NEISPRAVN   SAVEVALUE   NEISPR+,1
-                    
+
 KONEC       TERMINATE
-            GENERATE 14400		; 30 дней
+            GENERATE 14400
             TERMINATE 1
             START 1
