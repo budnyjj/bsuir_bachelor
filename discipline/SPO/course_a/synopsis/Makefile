@@ -1,17 +1,16 @@
 default: compile
 
 compile:
-	pdflatex calc.tex
+	pdflatex course.tex
 
 bib:
-	bibtex8 -B calc.aux
+	bibtex8 -B course.aux
 
 clean:
 	$(RM) *.log
 	$(RM) *.out
-	$(RM) *.aux
 	$(RM) *.toc
-	$(RM) *.pdf
+	$(RM) *.aux
 	$(RM) *.blg
 	$(RM) *.bbl
 	$(RM) *~
@@ -20,5 +19,4 @@ clean:
 	$(RM) text/*~
 	$(RM) text/*.dvi
 
-
-.PHONY: clean compile
+.PHONY: clean bib compile
