@@ -16,7 +16,7 @@ namespace lab_2
     {
         List<Car> carList;
         List<Car> defaultCarList;
-        
+
         public AutomobileForm()
         {
             InitializeComponent();
@@ -42,11 +42,12 @@ namespace lab_2
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                string openedFileName = openFileDialog.FileName;
+                string openedFilePath = openFileDialog.FileName;
+
                 string[] lines = {};
-                if (openedFileName != string.Empty)
+                if (openedFilePath != string.Empty)
                 {
-                    lines = System.IO.File.ReadAllLines(openedFileName);
+                    lines = System.IO.File.ReadAllLines(openedFilePath);
                 }
                 if (lines.Length != 0)
                 {
@@ -64,7 +65,14 @@ namespace lab_2
                             string name = words[0];
                             int year = Convert.ToInt32(words[1]);
                             int price = Convert.ToInt32(words[2]);
-                            string imagePath = words[3];
+
+                            string imagePath = "";
+                            string relativeImagePath = words[3].Trim();
+                            if (relativeImagePath.Length != 0)
+                            {
+                                string absolutePath = Path.GetDirectoryName(openedFilePath);
+                                imagePath = Path.Combine(absolutePath, relativeImagePath);
+                            }
                             carList.Add(new Car(name, year, price, imagePath));
                         }
                         catch (FormatException ex)
@@ -97,16 +105,7 @@ namespace lab_2
                 List<string> cars = new List<string>();
                 foreach (Car car in carList)
                 {
-                    StringBuilder stringBuilder = new StringBuilder();
-                    stringBuilder.Append(car.name);
-                    stringBuilder.Append(", ");
-                    stringBuilder.Append(car.year);
-                    stringBuilder.Append(", ");
-                    stringBuilder.Append(car.price);
-                    stringBuilder.Append(", ");
-                    stringBuilder.Append(car.imagePath);
-
-                    cars.Add(stringBuilder.ToString());
+                    cars.Add(car.ToString());
                 }
                 File.WriteAllLines(saveFileDialog.FileName, cars);
             }
@@ -117,13 +116,13 @@ namespace lab_2
             int selectedIndex = this.autoListBox.SelectedIndex;
             if (selectedIndex >= 0)
             {
-                this.nameTextBox.Text = carList.ElementAt(selectedIndex).name;
-                this.yearTextBox.Text = carList.ElementAt(selectedIndex).year.ToString();
-                this.priceTextBox.Text = carList.ElementAt(selectedIndex).price.ToString();
+                this.nameTextBox.Text = carList.ElementAt(selectedIndex).Name;
+                this.yearTextBox.Text = carList.ElementAt(selectedIndex).Year.ToString();
+                this.priceTextBox.Text = carList.ElementAt(selectedIndex).Price.ToString();
 
                 this.imageBox.Image = null;
-                string imagePath = carList.ElementAt(selectedIndex).imagePath.Trim();
-                
+                string imagePath = carList.ElementAt(selectedIndex).ImagePath;
+
                 try
                 {
                     if (imagePath.Length != 0)
@@ -177,7 +176,7 @@ namespace lab_2
             {
                 if (isYearValid)
                 {
-                    applyFilters(priceFrom, priceTo, yearFrom, yearTo); 
+                    applyFilters(priceFrom, priceTo, yearFrom, yearTo);
                 }
                 else
                 {
@@ -197,7 +196,7 @@ namespace lab_2
                 carList = new List<Car>(defaultCarList);
                 foreach (Car car in defaultCarList)
                 {
-                    if ((car.price < priceFrom) || (car.price > priceTo) || car.year < yearFrom || car.year > yearTo)
+                    if ((car.Price < priceFrom) || (car.Price > priceTo) || car.Year < yearFrom || car.Year > yearTo)
                     {
                         carList.Remove(car);
                     }
@@ -210,7 +209,7 @@ namespace lab_2
         {
             this.autoListBox.DataSource = null;
             this.autoListBox.Items.Clear();
-            List<string> carNames = carList.Select(o => o.name).ToList();
+            List<string> carNames = carList.Select(o => o.Name).ToList();
             this.autoListBox.DataSource = carNames;
         }
 
@@ -227,15 +226,67 @@ namespace lab_2
         public Car() { }
         public Car(string name, int year, int price, string imagePath)
         {
-            this.name = name;
-            this.year = year;
-            this.price = price;
-            this.imagePath = imagePath;
+            this.Name = name;
+            this.Year = year;
+            this.Price = price;
+            this.ImagePath = imagePath;
         }
 
-        public string name { get; set; }
-        public string imagePath { get; set; }
-        public int price { get; set; }
-        public int year { get; set; }
+        private string name;
+        public string Name
+        {
+            get
+            {
+                return name;
+            }
+            set
+            {
+                name = value;
+            }
+        }
+
+        private int year;
+        public int Year
+        {
+            get
+            {
+                return year;
+            }
+            set
+            {
+                year = value;
+            }
+        }
+
+        private int price;
+        public int Price
+        {
+            get
+            {
+                return price;
+            }
+            set
+            {
+                price = value;
+            }
+        }
+
+        private string imagePath;
+        public string ImagePath
+        {
+            get
+            {
+                return imagePath;
+            }
+            set
+            {
+                imagePath = value.Trim();
+            }
+        }
+
+        public override string ToString()
+        {
+            return this.Name + ", " + this.Year.ToString() + ", " + this.Price.ToString() + ", " + this.ImagePath;
+        }
     }
 }

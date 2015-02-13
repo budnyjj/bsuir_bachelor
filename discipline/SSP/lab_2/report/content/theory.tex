@@ -1,0 +1,51 @@
+\section{ТЕОРЕТИЧЕСКИЕ СВЕДЕНИЯ}
+
+Пример команд языка С\#, используемых для чтения строковых данных из файла
+представлен на рисунке~\ref{lst:read_from_file}.
+
+\begin{lstlisting}[
+                  caption=Команды чтения строковых данных из файла на языке C\#,
+                  label=lst:read_from_file,
+                  basicstyle=\scriptsize\ttfamily,
+                  language=C++
+                  ]
+  OpenFileDialog openFileDialog = new OpenFileDialog();
+  openFileDialog.Filter = "Text files|*.txt";
+  openFileDialog.Title = "Select text file with cars";
+  if (openFileDialog.ShowDialog() == DialogResult.OK)
+  {
+      string openedFileName = openFileDialog.FileName;
+      string[] lines = {};
+      if (openedFileName != string.Empty)
+      {
+          lines = System.IO.File.ReadAllLines(openedFileName);
+      }
+  }
+\end{lstlisting}
+
+Для записи строковых данных в файл может быть использована аналогичная конструкция,
+пример которой представлен на рисунке~\ref{lst:save_to_file}.
+
+\begin{lstlisting}[
+                  caption=Команды записи строковых данных в файл на языке C\#,
+                  label=lst:save_to_file,
+                  basicstyle=\scriptsize\ttfamily,
+                  language=C++
+                  ]
+  SaveFileDialog saveFileDialog = new SaveFileDialog();
+  saveFileDialog.FileName = "filteredCars";
+  saveFileDialog.DefaultExt = "txt";
+  saveFileDialog.Filter = "Text files|*.txt";
+
+  if (saveFileDialog.ShowDialog() == DialogResult.OK)
+  {
+      List<string> cars = new List<string>();
+      foreach (Car car in carList)
+      {
+          cars.Add(car.ToString());
+      }
+      File.WriteAllLines(saveFileDialog.FileName, cars);
+  }
+\end{lstlisting}
+
+\newpage
