@@ -39,7 +39,7 @@ eta = ksi + psi.subs(
                 w_1: val_w_1
             }
         )
-print("eta = ", sp.latex(eta))
+# print("eta = ", sp.latex(eta))
 
 val_t = np.linspace(MIN_T, MAX_T, NUM_T)
 
@@ -70,7 +70,7 @@ f_phi = sp.sympify("1 / (2 * a)")
 E_psi = sp.integrate(psi * f_phi, (phi, -a, a))
 E = sp.simplify(a_b + E_psi)
 
-# print("E = ", sp.latex(E))
+print("E = ", sp.latex(E))
 
 subs_E = E.subs(
             {
@@ -93,7 +93,7 @@ psi_centered = sp.simplify(psi - E_psi)
 D_psi = sp.simplify(sp.integrate((psi_centered ** 2) * f_phi, (phi, -a, a)))
 D = sp.simplify(D_b + D_psi)
 
-# print("D = ", sp.latex(D))
+print("D = ", sp.latex(D))
 
 subs_D = D.subs(
             {
@@ -112,8 +112,8 @@ plot_D, = plt.plot(val_t, val_D, color='r', linestyle='-',
 
 plt.grid()
 plt.xlabel("$ t $")
-plt.legend(handles=[plot_E, plot_D])
-plt.savefig("values.png", dpi=100)
+# plt.legend(handles=[plot_E, plot_D])
+# plt.savefig("values.png", dpi=100)
 
 # R(psi) calculation
 t_1, t_2 = sp.symbols("t_1 t_2")
@@ -145,5 +145,5 @@ ax.zaxis.set_major_formatter(FormatStrFormatter('%.02f'))
 
 fig_R.colorbar(surf_R, shrink=0.5, aspect=5)
 
-plt.savefig("correlation.png", dpi=200)
-plt.show()
+# plt.savefig("correlation.png", dpi=200)
+# plt.show()
