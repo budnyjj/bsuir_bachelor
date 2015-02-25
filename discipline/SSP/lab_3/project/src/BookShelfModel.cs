@@ -47,7 +47,7 @@ public class BookShelfModel
               }
           }
       }
-    catch (Mono.Data.Sqlite.SqliteException ex)
+    catch (SqliteException ex)
       {
         Console.WriteLine(ex);
         throw new AccessViolationException("Incorrect database structure", ex);
@@ -77,7 +77,7 @@ public class BookShelfModel
               }
           }
       }
-    catch (Mono.Data.Sqlite.SqliteException ex)
+    catch (SqliteException ex)
       {
         Console.WriteLine(ex);
       }
@@ -106,7 +106,7 @@ public class BookShelfModel
             cmd.ExecuteNonQuery();
           }
       }
-    catch (Mono.Data.Sqlite.SqliteException ex)
+    catch (SqliteException ex)
       {
         Console.WriteLine(ex);
         throw new ArgumentException("Constraint violation", ex);
@@ -137,7 +137,7 @@ public class BookShelfModel
             cmd.ExecuteNonQuery();
           }
       }
-    catch (Mono.Data.Sqlite.SqliteException ex)
+    catch (SqliteException ex)
       {
         throw new ArgumentException("Constraint violation", ex);
         Console.WriteLine(ex);
@@ -162,7 +162,7 @@ public class BookShelfModel
             cmd.ExecuteNonQuery();
           }
       }
-    catch (Mono.Data.Sqlite.SqliteException ex)
+    catch (SqliteException ex)
       {
         Console.WriteLine(ex);
       }
