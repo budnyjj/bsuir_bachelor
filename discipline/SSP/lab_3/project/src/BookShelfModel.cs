@@ -95,16 +95,17 @@ public class BookShelfModel
       {        
         dbConnection.Open();
 
-        String queryString = String.Format("INSERT INTO Books VALUES ('{0}', '{1}', {2}, '{3}')",
-                                           escapeQuotes(bookTitle),
-                                           escapeQuotes(bookAuthor),
-                                           Convert.ToInt32(bookYear),
-                                           escapeQuotes(bookDescription));
+        SqliteCommand insertCmd = new SqliteCommand("INSERT INTO Books " +
+                                                    "(Title, Author, Year, Description) " +
+                                                    "VALUES (@bookTitle, @bookAuthor, @bookYear, @bookDescription)",
+                                                    dbConnection);
+
+        insertCmd.Parameters.AddWithValue("@bookTitle", bookTitle);
+        insertCmd.Parameters.AddWithValue("@bookAuthor", bookAuthor);
+        insertCmd.Parameters.AddWithValue("@bookYear", bookYear);
+        insertCmd.Parameters.AddWithValue("@bookDescription", bookDescription);
         
-        using (SqliteCommand cmd = new SqliteCommand(queryString, dbConnection))
-          {
-            cmd.ExecuteNonQuery();
-          }
+        insertCmd.ExecuteNonQuery();
       }
     catch (SqliteException ex)
       {
@@ -125,17 +126,22 @@ public class BookShelfModel
       {        
         dbConnection.Open();
 
-        String queryString =
-          String.Format("UPDATE Books SET Title='{0}', Author='{1}', " +
-                        "Year={2}, Description='{3}' WHERE Title='{4}'",
-                        escapeQuotes(newBookTitle), escapeQuotes(newBookAuthor), 
-                        Convert.ToInt32(newBookYear), escapeQuotes(newBookDescription),
-                        escapeQuotes(oldBookTitle));
-        
-        using (SqliteCommand cmd = new SqliteCommand(queryString, dbConnection))
-          {
-            cmd.ExecuteNonQuery();
-          }
+        SqliteCommand updateCmd = new SqliteCommand("UPDATE Books SET " +
+                                                    "Title=@newBookTitle, " +
+                                                    "Author=@newBookAuthor, " +
+                                                    "Year=@newBookYear, " +
+                                                    "Description=@newBookDescription " +
+                                                    "WHERE Title=@oldBookTitle",
+                                                    dbConnection);
+
+        updateCmd.Parameters.AddWithValue("@newBookTitle", newBookTitle);
+        updateCmd.Parameters.AddWithValue("@newBookAuthor", newBookAuthor);
+        updateCmd.Parameters.AddWithValue("@newBookYear", newBookYear);
+        updateCmd.Parameters.AddWithValue("@newBookDescription", newBookDescription);
+        updateCmd.Parameters.AddWithValue("@oldBookTitle", oldBookTitle);
+
+        updateCmd.ExecuteNonQuery();
+
       }
     catch (SqliteException ex)
       {
@@ -154,13 +160,13 @@ public class BookShelfModel
       {        
         dbConnection.Open();
 
-        String queryString = String.Format("DELETE FROM Books WHERE Title='{0}'",
-                                           bookTitle);
-            
-        using (SqliteCommand cmd = new SqliteCommand(queryString, dbConnection))
-          {
-            cmd.ExecuteNonQuery();
-          }
+        SqliteCommand deleteCmd = new SqliteCommand("DELETE FROM Books WHERE Title=@bookTitle",
+                                                    dbConnection);
+
+        deleteCmd.Parameters.AddWithValue("@bookTitle", bookTitle);
+
+        deleteCmd.ExecuteNonQuery();
+
       }
     catch (SqliteException ex)
       {
@@ -170,10 +176,5 @@ public class BookShelfModel
       {
         dbConnection.Close();
       }
-  }
-
-  private String escapeQuotes(String s)
-  {
-    return s.Replace("'", "''");
   }
 }
