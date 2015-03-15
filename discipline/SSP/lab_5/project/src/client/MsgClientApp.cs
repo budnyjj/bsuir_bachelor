@@ -201,5 +201,4 @@ namespace Messenger.Client
       new MsgClientApp(args);
     }
   }
-
 }

@@ -1,0 +1,726 @@
+//
+// common/Messages.cs
+//
+using System;
+
+namespace Messenger.Common
+{  
+  public class Message
+  {
+    public String Sender
+    {
+      get;
+      set;
+    }
+
+    public String Content
+    {
+      get;
+      set;
+    }
+  
+    public DateTime Timestamp
+    {
+      get;
+      set;
+    }
+  
+    public Message(String Sender, String Content, DateTime Timestamp)
+    {
+      this.Sender = Sender;
+      this.Content = Content;
+      this.Timestamp = Timestamp;
+    }
+  }
+}
+
+//
+// service/IMsgService.cs
+//
+using System;
+using System.ServiceModel;
+using System.Collections.Generic;
+
+using Messenger.Common;
+
+namespace Messenger.Service
+{ 
+  [ServiceContract]
+  public interface IMsgService
+  {
+    [FaultContract(typeof(FaultException))]
+    [OperationContract]
+    bool checkConnection();
+
+    [FaultContract(typeof(FaultException))]
+    [OperationContract]
+    List<Message> getMessages(DateTime fromDate);
+
+    [FaultContract(typeof(FaultException))]
+    [OperationContract]
+    void sendMessage(Message msg);
+  }    
+}
+
+//
+// client/MsgClientApp.cs
+//
+using System;
+using System.ServiceModel;
+using System.Collections.Generic;
+using System.Threading;
+
+using Gtk;
+using Glade;
+
+using Messenger.Common;
+
+namespace Messenger.Client
+{
+  public class MsgClientApp
+  {
+    [Widget]
+    Window mainWindow;
+
+    [Widget]
+    Entry serverUriEntry;
+  
+    [Widget]
+    Entry usernameEntry;
+
+    [Widget]
+    TextView conversationTextView;
+
+    [Widget]
+    TextView messageTextView;
+  
+    [Widget]
+    Button connectButton;
+
+    [Widget]
+    Button disconnectButton;
+
+    [Widget]
+    Button sendButton;
+
+    String _username = "";
+  
+    MsgDispatcher _dispatcher = null;
+   
+    Thread _checkNewMessagesThread = null;
+
+    List<Message> _newMessages = new List<Message>();
+    object _newMessagesLock = new object();
+    
+    public MsgClientApp(string[] args)
+    {
+      Application.Init();
+    
+      Glade.XML gxml = new Glade.XML(null, "ui.glade", "mainWindow", null);
+      gxml.Autoconnect(this);
+
+      this.conversationTextView.SizeAllocated += new SizeAllocatedHandler(scrollToEnd);
+      
+      serverUriEntry.Text = "http://localhost:8080";
+
+      disconnectButton.Sensitive = false;
+      sendButton.Sensitive = false;
+      
+      Application.Run();
+    }
+
+    public void onConnect(object obj, EventArgs args)
+    {
+      String uri = serverUriEntry.Text.Trim();
+      if (uri.StartsWith("http://") == false)
+          {
+            showErrorDialog("URI Format is incorrect! " +
+                            "Please, check connection details");
+            return;
+          }
+
+      EndpointAddress ea = null;
+      try
+        {
+          ea = new EndpointAddress(serverUriEntry.Text);
+        }
+      catch (UriFormatException)
+        {
+          showErrorDialog("URI Format is incorrect! " +
+                          "Please, check connection details");
+          return;
+        }
+      
+      _username = usernameEntry.Text.Trim();
+      if (_username.Length == 0)
+        {
+          showErrorDialog("Please, choose non-empty username!");
+          return;        
+        }
+
+      _dispatcher =
+        new MsgDispatcher(ea, _newMessages, _newMessagesLock,
+                          new gotNewMessageCallback(appendMessagesToConversation),
+                          new gotErrorCallback(showErrorDialog));
+
+      if (_dispatcher.checkConnection() == false)
+        {
+          showErrorDialog("Cannot connect to server! " +
+                          "Please, check connection details");
+          return;
+        }
+
+      disconnectButton.Sensitive = true;
+      connectButton.Sensitive = false;
+
+      serverUriEntry.Sensitive = false;
+      usernameEntry.Sensitive = false;
+    
+      sendButton.Sensitive = true;
+
+      conversationTextView.Buffer.Text = "";      
+
+      _checkNewMessagesThread =
+        new Thread(new ThreadStart(_dispatcher.periodicalCheckNewMessages));
+      _checkNewMessagesThread.Start();
+    }
+
+    public void onDisconnect(object obj, EventArgs args)
+    {
+      disconnectFromServer();
+    }
+
+    public void onSend(object obj, EventArgs args)
+    {
+      String content = messageTextView.Buffer.Text.Trim();
+      if (content.Length == 0)
+        return;
+    
+      Message msg = new Message(_username, content, DateTime.Now);
+
+      if (_dispatcher.sendMessage(msg) == true)
+        messageTextView.Buffer.Text = "";
+      else // cannot connect to server
+        {
+          disconnectFromServer();
+        }
+    }
+  
+    public void onWindowDestroy(object obj, EventArgs args)
+    {
+      if (_dispatcher != null)
+        disconnectFromServer();
+      
+      Application.Quit();
+    }
+
+    void disconnectFromServer()
+    {
+      // Need to pause/stop message checker
+      _checkNewMessagesThread.Abort();
+      _dispatcher = null;
+    
+      connectButton.Sensitive = true;
+      disconnectButton.Sensitive = false;
+
+      serverUriEntry.Sensitive = true;
+      usernameEntry.Sensitive = true;
+    
+      sendButton.Sensitive = false;
+    }
+    
+    void showErrorDialog(String errorMessage)
+    {
+      MessageDialog md = new MessageDialog(mainWindow,
+                                           DialogFlags.DestroyWithParent,
+                                           MessageType.Error,
+                                           ButtonsType.Close,
+                                           errorMessage);
+      md.Run();
+      md.Destroy();
+    }
+
+    void appendMessagesToConversation()
+    {
+      String fmtMessages = "";
+      lock (_newMessagesLock)
+        {       
+          foreach (Message msg in _newMessages)
+            {
+              fmtMessages +=
+                msg.Timestamp + " | " +
+                msg.Sender + " >\n" +
+                msg.Content + "\n\n";
+            }
+          _newMessages.Clear();
+        }
+      conversationTextView.Buffer.Text += fmtMessages;
+    }
+
+    void scrollToEnd(object sender, Gtk.SizeAllocatedArgs e)
+    {
+      conversationTextView.ScrollToIter(conversationTextView.Buffer.EndIter,
+                                        0, false, 0, 0);
+    }
+    
+    public static void Main(string[] args)
+    {
+      new MsgClientApp(args);
+    }
+  }
+}
+
+//
+// client/MsgDispatcher.cs
+//
+using System;
+using System.ServiceModel;
+using System.Collections.Generic;
+using System.Threading;
+
+using Gtk;
+using Glade;
+
+using Messenger.Common;
+
+namespace Messenger.Client
+{  
+  public class MsgDispatcher
+  {
+    // Shared message client
+    MsgClient _client = null;
+    
+    // New messages from server
+    List<Message> _messages = null;
+  
+    // Lock for shared messages list
+    object _newMessagesLock = null;
+    
+    // Callback to notify main thread about new messages
+    gotNewMessageCallback _newMsgCallback = null;
+
+    // Callback to notify main thread about errors
+    gotErrorCallback _errorCallback = null;
+    
+    // Timestamp of last refresh
+    DateTime _lrTimestamp = new DateTime(0);
+
+    public MsgDispatcher(EndpointAddress ea, List<Message> messages,
+                         object newMessagesLock,
+                         gotNewMessageCallback newMsgCallback,
+                         gotErrorCallback errorCallback)
+    {
+      _client = new MsgClient(new BasicHttpBinding(), ea);
+      _newMessagesLock = newMessagesLock;
+      _messages = messages;
+      _newMsgCallback = newMsgCallback;
+      _errorCallback = errorCallback;
+    }
+
+    // Check new messages in quite way
+    public void periodicalCheckNewMessages()
+    {
+      // Define time to sleep
+      int maxTTS = 5000, minTTS = 200, curTTS = 200;
+      bool gotNewMessages = false;
+      
+      while (true)
+        {
+          Thread.Sleep(curTTS);          
+
+          List<Message> newMessages = getNewMessages();
+          
+          if (newMessages != null)
+            {
+              if (newMessages.Count > 0)
+                {
+                  gotNewMessages = true;                        
+                      
+                  // Decrease timeToSleep
+                  curTTS /= 2;
+                  if (curTTS < minTTS)
+                    curTTS = minTTS;
+                }
+              else // There is no new messages
+                {
+                  gotNewMessages = false;
+
+                  // Increase timeToSleep
+                  curTTS *= 2;
+                  if (curTTS > maxTTS)
+                    curTTS = maxTTS;
+                }                
+            }
+          
+          if (gotNewMessages == true)
+            {
+              lock (_newMessagesLock)
+                {
+                  // Append new messages to _messages
+                  foreach (Message msg in newMessages)                        
+                    _messages.Add(msg);                                            
+                }
+              Gtk.Application.Invoke(delegate { _newMsgCallback(); });
+            }
+        }
+    }
+  
+    // Check connection to server
+    public bool checkConnection()
+    {
+      bool status = false;
+      while (true)
+        {
+          try
+            {
+              status = _client.checkConnection(); // status = true
+              break;
+            }
+          catch (EndpointNotFoundException)
+            {
+              status = false;
+              break;
+            }
+          catch (FaultException)
+            {
+              Console.WriteLine("Caught System.ServiceModel.FaultException");
+              continue; // Deal with Mono bug
+            }
+        }
+      return status;
+    }
+
+    // Send message to server
+    // Return true if success, false otherwise
+    public bool sendMessage(Message msg)
+    {
+      bool status = false;
+      while (true)
+        {            
+          try
+            {
+              _client.sendMessage(msg);
+              status = true;
+              break;
+            }
+          catch (EndpointNotFoundException)
+            {
+              Gtk.Application.Invoke(delegate
+                { _errorCallback("Cannot connect to server! " +
+                                 "Please, check connection details"); });
+              status = false;
+              break;
+            }
+          catch (FaultException)
+            {
+              Console.WriteLine("Caught System.ServiceModel.FaultException");
+              continue; // Deal with Mono bug
+            }
+        }
+      return status;
+    }    
+
+    // Get new messages from server
+    // Return List of messages if success, null otherwise
+    List<Message> getNewMessages()
+    {
+      List<Message> messages = null;
+      try
+        {
+          messages = _client.getMessages(_lrTimestamp);
+          _lrTimestamp = DateTime.Now;
+        }
+      catch (EndpointNotFoundException)
+        {
+          Console.WriteLine("Cannot connect to server! " +
+                            "Please, check connection details");
+          messages = null;
+        }
+      catch (FaultException)
+        {
+          Console.WriteLine("Caught System.ServiceModel.FaultException");     
+          messages = null; // Deal with Mono bug
+        }
+
+      return messages; 
+    }    
+  }
+}
+
+//
+// client/MsgClient.cs
+//
+using System;
+using System.ServiceModel;
+using System.ServiceModel.Channels;
+using System.Collections.Generic;
+
+using Messenger.Common;
+using Messenger.Service;
+
+namespace Messenger.Client
+{
+  public class MsgClient : ClientBase<IMsgService>, IMsgService
+  {
+    public MsgClient(Binding binding, EndpointAddress address)
+    : base(binding, address)
+    {
+    }
+
+    public bool checkConnection()
+    {
+      return Channel.checkConnection();
+    }
+  
+    public List<Messenger.Common.Message>
+    getMessages(DateTime fromDate)
+    {
+      return Channel.getMessages(fromDate);
+    }
+
+    public void
+    sendMessage (Messenger.Common.Message msg)
+    {
+      Channel.sendMessage(msg);
+    }
+  }
+}
+
+//
+// client/MsgCallback.cs
+//
+using System;
+
+namespace Messenger.Client
+{
+  public delegate void gotNewMessageCallback();
+  public delegate void gotErrorCallback(String msg);
+}
+
+//
+// server/MsgServer.cs
+//
+using System;
+using System.ServiceModel;
+using System.Net.Sockets;
+using System.Collections.Generic;
+
+using Messenger.Service;
+using Messenger.Common;
+
+namespace Messenger.Server
+{
+  public class MsgService : IMsgService
+  {
+    MsgDB db = null;
+
+    public MsgService()
+    {
+      db = new MsgDB(MsgServer.dbPath);
+    }
+
+    public bool checkConnection()
+    {
+      return true;
+    }
+  
+    public List<Messenger.Common.Message>
+    getMessages(DateTime fromDate)
+    {
+      return db.selectMessages(fromDate);        
+    }
+
+    public void
+    sendMessage(Messenger.Common.Message msg)
+    {
+      db.insertMessage(msg);
+    }
+  }
+
+  public static class MsgServer
+  {
+    public static int port;
+    public static String dbPath;
+  
+    static int parsePort(string[] args)
+    {
+      int port = 8080;
+
+      if (args.Length > 0)
+        {
+          try
+            {
+              port = Convert.ToInt32(args[0]);
+            }
+          catch (FormatException)
+            {
+              port = 8080;
+            }
+          catch (OverflowException)
+            {
+              port = 8080;
+            }
+        }
+
+      // Port number should be in correct range
+      if ((port < 1024) || (port > 65535))
+        port = 8080;
+
+      return port;
+    }
+
+    static String parseDBPath(string[] args)
+    {
+      String dbPath = "messages.sqlite";
+      if (args.Length > 1)
+        {
+          dbPath = args[1];
+        }
+      return dbPath;
+    }
+  
+    public static void Main(string[] args)
+    {
+      int port = parsePort(args);
+      dbPath = parseDBPath(args);
+    
+      BasicHttpBinding binding = new BasicHttpBinding();
+      Uri address = new Uri ("http://localhost:" + port.ToString());
+
+      ServiceHost host = new ServiceHost(typeof(MsgService));
+
+      host.AddServiceEndpoint (typeof(IMsgService), binding, address);       
+
+      try
+        { 
+          host.Open();
+          Console.WriteLine ("Press <Enter> to stop...");
+          Console.ReadLine ();
+
+        }
+      catch (SocketException)
+        {
+          Console.WriteLine("Address already in use: " + address);            
+        }
+      finally
+        {
+          host.Close();            
+        }
+    }
+  }
+}
+
+//
+// server/MsgDB.cs
+//
+using System;
+using System.Collections.Generic;
+using Mono.Data.Sqlite;
+
+using Messenger.Common;
+
+namespace Messenger.Server
+{
+  public class MsgDB
+  {
+    SqliteConnection dbCon = null;
+  
+    public MsgDB(String dbPath)
+    {
+      dbCon = new SqliteConnection("URI=file:" + dbPath);
+    
+      try
+        {
+          dbCon.Open();
+
+          using (SqliteCommand dbCmd = new SqliteCommand(dbCon))
+            {            
+              dbCmd.CommandText = "DROP TABLE IF EXISTS Messages";
+              dbCmd.ExecuteNonQuery();
+
+              dbCmd.CommandText = "CREATE TABLE Messages " +
+                "(" +
+                "ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "Sender TEXT, Content TEXT, Timestamp DATETIME" +
+                ")";
+              dbCmd.ExecuteNonQuery();
+            }
+        }
+      catch (SqliteException ex)
+        {
+          Console.WriteLine(ex);
+        }
+      finally
+        {
+          dbCon.Close();  
+        }
+    }
+
+    public List<Message> selectMessages(DateTime fromDate)
+    {
+      List<Message> messages = new List<Message>();
+    
+      try
+        {           
+          dbCon.Open();
+
+          String queryString = "SELECT Sender, Content, Timestamp " +
+            "FROM Messages WHERE Timestamp >= @Timestamp";
+
+          using (SqliteCommand selectCmd =  new SqliteCommand(queryString, dbCon))
+            {            
+              selectCmd.Parameters.AddWithValue("@Timestamp", fromDate);
+            
+              using (SqliteDataReader rdr = selectCmd.ExecuteReader())
+                {
+                  while (rdr.Read())
+                    {
+                      messages.Add(new Message(rdr["Sender"].ToString(),
+                                               rdr["Content"].ToString(),
+                                               (DateTime) rdr["Timestamp"]));
+                    }
+                }
+            }
+        }
+      catch (SqliteException ex)
+        {
+          Console.WriteLine(ex);
+        }
+      finally
+        {        
+          dbCon.Close();
+        }
+
+      return messages;
+    }
+
+    public void insertMessage(Message msg)
+    {
+      try
+        {        
+          dbCon.Open();
+
+          String queryString = "INSERT INTO Messages " +
+            "(Sender, Content, Timestamp) " +
+            "VALUES (@Sender, @Content, @Timestamp)";
+
+          using (SqliteCommand insertCmd = new SqliteCommand(queryString, dbCon))
+            {            
+              insertCmd.Parameters.AddWithValue("@Sender", msg.Sender);
+              insertCmd.Parameters.AddWithValue("@Content", msg.Content);
+              insertCmd.Parameters.AddWithValue("@Timestamp", msg.Timestamp);
+        
+              insertCmd.ExecuteNonQuery();
+            }        
+        }
+      catch (SqliteException ex)
+        {
+          Console.WriteLine(ex);
+        }
+      finally
+        {
+          dbCon.Close();
+        }
+    }
+  }
+}

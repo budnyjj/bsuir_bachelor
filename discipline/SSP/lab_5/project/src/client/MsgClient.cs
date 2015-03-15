@@ -32,5 +32,4 @@ namespace Messenger.Client
       Channel.sendMessage(msg);
     }
   }
-
 }
