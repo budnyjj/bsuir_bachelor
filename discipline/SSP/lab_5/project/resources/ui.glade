@@ -183,6 +183,7 @@
                     <property name="visible">True</property>
                     <property name="sensitive">False</property>
                     <property name="can_focus">True</property>
+                    <property name="wrap_mode">word</property>
                   </widget>
                 </child>
               </widget>
@@ -207,6 +208,7 @@
                       <widget class="GtkTextView" id="messageTextView">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
+                        <property name="wrap_mode">word</property>
                       </widget>
                     </child>
                   </widget>
@@ -217,38 +219,13 @@
                   </packing>
                 </child>
                 <child>
-                  <widget class="GtkVButtonBox" id="vbuttonbox1">
+                  <widget class="GtkButton" id="sendButton">
+                    <property name="label" translatable="yes">Send</property>
+                    <property name="width_request">100</property>
                     <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <child>
-                      <widget class="GtkButton" id="refreshButton">
-                        <property name="label">gtk-refresh</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="receives_default">True</property>
-                        <property name="use_stock">True</property>
-                        <signal name="clicked" handler="onRefresh" swapped="no"/>
-                      </widget>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">False</property>
-                        <property name="position">0</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <widget class="GtkButton" id="sendButton">
-                        <property name="label" translatable="yes">Send</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="receives_default">True</property>
-                        <signal name="clicked" handler="onSend" swapped="no"/>
-                      </widget>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">False</property>
-                        <property name="position">1</property>
-                      </packing>
-                    </child>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                    <signal name="clicked" handler="onSend" swapped="no"/>
                   </widget>
                   <packing>
                     <property name="expand">False</property>

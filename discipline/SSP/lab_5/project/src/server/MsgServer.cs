@@ -1,5 +1,6 @@
 using System;
 using System.ServiceModel;
+using System.Net.Sockets;
 using System.Collections.Generic;
 
 public class MsgService : IMsgService
@@ -8,12 +9,12 @@ public class MsgService : IMsgService
 
   public MsgService()
   {
-    db = new MsgDB("messages.sqlite");
+    db = new MsgDB(MsgServer.dbPath);
   }
 
-  public List<Message> getAllMessages()
+  public bool checkConnection()
   {
-    return db.selectMessages(new DateTime(0));
+    return true;
   }
   
   public List<Message> getMessages(DateTime fromDate)
@@ -27,9 +28,12 @@ public class MsgService : IMsgService
   }
 }
 
-public class MsgServer
+public static class MsgServer
 {
-  static int ParsePort(string[] args)
+  public static int port;
+  public static String dbPath;
+  
+  static int parsePort(string[] args)
   {
     int port = 8080;
 
@@ -55,21 +59,43 @@ public class MsgServer
 
     return port;
   }
+
+  static String parseDBPath(string[] args)
+    {
+      String dbPath = "messages.sqlite";
+      if (args.Length > 1)
+        {
+          dbPath = args[1];
+        }
+      return dbPath;
+    }
   
   public static void Main(string[] args)
   {
-    int port = ParsePort(args);
+    int port = parsePort(args);
+    dbPath = parseDBPath(args);
     
     BasicHttpBinding binding = new BasicHttpBinding();
     Uri address = new Uri ("http://localhost:" + port.ToString());
 
-    ServiceHost host = new ServiceHost (typeof(MsgService));
-    host.AddServiceEndpoint (typeof(IMsgService), binding, address);
-    host.Open();
-    
-    Console.WriteLine ("Press <Enter> to stop...");
-    Console.ReadLine ();
+    ServiceHost host = new ServiceHost(typeof(MsgService));
 
-    host.Close();
+    host.AddServiceEndpoint (typeof(IMsgService), binding, address);       
+
+    try
+      { 
+        host.Open();
+        Console.WriteLine ("Press <Enter> to stop...");
+        Console.ReadLine ();
+
+      }
+    catch (SocketException)
+      {
+        Console.WriteLine("Address already in use: " + address);            
+      }
+    finally
+      {
+        host.Close();            
+      }
   }
 }
