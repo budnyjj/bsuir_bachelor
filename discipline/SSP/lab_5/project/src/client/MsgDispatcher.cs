@@ -52,23 +52,9 @@ namespace Messenger.Client
       while (true)
         {
           Thread.Sleep(curTTS);          
-          List <Message> newMessages = null;
+
+          List<Message> newMessages = getNewMessages();
           
-          try
-            {
-              newMessages = _client.getMessages(_lrTimestamp);
-              _lrTimestamp = DateTime.Now;
-            }
-          catch (EndpointNotFoundException)
-            {
-              Console.WriteLine("Cannot connect to server! " +
-                                "Please, check connection details");           
-            }
-          catch (FaultException)
-            {
-              continue; // Deal with Mono bug
-            }
-            
           if (newMessages != null)
             {
               if (newMessages.Count > 0)
@@ -90,6 +76,7 @@ namespace Messenger.Client
                     curTTS = maxTTS;
                 }                
             }
+          
           if (gotNewMessages == true)
             {
               lock (_newMessagesLock)
@@ -145,7 +132,7 @@ namespace Messenger.Client
             {
               Gtk.Application.Invoke(delegate
                 { _errorCallback("Cannot connect to server! " +
-                                 "Please, check connection details..."); });
+                                 "Please, check connection details"); });
               status = false;
               break;
             }
@@ -159,6 +146,7 @@ namespace Messenger.Client
     }    
 
     // Get new messages from server
+    // Return List of messages if success, null otherwise
     List<Message> getNewMessages()
     {
       List<Message> messages = null;
@@ -173,6 +161,12 @@ namespace Messenger.Client
                             "Please, check connection details");
           messages = null;
         }
+      catch (FaultException)
+        {
+          Console.WriteLine("Caught System.ServiceModel.FaultException");     
+          messages = null; // Deal with Mono bug
+        }
+
       return messages; 
     }    
   }

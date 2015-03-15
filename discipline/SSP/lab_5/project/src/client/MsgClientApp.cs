@@ -68,7 +68,7 @@ namespace Messenger.Client
       if (uri.StartsWith("http://") == false)
           {
             showErrorDialog("URI Format is incorrect! " +
-                            "Please, check connection details...");
+                            "Please, check connection details");
             return;
           }
 
@@ -80,7 +80,7 @@ namespace Messenger.Client
       catch (UriFormatException)
         {
           showErrorDialog("URI Format is incorrect! " +
-                          "Please, check connection details...");
+                          "Please, check connection details");
           return;
         }
       
@@ -99,7 +99,7 @@ namespace Messenger.Client
       if (_dispatcher.checkConnection() == false)
         {
           showErrorDialog("Cannot connect to server! " +
-                          "Please, check connection details...");
+                          "Please, check connection details");
           return;
         }
 
@@ -116,7 +116,6 @@ namespace Messenger.Client
       _checkNewMessagesThread =
         new Thread(new ThreadStart(_dispatcher.periodicalCheckNewMessages));
       _checkNewMessagesThread.Start();
-
     }
 
     public void onDisconnect(object obj, EventArgs args)
