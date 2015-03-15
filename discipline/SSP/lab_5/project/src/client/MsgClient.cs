@@ -3,7 +3,10 @@ using System.ServiceModel;
 using System.ServiceModel.Channels;
 using System.Collections.Generic;
 
-namespace Msg
+using Messenger.Common;
+using Messenger.Service;
+
+namespace Messenger.Client
 {
   public class MsgClient : ClientBase<IMsgService>, IMsgService
   {
@@ -17,12 +20,14 @@ namespace Msg
       return Channel.checkConnection();
     }
   
-    public List<Message> getMessages(DateTime fromDate)
+    public List<Messenger.Common.Message>
+    getMessages(DateTime fromDate)
     {
       return Channel.getMessages(fromDate);
     }
 
-    public void sendMessage (Message msg)
+    public void
+    sendMessage (Messenger.Common.Message msg)
     {
       Channel.sendMessage(msg);
     }

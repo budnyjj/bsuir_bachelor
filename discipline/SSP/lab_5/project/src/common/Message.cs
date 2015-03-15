@@ -1,29 +1,32 @@
 using System;
 
-public class Message
-{
-  public String Sender
+namespace Messenger.Common
+{  
+  public class Message
   {
-    get;
-    set;
-  }
+    public String Sender
+    {
+      get;
+      set;
+    }
 
-  public String Content
-  {
-    get;
-    set;
-  }
+    public String Content
+    {
+      get;
+      set;
+    }
   
-  public DateTime Timestamp
-  {
-    get;
-    set;
-  }
+    public DateTime Timestamp
+    {
+      get;
+      set;
+    }
   
-  public Message(String Sender, String Content, DateTime Timestamp)
-  {
-    this.Sender = Sender;
-    this.Content = Content;
-    this.Timestamp = Timestamp;
+    public Message(String Sender, String Content, DateTime Timestamp)
+    {
+      this.Sender = Sender;
+      this.Content = Content;
+      this.Timestamp = Timestamp;
+    }
   }
 }

@@ -1,4 +1,4 @@
-CLIENT_SRCS=src/client/MsgClientApp.cs src/client/MsgClient.cs src/client/MsgChecker.cs src/client/MsgCallback.cs src/service/IMsgService.cs src/common/Message.cs
+CLIENT_SRCS=src/client/MsgClientApp.cs src/client/MsgClient.cs src/client/MsgDispatcher.cs src/client/MsgCallback.cs src/service/IMsgService.cs src/common/Message.cs
 SERVER_SRCS=src/server/MsgServer.cs src/server/MsgDB.cs src/common/Message.cs src/service/IMsgService.cs
 TEST_SRCS=tests/MsgDBTest.cs src/server/MsgDB.cs src/common/Message.cs
 

@@ -6,7 +6,9 @@ using System.Threading;
 using Gtk;
 using Glade;
 
-namespace Msg
+using Messenger.Common;
+
+namespace Messenger.Client
 {
   public class MsgClientApp
   {
@@ -36,14 +38,13 @@ namespace Msg
 
     String _username = "";
   
-    MsgClient _client = null;
-  
-    MsgChecker _checker = null;
-    object _checkerLock = new object();
-    Thread _checkerThread = null;
+    MsgDispatcher _dispatcher = null;
+   
+    Thread _checkNewMessagesThread = null;
 
     List<Message> _newMessages = new List<Message>();
-  
+    object _newMessagesLock = new object();
+    
     public MsgClientApp(string[] args)
     {
       Application.Init();
@@ -90,9 +91,12 @@ namespace Msg
           return;        
         }
 
-      _client = new MsgClient(new BasicHttpBinding(), ea);          
+      _dispatcher =
+        new MsgDispatcher(ea, _newMessages, _newMessagesLock,
+                          new gotNewMessageCallback(appendMessagesToConversation),
+                          new gotErrorCallback(showErrorDialog));
 
-      if (checkConnection() == false)
+      if (_dispatcher.checkConnection() == false)
         {
           showErrorDialog("Cannot connect to server! " +
                           "Please, check connection details...");
@@ -108,29 +112,16 @@ namespace Msg
       sendButton.Sensitive = true;
 
       conversationTextView.Buffer.Text = "";      
-    
-      _checker =
-        new MsgChecker(_client, _newMessages, _checkerLock,
-                       new gotNewMessagesCallback(appendMessagesToConversation));
-      _checkerThread =
-        new Thread(new ThreadStart(_checker.periodicalCheckNewMessages));
-      _checkerThread.Start();
+
+      _checkNewMessagesThread =
+        new Thread(new ThreadStart(_dispatcher.periodicalCheckNewMessages));
+      _checkNewMessagesThread.Start();
+
     }
 
     public void onDisconnect(object obj, EventArgs args)
     {
-      // Need to pause/stop message checker
-      _checkerThread.Abort();
-      _checker = null;
-      _client = null;
-    
-      connectButton.Sensitive = true;
-      disconnectButton.Sensitive = false;
-
-      serverUriEntry.Sensitive = true;
-      usernameEntry.Sensitive = true;
-    
-      sendButton.Sensitive = false;
+      disconnectFromServer();
     }
 
     public void onSend(object obj, EventArgs args)
@@ -140,19 +131,38 @@ namespace Msg
         return;
     
       Message msg = new Message(_username, content, DateTime.Now);
-      if (sendMessage(msg) == true)
+
+      if (_dispatcher.sendMessage(msg) == true)
         messageTextView.Buffer.Text = "";
+      else // cannot connect to server
+        {
+          disconnectFromServer();
+        }
     }
   
     public void onWindowDestroy(object obj, EventArgs args)
     {
-      // Need to pause/stop message checker
-      _checkerThread.Abort();
-      _checker = null;
-      _client = null;
+      if (_dispatcher != null)
+        disconnectFromServer();
+      
       Application.Quit();
     }
 
+    void disconnectFromServer()
+    {
+      // Need to pause/stop message checker
+      _checkNewMessagesThread.Abort();
+      _dispatcher = null;
+    
+      connectButton.Sensitive = true;
+      disconnectButton.Sensitive = false;
+
+      serverUriEntry.Sensitive = true;
+      usernameEntry.Sensitive = true;
+    
+      sendButton.Sensitive = false;
+    }
+    
     void showErrorDialog(String errorMessage)
     {
       MessageDialog md = new MessageDialog(mainWindow,
@@ -164,70 +174,10 @@ namespace Msg
       md.Destroy();
     }
 
-    // Check connection to server
-    bool checkConnection()
-    {
-      bool status = false;
-      lock (_checkerLock)
-        {          
-          while (true)
-            {
-              try
-                {
-                  status = _client.checkConnection(); // status = true
-                  break;
-                }
-              catch (EndpointNotFoundException)
-                {
-                  status = false;
-                  break;
-                }
-              catch (FaultException)
-                {
-                  Console.WriteLine("Caught System.ServiceModel.FaultException");
-                  continue; // Deal with Mono bug
-                }
-            }
-        }
-      return status;
-    }
-  
-    // Send message to server
-    // Return true if success, false otherwise
-    bool sendMessage(Message msg)
-    {
-      bool status = false;
-      lock(_checkerLock)
-        {
-          while (true)
-            {            
-              try
-                {
-                  _client.sendMessage(msg);
-                  status = true;
-                  break;
-                }
-              catch (EndpointNotFoundException)
-                {
-                  showErrorDialog("Cannot connect to server! " +
-                                  "Please, check connection details...");
-                  status = false;
-                  break;
-                }
-              catch (FaultException)
-                {
-                  Console.WriteLine("Caught System.ServiceModel.FaultException");
-                  continue; // Deal with Mono bug
-                }
-            }
-        }
-      return status;
-    }
-
     void appendMessagesToConversation()
     {
       String fmtMessages = "";
-      lock (_checkerLock)
+      lock (_newMessagesLock)
         {       
           foreach (Message msg in _newMessages)
             {

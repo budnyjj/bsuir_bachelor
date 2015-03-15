@@ -2,18 +2,23 @@ using System;
 using System.ServiceModel;
 using System.Collections.Generic;
 
-[ServiceContract]
-public interface IMsgService
-{
-  [FaultContract(typeof(FaultException))]
-  [OperationContract]
-  bool checkConnection();
+using Messenger.Common;
 
-  [FaultContract(typeof(FaultException))]
-  [OperationContract]
-  List<Message> getMessages(DateTime fromDate);
+namespace Messenger.Service
+{ 
+  [ServiceContract]
+  public interface IMsgService
+  {
+    [FaultContract(typeof(FaultException))]
+    [OperationContract]
+    bool checkConnection();
 
-  [FaultContract(typeof(FaultException))]
-  [OperationContract]
-  void sendMessage(Message msg);
+    [FaultContract(typeof(FaultException))]
+    [OperationContract]
+    List<Message> getMessages(DateTime fromDate);
+
+    [FaultContract(typeof(FaultException))]
+    [OperationContract]
+    void sendMessage(Message msg);
+  }    
 }
