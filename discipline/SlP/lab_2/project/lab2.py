@@ -36,7 +36,7 @@ def gen_values(values, event_probs, n):
 
 p=[0, 0.3, 0.7]
 x=[-1, 0, 1]
-n = 1000
+n = 10
 
 events = []
 values = []
@@ -46,7 +46,7 @@ for event in gen_events(p, n):
 
 print("Task #1")
 print("=======")    
-# print("Events: ", events)
+print("Events: ", events)
 print("Avg events:", avg(events))
 print("Disp events:", disp(events))
     
@@ -56,6 +56,6 @@ for value in gen_values(x, p, n):
 print()
 print("Task #2")
 print("=======")   
-# print("Values: ", values)
+print("Values: ", values)
 print("Avg values:", avg(values))
 print("Disp values:", disp(values))
