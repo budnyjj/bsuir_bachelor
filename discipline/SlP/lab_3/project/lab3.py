@@ -23,7 +23,7 @@ def event_idx(sum_event_probs, val):
 
 def gen_events(event_probs, n):
     sum_ps = event_probs[:]
-    
+
     for i in range(1, len(sum_ps)):
         sum_ps[i] = sum_ps[i-1] + sum_ps[i]
 
@@ -41,12 +41,12 @@ def gen_event(event_probs):
 def gen_chain(values, hop_probs, start_event_probs, chain_length):
     start_event = gen_event(start_event_probs)
     chain_events = [start_event]
-    
+
     for i in range(1, chain_length):
         cur_event = gen_event(hop_probs[chain_events[i-1]])
         chain_events.append(cur_event)
     return chain_events
-        
+
 def events_to_values(events, values):
     res = []
     for event in events:
@@ -58,11 +58,11 @@ def gen_values(values, event_probs, n):
         yield values[event]
 
 
-a=[0.3, 0.7, 0]
+a = [0.3, 0.7, 0]
 p = [[0.6, 0,   0.4],
      [0.4, 0.6, 0],
      [0.4, 0.2, 0.4]]
-x=[5, 6, 7]
+x = [5, 6, 7]
 n = 30
 
 idx_chain = [i for i in range(1, n+1)]
