@@ -3,6 +3,9 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 
+using Messenger.Server;
+using Messenger.Common;
+
 [TestFixture]
 public class MsgDBTest : Assert
 {
