@@ -2,7 +2,7 @@ apply from: 'javafx.plugin'
 
 repositories {
     flatDir {
-        dirs '/home/budnyjj/dev/java/lib'
+        dirs '/home/budnyjj/dev/by_lang/java/lib'
     }
 }
 
