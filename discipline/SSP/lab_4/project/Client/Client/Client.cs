@@ -26,9 +26,9 @@ namespace Client
             byte[] bytes = null;
             IPAddress ipAddress = new IPAddress(new byte[] { 127, 0, 0, 1 });
             IPEndPoint remoteEndPoint = new IPEndPoint(ipAddress, 50001);
-            
+
             try
-            { 
+            {
                 while (true) {
                     using (Socket sender = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp))
                     {
@@ -121,7 +121,7 @@ namespace Client
 
         public static bool parseResponse(string responseString)
         {
-            bool isSussess = false;
+            bool isSuccess = false;
 
             XElement responseElement = XElement.Parse(responseString);
             string rootName = responseElement.AncestorsAndSelf().First().Name.ToString();
@@ -130,7 +130,7 @@ namespace Client
                 string attribute = responseElement.Attribute("req").Value;
                 if (attribute.Equals("getAvailableIDs"))
                 {
-                    isSussess = true;
+                    isSuccess = true;
                     if (availableIDs != null)
                     {
                         availableIDs.Clear();
@@ -139,7 +139,7 @@ namespace Client
                     {
                         availableIDs = new List<int>();
                     }
-                    
+
                     foreach (XElement element in responseElement.Nodes())
                     {
                         availableIDs.Add(Convert.ToInt32(element.Value));
@@ -158,7 +158,7 @@ namespace Client
                                 if (student != null)
                                 {
                                     Console.WriteLine(student.ToString());
-                                    isSussess = true;
+                                    isSuccess = true;
                                 }
                             }
 
@@ -184,14 +184,14 @@ namespace Client
                             }
                         }
                     }
-                    if (!isSussess)
+                    if (!isSuccess)
                     {
                         Console.WriteLine("### ERROR ###: Невозможно распознать ответ сервера");
                     }
                 }
             }
 
-            return isSussess;
+            return isSuccess;
         }
 
         public static string generateRequestByLastName(string lastName)
