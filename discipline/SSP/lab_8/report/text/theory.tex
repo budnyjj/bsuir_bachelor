@@ -1,0 +1,47 @@
+\section{ТЕОРЕТИЧЕСКИЕ СВЕДЕНИЯ}
+\label{sec:theory}
+
+Для валидации XML-документов в C\# и Mono используется классы
+XMLReader и XMLReaderSettings. 
+Для того, чтобы произвести валидацию документа, необходимо 
+передать в конструктор объекта класса XMLReader предварительно настроенный
+экземпляр класса XMLReaderSettings, как показано на рисунке~\ref{lst:validator}.
+
+\begin{lstlisting}[caption=Класс-валидатор XML-документов, 
+label=lst:validator,language={Java},basicstyle=\scriptsize\ttfamily]
+using System;
+using System.Xml;
+using System.Xml.Schema;
+
+public class XMLValidator
+{ 
+  void validationEventHandler(object sender, ValidationEventArgs e)
+  {
+    if (e.Severity == XmlSeverityType.Warning)
+    {
+      // XML warning handler 
+    }
+    else if (e.Severity == XmlSeverityType.Error)
+    {
+      // XML error handler
+    }
+  }  
+  
+  public void Validate(String XMLFilePath, String schemaFilePath)
+  {
+    XmlReaderSettings xmlSettings = new XmlReaderSettings();
+
+    xmlSettings.Schemas.Add(null, schemaFilePath);
+
+    xmlSettings.ValidationType = ValidationType.Schema;
+    xmlSettings.ValidationEventHandler +=
+    new ValidationEventHandler(validationEventHandler);
+
+    validationResult = "";
+
+    XmlReader rdr = XmlReader.Create(XMLFilePath, xmlSettings);
+
+    while (rdr.Read()) { }
+  }
+}
+\end{lstlisting}

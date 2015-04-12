@@ -1,0 +1,164 @@
+//
+// XMLValidatorApp.cs
+//
+
+using System;
+using System.IO;
+using Gtk;
+using Glade;
+
+// Controller class
+public class XMLValidatorApp
+{
+  [Widget]
+  Gtk.Window mainWindow;
+
+  [Widget]
+  Entry XMLFileEntry;
+  
+  [Widget]
+  Entry schemaFileEntry;
+  
+  [Widget]
+  TextView validationResultTextView;
+
+  [Widget]
+  Button openSchemaButton;
+
+  [Widget]
+  Button validateButton;
+  
+  String XMLFilePath = "";
+  String schemaFilePath = "";
+
+  XMLValidator validator = new XMLValidator();
+  
+  public static void Main(string[] args)
+  {
+    new XMLValidatorApp(args);
+  }
+  
+  public XMLValidatorApp(string[] args)
+  {
+    Application.Init();
+    
+    Glade.XML gxml = new Glade.XML(null, "ui.glade", "mainWindow", null);
+    gxml.Autoconnect(this);
+
+    Application.Run();
+  }
+
+  public void selectXMLFile(object obj, EventArgs args)
+  {
+    Gtk.FileChooserDialog fc =
+      new Gtk.FileChooserDialog("Choose XML file",
+                                mainWindow,
+                                FileChooserAction.Open,
+                                "Cancel", ResponseType.Cancel,
+                                "Open", ResponseType.Accept);
+
+    fc.Filter = new FileFilter();
+    fc.Filter.AddPattern("*.xml");
+
+    if (fc.Run() == (int) ResponseType.Accept)
+      {
+        XMLFilePath = fc.Filename;
+        XMLFileEntry.Text = XMLFilePath;
+        openSchemaButton.Sensitive = true;
+      }
+    fc.Destroy();
+  }
+
+  public void selectSchemaFile(object obj, EventArgs args)
+  {
+    Gtk.FileChooserDialog fc =
+      new Gtk.FileChooserDialog("Choose XML schema file",
+                                mainWindow,
+                                FileChooserAction.Open,
+                                "Cancel", ResponseType.Cancel,
+                                "Open", ResponseType.Accept);
+
+    fc.Filter = new FileFilter();
+    fc.Filter.AddPattern("*.xsd");
+
+    if (fc.Run() == (int) ResponseType.Accept)
+      {
+        schemaFilePath = fc.Filename;
+        schemaFileEntry.Text = schemaFilePath;
+        validateButton.Sensitive = true;
+      }
+    fc.Destroy();
+  }
+
+  public void validateXML(object obj, EventArgs args)
+  {
+    string validationResult =
+      validator.Validate(XMLFilePath, schemaFilePath);
+    validationResultTextView.Buffer.Text = validationResult;
+  }
+  
+  public void onWindowDestroy(object obj, EventArgs args)
+  {
+    Application.Quit();
+  }
+}
+
+//
+// XMLValidator.cs
+//
+
+using System;
+using System.Xml;
+using System.Xml.Schema;
+
+public class XMLValidator
+{
+  string validationResult = "";
+  
+  void validationEventHandler(object sender, ValidationEventArgs e)
+  {
+    if (e.Severity == XmlSeverityType.Warning)
+      {
+        validationResult += "WARNING: " + e.Message + "\n\n" ;
+      }
+    else if (e.Severity == XmlSeverityType.Error)
+      {
+        validationResult += "ERROR: " + e.Message + "\n\n";
+      }
+  }  
+  
+  public string Validate(String XMLFilePath, String schemaFilePath)
+  {
+    XmlReaderSettings xmlSettings = new XmlReaderSettings();
+
+    try
+      {   
+        xmlSettings.Schemas.Add(null, schemaFilePath);
+      }
+    catch (XmlException e)
+      {
+        return "ERROR: Incorrect XML schema file.\n\n" +
+               "Stack trace: " + e.ToString();
+      }
+
+    xmlSettings.ValidationType = ValidationType.Schema;
+    xmlSettings.ValidationEventHandler +=
+      new ValidationEventHandler(validationEventHandler);
+
+    validationResult = "";
+
+    XmlReader rdr = XmlReader.Create(XMLFilePath, xmlSettings);
+
+    try
+      {   
+        while (rdr.Read()) { }
+      }
+    catch (XmlException e)
+      {
+        return "ERROR: Incorrect XML file.\n\n" +
+               "Stack trace: " + e.ToString();
+      }
+    
+    return validationResult;
+  }
+}
