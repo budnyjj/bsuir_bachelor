@@ -16,7 +16,7 @@ def event_idx(sum_event_probs, val):
 
 def _gen_event(event_probs, eps_prob=0.00001):
     sum_ps = event_probs[:]
-    
+
     for i in range(1, len(sum_ps)):
         sum_ps[i] = sum_ps[i-1] + sum_ps[i]
 
@@ -42,12 +42,12 @@ def _puasson_probs(t, lambd, eps_prob=0.00001):
 
         probs.append(cur_prob)
         delta_prob -= cur_prob
-        
+
         k += 1
         k_fact *= k
 
     probs.append(delta_prob)
-    
+
     return probs
 
 
@@ -62,11 +62,11 @@ def puasson_1(a, b, lambd):
         sum_t += dt
 
     for i in range(1, len(t)):
-        t[i] += t[i-1]   
+        t[i] += t[i-1]
 
     if t[-1] > b:
         del t[-1]
-        
+
     return t
 
 def puasson_2(a, b, lambd):
@@ -99,6 +99,20 @@ puasson_values_2 = puasson_2(a, b, lambd)
 delta_puasson_values_1 = to_delta(puasson_values_1)
 delta_puasson_values_2 = to_delta(puasson_values_2)
 
+puasson_delta_1 = np.linspace(min(delta_puasson_values_1),
+                              max(delta_puasson_values_1),
+                              NUM_BINS)
+puasson_density_1 = np.exp(-puasson_delta_1*lambd)*lambd
+
+puasson_delta_2 = np.linspace(min(delta_puasson_values_2),
+                              max(delta_puasson_values_2),
+                              NUM_BINS)
+puasson_density_2 = np.exp(-puasson_delta_2*lambd)*lambd
+
+
+# print(etalon_delta)
+# print(etalon_delta_puasson)
+
 plt.figure(0)
 plt.grid(True)
 plt.axis([a, b, 0.5, 2.5])
@@ -112,16 +126,18 @@ plt.savefig("times.png", dpi=200)
 plt.figure(1)
 plt.grid(True)
 plt.xlabel('$ \\Delta t $')
-plt.ylabel('$ p $')
 plt.hist(delta_puasson_values_1, NUM_BINS, normed=True)
+plt.plot(puasson_delta_1, puasson_density_1, color="red",
+         marker='x', linestyle='-', linewidth=3, markersize=7)
 plt.axis([0, max(delta_puasson_values_1), 0, 6])
 plt.savefig("hist_1.png", dpi=200)
 
 plt.figure(2)
 plt.grid(True)
 plt.xlabel('$ \\Delta t $')
-plt.ylabel('$ p $')
 plt.hist(delta_puasson_values_2, NUM_BINS, normed=True)
+plt.plot(puasson_delta_2, puasson_density_2, color="red",
+         marker='x', linestyle='-', linewidth=3, markersize=5)
 plt.axis([0, max(delta_puasson_values_2), 0, 6])
 plt.savefig("hist_2.png", dpi=200)
 
