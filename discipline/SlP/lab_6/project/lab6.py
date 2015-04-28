@@ -9,6 +9,12 @@ import matplotlib.pyplot as plt
 plt.rc('text', usetex=True)
 plt.rc('font', family='serif')
 
+def avg(vals):
+    res = 0
+    for val in vals:
+        res += val
+    return res / len(vals)
+
 def event_idx(sum_event_probs, val):
     for i, prob in enumerate(sum_event_probs):
         if val < prob:
@@ -99,6 +105,9 @@ puasson_values_2 = puasson_2(a, b, lambd)
 delta_puasson_values_1 = to_delta(puasson_values_1)
 delta_puasson_values_2 = to_delta(puasson_values_2)
 
+print("Lambda estimate 1:", 1/avg(delta_puasson_values_1))
+print("Lambda estimate 2:", 1/avg(delta_puasson_values_2))
+
 puasson_delta_1 = np.linspace(min(delta_puasson_values_1),
                               max(delta_puasson_values_1),
                               NUM_BINS)
@@ -108,10 +117,6 @@ puasson_delta_2 = np.linspace(min(delta_puasson_values_2),
                               max(delta_puasson_values_2),
                               NUM_BINS)
 puasson_density_2 = np.exp(-puasson_delta_2*lambd)*lambd
-
-
-# print(etalon_delta)
-# print(etalon_delta_puasson)
 
 plt.figure(0)
 plt.grid(True)
