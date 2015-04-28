@@ -1,0 +1,24 @@
+\documentclass[a4paper,hidelinks,14pt]{extarticle}
+
+\input{sys/packages}      % Подключаемые пакеты
+\input{sys/styles}	      % Пользовательские стили
+                       
+\begin{document}          
+\input{sys/names}	      % Переопределение именований
+                          
+\input{text/title}	      % Титульный лист
+
+\input{text/contents}     % Содержание
+\input{text/intro}        % Введение
+\input{text/choice}       % Обоснование типа производства и вида поточной линии
+\input{text/kpn}          % Расчет календарно-плановых нормативов и
+                          % построение стандарт-плана
+
+% \input{text/realization}  % Описание реализации
+% \input{text/user_manual}  % Руководство пользователя
+% \input{text/conclusion}   % Заключение
+% \input{text/bibliography} % Список использованных источников
+\input{text/appendix_a}   % Стандарт-план работы участка
+% \input{text/appendix_b}   % Приложение Б
+
+\end{document}
