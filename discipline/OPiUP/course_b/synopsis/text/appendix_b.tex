@@ -1,9 +1,17 @@
-\section*{ПРИЛОЖЕНИЕ Б \\
-  (справочное) \\ 
-  Файл сборки программного продукта}
-\addcontentsline{toc}{section}{Приложение Б (справочное) 
-  Файл сборки программного продукта}
+\renewcommand{\thefigure}{\Asbuk{section}.\arabic{figure}}
+\renewcommand{\thetable}{\Asbuk{section}.\arabic{table}}
+\renewcommand{\thelstlisting}{\Asbuk{section}.\arabic{lstlisting}}
 
+% \newgeometry{left=1cm,right=1cm,top=1cm,bottom=1cm}
+\begin{landscape}
+\section*{
+  ПРИЛОЖЕНИЕ Б \\ 
+  (обязательное) \\ 
+  Планировка участка
+}
+\addcontentsline{toc}{section}{
+  Приложение Б (обязательное) Планировка участка
+}
 \label{sec:appendix_b}
 
 \pagestyle{fancy}
@@ -18,14 +26,17 @@
 
 \thispagestyle{plain}
 
-\setcounter{section}{2}
+\setcounter{section}{1}
 \setcounter{figure}{0}
 \setcounter{table}{0}
 \setcounter{lstlisting}{0}
 
-\lstinputlisting[basicstyle=\scriptsize\ttfamily,
-                 numberstyle=\scriptsize\ttfamily,
-                 xleftmargin=7mm,
-                 language=make
-                 % caption=Файл сборки программного продукта
-                 ]{code/makefile.txt}
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=180mm]{pic/plan.png}
+\end{figure}
+
+
+
+\end{landscape}
+% \restoregeometry
