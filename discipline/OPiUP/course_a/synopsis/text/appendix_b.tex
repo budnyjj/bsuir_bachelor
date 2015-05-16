@@ -1,8 +1,8 @@
 \section*{ПРИЛОЖЕНИЕ Б \\
-  (справочное) \\ 
-  Файл сборки программного продукта}
-\addcontentsline{toc}{section}{Приложение Б (справочное) 
-  Файл сборки программного продукта}
+  (обязательное) \\
+  Планировка производственного участка}
+\addcontentsline{toc}{section}{Приложение Б (обязательное)
+  Планировка производственного участка}
 
 \label{sec:appendix_b}
 
@@ -11,6 +11,13 @@
 \fancyfoot[R]{\thepage}
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
+
+\label{sec:appendix_a}
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.7\linewidth]{pic/plan}
+  \label{pic:plan}
+\end{figure}
 
 \setlength{\headheight}{10mm}
 \setlength{\headsep}{\baselineskip}
@@ -22,10 +29,3 @@
 \setcounter{figure}{0}
 \setcounter{table}{0}
 \setcounter{lstlisting}{0}
-
-\lstinputlisting[basicstyle=\scriptsize\ttfamily,
-                 numberstyle=\scriptsize\ttfamily,
-                 xleftmargin=7mm,
-                 language=make
-                 % caption=Файл сборки программного продукта
-                 ]{code/makefile.txt}
