@@ -1,0 +1,73 @@
+\section{ХОД РАБОТЫ}
+\subsection{Индивидуальное задание}
+
+Требуется написать скрипт на языке Power Shell, демонстрирующий работу
+командлетов~\texttt{ConvertTo-SecureString}~и~\texttt{Get-Credential}.
+
+
+\subsection{Теоретические сведения}
+
+Истоки создания PowerShell (первоначальное название Monad) связаны с
+доработкой WMIC для обеспечения доступа из командной строки к любым классам
+платформы .NET Framework. Windows PS является и оболочкой командной строки
+и средой выполнения сценариев.
+Язык сценариев PS поддерживает управление объектами .NET,
+обладает совместимостью с языками, используемыми при программировании
+для .NET и имеет синтаксическое сходство с C\# (язык PS по существу
+представляет собой упрощённый C\#); это обусловлено тем, что  оболочка PS
+основана на .NET Framework.
+
+Windows  PS принципиально  отличается от других оболочек тем,
+что PS обрабатывает не текст, а объекты платформы .NET.
+Windows  PowerShell содержит встроенные команды (командлеты; cmdlets),
+которые имеют унифицированный интерфейс и обрабатываются одним
+синтаксическим анализатором.
+
+Командлет представляет собой команду, выполняющую одну единственную функцию.
+Версия 1.0 Windows PowerShell была выпущена в 2006 г.
+Она доступна для Windows XP SP2/SP3, Windows Server 2003, Windows Vista,
+и встроена в Windows Server 2008. Версия 2.0 Windows PowerShell является
+компонентом Windows 7 и Windows Server 2008 R2.
+Версия 2.0 PS доступна для Windows XP SP3, Windows Server 2003 SP2,
+Windows Vista SP1 и Windows Server 2008.
+
+\pagebreak
+
+Синтаксис командлета \texttt{ConvertTo-SecureString} представлен на
+рисунке~\ref{lst:convertto_secure_string}.
+\begin{lstlisting}[caption={Синтаксис командлета \texttt{ConvertTo-SecureString}},
+label=lst:convertto_secure_string,basicstyle=\scriptsize\ttfamily]
+ Parameter Set: Secure
+ ConvertTo-SecureString [-String] <String> [[-SecureKey] <SecureString> ] [ <CommonParameters>]
+
+ Parameter Set: Open
+ ConvertTo-SecureString [-String] <String> [-Key <Byte[]> ] [ <CommonParameters>]
+
+ Parameter Set: PlainText
+ ConvertTo-SecureString [-String] <String> [[-AsPlainText]] [[-Force]] [ <CommonParameters>]
+\end{lstlisting}
+
+Синтаксис командлета \texttt{Get-Credential} представлен на
+рисунке~\ref{lst:get_credential}.
+\begin{lstlisting}[caption={Синтаксис командлета \texttt{Get-Credential}},
+label=lst:get_credential,basicstyle=\scriptsize\ttfamily]
+ Parameter Set: CredentialSet
+ Get-Credential [-Credential] <PSCredential> [ <CommonParameters>]
+
+ Parameter Set: MessageSet
+ Get-Credential [[-UserName] <String> ] -Message <String> [ <CommonParameters>]
+\end{lstlisting}
+
+\subsection{Ход работы}
+
+Создадим объект учётной записи (Credential object), при этом используем
+стандартное шифрование для поля password. Используемые команды
+продемонстрированы на рисунке~\ref{lst:results}.
+\begin{lstlisting}[caption={Пример совместного использования командлетов \texttt{Get-Credential}
+ и \texttt{ConvertTo-SecureString}},
+label=lst:results]
+ PS C:\> $User = "Domain01\User01"
+ PS C:\> $PWord = ConvertTo-SecureString -String "P@sSwOrd" -AsPlainText -Force
+ PS C:\> $Credential = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $User, $PWord
+\end{lstlisting}
+
