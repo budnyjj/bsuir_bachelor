@@ -1,21 +1,31 @@
 \documentclass[a4paper,hidelinks,14pt]{extarticle}
 
-\input{sys/packages}      % Подключаемые пакеты
-\input{sys/styles}	      % Пользовательские стили
+\input{sys/packages}       % Подключаемые пакеты
+\input{sys/styles}         % Пользовательские стили
 
 \begin{document}
-\input{sys/names}	      % Переопределение именований
+\input{sys/names}          % Переопределение именований
 
-\input{text/title}	      % Титульный лист
-\input{text/contents}     % Содержание
-\input{text/intro}        % Введение
-\input{text/choice}       % Обоснование типа производства и вида поточной линии
-%\input{text/kpn}          % Расчет календарно-плановых нормативов и
-                          % построение стандарт-плана
-
-\input{text/conclusion}   % Заключение
-% \input{text/bibliography} % Список использованных источников
-\input{text/appendix_a}   % Стандарт-план работы участка
-% \input{text/appendix_b}   % Приложение Б
+\input{text/title}         % Титульный лист
+\input{text/contents}      % Содержание
+\input{text/intro}         % Введение
+\input{text/choice}        % Обоснование типа производства и вида поточной линии
+\input{text/kpn}           % Расчет календарно-плановых нормативов и
+                             %  построение стандарт-плана
+\input{text/placement}     % Расчет производственной площади и планирование участка
+\input{text/power}         % Расчет мощности, потребляемой оборудованием и
+                             % транспортными средствами
+\input{text/amortization}  % Расчет стоимости и амортизации
+                             % основных производственных фондов
+\input{text/number}        % Расчет численности промышленно-производственного
+                             % персонала (ППП)
+\input{text/cost}          % Расчет себестоимости и цены единицы продукции
+                             % с учетом косвенных налогов
+\input{text/tep}           % Расчет технико-экономических показателей
+                             % работы участка
+\input{text/conclusion}    % Заключение
+\input{text/bibliography}  % Список использованных источников
+\input{text/appendix_a}    % Стандарт-план работы участка
+\input{text/appendix_b}    % Планировка производственного участка
 
 \end{document}
