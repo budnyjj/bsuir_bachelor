@@ -1,3 +1,5 @@
+#!/usr/bin/gprolog --consult-file
+
 square(0, 0, Ret) :-
     Ret is 0.
 

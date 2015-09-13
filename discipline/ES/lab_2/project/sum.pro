@@ -1,7 +1,4 @@
-%% It works
-%% sum(A, B) :-
-%%   C is A + B,
-%%   format("Sum of ~w and ~w is ~w~N", [A,B,C]).
+#!/usr/bin/gprolog --consult-file
 
 sum(0, 0, Ret) :-
     Ret is 0.

@@ -1,3 +1,5 @@
+#!/usr/bin/gprolog --consult-file
+
 min(0,B,C,Acc,Ret) :-
   Ret is Acc.
 
