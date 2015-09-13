@@ -60,6 +60,7 @@ public class ValidatorApp {
 
     public static void DecryptFile(string srcFilename, string dstFilename, string key) {
         FileStream srcFStream = new FileStream(srcFilename, FileMode.Open, FileAccess.Read);
+        FileStream dstFStream = new FileStream(dstFilename, FileMode.Create, FileAccess.Write);
 
         DESCryptoServiceProvider DES = new DESCryptoServiceProvider();
         DES.Key = ASCIIEncoding.ASCII.GetBytes(key);
@@ -70,19 +71,18 @@ public class ValidatorApp {
                              DES.CreateDecryptor(),
                              CryptoStreamMode.Read);
 
-        StreamWriter dstStreamWriter = new StreamWriter(dstFilename);
-
+        StreamWriter dstStreamWriter = new StreamWriter(dstFStream);
+        
         try {
             dstStreamWriter.Write(new StreamReader(cStream).ReadToEnd());
+            dstStreamWriter.Flush();       
         } catch (CryptographicException) {
             Console.WriteLine("The entered key is not the correct one. Exit.");
-            return;
+        } finally {
+            srcFStream.Close();
+            dstStreamWriter.Close();
+            dstFStream.Close();
         }
-        
-        dstStreamWriter.Flush();
-
-        srcFStream.Close();
-        dstStreamWriter.Close();
     }
     
     public static void Main(string[] args) {
@@ -98,7 +98,11 @@ public class ValidatorApp {
         
         if (!File.Exists(srcFileName)) {
             Console.WriteLine("Source file does not exist.");
-            PrintUsage();
+            return;            
+        }
+
+        if (File.Exists(dstFileName)) {
+            Console.WriteLine("Destination file already exists.");
             return;            
         }
         
