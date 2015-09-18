@@ -6,19 +6,23 @@ menu :-
     format("1. First option~N", []),
     format("2. Exit~N", []),
     read_number(Option),
-    check(Option).
+    select(Option).
 
 loop.
 loop :-
     loop.
 
-check(1) :-
-    format("You've selected the first option.~N", []).
+select(1) :-
+    format("You've selected the first option.~N", []),
+    fail.
 
-check(2) :-
+select(2) :-
     format("Exit.~N", []).
 
-check(Option) :-
+select(Option) :-
+    check(Option),
     format("Please, input 1 or 2 to select desired menu option.~N", []),
     fail.
 
+check(Option) :-
+    Option < 1; Option > 2.
