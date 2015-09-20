@@ -3,8 +3,6 @@
 square(0, Ret) :-
     Ret is 0.
 
-square(0, Ret).
-
 square(N, Ret) :-
     N1 is N - 1,
     square(N1, X),

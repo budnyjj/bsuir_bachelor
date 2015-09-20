@@ -1,0 +1,60 @@
+\section{ТЕОРЕТИЧЕСКИЕ СВЕДЕНИЯ}
+
+Рекурсия --- это вызов одного предиката через самого себя.
+В качестве примера рекурсивного вычислительного процесса рассмотрим
+программу вычисления факториала, приведенную на рисунке~\ref{lst:factorial}.
+
+\begin{lstlisting}[style=source_code,language=prolog,caption=Программа вычисления факториала в среде Visual Prolog,label=lst:factorial]
+ predicates
+   nondeterm factor(integer,integer,integer)
+ 
+ clauses
+       factor(1,Z,X):- X=Z.
+       factor (N,Z,X):-
+             Z1=Z*N,
+             N1=N-1,
+          factor(N1,Z1,X).
+      
+ goal
+  factor(5,1,X), write("Factor=",X), readchar(_).
+\end{lstlisting}
+
+Здесь вычисляется факториал 5. Он равен 120 (\(5! = 120\)).
+Вычисление факториала \( n! \) реализуется по формуле 
+\( factor(n) = n * factor(n-1) \). 
+Такая формула называется рекурсивной, поскольку она вычисляется через
+саму себя, но с меньшим значением аргумента. 
+В программе в формуле \( factor(\dots) \) три аргумента:
+целевой аргумент, накопленное значение факториала и переменная
+для результирующего значения.
+
+Для организации бесконечного циклического процесса также используется
+механизм рекурсии, как показано на рисунке~\ref{lst:repeat}.
+
+\pagebreak
+\begin{lstlisting}[style=source_code,language=prolog,caption=Пример организации бесконечного цикла в среде Visual Prolog,label=lst:repeat]
+ predicates 
+   nondeterm vxod
+   nondeterm repeat
+ 
+ clauses
+      vxod:-
+            repeat,
+            nl,
+            write("VVedi parol:"),
+            readln(P),
+            P="morgen",
+            nl,
+            write("Passed!"),
+            readchar(_).
+  
+          repeat.
+          repeat:-repeat.
+ 
+ goal
+    vxod.
+\end{lstlisting}
+
+Данная программа заставит вводить пароль столь раз, сколько потребуется, чтобы наконец набрать слово <<morgen>>.
+
+\newpage
