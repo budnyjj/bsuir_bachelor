@@ -1,10 +1,14 @@
+using Mono.CSharp;
 using System;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 
-
 public class ArithmeticChecker {
+    private static Double Eval(String expression) {
+        return Convert.ToDouble(CSharpEvaluator.Evaluate(expression + ";"));
+    }
+
     public static void PrintUsage() {
         Console.WriteLine("This program performs syntax checking " +
                           "of basic arithmetical equations");
@@ -30,9 +34,9 @@ public class ArithmeticChecker {
                                @"\z";
 
         if (Regex.IsMatch(source, arithmPattern)) {
-            Console.WriteLine("Correct.");
+            Console.WriteLine(source + " = " + Eval(source));
         } else {
-            Console.WriteLine("Incorrect.");
+            Console.WriteLine("Incorrect expression.");
         }
     }
 }
