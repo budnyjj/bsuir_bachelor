@@ -141,7 +141,7 @@ def taylor2(sym_f, sym_x, sym_a, appr_precision=0):
             
             sym_appr += sym_part_1 * sym_part_2 * sym_part_3
 
-    return sym_appr
+    return sp.simplify(sym_appr)
 
 # Maximal power of members in Taylor's approximation,
 # 0 -- no approximation
