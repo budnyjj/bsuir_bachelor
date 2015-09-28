@@ -1,0 +1,79 @@
+\section{ТЕОРЕТИЧЕСКИЕ СВЕДЕНИЯ}
+
+Списки --- важный тип данных в языке Пролог.
+
+Для работы со списками нужно использовать специальную символику. 
+Обозначение [X|Y] позволяет оторвать от списка голову и занести ее в переменную X.
+Оставшаяся часть списка помещается в переменную Y, 
+как показано на рисунке~\ref{lst:list_symbolics}.
+
+\begin{lstlisting}[style=source_code,language=prolog,
+  caption=Пример работы со списком,label=lst:list_symbolics]
+ L = [X|Y] %% L = [1,3,7,8], X == 1, Y == [3,7,8]
+\end{lstlisting}
+
+При работе в системе Microsoft Visual Prolog необходимо предварительно объявлять
+списки в разделе \texttt{domains}, как показано на рисунке~\ref{lst:list_declaration}.
+
+\begin{lstlisting}[style=source_code,language=prolog,
+  caption=Пример декларации списка в среде Microsoft Visual Prolog,label=lst:list_declaration]
+ domains
+     mylist=integer*
+\end{lstlisting}
+
+Рассмотрим пример программы, проверяющей, что заданный элемент содержится в списке. 
+Исходный код программы приведен на рисунке~\ref{lst:check_if_exist}.
+
+В этом примере проверку принадлежности к списку реализует предикат \texttt{member},
+состоящий из трех правил.
+Каждое правило предназначено для выявления одной из возможных ситуаций. 
+Первое правило устанавливает, что когда список пустой, 
+то элемент не принадлежит пустому списку. 
+Команду \texttt{fail} надо вставлять, когда следует
+прекратить просмотр и завершить выполнение предиката неудачей.
+Второе правило предназначено для выявления ситуации, 
+когда элемент совпадает с головой списка.
+В этом случае значение хвоста списка не имеет значения.
+В Прологе в таком случае используют специальное обозначение для аргументов --- знак подчеркивания.
+Наконец, третье правило является рекурсивным. 
+Это правило применяется, когда не подошли первые два правила, т.~е.,
+когда список не пустой и его голова не совпадает с элементом.
+В этом случае предикат member вызывается рекурсивно, но с другими аргументами.
+
+\begin{lstlisting}[style=source_code,language=prolog,
+  caption=Программа проверки факта нахождения заданного элемента в списке,label=lst:check_if_exist]
+ domains
+     li=integer*
+ 
+ predicates
+     nondeterm work
+     nondeterm member(integer,li)
+ clauses
+     work:-
+         write("Input list:"), nl,
+         readterm(li,L),
+         nl,
+         write("Input element:"),
+         readint(E),
+         member(E,L),
+         nl,
+         write("Element prinadlezit spisku"),
+         readchar(_).
+
+     %% 1
+     member(_,[]):-
+         write("Element ne prinadlezit spisku"),
+         readchar(_),
+         fail.
+
+     %% 2     
+     member(X,[X |_]).
+
+     %% 3
+     member(X,[_ | Y]):-
+         member(X,Y).
+ goal
+     work.
+\end{lstlisting}
+
+\newpage

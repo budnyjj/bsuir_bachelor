@@ -1,6 +1,6 @@
 #!/usr/bin/gprolog --consult-file
 
-is_growing([_]).
+is_growing([_]) :- !.
 is_growing([A|Y]) :-
     Y = [B|_],
     cmp(A, B),
