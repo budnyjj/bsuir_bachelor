@@ -4,19 +4,15 @@
 predicates
   nondeterm work
   nondeterm member(integer,li,integer)
+  nondeterm isEmpty(li)
 
 clauses
   work:-
-      write("Input list:"), nl,
+      write("Input list:"), nl,      
       readterm(li,L),
-      write("Input element:"),
-      readint(E),
-      member(E,L,1),
+      isEmpty(L),
       readchar(_).
       
-   member(_,[],_):-
-   write("Element doesn't exit in list "),
-   readchar(_).
    
    member(X,[X |_],I):-
    write("Index of list = ",I).
@@ -24,6 +20,21 @@ clauses
    member(X,[_ | Y],I):-
      I1 = I + 1, 
      member(X,Y,I1).
-
+     
+   member(_,[],_):-
+   	write("Element doesn't exit in list ").
+     
+   isEmpty([]):-
+   	write("List is empty"), nl,
+   	write("Input list:"), nl,      
+   	readterm(li,L),
+    	isEmpty(L).
+   	
+   isEmpty([R|M]):-
+   	write("Input element:"),
+      	readint(E),
+      	member(E,[R|M],1).
+    	
 goal
 	work.
+
