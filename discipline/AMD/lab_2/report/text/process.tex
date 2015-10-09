@@ -21,9 +21,9 @@ $X = (x_1, x_2, \dots, x_n)$ в окрестности
 \begin{equation*}
   f(X) \approx f(X^{(0)}) + A^T (X-X^{(0)}) + \dfrac{1}{2} (X-X^{(0)})^T B(X-X^{(0)}),
 \end{equation*}
-где \hspace{1.5mm}  $(X-X^{(0)}) = ((x_1 - x_1^{(0)}), (x_2 - x_2^{(0)}), \dots, (x_n - x_n^{(0)})), $ \par
+где \hspace{1.5mm}  $(X-X^{(0)})^T = ((x_1 - x_1^{(0)}), (x_2 - x_2^{(0)}), \dots, (x_n - x_n^{(0)})), $ \par
                   $A = \dfrac{df}{dX} = (\dfrac{\partial f}{\partial x_i}), i = 1,2,\dots,n$ ---
-                  первая производная функции $f(X)$ \par 
+                  производная функции $f(X)$ \par 
                   в точке $X^{(0)}$, которая называется градиентом функции $f(X)$ в точке~$X^{(0)}$:
 \begin{equation*}
   A^T = \bigg( \dfrac{\partial f}{\partial x_1}, \dfrac{\partial f}{\partial x_2}, \dots, \dfrac{\partial f}{\partial x_n} \bigg).
@@ -80,7 +80,7 @@ $z = a_1 x_1 + a_2 x_2$. Для этого вычислим производны
     \right).
 \]
 
-Используя полученные в подразделе~\ref{subs:gradient} выражения найдём вторые производные
+Используя полученные в подразделе~\ref{subs:gradient} выражения, найдём вторые производные
 функции $y(X)$, которые будут являться элементами матрицы Гессе:
 \begin{align*}
   \frac{\partial y}{\partial x_1} &= \frac{\partial y}{\partial z} \cdot \frac{\partial z}{\partial x_1} = t,
@@ -113,8 +113,10 @@ $z = a_1 x_1 + a_2 x_2$. Для этого вычислим производны
 
 \newpage
 
-На рисунках~\ref{pic:real}--\ref{pic:taylor} приведены
-графики самой функции $y(X)$ и её аппроксимирующего полинома.
+На рисунках~\ref{pic:real}, \ref{pic:taylor} приведены
+графики самой функции $y(X)$ и её аппроксимирующего полинома в
+окрестности точки $X^{(0)} = (1, 1)$ соответственно.
+
 \begin{figure}[h!]
   \centering
   \includegraphics[width=0.65\linewidth]{pic/real_2}
