@@ -5,55 +5,52 @@
 Задание: разработать программу, определяющую элемент списка по его номеру.
 Номер задается как аргумент.
 
-Исходный код разработанной программы представлен на
-рисунке~\ref{lst:el_by_idx}.
-
-\lstinputlisting[style=source_code,numbers=left,numberstyle=\texttt,xleftmargin=2em,
-                 caption=Исходный код программы,
-                 language=prolog,label=lst:el_by_idx]{code/el_by_idx.pro}
-
 Пример работы программы представлен на рисунке~\ref{fig:el_by_idx}.
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[width=92mm]{img/el_by_idx}
+  \includegraphics[width=150mm]{img/el_by_idx}
   \caption{Результат работы программы}
   \label{fig:el_by_idx}
 \end{figure}
+
+Исходный код разработанной программы представлен на
+рисунке~\ref{lst:el_by_idx}.
+
+\pagebreak
+
+\lstinputlisting[style=source_code,numbers=left,numberstyle=\texttt,xleftmargin=2em,
+                 caption=Исходный код программы,
+                 language=prolog,label=lst:el_by_idx]{code/el_by_idx.pro}
 
 
 \subsection{Программа определения номера элемента в списке}
 
 Задание: разработать программу, выдающую номер заданного элемента в списке.
 
-Исходный код разработанной программы представлен на
-рисунке~\ref{lst:idx_by_el}.
-
-\lstinputlisting[style=source_code,numbers=left,numberstyle=\texttt,xleftmargin=2em,
-                 caption=Исходный код программы,
-                 language=prolog,label=lst:idx_by_el]{code/idx_by_el.pro}
-
 Пример работы программы представлен на рисунке~\ref{fig:idx_by_el}.
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[width=92mm]{img/idx_by_el}
+  \includegraphics[width=150mm]{img/idx_by_el}
   \caption{Результат работы программы}
   \label{fig:idx_by_el}
 \end{figure}
+
+Исходный код разработанной программы представлен на
+рисунке~\ref{lst:idx_by_el}.
+
+\pagebreak
+
+\lstinputlisting[style=source_code,numbers=left,numberstyle=\texttt,xleftmargin=2em,
+                 caption=Исходный код программы,
+                 language=prolog,label=lst:idx_by_el]{code/idx_by_el.pro}
 
 
 \subsection{Программа определения упорядоченности списка по \\ возрастанию}
 
 Задание: разработать программу, определяющую,
 упорядочен ли введенный список по возрастанию.
-
-Исходный код разработанной программы представлен на
-рисунке~\ref{lst:is_growing}.
-
-\lstinputlisting[style=source_code,numbers=left,numberstyle=\texttt,xleftmargin=2em,
-                 caption=Исходный код программы,
-                 language=prolog,label=lst:is_growing]{code/is_growing.pro}
 
 Пример работы программы представлен на рисунке~\ref{fig:is_growing}.
 
@@ -64,7 +61,14 @@
   \label{fig:is_growing}
 \end{figure}
 
-Опишем подробно реализацию программы.
+Исходный код разработанной программы представлен на
+рисунке~\ref{lst:is_growing}.
+
+\lstinputlisting[style=source_code,numbers=left,numberstyle=\texttt,xleftmargin=2em,
+                 caption=Исходный код программы,
+                 language=prolog,label=lst:is_growing]{code/is_growing.pro}
+
+Опишем подробно процесс работы программы.
 Стартовым предикатом в данной программе является предикат \texttt{task}.
 Он выводит приглашение ввести список, считывает его и передает в предикат
 \texttt{is\_growing} (строки 11-13).
@@ -88,7 +92,7 @@
 затем рекурсивно запускает себя, передавая в качестве аргусмента собственный
 аргумент без первого элемента. 
 Процесс продолжается до тех пор, пока предикат \texttt{cmp} не вернет \texttt{false},
-или мы не дойдем до конца списка.
+или мы в списке не останется элементов.
 
 Приведем последовательность обработки списка \texttt{[1,0,-1]} предикатом \texttt{is\_growing}:
 
@@ -100,8 +104,8 @@
 \end{enumerate}
 
 Последний предикат возвращает \texttt{false}, 
-поэтому предикаты \texttt{is\_growing} и \texttt{task} также возвращает \texttt{false},
-таким результатом работы программы является значение \texttt{no}.
+поэтому предикаты \texttt{is\_growing} и \texttt{task} также возвращают \texttt{false},
+таким образрм, результатом работы программы является значение \texttt{no}.
 
 \pagebreak
 
@@ -113,10 +117,6 @@
 Исходный код разработанной программы представлен на
 рисунке~\ref{lst:min_element}.
 
-\lstinputlisting[style=source_code,numbers=left,numberstyle=\texttt,xleftmargin=2em,
-                 caption=Исходный код программы,
-                 language=prolog,label=lst:min_element]{code/min_element.pro}
-
 Пример работы программы представлен на рисунке~\ref{fig:min_element}.
 
 \begin{figure}[h!]
@@ -126,7 +126,11 @@
   \label{fig:min_element}
 \end{figure}
 
-Опишем подробно реализацию программы.
+\lstinputlisting[style=source_code,numbers=left,numberstyle=\texttt,xleftmargin=2em,
+                 caption=Исходный код программы,
+                 language=prolog,label=lst:min_element]{code/min_element.pro}
+
+Опишем подробно процесс работы программы.
 Стартовым предикатом в данной программе является предикат \texttt{run}.
 Он выводит приглашение ввести список, считывает его и передает в предикат
 \texttt{find\_min}, а затем печатает результат его обработки,
@@ -165,5 +169,7 @@
 \item \texttt{find\_min([1], 1).}
 \item \texttt{cmp(0, 1, 0).}
 \item \texttt{cmp(1, 0, 0).}
-\item \texttt{cmp([1,0,1], 0).}
 \end{enumerate}
+
+Таким образом минимальным элементом списка является предикат \texttt{Min},
+в данном случае равный нулю.
