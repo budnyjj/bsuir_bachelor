@@ -1,7 +1,7 @@
 #!/usr/bin/gprolog --consult-file
 
-m(_, []) :- fail.
-m(X, [X|_]) :- !.
+m(_, []) :- !, fail.
+m(X, [X|_]).
 m(X, [_|T]) :-
     m(X, T).
 
@@ -9,6 +9,7 @@ m(X, [_|T]) :-
 s([who(jack), did(build), what(house)]).
 
 %% 2
+s([what(house), do(contain), what(lumber-room)]).
 s([what(lumber-room), do(keep), what(wheat)]).
 s([has_prop(lumber-room, dark)]).
 
@@ -30,13 +31,11 @@ s([has_prop(cow, hornless)]).
 
 %% 7
 s([who(lady), do(milk), who(cow)]).
-%% need a better translation
-s([is_a(lady, korovnitsa)]). 
 s([has_prop(lady, old), has_prop(lady, hoary), has_prop(lady, strict)]).
 
 %% 8
-s([who(cowboy), do(scold), who(korovnitsa)]).
-s([who(korovnitsa), do(scold), who(cowboy)]).
+s([who(cowboy), do(scold), who(lady)]).
+s([who(lady), do(scold), who(cowboy)]).
 s([has_prop(cowboy, lazy)]).
 s([has_prop(cowboy, fat)]).
 
@@ -45,51 +44,66 @@ s([who(two-roosters), do(wake), who(cowboy)]).
 
 %% Questions:
 %%
-%% 1.
-%%
-%% s(S1), m(what(W1), S1), m(who(W2), S1).
-%%
-%% S1 = [who(jack),did(build),what(house)]
-%% W1 = house
-%% W2 = jack
-%%
-%%
-%% 2.
-%%
-%% s(S1), s(S2), s(S3), m(who(W), S1), m(how(H), S1), m(who(W), S2), m(has_prop(W, P), S3).
-%%
-%% H = by-the-collar
-%% P = old
-%% S1 = [who(dog),do(shake),who(cat),how(by-the-collar)]
-%% S2 = [who(dog),do(shake),who(cat),how(by-the-collar)]
-%% S3 = [has_prop(dog,old),has_prop(dog,without-tail)]
-%% W = dog ? ;
-%% 
-%% H = by-the-collar
-%% P = old
-%% S1 = [who(dog),do(shake),who(cat),how(by-the-collar)]
-%% S2 = [who(cow),did(kick),who(dog)]
-%% S3 = [has_prop(dog,old),has_prop(dog,without-tail)]
-%% W = dog ? ;
-%%
-%%
-%% 3.
-%% s(S1), s(S2), s(S3), m(who(korovnitsa), S1), m(do(D), S1), m(who(W), S1), m(who(W), S2), m(has_prop(W, fat), S3)
-%%
-%% D = scold
-%% S1 = [who(cowboy),do(scold),who(korovnitsa)]
-%% S2 = [who(cowboy),do(scold),who(korovnitsa)]
-%% S3 = [has_prop(cowboy,fat)]
-%% W = cowboy ? ;
-%% 
-%% D = scold
-%% S1 = [who(cowboy),do(scold),who(korovnitsa)]
-%% S2 = [who(korovnitsa),do(scold),who(cowboy)]
-%% S3 = [has_prop(cowboy,fat)]
-%% W = cowboy ? ;
-%% 
-%% D = scold
-%% S1 = [who(cowboy),do(scold),who(korovnitsa)]
-%% S2 = [who(two-roosters),do(wake),who(cowboy)]
-%% S3 = [has_prop(cowboy,fat)]
-%% W = cowboy ? ;
+%% 1. Где хранится пшеница в доме, который построил Джек?
+q_1(X) :-
+    s(S1), s(S2),
+    m(what(house), S1),
+    m(do(contain), S1),
+    m(what(X), S1),
+    m(what(X), S2),
+    m(do(keep), S2),
+    m(what(wheat), S2).
+%% 2. Кто бранится с тем, кто доит корову?
+q_2(X, Y) :-
+    s(S1), s(S2),
+    m(who(X), S1),
+    m(do(scold), S1),
+    m(who(Y), S1),
+    m(who(Y), S2),
+    m(do(milk), S2),
+    m(who(cow), S2).
+%% 3. Как пес треплет того, кто ловит синицу?
+q_3(X, Y) :-
+    s(S1), s(S2),
+    m(who(dog), S1),
+    m(do(shake), S1),
+    m(who(Y), S1),
+    m(how(X), S1),
+    m(who(Y), S2),
+    m(do(catch), S2),
+    m(who(titmouse), S2).
+%% Кто пугает того, кто ворует пшеницу?
+q_4(X, Y) :-
+    s(S1), s(S2),
+    m(who(X), S1),
+    m(do(fright), S1),
+    m(who(Y), S1),
+    m(who(Y), S2),
+    m(do(steal), S2),
+    m(what(wheat), S2).
+%% Что хранится в доме [который построил Джек]?
+q_5(X) :-
+    s(S1), s(S2),
+    m(what(house), S1),
+    m(do(contain), S1),
+    m(what(Y), S1),
+    m(what(Y), S2),
+    m(what(X), S2).
+%% Кто треплет того, кто ловит синицу?
+q_6(X, Y) :-
+    s(S1), s(S2),
+    m(who(X), S1),
+    m(do(shake), S1),
+    m(who(Y), S1),
+    m(who(Y), S2),
+    m(do(catch), S2),
+    m(who(titmouse), S2).
+%% Кто ворует то, что в темном чулане хранится?
+q_7(X, Y) :-
+    s(S1), s(S2),
+    m(who(X), S1),
+    m(do(steal), S1),
+    m(what(Y), S1),
+    m(what(lumber-room), S2),
+    m(do(keep), S2),
+    m(what(Y), S2).

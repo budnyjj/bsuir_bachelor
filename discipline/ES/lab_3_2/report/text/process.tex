@@ -5,12 +5,12 @@
 В ходе данной лабораторной работы требуется выполнить проектирование
 и реализацию небольшой семантической сети с использованием языка Пролог.
 
-В качестве темы, определяющей набор объектов и отношений между ними, 
+В качестве темы, определяющей набор объектов и отношений между ними,
 выберем стихотворение Самуила Маршака <<Дом, который построил Джек>>.
 
 \subsection{Проктирование семантической сети}
 
-Приведем размеченный текст стихотворения --- 
+Приведем размеченный текст стихотворения ---
 основы нашей семантической сети.
 
 \begin{center}
@@ -92,13 +92,13 @@
 \end{verse}
 
 Здесь объекты будущей сети выделены \textbf{жирным},
-отношения между ними --- \textit{курсивом}, 
-а свойства --- \texttt{моноширинным шрифтом}. 
+отношения между ними --- \textit{курсивом},
+а свойства --- \texttt{моноширинным шрифтом}.
 
 
 \subsection{Реализация семантической сети}
 
-Приведем объекты семантической сети к виду, 
+Приведем объекты семантической сети к виду,
 пригодному для исопльзования в языке Пролог.
 Для этого введем следующие предикаты:
 
@@ -112,14 +112,14 @@
 \end{itemize}
 
 Заметим, что предикаты \texttt{has\_prop(X)} и \texttt{is\_a(X)}
-не являются необходимыми для построения сети, 
+не являются необходимыми для построения сети,
 а введены для удобства и краткости.
 
-Имея в распоряжении вышеперечисленные предикаты, 
+Имея в распоряжении вышеперечисленные предикаты,
 а также служебные
 \texttt{s(L)} (помещение фрагмента сети \texttt{L} в базу знаний) и
 \texttt{m(X, L)} (проверка наличия элемента \texttt{X} в списке \texttt{L})
-мы можем построить семантическую сеть стихотворения, 
+мы можем построить семантическую сеть стихотворения,
 как показано на рисунке~\ref{lst:jack}.
 
 \pagebreak
@@ -127,12 +127,150 @@
 \lstinputlisting[style=source_code,numbers=left,numberstyle=\texttt,xleftmargin=2em,
                  caption=Представление семантической сети на языке Пролог,
                  language=prolog,label=lst:jack]{code/jack.pro}
-                 
+
 \pagebreak
 
 Приведем тестовые вопросы, которые были заданы разработанной базе знаний:
-\begin{itemize}
-\item ...
-\end{itemize}
+\begin{enumerate}
+\item Где хранится пшеница в доме, который построил Джек?
+
+  Текст запроса на языке Пролог приведен на рисунке~\ref{lst:q_1}.
+
+  \begin{lstlisting}[style=source_code,language=prolog,
+    caption=Текст запроса,label=lst:q_1]
+ q_1(X) :-
+     s(S1), s(S2),
+     m(what(house), S1),
+     m(do(contain), S1),
+     m(what(X), S1),
+     m(what(X), S2),
+     m(do(keep), S2),
+     m(what(wheat), S2).
+  \end{lstlisting}
+
+  Результат выполнения запроса приведен на рисунке~\ref{fig:q}.
+
+\item Кто бранится с тем, кто доит корову?
+
+  Текст запроса на языке Пролог приведен на рисунке~\ref{lst:q_2}.
+
+  \begin{lstlisting}[style=source_code,language=prolog,
+    caption=Текст запроса,label=lst:q_2]
+ q_2(X, Y) :-
+     s(S1), s(S2),
+     m(who(X), S1),
+     m(do(scold), S1),
+     m(who(Y), S1),
+     m(who(Y), S2),
+     m(do(milk), S2),
+     m(who(cow), S2).
+  \end{lstlisting}
+
+  Результат выполнения запроса приведен на рисунке~\ref{fig:q}.
+
+\newpage
+
+\item Как пес треплет того, кто ловит синицу?
+
+  Текст запроса на языке Пролог приведен на рисунке~\ref{lst:q_3}.
+
+  \begin{lstlisting}[style=source_code,language=prolog,
+    caption=Текст запроса,label=lst:q_3]
+ q_3(X, Y) :-
+     s(S1), s(S2),
+     m(who(dog), S1),
+     m(do(shake), S1),
+     m(who(Y), S1),
+     m(how(X), S1),
+     m(who(Y), S2),
+     m(do(catch), S2),
+     m(who(titmouse), S2).
+  \end{lstlisting}
+
+  Результат выполнения запроса приведен на рисунке~\ref{fig:q}.
+
+\item Кто пугает того, кто ворует пшеницу?
+
+  Текст запроса на языке Пролог приведен на рисунке~\ref{lst:q_4}.
+
+  \begin{lstlisting}[style=source_code,language=prolog,
+    caption=Текст запроса,label=lst:q_4]
+ q_4(X, Y) :-
+     s(S1), s(S2),
+     m(who(X), S1),
+     m(do(fright), S1),
+     m(who(Y), S1),
+     m(who(Y), S2),
+     m(do(steal), S2),
+     m(what(wheat), S2).
+  \end{lstlisting}
+
+  Результат выполнения запроса приведен на рисунке~\ref{fig:q}.
+
+\newpage
+
+\item Что хранится в чулане дома, который построил Джек?
+
+  Текст запроса на языке Пролог приведен на рисунке~\ref{lst:q_5}.
+
+  \begin{lstlisting}[style=source_code,language=prolog,
+    caption=Текст запроса,label=lst:q_5]
+ q_5(X) :-
+     s(S1), s(S2),
+     m(what(house), S1),
+     m(do(contain), S1),
+     m(what(Y), S1),
+     m(what(Y), S2),
+     m(what(X), S2).
+  \end{lstlisting}
+
+  Результат выполнения запроса приведен на рисунке~\ref{fig:q}.
+
+\item Кто треплет того, кто ловит синицу?
+
+  Текст запроса на языке Пролог приведен на рисунке~\ref{lst:q_6}.
+
+  \begin{lstlisting}[style=source_code,language=prolog,
+    caption=Текст запроса,label=lst:q_6]
+ q_6(X, Y) :-
+     s(S1), s(S2),
+     m(who(X), S1),
+     m(do(shake), S1),
+     m(who(Y), S1),
+     m(who(Y), S2),
+     m(do(catch), S2),
+     m(who(titmouse), S2).
+  \end{lstlisting}
+
+  Результат выполнения запроса приведен на рисунке~\ref{fig:q}.
+
+\newpage
+
+\item Кто ворует то, что в темном чулане хранится?
+
+  Текст запроса на языке Пролог приведен на рисунке~\ref{lst:q_7}.
+
+  \begin{lstlisting}[style=source_code,language=prolog,
+    caption=Текст запроса,label=lst:q_7]
+ q_7(X, Y) :-
+     s(S1), s(S2),
+     m(who(X), S1),
+     m(do(steal), S1),
+     m(what(Y), S1),
+     m(what(lumber-room), S2),
+     m(do(keep), S2),
+     m(what(Y), S2).
+  \end{lstlisting}
+
+  Результат выполнения запроса приведен на рисунке~\ref{fig:q}.
+
+\end{enumerate}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=130mm]{img/q}
+  \caption{Результат выполнения запроса}
+  \label{fig:q}
+\end{figure}
 
 \newpage
