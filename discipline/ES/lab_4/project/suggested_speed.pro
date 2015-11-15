@@ -1,80 +1,119 @@
 #!/usr/bin/gprolog --consult-file
 
-auto_eval_from_variant(1, 0.1).
-auto_eval_from_variant(2, 0.5).
-auto_eval_from_variant(3, 0.9).
+dynamic([preference/2, value/2, weight/2]).
 
-road_eval_from_variant(1, 0.3).
-road_eval_from_variant(2, 0.5).
-road_eval_from_variant(3, 0.7).
+% Conversion mapping
+preference_to_value(auto, 1, 0.1).
+preference_to_value(auto, 2, 0.5).
+preference_to_value(auto, 3, 0.9).
 
-driver_eval_from_variant(1, 0.3).
-driver_eval_from_variant(2, 0.5).
-driver_eval_from_variant(3, 1.0).
+preference_to_value(road, 1, 0.3).
+preference_to_value(road, 2, 0.5).
+preference_to_value(road, 3, 0.7).
 
-print_menu([], _).
-print_menu([Name|NamesTail], [Handler|HandlersTail]) :-
-    format("~s~N", [Name]),
-    Handler,
-    print_menu(NamesTail, HandlersTail).
+preference_to_value(driver, 1, 0.3).
+preference_to_value(driver, 2, 0.5).
+preference_to_value(driver, 3, 1.0).
 
-get_expert_preference(Variant) :-
-    format("1. BAD~N2. NORMAL~N3. GOOD~N~n", []),
-    format("Your choose: ", []),
-    read_integer(Variant),
-    check_variant(Variant).
-
-check_variant(Variant) :-
-    variant_is_not_valid(Variant), !,
-    format("=== ERROR ===============================~N", []),
-    format(" Bad variant! Try again.~N", []),
-    format("=========================================~N", []),
-    fail.
-check_variant(_).
-
-variant_is_not_valid(Variant) :-
-    Variant < 1; Variant > 3.
-
-check_weights(X, Y, Z) :-
-    weights_are_not_valid(X, Y, Z), !,
-    format("=== ERROR ========================================================~N", []),
-    format(" Weight sum is not equal 1.0 or elements are not valid! Try again.~N", []),
-    format("==================================================================~N", []),
-    fail.
-check_weights(_, _, _).
-
-weights_are_not_valid(X, Y, Z) :-
-    X < 0; Y < 0; Z < 0;
-    X > 1; Y > 1; Z > 1;
-    X + Y + Z =\= 1.
-
+% infinite loop
 loop.
 loop :- loop.
 
-run :-
+% remove all facts from db
+cleanup :-
+    retractall(preference(_, _)),
+    retractall(value(_, _)),
+    retractall(weight(_, _)).
+
+% Executes handlers form handler list
+exec([Handler|HandlersTail]) :-
+    Handler,
+    !,
+    exec(HandlersTail).
+exec([]).
+
+get_preference(Key, Prompt) :-
     loop,
-    print_menu(["Please, give us information about AUTO.",
-                "Please, give us information about ROAD.",
-                "Please, give us information about DRIVER."],
-               [get_expert_preference(AutoChosenVariant),
-                get_expert_preference(RoadChosenVariant),
-                get_expert_preference(DriverChosenVariant)]),
-    
-    auto_eval_from_variant(AutoChosenVariant, AutoEval),
-    road_eval_from_variant(RoadChosenVariant, RoadEval),
-    driver_eval_from_variant(DriverChosenVariant, DriverEval),
+    format("~s~N", [Prompt]),
+    format("1. BAD~N2. NORMAL~N3. GOOD~N~n", []),
+    format("Your preference: ", []),
+    read_integer(Pref),
+    check_preference(Pref),
+    asserta(preference(Key, Pref)).
 
-    print_menu(["Please, input WEIGHT coefficient for AUTO parameter:",
-                "Please, input WEIGHT coefficient for ROAD parameter:",
-                "Please, input WEIGHT coefficient for DRIVER parameter:"],
-               [read_number(AutoWeight),
-                read_number(RoadWeight),
-                read_number(DriverWeight)]),
+check_preference(Pref) :-
+    Pref >= 1, Pref =< 3.
+check_preference(_) :-
+    format("=== ERROR ===============================~N", []),
+    format(" Incorrect preference value! Try again...~N", []),
+    format("=========================================~N", []),
+    fail.
 
-    check_weights(AutoWeight, RoadWeight, DriverWeight),
+preference_to_value(Key) :-
+    preference(Key, Pref),
+    preference_to_value(Key, Pref, Val),
+    asserta(value(Key, Val)).
 
-    Speed is 90 * (AutoEval * AutoWeight + RoadEval * RoadWeight + DriverEval * DriverWeight),
+get_weight(Key, Prompt) :-
+    loop,
+    format("~s~N", [Prompt]),
+    format("Your value: ", []),
+    read_number(Weight),
+    check_weight(Weight),
+    asserta(weight(Key, Weight)).
 
+check_weight(Weight) :-
+    Weight >= 0, Weight =< 1.
+check_weight(_) :-
+    format("=== ERROR ===============================~N", []),
+    format(" Incorrect weight value! Try again...~N",     []),
+    format("=========================================~N", []),
+    fail.
+
+% Checks, if sum of weights is equal to 1
+is_full_group_weight(Keys) :-
+    is_full_group_weight(Keys, 0).
+is_full_group_weight([Key|KeysTail], Weights) :-
+    weight(Key, Weight),
+    is_full_group_weight(KeysTail, Weights + Weight).
+is_full_group_weight([], Weights) :-
+    Weights =:= 1.
+is_full_group_weight([], Weights) :-
+    Weights =\= 1,
+    format("=== ERROR ===============================~N", []),
+    format(" Weight sum is: ~2f != 1. Exit.~N",           [Weights]),
+    format("=========================================~N", []),
+    fail.
+
+calc_speed(Keys, MaxSpeed, Speed) :-
+    calc_speed(Keys, MaxSpeed, 0, Speed).
+calc_speed([Key|KeysTail], MaxSpeed, AccSpeed, Speed) :-
+    value(Key, Value),
+    weight(Key, Weight),
+    calc_speed(KeysTail, MaxSpeed, AccSpeed + MaxSpeed * Value * Weight, Speed).
+calc_speed([], _, AccSpeed, AccSpeed).
+
+print_speed(Speed) :-
     format("=== RESULT ================~N", []),
-    format(" Suggested speed is: ~2f~N", [Speed]),
+    format(" Suggested speed is: ~2f~N",    [Speed]),
     format("===========================~N", []).
+
+run :-
+    cleanup,
+
+    exec([get_preference(auto,   "Please, give us information about AUTO."),
+          get_preference(road,   "Please, give us information about ROAD."),
+          get_preference(driver, "Please, give us information about DRIVER.")]),
+
+    exec([preference_to_value(auto),
+          preference_to_value(road),
+          preference_to_value(driver)]),
+
+    exec([get_weight(auto,   "Please, input weight coefficient for AUTO parameter:"),
+          get_weight(road,   "Please, input weight coefficient for ROAD parameter:"),
+          get_weight(driver, "Please, input weight coefficient for DRIVER parameter:")]),
+
+    is_full_group_weight([auto, road, driver]),
+
+    calc_speed([auto, road, driver], 90, Speed),
+    print_speed(Speed).
