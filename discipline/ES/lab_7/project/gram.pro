@@ -177,11 +177,11 @@ check_collocations(Block, [FbidCollocation|_]) :-
     format("Incorrect collocation: ~w in ~w.~n", [FbidCollocation, Block]).
 
 % continue search
-check_collocations(Block, [FbidCollocation|RestFbidCollocations]) :-
+check_collocations(Block, [_|RestFbidCollocations]) :-
     check_collocations(Block, RestFbidCollocations).
 
 % stop
-check_collocations(Block, []).
+check_collocations(_, []).
 
 %
 % Main clause
