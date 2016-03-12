@@ -8,8 +8,8 @@
 \renewcommand{\rmdefault}{ftm} % Включаем Times New Roman
 
 %%% Макет страницы %%%
-\geometry{a4paper,top=20mm,left=32mm,right=15mm,bottom=27mm}
-\setstretch{1.15}
+\geometry{a4paper,top=20mm,left=31mm,right=15mm,bottom=27mm}
+\setstretch{1.05}
 
 %%% Выравнивание и переносы %%%
 \sloppy				% Избавляемся от переполнений
@@ -22,7 +22,7 @@
 \fancyhf{} % clear all header and footer fields
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
-\setlength{\footskip}{9mm}
+% \setlength{\footskip}{9mm}
 % \setlength{\headheight}{5mm}
 }
 
@@ -67,24 +67,17 @@
 \titlespacing*{\paragraph}{\parindent}{\baselineskip}{\wordsep}
 
 %%% Оформление списков
-\AddEnumerateCounter{\asbuk}{\@asbuk}{\cyrm}
-
-% \setlist{nosep,listparindent=\parindent}
 \setlist[1]{itemindent=1.85cm,leftmargin=0mm,itemsep=0mm,topsep=0mm,parsep=0mm}
-\setlist[itemize,1]{label=$-$}
+\setlist[itemize,1]{label=---}
 \setlist[enumerate,1]{label=\arabic*)}
 
 \setlist[2]{itemindent=3.1cm,leftmargin=0mm,itemsep=0mm,topsep=0mm,parsep=0mm}
 
 % Cтиль для списков, на которые есть ссылки в тексте
+\AddEnumerateCounter{\asbuk}{\@asbuk}{\cyrm}
 \newlist{reflist}{enumerate}{1}
-\setlist*[reflist,1]{%
-  label=\asbuk*),
-}
-
-\setlist*[reflist,2]{%
-  label=\arabic*),
-}
+\setlist*[reflist,1]{label=\asbuk*)}
+\setlist*[reflist,2]{label=\arabic*)}
 
 %%% Размеры текста формул %%%
 

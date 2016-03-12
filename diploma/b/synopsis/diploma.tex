@@ -1,28 +1,28 @@
 \documentclass[a4paper,hidelinks,14pt]{extarticle}
-\input{sys/packages}      % Подключаемые пакеты
-\input{sys/styles}        % Пользовательские стили
+\input{sys/packages}        % Подключаемые пакеты
+\input{sys/styles}          % Пользовательские стили
 
 \begin{document}
 
-\input{sys/names}         % Переопределение именований
+\input{sys/names}           % Переопределение именований
 
-\input{text/title}        % Титульный лист
-\input{text/abstract}     % Реферат
-\input{text/contents}     % Содержание
-\input{text/intro}        % Введение
+\input{text/title}          % Титульный лист
+\input{text/abstract}       % Реферат
+\input{text/contents}       % Содержание
+\input{text/intro}          % Введение
 
-\input{text/main_text}    % Основной текст
+\input{text/spec}           % Системное описание предметной области
+                            % и постановка задачи
+\input{text/design}         % Проектирование приложения
+\input{text/implementation} % Программная реализация приложения
+\input{text/usage}          % Использование приложения
 
-\input{text/teo}          % Технико-экономическое обоснование
+\input{text/teo}            % Технико-экономическое обоснование
 
-\input{text/safety}       % Охрана труда или
-                          % экологическая безопасность или
-                          % энергосбережение
-
-\input{text/conclusion}   % Заключение
-\input{text/bibliography} % Список использованных источников
-\input{text/appendix_a}   % Приложение А
-\input{text/appendix_b}   % Приложение Б
-\input{text/doc_list}     % Ведомость документов
+\input{text/conclusion}     % Заключение
+\input{text/bibliography}   % Список использованных источников
+\input{text/appendix_a}     % Приложение А
+\input{text/appendix_b}     % Приложение Б
+\input{text/doc_list}       % Ведомость документов
 
 \end{document}
