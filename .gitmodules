@@ -1,0 +1,3 @@
+[submodule "diploma/a/project/currency_exchange"]
+	path = diploma/a/project/currency_exchange
+	url = https://bitbucket.org/anashkevichp/currency_exchange
