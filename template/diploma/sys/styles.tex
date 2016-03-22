@@ -43,7 +43,7 @@
 \setlength{\parindent}{1.25cm}
 \raggedbottom{}
 
-%%% Размеры заголовков
+%%% Оформление заголовков
 \newcommand{\sectionbreak}{\clearpage}
 
 \titleformat{\section}{\large\bfseries}{\thesection}{\wordsep}{}
@@ -78,6 +78,14 @@
 \newlist{reflist}{enumerate}{1}
 \setlist*[reflist,1]{label=\asbuk*)}
 \setlist*[reflist,2]{label=\arabic*)}
+
+%%% Оформление сносок
+
+\deffootnote[1.65cm]{0mm}{1.25cm}{\textsuperscript{\thefootnotemark) }}
+\renewcommand{\footnotesize}{\normalsize\selectfont}
+\setlength{\footnotesep}{\parsep}
+
+
 
 %%% Размеры текста формул %%%
 
