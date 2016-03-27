@@ -1,0 +1,125 @@
+\renewcommand{\thefigure}{\Asbuk{section}.\arabic{figure}}
+\renewcommand{\thetable}{\Asbuk{section}.\arabic{table}}
+\renewcommand{\thelstlisting}{\Asbuk{section}.\arabic{lstlisting}}
+
+% \newgeometry{left=1cm,right=1cm,top=1cm,bottom=1cm}
+\section*{%
+  ПРИЛОЖЕНИЕ A \\
+  (обязательное) \\
+  План-проспект дипломной работы (к разделу~\ref{sec:spec})
+}
+\addcontentsline{toc}{section}{%
+  Приложение А (обязательное) План-проспект дипломной работы
+}
+\label{sec:appendix_a}
+
+\pagestyle{fancy}
+\fancyhf{}  % clear all header and footer fields
+\fancyfoot[R]{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\setlength{\headheight}{10mm}
+\setlength{\headsep}{\baselineskip}
+\chead{Продолжение приложения \Asbuk{section}}
+
+\thispagestyle{plain}
+
+\setcounter{section}{1}
+\setcounter{figure}{0}
+\setcounter{table}{0}
+\setcounter{lstlisting}{0}
+
+\begin{table} [h!]
+  \caption{
+    Пояснительная записка
+  }\label{tbl:plan_synopsis}
+  \small{
+    \begin{tabular}{| m{4.8cm} | c | m{7cm} |}
+      \hline
+      \begin{center} Наименование этапа \end{center}
+      & Срок выполнения
+      & \begin{center} Краткое содержание \end{center} \\
+      \hline
+
+      Введение
+      &
+      & Предмет, цель, структура работы. \\
+      \hline
+
+      Системное описание \par
+      предметной области и \par
+      постановка задачи \par
+      проектирования
+      & 20.03.2016
+      & Выбор программной платформы. \par
+        Сравнительный анализ существующих аналогов. \par
+        Обзор источников финансовой информации. \par
+        Постановка задачи проектирования. \\
+      \hline
+
+      Проектирование приложения
+      & 30.03.2016
+      & Архитектура системы \par
+        Проектирование модели данных. \par
+        Проектирование сервера данных. \par
+        Проектирование мобильного приложения. \par
+        Эргономическое обеспечение. \\
+      \hline
+
+      Программная реализация \par приложения
+      & 10.04.2016
+      & Реализация сервара (Perfect). \par
+        Реализация модели данных (Realm). \par
+        Реалицация мобильного приложения (iOS). \par
+        Тестирование. \\
+      \hline
+
+      Использование приложения
+      & 15.04.2016
+      & Системные требования. \par
+        Руководство пользователя. \\
+      \hline
+
+      Экономическая часть
+      & 17.04.2016
+      & Расчет затрат. \par
+        Отсутствие экономического эффекта. \par
+        Наличие социального эффекта. \\
+      \hline
+
+      Заключение
+      &
+      & Выводы и анализ полученных \par
+        результатов по всем разделам \par
+        проекта и разработке в целом. \\
+      \hline
+    \end{tabular}
+  }
+\end{table}
+
+\newpage
+
+\begin{table} [h!]
+  \caption{
+    Графический материал
+  }\label{tbl:plan_graphics}
+  \small{
+    \begin{tabular}{| m{4.8cm} | c | m{7cm} |}
+      \hline
+      \begin{center} Наименование \end{center}
+      & Срок выполнения
+      & \begin{center} Краткое содержание \end{center} \\
+      \hline
+
+      & & \\ \hline
+      & & \\ \hline
+      & & \\ \hline
+      & & \\ \hline
+      & & \\ \hline
+
+    \end{tabular}
+  }
+\end{table}
+
+% \restoregeometry
