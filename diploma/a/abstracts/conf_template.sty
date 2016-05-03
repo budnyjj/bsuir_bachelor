@@ -1,0 +1,189 @@
+
+%
+% Copyright (c) 2012 by mf.grsu.by
+% All rights reserved.
+%
+
+\NeedsTeXFormat{LaTeX2e} \ProvidesPackage{nal} \ProcessOptions
+\usepackage[utf8]{inputenc} \usepackage[T2A]{fontenc}
+\usepackage[latin, russian]{babel}
+
+\usepackage{latexsym}
+\usepackage[pdftex]{graphicx}
+\usepackage[left=3cm,right=2.0cm,top=1.5cm,bottom=2.7cm,bindingoffset=0cm]{geometry}
+\usepackage{enumitem}
+\usepackage[T2A]{fontenc}
+\usepackage{tabularx}
+\usepackage[T1]{fontenc}
+\usepackage[hyphens]{url}
+
+\usepackage[table]{xcolor}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{tabu}
+\usepackage{setspace}
+\usepackage{floatflt}
+\usepackage[center,small]{caption2}
+\renewcommand{\captionlabeldelim}{~--}
+\usepackage{multicol}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{titlesec} % Allows customization of titles
+\renewcommand\thesection{\Roman{section}}
+\titleformat{\section}[block]{\vspace{-10pt}\normalsize\scshape\centering}{\thesection.}{1em}{} % Change the look of the section titles
+
+\usepackage{fixltx2e}
+\usepackage{indentfirst}
+\makeatletter
+\parindent=0.8cm
+
+
+\widowpenalty = 10000
+\clubpenalty = 10000
+\postdisplaypenalty =100
+%\parskip 0pt plus10pt minus20pt
+\pagestyle{plain}
+%\renewcommand{\@evenhead}{}
+%\renewcommand{\@oddhead}{}
+%\renewcommand{\@oddfoot}{}
+%\renewcommand{\@evenfoot}{}
+
+
+\setlength{\headsep}{2pt}
+\setlength{\voffset}{1.2cm}
+
+
+\newcommand{\udk}[1]{
+    \begin{flushleft}
+    {\small #1}\\[10pt]
+    \end{flushleft}
+}
+\newcommand{\autorname}{Autor}
+\newcommand{\authors}[1]{
+    \begin{center}{#1}\end{center}
+     \renewcommand{\autorname}{#1}
+}
+
+\newcommand{\l@abcd}[2]{\noindent{\parbox[t]{\textwidth}{\raggedright #1\dotfill #2 \\[10pt]}}}
+\newcommand{\topic}[1]{
+    \begin{center}
+        {\bf{\Large
+            \MakeUppercase{\chapter{#1}}
+            \addcontentsline{toc}{abcd}{\textbf{\autorname}\newline #1}
+
+        }}
+    \end{center}
+}
+
+\newcommand{\annotation}[1]{
+\leftskip=1cm\rightskip=1cm\it\small\noindent{#1}
+\normalsize\normalfont\leftskip=0cm \rightskip=0cm \indent }
+
+\newcommand{\items}{\item[\sffamily -]}
+
+\newcommand{\List}[1]{
+
+\begin{itemize}
+
+\setlength{\itemsep}{-4pt}
+\setlength{\topsep}{0pt} #1
+\end{itemize}
+\vspace{-10pt} }
+
+\newcommand{\topChapter}[1]{{\normalsize\normalfont \leftskip=0cm \rightskip=0cm\bf \noindent #1 \\[10pt]}}
+\newcommand{\content}[1]{\normalsize\normalfont\leftskip=0cm \rightskip=0cm \indent #1 }
+
+\newcommand{\references}[1]{
+\begin{center}
+\fontsize{10pt}{10pt}\selectfont
+\textbf{\textit{#1}}
+\end{center}
+}
+
+\newcounter{tmp}
+\newcommand{\ListReferences}[1]{
+\sloppy
+\setcounter{tmp}{1}
+\begin{list}{\arabic{tmp}.}{\usecounter{tmp}
+\setlength{\leftmargin}{0.6cm}} \setlength{\itemsep}{-4pt}
+\fontsize{8pt}{10pt}\selectfont #1
+\end{list}
+
+}
+
+\newcommand{\authorFIO}[1]{\fontsize{10pt}{12pt}\selectfont
+\textit{#1},}
+
+\newcommand{\authorAbout}[1]{\sloppy #1
+
+}
+
+\newcommand{\headTable}[1]{
+\begin{flushleft} #1 \end{flushleft}\vspace{-10pt}
+}
+
+\newcommand{\myTable}[2]{
+
+\begin{table}[H]\small
+\noindent
+\caption{#1}
+    \centering
+    \begin{tabularx}
+        #2
+
+    \end{tabularx}
+
+\end{table}
+\normalsize\normalfont\leftskip=0cm \rightskip=0cm\vspace{-10pt}
+}
+
+\newcommand{\setColumns}[1]{
+\begin{longtabu}[l]  {#1} \rowfont{\bfseries}
+}
+
+\newcommand{\addLine}[1]{
+   #1 \\
+ \hline
+}
+
+\newcommand{\firstLine}[1]{
+\hline
+#1 \\
+\hline
+}
+
+\newcommand{\headImage}[1]{
+\begin{center}
+\fontsize{9pt}{10pt}\selectfont
+\noindent \bf #1
+\end{center}
+\normalsize\normalfont\leftskip=0cm \rightskip=0cm
+}
+
+\newcommand{\image}[1]{
+\begin{figure}[H]
+\centering
+\includegraphics #1
+\end{figure}
+\normalsize\normalfont\leftskip=0cm\rightskip=0cm
+}
+
+\newcommand{\imageLeft}[2]{
+\begin{wrapfigure}{l}{#1}
+\centering
+\vspace{-10pt}
+\includegraphics [width=\linewidth] #2
+\end{wrapfigure}
+\normalsize\normalfont\leftskip=0cm \rightskip=0cm
+}
+
+\newcommand{\imageRight}[2]{
+\begin{wrapfigure}{r}{#1}
+\centering
+\vspace{-10pt}
+\includegraphics [width=\linewidth] #2
+\end{wrapfigure}
+\normalsize\normalfont\leftskip=0cm \rightskip=0cm
+}
+
+\RequirePackage{wrapfig}
