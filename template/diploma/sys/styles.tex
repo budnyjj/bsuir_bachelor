@@ -85,7 +85,8 @@
 \renewcommand{\footnotesize}{\normalsize\selectfont}
 \setlength{\footnotesep}{\parsep}
 
-
+%%% Оформление ссылок
+\urlstyle{same}
 
 %%% Размеры текста формул %%%
 
@@ -94,19 +95,19 @@
 %%% Расстояние между формулами
 
 \AtBeginDocument{%
-  \setlength\abovedisplayskip{14pt}%
-  \setlength\belowdisplayskip{14pt}%
-  \setlength\abovedisplayshortskip{14pt}%
-  \setlength\belowdisplayshortskip{14pt}%
+  \setlength\abovedisplayskip{\baselineskip}%
+  \setlength\belowdisplayskip{\baselineskip}%
+  \setlength\abovedisplayshortskip{\baselineskip}%
+  \setlength\belowdisplayshortskip{\baselineskip}%
 }
 
 %%% Расстояние между плавающими элементами
 
-\setlength{\floatsep}{14pt}     % between top floats
-\setlength{\textfloatsep}{14pt} % between top/bottom floats and text
-\setlength{\intextsep}{20pt}    % between text and float
-\setlength{\dbltextfloatsep}{14pt}
-\setlength{\dblfloatsep}{14pt}
+\setlength{\floatsep}{\baselineskip}     % between top floats
+\setlength{\textfloatsep}{\baselineskip} % between top/bottom floats and text
+\setlength{\intextsep}{\baselineskip}    % between text and float
+\setlength{\dbltextfloatsep}{\baselineskip}
+\setlength{\dblfloatsep}{\baselineskip}
 
 % костыль для того, чтобы убрать расстояние от картинки до текста
 \setlength{\abovecaptionskip}{0pt}
