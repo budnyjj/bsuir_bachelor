@@ -1,0 +1,277 @@
+%% Creator: Inkscape inkscape 0.91, www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'ui_activities.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{2163.84433594bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.69568868)%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{ui_activities.pdf}}%
+    \put(0.87089887,0.14712825){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.09698776\unitlength}\raggedright Категории\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{ui_activities.pdf}}%
+    \put(0.88725837,0.35201419){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.07110789\unitlength}\raggedright Счета\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{ui_activities.pdf}}%
+    \put(0.04483798,0.55482336){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.10130119\unitlength}\raggedright Вид по умолчанию\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{ui_activities.pdf}}%
+    \put(0.04501708,0.35240121){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.10130119\unitlength}\raggedright Отчет\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=5]{ui_activities.pdf}}%
+    \put(0.04473516,0.15047289){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.10130119\unitlength}\raggedright Группировка по категориям\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=6]{ui_activities.pdf}}%
+    \put(0.45916392,0.47755034){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.02812454\unitlength}\raggedright \end{minipage}}}%
+    \put(0.53342721,0.47753735){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.02812454\unitlength}\raggedright \end{minipage}}}%
+    \put(0.154921,0.58865021){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.06199534\unitlength}\raggedright +3.4M\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=7]{ui_activities.pdf}}%
+    \put(0.156362,0.50941388){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.0719482\unitlength}\raggedright Стипендия\end{minipage}}}%
+    \put(0.15633133,0.49824098){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.05144493\unitlength}\raggedright -75K\\ \end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=8]{ui_activities.pdf}}%
+    \put(0.15561646,0.55756031){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.06750396\unitlength}\raggedright Наличные\end{minipage}}}%
+    \put(0.15558579,0.5463874){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.05144493\unitlength}\raggedright +230K\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=9]{ui_activities.pdf}}%
+    \put(0.15561079,0.5334688){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.08449664\unitlength}\raggedright Кредитная карта\end{minipage}}}%
+    \put(0.15558013,0.52229589){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.05144493\unitlength}\raggedright +3.2M\\ \end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=10]{ui_activities.pdf}}%
+    \put(0.15559169,0.60073234){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.03921392\unitlength}\raggedright \textbf{Итог}\end{minipage}}}%
+    \put(0.17891726,0.60076029){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.03921392\unitlength}\raggedright Наличные\end{minipage}}}%
+    \put(0.2126332,0.6007727){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.04906191\unitlength}\raggedright Кредитная карта\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=11]{ui_activities.pdf}}%
+    \put(0.15555454,0.39703765){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.03921392\unitlength}\raggedright \textbf{Итог}\end{minipage}}}%
+    \put(0.17888011,0.3970656){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.03921392\unitlength}\raggedright Наличные\end{minipage}}}%
+    \put(0.21259604,0.39707801){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.04906191\unitlength}\raggedright Кредитная карта\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=12]{ui_activities.pdf}}%
+    \put(0.24772943,0.6163617){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.03466053\unitlength}\raggedright O\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=13]{ui_activities.pdf}}%
+    \put(0.15512322,0.18164896){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.06199534\unitlength}\raggedright +3.4M\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=14]{ui_activities.pdf}}%
+    \put(0.16691617,0.10241265){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.05338694\unitlength}\raggedright Интернет\end{minipage}}}%
+    \put(0.1668855,0.09123975){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.05144493\unitlength}\raggedright 350К\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=15]{ui_activities.pdf}}%
+    \put(0.16689175,0.07833173){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.04658987\unitlength}\raggedright Велосипед\end{minipage}}}%
+    \put(0.16686109,0.06715883){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.05327491\unitlength}\raggedright 300 К\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=16]{ui_activities.pdf}}%
+    \put(0.16691005,0.15055908){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.05521693\unitlength}\raggedright Зарплата\end{minipage}}}%
+    \put(0.16687939,0.13938617){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.05144493\unitlength}\raggedright 10M\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=17]{ui_activities.pdf}}%
+    \put(0.16690438,0.12646757){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.08163822\unitlength}\raggedright Коммунальная плата\end{minipage}}}%
+    \put(0.16687372,0.11529466){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.05144493\unitlength}\raggedright 800К\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=18]{ui_activities.pdf}}%
+    \put(0.170787,0.66184437){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.0917962\unitlength}\raggedright Главная\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=19]{ui_activities.pdf}}%
+    \put(0.19232615,0.61525906){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.04399577\unitlength}\raggedright Месяц\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=20]{ui_activities.pdf}}%
+    \put(0.30460524,0.60103853){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.03921392\unitlength}\raggedright Наличные\end{minipage}}}%
+    \put(0.33684233,0.60105094){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.04906191\unitlength}\raggedright \textbf{Кредитная карта}\end{minipage}}}%
+    \put(0.39147548,0.60090419){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.04906191\unitlength}\raggedright Б...\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=21]{ui_activities.pdf}}%
+    \put(0.24762266,0.41276017){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.03466053\unitlength}\raggedright O\end{minipage}}}%
+    \put(0.19207873,0.41206948){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.04399577\unitlength}\raggedright Месяц\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=22]{ui_activities.pdf}}%
+    \put(0.19034061,0.30748581){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.061906\unitlength}\raggedright ???\end{minipage}}}%
+    \put(0.34192619,0.3078315){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.061906\unitlength}\raggedright ???\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=23]{ui_activities.pdf}}%
+    \put(0.3046174,0.39682716){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.03921392\unitlength}\raggedright Наличные\end{minipage}}}%
+    \put(0.33685448,0.39683957){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.04906191\unitlength}\raggedright \textbf{Кредитная карта}\end{minipage}}}%
+    \put(0.39148763,0.39669282){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.04906191\unitlength}\raggedright Б...\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=24]{ui_activities.pdf}}%
+    \put(0.15580854,0.19367998){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.03921392\unitlength}\raggedright \textbf{Итог}\end{minipage}}}%
+    \put(0.17913411,0.19370793){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.03921392\unitlength}\raggedright Наличные\end{minipage}}}%
+    \put(0.21285005,0.19372034){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.04906191\unitlength}\raggedright Кредитная карта\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=25]{ui_activities.pdf}}%
+    \put(0.59849289,0.58865727){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.06199534\unitlength}\raggedright +3.4M\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=26]{ui_activities.pdf}}%
+    \put(0.62785571,0.66212935){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.0917962\unitlength}\raggedright Меню\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=27]{ui_activities.pdf}}%
+    \put(0.60053053,0.57554111){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.08344936\unitlength}\raggedright Настройки\end{minipage}}}%
+    \put(0.60132893,0.59682645){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.08344936\unitlength}\raggedright Баланс\end{minipage}}}%
+    \put(0.60134113,0.58600871){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.08344936\unitlength}\raggedright Отчет\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=28]{ui_activities.pdf}}%
+    \put(0.74655205,0.59881914){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.10056176\unitlength}\raggedright Счета\end{minipage}}}%
+    \put(0.74697158,0.58812433){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.10056176\unitlength}\raggedright Наличные, банковские карты, ...\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=29]{ui_activities.pdf}}%
+    \put(0.74653753,0.57365491){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.10056176\unitlength}\raggedright Категории\end{minipage}}}%
+    \put(0.74695707,0.5629601){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.10056176\unitlength}\raggedright Категории учета денежных средств\\ \end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=30]{ui_activities.pdf}}%
+    \put(0.74662106,0.54849804){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.10056176\unitlength}\raggedright Валюта по умолчанию\end{minipage}}}%
+    \put(0.7470406,0.53780323){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.10056176\unitlength}\raggedright Выбор стандартной валюты ввода\end{minipage}}}%
+    \put(0.76037404,0.66148487){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.0917962\unitlength}\raggedright Настройки\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=31]{ui_activities.pdf}}%
+    \put(0.74324111,0.39315096){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.07297771\unitlength}\raggedright Название счета\end{minipage}}}%
+    \put(0.743433,0.36397924){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.07297771\unitlength}\raggedright Валюта учета\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=32]{ui_activities.pdf}}%
+    \put(0.30471508,0.58869429){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.08576256\unitlength}\raggedright +230К\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=33]{ui_activities.pdf}}%
+    \put(0.31458498,0.5578072){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.02959717\unitlength}\raggedright -32К\end{minipage}}}%
+    \put(0.31455432,0.5466343){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.05144493\unitlength}\raggedright Пища\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=34]{ui_activities.pdf}}%
+    \put(0.31456542,0.53374147){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.02959717\unitlength}\raggedright -75К\end{minipage}}}%
+    \put(0.31453475,0.52256856){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.05144493\unitlength}\raggedright Транспорт\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=35]{ui_activities.pdf}}%
+    \put(0.31453808,0.50967579){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.03273428\unitlength}\raggedright +230К\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=36]{ui_activities.pdf}}%
+    \put(0.31447772,0.48561548){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.02959717\unitlength}\raggedright -431К\end{minipage}}}%
+    \put(0.31444705,0.47444257){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.05144493\unitlength}\raggedright Коммунальная плата\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=37]{ui_activities.pdf}}%
+    \put(0.30495746,0.18167285){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.08576256\unitlength}\raggedright +230К\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=38]{ui_activities.pdf}}%
+    \put(0.37988889,0.20950418){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.03466053\unitlength}\raggedright G\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=39]{ui_activities.pdf}}%
+    \put(0.31505305,0.10256031){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.05338694\unitlength}\raggedright Интернет\end{minipage}}}%
+    \put(0.31502239,0.09138739){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.05144493\unitlength}\raggedright 150К\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=40]{ui_activities.pdf}}%
+    \put(0.31502864,0.0784794){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.04658987\unitlength}\raggedright Велосипед\end{minipage}}}%
+    \put(0.31499797,0.06730648){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.05327491\unitlength}\raggedright 100 К\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=41]{ui_activities.pdf}}%
+    \put(0.31504694,0.15070673){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.05521693\unitlength}\raggedright Пища\end{minipage}}}%
+    \put(0.31501627,0.13953385){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.05144493\unitlength}\raggedright 2M\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=42]{ui_activities.pdf}}%
+    \put(0.31504127,0.12661524){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.0539098\unitlength}\raggedright Транспорт\end{minipage}}}%
+    \put(0.31501061,0.11544232){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.05144493\unitlength}\raggedright 200К\end{minipage}}}%
+    \put(0.33697256,0.66210563){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.0917962\unitlength}\raggedright Счет\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=43]{ui_activities.pdf}}%
+    \put(0.3950648,0.61653602){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.03466053\unitlength}\raggedright O\end{minipage}}}%
+    \put(0.33881278,0.61538591){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.04399577\unitlength}\raggedright Месяц\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=44]{ui_activities.pdf}}%
+    \put(0.31505832,0.49972807){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.05144493\unitlength}\raggedright Аванс\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=45]{ui_activities.pdf}}%
+    \put(0.39580422,0.41288507){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.03466053\unitlength}\raggedright O\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=46]{ui_activities.pdf}}%
+    \put(0.39566074,0.20931008){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.03466053\unitlength}\raggedright O\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=47]{ui_activities.pdf}}%
+    \put(0.30470213,0.19375026){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.03921392\unitlength}\raggedright Наличные\end{minipage}}}%
+    \put(0.33693921,0.19376267){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.04906191\unitlength}\raggedright \textbf{Кредитная карта}\end{minipage}}}%
+    \put(0.39157236,0.19361592){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.04906191\unitlength}\raggedright Б...\end{minipage}}}%
+    \put(0.33837194,0.41186953){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.04399577\unitlength}\raggedright Месяц\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=48]{ui_activities.pdf}}%
+    \put(0.33964191,0.20860684){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.04399577\unitlength}\raggedright Месяц\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=49]{ui_activities.pdf}}%
+    \put(0.24814551,0.20931008){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.03466053\unitlength}\raggedright O\end{minipage}}}%
+    \put(0.18838161,0.2087277){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.04399577\unitlength}\raggedright Месяц\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=50]{ui_activities.pdf}}%
+    \put(0.45281339,0.60077349){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.03921392\unitlength}\raggedright \textbf{Приход}\end{minipage}}}%
+    \put(0.49350724,0.60078589){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.03921392\unitlength}\raggedright Расход\end{minipage}}}%
+    \put(0.52445187,0.60078589){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.03921392\unitlength}\raggedright Перевод\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=51]{ui_activities.pdf}}%
+    \put(0.45344379,0.58492044){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.10201134\unitlength}\raggedright +129,000\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=52]{ui_activities.pdf}}%
+    \put(0.46268623,0.55608615){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.06283564\unitlength}\raggedright Пища\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=53]{ui_activities.pdf}}%
+    \put(0.46267577,0.53207765){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.06283564\unitlength}\raggedright Транспорт\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=54]{ui_activities.pdf}}%
+    \put(0.46264277,0.50807936){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.06283564\unitlength}\raggedright Зарплата\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=55]{ui_activities.pdf}}%
+    \put(0.46262108,0.48848363){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.06542363\unitlength}\raggedright Коммунальная плата\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=56]{ui_activities.pdf}}%
+    \put(0.78532339,0.51679023){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.01475189\unitlength}\raggedright \end{minipage}}}%
+    \put(0.78881251,0.51716406){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.01746891\unitlength}\raggedright \end{minipage}}}%
+    \put(0.45439786,0.66222838){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.0917962\unitlength}\raggedright Ввод данных\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=57]{ui_activities.pdf}}%
+    \put(0.45362705,0.1778592){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.10201134\unitlength}\raggedright +129,000\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=58]{ui_activities.pdf}}%
+    \put(0.46286948,0.14902492){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.06283564\unitlength}\raggedright Пища\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=59]{ui_activities.pdf}}%
+    \put(0.46285903,0.12501642){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.06283564\unitlength}\raggedright Транспорт\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=60]{ui_activities.pdf}}%
+    \put(0.46282602,0.10101812){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.06283564\unitlength}\raggedright Категория 3\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=61]{ui_activities.pdf}}%
+    \put(0.46280434,0.07698585){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.06283564\unitlength}\raggedright Категория 1\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=62]{ui_activities.pdf}}%
+    \put(0.4579688,0.1098998){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.01811311\unitlength}\raggedright 1\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=63]{ui_activities.pdf}}%
+    \put(0.49468985,0.11006786){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.02713473\unitlength}\raggedright 2\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=64]{ui_activities.pdf}}%
+    \put(0.53265804,0.11005653){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.02813492\unitlength}\raggedright 3\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=65]{ui_activities.pdf}}%
+    \put(0.45806342,0.09372322){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.01811311\unitlength}\raggedright 4\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=66]{ui_activities.pdf}}%
+    \put(0.49478448,0.09389128){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.02713473\unitlength}\raggedright 5\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=67]{ui_activities.pdf}}%
+    \put(0.53275267,0.09387995){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.02813492\unitlength}\raggedright 6\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=68]{ui_activities.pdf}}%
+    \put(0.45771229,0.07828116){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.01811311\unitlength}\raggedright 7\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=69]{ui_activities.pdf}}%
+    \put(0.49443335,0.07844922){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.02713473\unitlength}\raggedright 8\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=70]{ui_activities.pdf}}%
+    \put(0.53240154,0.07843789){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.02813492\unitlength}\raggedright 9\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=71]{ui_activities.pdf}}%
+    \put(0.45253631,0.06238352){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.01811311\unitlength}\raggedright 000\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=72]{ui_activities.pdf}}%
+    \put(0.49443335,0.06255159){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.02713473\unitlength}\raggedright 0\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=73]{ui_activities.pdf}}%
+    \put(0.52870441,0.06254025){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.02813492\unitlength}\raggedright OK\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=74]{ui_activities.pdf}}%
+    \put(0.45261359,0.29898387){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.10201134\unitlength}\raggedright 129,000\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=75]{ui_activities.pdf}}%
+    \put(0.48168056,0.61550734){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.04399577\unitlength}\raggedright Наличные\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=76]{ui_activities.pdf}}%
+    \put(0.52139736,0.26833576){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.03875819\unitlength}\raggedright OK\end{minipage}}}%
+    \put(0.45719118,0.26836398){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.03875819\unitlength}\raggedright Повтор\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=77]{ui_activities.pdf}}%
+    \put(0.45322299,0.19380035){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.03921392\unitlength}\raggedright \textbf{Приход}\end{minipage}}}%
+    \put(0.49391684,0.19381276){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.03921392\unitlength}\raggedright Расход\end{minipage}}}%
+    \put(0.52486147,0.19381276){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.03921392\unitlength}\raggedright Перевод\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=78]{ui_activities.pdf}}%
+    \put(0.60217219,0.38969613){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.06283564\unitlength}\raggedright Наличные\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=79]{ui_activities.pdf}}%
+    \put(0.60222893,0.36557923){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.08087404\unitlength}\raggedright Дебетовая карта\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=80]{ui_activities.pdf}}%
+    \put(0.60224117,0.34154521){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.08087404\unitlength}\raggedright Кредитная карта\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=81]{ui_activities.pdf}}%
+    \put(0.74346962,0.18968195){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.07297771\unitlength}\raggedright Название категории\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=82]{ui_activities.pdf}}%
+    \put(0.64252618,0.22598726){\color[rgb]{1,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.09853362\unitlength}\raggedright При нажатии появляется фрагмент добавления/редактирования категории\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=83]{ui_activities.pdf}}%
+    \put(0.610039,0.18431463){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.06283564\unitlength}\raggedright Пища\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=84]{ui_activities.pdf}}%
+    \put(0.61008797,0.16024671){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.06283564\unitlength}\raggedright Зарплата\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=85]{ui_activities.pdf}}%
+    \put(0.610145,0.13618832){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.06283564\unitlength}\raggedright Транспорт\end{minipage}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=86]{ui_activities.pdf}}%
+    \put(0.61019397,0.11655696){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.07471615\unitlength}\raggedright Коммунальная плата\end{minipage}}}%
+    \put(0.6006671,0.08725837){\color[rgb]{1,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.09853362\unitlength}\raggedright Цвета категорий устанавливаются автоматически\end{minipage}}}%
+    \put(0.6556028,0.39267296){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.06342643\unitlength}\raggedright При долгом нажатии появляется меню, где можно удалить аккаунт\end{minipage}}}%
+    \put(0.64229768,0.42945627){\color[rgb]{1,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.09853362\unitlength}\raggedright При нажатии появляется фрагмент добавления/редактирования аккаунта\end{minipage}}}%
+    \put(0.64245301,0.19055497){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.06421072\unitlength}\raggedright При долгом нажатии появляется меню, где можно удалить категорию\end{minipage}}}%
+  \end{picture}%
+\endgroup%
