@@ -4,7 +4,7 @@ compile:
 	pdflatex report.tex
 
 bib:
-	bibtex8 -B course.aux
+	bibtex8 -B report.aux
 
 clean:
 	$(RM) *.log
