@@ -43,6 +43,16 @@
 \setlength{\parindent}{1.25cm}
 \raggedbottom{}
 
+\renewcommand\floatpagefraction{.9}
+\renewcommand\dblfloatpagefraction{.9} % for two column documents
+\renewcommand\topfraction{.9}
+\renewcommand\dbltopfraction{.9}       % for two column documents
+\renewcommand\bottomfraction{.9}
+\renewcommand\textfraction{.1}
+\setcounter{totalnumber}{50}
+\setcounter{topnumber}{50}
+\setcounter{bottomnumber}{50}
+
 %%% Оформление заголовков
 \newcommand{\sectionbreak}{\clearpage}
 
@@ -103,15 +113,11 @@
 
 %%% Расстояние между плавающими элементами
 
-\setlength{\floatsep}{\baselineskip}     % between top floats
-\setlength{\textfloatsep}{\baselineskip} % between top/bottom floats and text
-\setlength{\intextsep}{\baselineskip}    % between text and float
-\setlength{\dbltextfloatsep}{\baselineskip}
-\setlength{\dblfloatsep}{\baselineskip}
-
-% костыль для того, чтобы убрать расстояние от картинки до текста
-\setlength{\abovecaptionskip}{0pt}
-\setlength{\belowcaptionskip}{0pt}
+\setlength{\floatsep}{1.5\baselineskip plus 0mm minus 0mm}     % between top floats
+\setlength{\textfloatsep}{1.5\baselineskip plus 0mm minus 0mm} % between top/bottom floats and text
+\setlength{\intextsep}{1.5\baselineskip plus 0mm minus 0mm}    % between text and float
+\setlength{\dbltextfloatsep}{1.5\baselineskip plus 0mm minus 0mm}
+\setlength{\dblfloatsep}{1.5\baselineskip plus 0mm minus 0mm}
 
 %% Нумерация плавающих элементов
 
@@ -128,21 +134,33 @@
 
 %% Подписи плавающих элементов
 
+\fboxsep=4mm
+\fboxrule=0.1mm
+
 \captionsetup[figure]{
   labelsep=endash,
   justification=centering,
   singlelinecheck=false,
   position=bottom,
-  belowskip=-8pt,
-  parskip=0pt,
-  skip=20pt}
+  parskip=\parskip,
+  belowskip=-0.6\baselineskip,
+  skip=1.4\baselineskip}
 
 \captionsetup[table]{
   labelsep=endash,
   justification=raggedright,
   singlelinecheck=false,
   position=top,
-  skip=0pt}
+  belowskip=-0.4\baselineskip,
+  skip=0mm}
+
+\captionsetup[longtable]{
+  labelsep=endash,
+  justification=raggedright,
+  singlelinecheck=false,
+  position=top,
+  belowskip=0.4\baselineskip,
+  skip=0mm}
 
 \captionsetup[lstlisting]{
   labelsep=endash
