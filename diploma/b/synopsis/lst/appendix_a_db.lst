@@ -1,0 +1,117 @@
+//
+// Account.java
+//
+
+public class Account extends RealmObject {
+    public static final String FIELD_INDEX = "mIndex";
+
+    @SuppressWarnings("unused")
+    private RealmList<BalanceChange> mBalanceChanges;
+    private String mCurrencyCode;
+    private int mIndex;
+    private String mName;
+
+    public String getCurrencyCode() {
+        return mCurrencyCode;
+    }
+
+    public void setCurrencyCode(String currency) {
+        mCurrencyCode = currency;
+    }
+
+    public int getIndex() {
+        return mIndex;
+    }
+
+    public void setIndex(int index) {
+        mIndex = index;
+    }
+
+    public String getName() {
+        return mName;
+    }
+
+    public void setName(String name) {
+        mName = name;
+    }
+
+    public long getTotalAmount() {
+        return mBalanceChanges.sum(BalanceChange.FIELD_AMOUNT).longValue();
+    }
+
+    public RealmList<BalanceChange> getBalanceChanges() {
+        return mBalanceChanges;
+    }
+}
+
+
+//
+// BalanceChange.java
+//
+
+public class BalanceChange extends RealmObject {
+    public static final String FIELD_AMOUNT = "mAmount";
+    public static final String FIELD_DATE = "mDate";
+    public static final long FRACTION_DIVISOR = 1000_000_000L;
+
+    /**
+     * Amount of change.
+     * It is stored as long: 9 lower digits represent fraction part;
+     *                       rest of upper digits are for the integer part
+     */
+    private long mAmount;
+    private RealmList<Category> mCategories;
+    private Date mDate;
+
+    public long getAmount() {
+        return mAmount;
+    }
+
+    public void setAmount(long amount) {
+        mAmount = amount;
+    }
+
+    public List<Category> getCategories() {
+        return mCategories;
+    }
+
+    public Date getDate() {
+        return mDate;
+    }
+
+    public void setDate(Date date) {
+        mDate = date;
+    }
+}
+
+
+//
+// Category.java
+//
+
+public class Category extends RealmObject {
+    public static final String FIELD_NAME = "mName";
+    public static final String FIELD_TYPE = "mType";
+    public enum Type {
+        INCOME, OUTCOME
+    }
+
+    private String mName;
+    private String mType;
+
+    public String getName() {
+        return mName;
+    }
+
+    public void setName(String name) {
+        mName = name;
+    }
+
+    public Type getType() {
+        return Type.valueOf(mType);
+    }
+
+    public void setType(Type type) {
+        mType = type.toString();
+    }
+}

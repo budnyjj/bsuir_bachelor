@@ -17,22 +17,25 @@
 \widowpenalty=10000		% Запрещаем разрыв страницы после последней строки абзаца
 \interfootnotelinepenalty=10000 % Запрет разрывов сносок
 
-%%% Нумерация страниц %%%
+%%% Настройки полей %%%
+
+% Титульная страница
 \fancypagestyle{empty}{%
 \fancyhf{} % clear all header and footer fields
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
 % \setlength{\footskip}{9mm}
-% \setlength{\headheight}{5mm}
+\setlength{\headheight}{4mm}
 }
 
+% Основной текст
 \fancypagestyle{plain}{%
 \fancyhf{} % clear all header and footer fields
 \fancyfoot[R]{\thepage}
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
-\setlength{\footskip}{9mm}
-% \setlength{\headheight}{5mm}
+\setlength{\footskip}{11mm}
+\setlength{\headheight}{4mm}
 }
 
 \pagestyle{plain}
@@ -180,9 +183,9 @@ xrightmargin=2mm,
 captionpos=b,
 keepspaces=true,
 breaklines=true,
-aboveskip=22pt,
-belowskip=10pt,
-abovecaptionskip=16pt}
+aboveskip=1.6\baselineskip,
+belowskip=1.4\baselineskip,
+abovecaptionskip=1.2\baselineskip}
 
 \renewcommand{\arraystretch}{1.5}
 

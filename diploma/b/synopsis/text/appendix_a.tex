@@ -2,12 +2,30 @@
 \renewcommand{\thetable}{\Asbuk{section}.\arabic{table}}
 \renewcommand{\thelstlisting}{\Asbuk{section}.\arabic{lstlisting}}
 
-\addcontentsline{toc}{section}{Приложение А}
-\section*{ПРИЛОЖЕНИЕ A \\ (справочное) \\ <название приложения>}
+% Приложения
+\fancyhf{} % clear all header and footer fields
+\fancyfoot[R]{\thepage}
+\setlength{\footskip}{0mm}
+\setlength{\headheight}{11mm}
 
+% \restoregeometry
+\thispagestyle{plain}
+\addcontentsline{toc}{section}{%
+  Приложение А (справочное) Реализация модели данных
+}
+\section*{%
+  ПРИЛОЖЕНИЕ A \\
+  (справочное) \\
+  Реализация модели данных
+  (к подразделу~\ref{subsec:implementation_db})
+}
+
+\chead{\vspace{13mm} Продолжение приложения \Asbuk{section} \vspace{\baselineskip}}
 \setcounter{section}{1}
 \setcounter{figure}{0}
 \setcounter{table}{0}
 \setcounter{lstlisting}{0}
 
+\vspace{-\baselineskip}
+\lstinputlisting[language={Java}]{lst/appendix_a_db.lst}
 \pagebreak
