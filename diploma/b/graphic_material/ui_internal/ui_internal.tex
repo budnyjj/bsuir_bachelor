@@ -6,7 +6,7 @@
 
 \newcommand{\No}{\textnumero}
 
-\ESKDunitName{Калссы пользовательского интерфейса}
+\ESKDunitName{Реализация пользовательского интерфейса}
 \ESKDsignature{ГУИР.000000.002 ПЛ}
 \ESKDletter{}{Т}{}
 \ESKDauthor{Будный}
@@ -20,28 +20,38 @@
 
 \ESKDthisStyle{empty}
 \begin{ESKDdrawing}
-  \begin{minipage}{.67\linewidth}
-    \centering
-    \includegraphics[height=44cm]{fig/implementation_ui_edit_manager.eps}
+  \centering
+  {\fontsize{50}{60}\selectfont Реализация пользовательского интерфейса}
 
-    \vspace{2cm}
-    {\Huge{Диаграмма классов обработки данных, вводимых пользователем}}
-  \end{minipage}
-  \hspace{4cm}
-  \begin{minipage}{0.25\linewidth}
+  \vspace{2cm}
+  % \vline
+  % \hline
+  \begin{minipage}{45cm}
     \centering
-    \includegraphics[height=6cm]{fig/implementation_ui_hierarchy.eps}
-
+    \ESKDfontX{Базовые классы} \\
     \vspace{2cm}
-    {\Huge{Иерархия базовых классов пользовательског интерфейса}}
+    \centering
+    \includegraphics[height=7cm]{fig/implementation_ui_hierarchy.eps}
 
     \vspace{4cm}
     \centering
-    \includegraphics[height=30cm]{fig/implementation_ui_lifecycle_activity.eps}
-
+    \ESKDfontX{Классы обработки пользовательского ввода} \\
     \vspace{2cm}
-    {\Huge{Жизненный цикл экрана приложения}}
+    \centering
+    \includegraphics[height=33.5cm]{fig/implementation_ui_edit_manager.eps}
   \end{minipage}
+  % \vline
+  \hspace{2cm}
+  % \vline
+  \begin{minipage}{32cm}
+    \centering
+    \ESKDfontX{Жизненный цикл экрана} \\
+    \vspace{2cm}
+    \centering
+    \includegraphics[height=48cm]{fig/implementation_ui_lifecycle_activity.eps}
+  \end{minipage}
+  % \vline
+  % \hline
 \end{ESKDdrawing}
 
 \setcounter{page}{1}
