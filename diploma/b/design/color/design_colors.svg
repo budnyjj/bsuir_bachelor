@@ -9,9 +9,9 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="150.09749mm"
-   height="123.01112mm"
-   viewBox="0 0 531.84149 435.86616"
+   width="250.49223mm"
+   height="66.559814mm"
+   viewBox="0 0 887.5709 235.84185"
    id="svg2"
    version="1.1"
    inkscape:version="0.91 r13725"
@@ -25,9 +25,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="11.2"
-     inkscape:cx="393.33259"
-     inkscape:cy="119.54235"
+     inkscape:zoom="0.7"
+     inkscape:cx="552.84703"
+     inkscape:cy="161.00669"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -39,86 +39,82 @@
      inkscape:window-x="1920"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
-     fit-margin-top="10"
-     fit-margin-right="10"
-     fit-margin-bottom="10"
-     fit-margin-left="10">
+     fit-margin-top="5"
+     fit-margin-right="5"
+     fit-margin-bottom="5"
+     fit-margin-left="5">
     <sodipodi:guide
-       position="335.07593,246.14736"
+       position="317.35939,63.839574"
        orientation="1,0"
        id="guide4140" />
     <sodipodi:guide
-       position="514.44843,319.16935"
+       position="496.73189,136.86156"
        orientation="1,0"
        id="guide4142" />
     <sodipodi:guide
-       position="35.383584,406.29504"
+       position="17.667048,223.98725"
        orientation="1,0"
        id="guide4144" />
     <sodipodi:guide
-       position="495.76061,253.50944"
+       position="478.04407,71.201655"
        orientation="1,0"
        id="guide4146" />
     <sodipodi:guide
-       position="422.01947,403.01204"
+       position="404.30293,220.70425"
        orientation="0,1"
        id="guide4148" />
     <sodipodi:guide
-       position="31.84805,400.48664"
+       position="14.131514,218.17885"
        orientation="0,1"
        id="guide4150" />
     <sodipodi:guide
-       position="28.438785,350.48404"
+       position="10.722249,168.17625"
        orientation="0,1"
        id="guide4152" />
     <sodipodi:guide
-       position="35.165214,325.34378"
+       position="17.448678,143.03599"
        orientation="0,1"
        id="guide4154" />
     <sodipodi:guide
-       position="38.647357,276.95093"
+       position="20.930821,94.643145"
        orientation="0,1"
        id="guide4156" />
     <sodipodi:guide
-       position="23.009215,175.7277"
+       position="5.2926795,-6.5800864"
        orientation="0,1"
        id="guide4158" />
     <sodipodi:guide
-       position="-14.871506,35.821583"
+       position="-32.588041,-146.4862"
        orientation="0,1"
        id="guide4160" />
     <sodipodi:guide
-       position="204.83667,250.47899"
+       position="187.12013,68.171205"
        orientation="0,1"
        id="guide4227" />
     <sodipodi:guide
-       position="191.70469,200.47644"
+       position="173.98815,18.168653"
        orientation="0,1"
        id="guide4229" />
     <sodipodi:guide
-       position="365.43307,296.86164"
+       position="347.71653,114.55386"
        orientation="1,0"
        id="guide4276" />
     <sodipodi:guide
-       position="430.43307,359.71874"
-       orientation="0,1"
-       id="guide4278" />
-    <sodipodi:guide
-       position="459.0045,286.86164"
-       orientation="0,1"
-       id="guide4280" />
-    <sodipodi:guide
-       position="409.39257,210.19915"
-       orientation="0,1"
-       id="guide4282" />
-    <sodipodi:guide
-       position="484.71879,105.43308"
+       position="467.00225,-76.874707"
        orientation="0,1"
        id="guide4284" />
     <sodipodi:guide
-       position="433.29022,291.86164"
+       position="415.57368,109.55386"
        orientation="1,0"
        id="guide4292" />
+    <sodipodi:guide
+       position="557.06024,-32.511701"
+       orientation="1,0"
+       id="guide4270" />
+    <sodipodi:guide
+       position="812.16262,113.13708"
+       orientation="0,1"
+       id="guide13408" />
   </sodipodi:namedview>
   <metadata
      id="metadata7">
@@ -128,7 +124,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -136,108 +132,108 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(15.433071,33.070866)">
+     transform="translate(-2.2834646,15.354331)">
     <rect
        style="fill:#1a237e;fill-opacity:1;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:3;stroke-opacity:1"
        id="rect4164"
-       width="300"
+       width="250"
        height="50"
        x="20"
        y="2.3622048" />
     <rect
        style="fill:#0d47a1;fill-opacity:1;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:3;stroke-opacity:1"
        id="rect4164-0"
-       width="300"
+       width="250"
        height="50"
        x="20"
        y="77.362206" />
     <rect
        style="fill:#afb42b;fill-opacity:1;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:3;stroke-opacity:1"
        id="rect4164-0-6"
-       width="300"
+       width="250"
        height="50"
        x="20"
        y="152.3622" />
-    <rect
-       style="fill:#d50000;fill-opacity:1;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:3;stroke-opacity:1"
-       id="rect4225"
-       width="150"
-       height="70"
-       x="20"
-       y="227.3622" />
-    <rect
-       style="fill:#689f38;fill-opacity:1;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:3;stroke-opacity:1"
-       id="rect4225-2"
-       width="150"
-       height="140"
-       x="170"
-       y="227.3622" />
-    <rect
-       style="fill:#424242;fill-opacity:1;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:3;stroke-opacity:1"
-       id="rect4225-5"
-       width="150"
-       height="70"
-       x="90"
-       y="297.36221" />
-    <rect
-       style="fill:#9e9e9e;fill-opacity:1;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:3;stroke-opacity:1"
-       id="rect4225-5-5"
-       width="70"
-       height="140"
-       x="20"
-       y="227.3622" />
+    <g
+       id="g4330"
+       transform="translate(-52,0)">
+      <rect
+         y="2.4138534"
+         x="560.42267"
+         height="70"
+         width="150"
+         id="rect4225"
+         style="fill:#d50000;fill-opacity:1;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:3;stroke-opacity:1" />
+      <rect
+         y="62.770996"
+         x="559.52979"
+         height="140"
+         width="71.964287"
+         id="rect4225-5-5"
+         style="fill:#9e9e9e;fill-opacity:1;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:3;stroke-opacity:1" />
+      <rect
+         y="2.3781357"
+         x="559.70837"
+         height="138.75"
+         width="70.703026"
+         id="rect4225-2"
+         style="fill:#689f38;fill-opacity:1;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:3;stroke-opacity:1" />
+      <rect
+         transform="matrix(0,1,-1,0,0,0)"
+         y="-710.43817"
+         x="52.293221"
+         height="80"
+         width="150"
+         id="rect4225-5"
+         style="fill:#424242;fill-opacity:1;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:3;stroke-opacity:1" />
+    </g>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:36px;line-height:125%;font-family:Verdana;-inkscape-font-specification:Verdana;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="377.15848"
-       y="30.790771"
+       x="333.15848"
+       y="34.790771"
        id="text4286"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
-         x="377.15848"
-         y="30.790771"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:17.5px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;text-anchor:middle"
+         x="333.15848"
+         y="34.790771"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.5px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;text-anchor:middle"
          id="tspan4290">Индиго</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:36px;line-height:125%;font-family:Verdana;-inkscape-font-specification:Verdana;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="405.33109"
-       y="104.20025"
+       x="369.33109"
+       y="108.20025"
        id="text4286-3"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
-         x="405.33109"
-         y="104.20025"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:17.5px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;text-anchor:middle"
+         x="369.33109"
+         y="108.20025"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.5px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;text-anchor:middle"
          id="tspan4290-2">Темно-голубой</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:36px;line-height:125%;font-family:Verdana;-inkscape-font-specification:Verdana;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="389.59134"
-       y="178.69208"
+       x="349.59134"
+       y="184.69208"
        id="text4286-3-1"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
-         x="389.59134"
-         y="178.69208"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:17.5px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;text-anchor:middle"
+         x="349.59134"
+         y="184.69208"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.5px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;text-anchor:middle"
          id="tspan4290-2-6">Салатовый</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:36px;line-height:125%;font-family:Verdana;-inkscape-font-specification:Verdana;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="349.58499"
-       y="299.72711"
+       x="688.00769"
+       y="106.77876"
        id="text4286-3-1-7"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
-         x="349.58499"
-         y="299.72711"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:17.5px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:start;text-anchor:start"
-         id="tspan4290-2-6-8">Вспомогательные</tspan><tspan
-         sodipodi:role="line"
-         x="349.58499"
-         y="321.60211"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:17.5px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:start;text-anchor:start"
-         id="tspan4390">цвета</tspan></text>
+         x="688.00769"
+         y="106.77876"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.5px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:start;text-anchor:start"
+         id="tspan4390">Вспомогательные</tspan></text>
   </g>
 </svg>
