@@ -1,3 +1,9 @@
 [submodule "diploma/a/project/currency_exchange"]
 	path = diploma/a/project/currency_exchange
 	url = https://bitbucket.org/anashkevichp/currency_exchange
+[submodule "bibliography"]
+	path = bibliography
+	url = https://github.com/budnyjj/bibliography.git
+[submodule "template"]
+	path = template
+	url = https://github.com/budnyjj/bsuir_templates.git
