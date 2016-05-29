@@ -1,14 +1,18 @@
-\renewcommand{\thefigure}{\Asbuk{section}.\arabic{figure}}
-\renewcommand{\thetable}{\Asbuk{section}.\arabic{table}}
-\renewcommand{\thelstlisting}{\Asbuk{section}.\arabic{lstlisting}}
-
 \thispagestyle{plain}
-\addcontentsline{toc}{section}{Приложение Б}
-\section*{ПРИЛОЖЕНИЕ Б \\ (справочное) \\ <название приложения>}
+\addcontentsline{toc}{section}{Приложение Б (обязательное)
+  Реализация алгоритма обучения \\
+  модели классификации изображений}
+\section*{ПРИЛОЖЕНИЕ Б \\
+  (обязательное) \\
+  Реализация алгоритма обучения модели \\
+  классификации изображений \\
+  (к подразделу~\ref{subsec:implementation_cv})}
 
-\setcounter{section}{1}
+\setcounter{section}{2}
 \setcounter{figure}{0}
 \setcounter{table}{0}
 \setcounter{lstlisting}{0}
 
+\vspace{-\baselineskip}
+\lstinputlisting[language={C++}]{lst/appendix_b_cv_trainer.lst}
 \pagebreak
