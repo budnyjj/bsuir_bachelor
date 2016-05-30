@@ -1,0 +1,41 @@
+const static int SAMPLE_ROWS = 28;
+const static int SAMPLE_COLS = 28;
+
+int main(int argc, char** argv) {
+    string path_samples = argv[1];
+    string path_responses = argv[2];
+    string path_parameters = argv[3];
+
+    MnistLoader loader;
+    vector<Mat> samples = loader.loadSamples(path_samples);
+    Mat responses = loader.loadResponses(path_responses);
+    int n_samples = samples.size();
+
+    vector<Mat> descriptors;
+    HOGDescriptor detector(Size(SAMPLE_ROWS, SAMPLE_COLS),
+                           Size(SAMPLE_ROWS / 2, SAMPLE_COLS / 2),
+                           Size(SAMPLE_COLS / 4, SAMPLE_COLS / 4),
+                           Size(SAMPLE_COLS / 4, SAMPLE_COLS / 4),
+                           9);
+    vector<Point> locations;
+    for (int i = 0; i < n_samples; i++) {
+        vector<float> descriptor;
+        detector.compute(samples[i], descriptor, Size(0, 0), Size(0, 0), locations);
+        descriptors.push_back(Operations::toRow(descriptor));
+    }
+    Mat descriptors_mrg = Operations::flatten<float>(descriptors);
+
+    Ptr<TrainData> data =
+        TrainData::create(descriptors_mrg, cv::ml::ROW_SAMPLE, responses);
+
+    Ptr<SVM> classifier = SVM::create();
+        classifier->setType(SVM::C_SVC);
+    classifier->setKernel(SVM::POLY);
+    classifier->setTermCriteria(cv::TermCriteria(TermCriteria::MAX_ITER, 100, 1e-6));
+    classifier->setGamma(3);
+    classifier->setDegree(3);
+    classifier->train(data);
+    classifier->save(path_parameters);
+
+    return 0;
+}
