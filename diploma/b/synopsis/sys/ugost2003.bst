@@ -1,0 +1,1 @@
+../../../../template/diploma/sys/ugost2003.bst

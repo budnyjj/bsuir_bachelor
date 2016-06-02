@@ -6,8 +6,8 @@
 
 \newcommand{\No}{\textnumero}
 
-\ESKDunitName{Структура подсистем приложения}
-\ESKDsignature{ГУИР.000000.003 ПЛ}
+\ESKDunitName{Реализация программного модуля}
+\ESKDsignature{ГУИР.000000.002 ПЛ}
 \ESKDletter{}{Т}{}
 \ESKDauthor{Будный}
 \ESKDchecker{Сальников}
@@ -16,43 +16,47 @@
 \ESKDapprovedBy{Навроцкий}
 \ESKDgroup{ИТАС, гр. 120602}
 
+\renewcommand{\ESKDcolumnXfIVname}{Реценз.}
+\ESKDcolumnXIfIV{}
+
 \begin{document}
 
 \ESKDthisStyle{empty}
 \begin{ESKDdrawing}
   \centering
-  {\fontsize{50}{60}\selectfont Структура подсистем приложения}
+  {\fontsize{50}{60}\selectfont Реализация программного модуля}
 
   \vspace{2cm}
+  % \hline
+  \centering
+  \ESKDfontX{Взаимодействие классов подсистем} \\
+  \vspace{2cm}
+  \centering
+  \includegraphics[height=24cm]{fig/implementation_bl_presenter_big.eps}
+
+
+  \vspace{4cm}
   % \vline
   % \hline
   \begin{minipage}{50cm}
     \centering
-    \ESKDfontX{Использование классов подсистемы обработки данных} \\
+    \ESKDfontX{Модель данных} \\
     \vspace{2cm}
     \centering
-    \includegraphics[height=23cm]{fig/implementation_bl_presenter.eps}
+    \includegraphics[width=50cm]{fig/design_entities.eps}
   \end{minipage}
   % \vline
   \hspace{2cm}
   % \vline
-  \begin{minipage}{30cm}
+  \begin{minipage}{20cm}
     \centering
-    \ESKDfontX{Эмуляция классов подсистемы обработки данных} \\
+    \ESKDfontX{Иерархия классов подсистемы \\ обработки данных} \\
     \vspace{2cm}
     \centering
-    \includegraphics[height=13cm]{fig/implementation_testing_presenter.eps}
+    \includegraphics[width=20cm]{fig/implementation_testing_presenter.eps}
   \end{minipage}
   % \vline
   % \hline
-
-  \vspace{4cm}
-  % \hline
-  \centering
-  \ESKDfontX{Модель данных} \\
-  \vspace{2cm}
-  \centering
-  \includegraphics[height=10cm]{fig/design_entities.eps}
 \end{ESKDdrawing}
 
 \setcounter{page}{1}
