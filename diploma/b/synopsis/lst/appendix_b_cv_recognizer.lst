@@ -1,0 +1,127 @@
+// #include and using directives are omitted for brevity
+
+const static char * const WINDOW_NAME_SRC = "Source image";
+const static char * const WINDOW_NAME_PRC = "Processed image";
+const static char * const WINDOW_NAME_SMP = "Samples";
+const static char * const WINDOW_NAME_RSP = "Responses";
+const static int SAMPLE_ROWS = 28;
+const static int SAMPLE_COLS = 28;
+
+void usage(const std::string& exec_name);
+
+vector<Mat> findSamples(const Mat& src_mat) {
+    Mat tmp_mat;
+    src_mat.copyTo(tmp_mat);
+    vector<vector<Point> > contours;
+    vector<Vec4i> hierarchy;
+    cv::findContours(tmp_mat, contours, hierarchy,
+                     CV_RETR_CCOMP, CV_CHAIN_APPROX_SIMPLE);
+    vector<Mat> samples;
+    for (int i = 0; i < contours.size(); i = hierarchy[i][0]) {
+        Rect sample_rect = cv::boundingRect(contours[i]);
+        samples.push_back(src_mat(sample_rect));
+    }
+    return samples;
+}
+
+vector<Mat> normalizeSamples(const vector<Mat>& samples) {
+    vector<Mat> samples_norm;
+    for (int i = 0; i < samples.size(); i++) {
+        const Mat& sample = samples[i];
+        Mat sample_scaled(20, 20, CV_8U);
+        cv::resize(sample, sample_scaled, sample_scaled.size(), 0, 0, cv::INTER_AREA);
+        Mat sample_norm = Mat::zeros(SAMPLE_ROWS, SAMPLE_ROWS, CV_8U);
+        Operations::mergeCentered(sample_norm, sample_scaled, sample_norm);
+        samples_norm.push_back(sample_norm);
+    }
+    return samples_norm;
+}
+
+Mat makeSamplesPreview(const vector<Mat>& src_vec) {
+    Mat preview;
+    int n_images = src_vec.size();
+    if (n_images == 0) {
+        return preview;
+    }
+    int n_rows = src_vec[0].rows; int n_cols = src_vec[0].cols;
+    preview = Mat(n_rows, n_images * n_cols, CV_8U);
+    int n_cols_offset = 0;
+    for (int i = 0; i < n_images; i++) {
+        src_vec[i].copyTo(preview
+                          .rowRange(0, n_rows)
+                          .colRange(n_cols_offset, n_cols_offset + n_cols));
+        n_cols_offset += n_cols;
+    }
+    return preview;
+}
+
+Mat makeResponsesPreview(const Mat& responses, const Size& sample_size) {
+    int n_responses = responses.rows;
+    if (n_responses == 0) {
+        return Mat();
+    }
+    int n_rows = sample_size.height; int n_cols = sample_size.width;
+    vector<Mat> response_previews;
+    for (int i = 0; i < n_responses; i++) {
+        Mat response_preview = Mat::zeros(n_rows, n_cols, CV_8U);
+        ostringstream oss;
+        oss << responses.at<float>(i, 0);
+        cv::putText(response_preview, oss.str(), Point(3, n_rows - 3),
+                    cv::FONT_HERSHEY_COMPLEX_SMALL, 1.0, Scalar(255));
+        response_previews.push_back(response_preview);
+    }
+    return makeSamplesPreview(response_previews);
+}
+
+int main(int argc, char** argv) {
+    if (argc != 3) {
+        usage(argv[0]);
+        return -1;
+    }
+    string path_image = argv[1];
+    string path_parameters = argv[2];
+    Mat src = cv::imread(path_image, CV_LOAD_IMAGE_UNCHANGED);
+    // perform basic filtering
+    Mat filtered;
+    cv::cvtColor(src, filtered, cv::COLOR_BGR2GRAY);
+    Filters::basic(filtered, filtered);
+    // extract regions of interest
+    vector<Mat> samples = findSamples(filtered);
+    vector<Mat> samples_norm = normalizeSamples(samples);
+    int n_samples = samples_norm.size();
+    // make preview from extracted samples
+    Mat samples_preview = makeSamplesPreview(samples_norm);
+    // detect features on samples and extract their descriptors
+    vector<Mat> descriptors;
+    HOGDescriptor detector(Size(SAMPLE_ROWS, SAMPLE_COLS),
+                           Size(SAMPLE_ROWS / 2, SAMPLE_COLS / 2),
+                           Size(SAMPLE_COLS / 4, SAMPLE_COLS / 4),
+                           Size(SAMPLE_COLS / 4, SAMPLE_COLS / 4),
+                           9);
+    vector<Point> locations;
+    for (int i = 0; i < n_samples; i++) {
+        vector<float> descriptor;
+        detector.compute(samples_norm[i], descriptor, Size(0, 0), Size(0, 0), locations);
+        descriptors.push_back(Operations::toRow(descriptor));
+    }
+    Mat descriptors_mrg = Operations::flatten<float>(descriptors);
+    size_t n_descriptors = descriptors_mrg.rows;
+    size_t n_features = descriptors_mrg.cols;
+    // classify descriptors
+    Ptr<SVM> classifier = Algorithm::load<SVM>(path_parameters);
+    Mat responses(0, 0, CV_32F);
+    classifier->predict(descriptors_mrg, responses);
+    // make preview for results
+    Mat responses_preview =
+        makeResponsesPreview(responses, Size(SAMPLE_ROWS, SAMPLE_COLS));
+    // show results in windows
+    cv::namedWindow(WINDOW_NAME_SRC, CV_WINDOW_AUTOSIZE);
+    cv::imshow(WINDOW_NAME_SRC, src);
+    cv::namedWindow(WINDOW_NAME_PRC, CV_WINDOW_AUTOSIZE);
+    cv::imshow(WINDOW_NAME_PRC, filtered);
+    cv::namedWindow(WINDOW_NAME_SMP, CV_WINDOW_AUTOSIZE);
+    cv::imshow(WINDOW_NAME_SMP, samples_preview);
+    cv::namedWindow(WINDOW_NAME_RSP, CV_WINDOW_AUTOSIZE);
+    cv::imshow(WINDOW_NAME_RSP, responses_preview);
+    return 0;
+}
