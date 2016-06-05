@@ -1,0 +1,24 @@
+enum City: Int {
+    case Minsk = 1, Vitebsk, Gomel, Grodno, Brest, Mogilev
+}
+
+extension City {
+    static func count() -> Int {
+        return Mogilev.rawValue
+    }
+
+    func name() -> String {
+        switch self {
+        case .Minsk:    return "Minsk"
+        case .Vitebsk:  return "Vitebsk"
+        case .Gomel:    return "Gomel"
+        case .Grodno:   return "Grodno"
+        case .Brest:    return "Brest"
+        case .Mogilev:  return "Mogilev"
+        }
+    }
+
+    func myfinURL() -> NSURL {
+        return NSURL(string: "\(myfinAddress)\(self.rawValue)")!
+    }
+}

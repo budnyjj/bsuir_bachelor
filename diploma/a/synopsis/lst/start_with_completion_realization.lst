@@ -1,0 +1,22 @@
+func startWithCompletion(completion: Void -> Void) {
+     dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+         let city = City(rawValue: self.cityIndex)!
+         self.operationForCity(city) {
+             completion()
+         }
+     })
+ }
+
+ func operationForCity(city: City, completion: (Result -> Void) ) {
+     let url = city.myfinURL()
+
+     networkRequestForURL(url, auth: true) { (response, errorMessage) in
+         if let errorMessage = errorMessage {
+             completion(Result.Error(errorMessage))
+         }
+
+         if let response = response {
+             self.parseMyFinResponse(response, forCity: city, completion: completion)
+         }
+     }
+ }

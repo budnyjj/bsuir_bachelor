@@ -1,13 +1,16 @@
-\renewcommand{\thefigure}{\Asbuk{section}.\arabic{figure}}
-\renewcommand{\thetable}{\Asbuk{section}.\arabic{table}}
-\renewcommand{\thelstlisting}{\Asbuk{section}.\arabic{lstlisting}}
+\thispagestyle{plain}
+\addcontentsline{toc}{section}{Приложение Б (обязательное)
+  Реализация модели данных \\ программного модуля}
+\section*{ПРИЛОЖЕНИЕ Б \\
+  (обязательное) \\
+  Реализация модели данных программного модуля \\
+  (к подразделу~\ref{subs:impl_storage})}
 
-\addcontentsline{toc}{section}{Приложение Б}
-\section*{ПРИЛОЖЕНИЕ Б \\ (справочное) \\ <название приложения>}
-
-\setcounter{section}{1}
+\setcounter{section}{2}
 \setcounter{figure}{0}
 \setcounter{table}{0}
 \setcounter{lstlisting}{0}
 
+\vspace{-\baselineskip}
+\lstinputlisting{lst/app_model.lst}
 \pagebreak

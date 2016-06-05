@@ -1,0 +1,17 @@
+class Bank: Object {
+    dynamic private(set) var id: String = ""
+    dynamic private(set) var name: String = ""
+    dynamic private(set) var website: String? = nil
+
+    private(set) let departments = List<Department>()
+
+    override class func primaryKey() -> String { return "id" }
+
+    convenience init(id: String, name: String, website: String? = nil) {
+        self.init()
+
+        self.id = id
+        self.name = name
+        self.website = website
+    }
+}

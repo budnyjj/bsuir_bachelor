@@ -2,12 +2,30 @@
 \renewcommand{\thetable}{\Asbuk{section}.\arabic{table}}
 \renewcommand{\thelstlisting}{\Asbuk{section}.\arabic{lstlisting}}
 
-\addcontentsline{toc}{section}{Приложение А}
-\section*{ПРИЛОЖЕНИЕ A \\ (справочное) \\ <название приложения>}
+% Приложения
+\fancyhf{} % clear all header and footer fields
+\fancyfoot[R]{\thepage}
+\setlength{\footskip}{-2.5mm}
+\setlength{\headheight}{8mm}
 
+% \restoregeometry
+\thispagestyle{plain}
+\addcontentsline{toc}{section}{%
+  Приложение А (обязательное) Реализации класса MyfinOperation
+}
+\section*{%
+  ПРИЛОЖЕНИЕ A \\
+  (обязательное) \\
+  Реализации класса MyfinOperation
+  (к подразделу~\ref{subs:realization_network_requests})
+}
+
+\chead{\vspace{13mm} Продолжение приложения \Asbuk{section}}
 \setcounter{section}{1}
 \setcounter{figure}{0}
 \setcounter{table}{0}
 \setcounter{lstlisting}{0}
 
+\vspace{-\baselineskip}
+\lstinputlisting{lst/myfin_operation_class.lst}
 \pagebreak
