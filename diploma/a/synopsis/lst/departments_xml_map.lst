@@ -1,0 +1,47 @@
+struct DepartmentXMLMap {
+    private(set) var bankId: String = ""
+    private(set) var filialId: String = ""
+    private(set) var date: String = ""
+    private(set) var bankName: String = ""
+    private(set) var bankAddress: String = ""
+    private(set) var bankPhone: String = ""
+    private(set) var filialName: String = ""
+    private(set) var usdBuy:  Double?
+    private(set) var usdSell: Double?
+    private(set) var eurBuy:  Double?
+    private(set) var eurSell: Double?
+    private(set) var rurBuy:  Double?
+    private(set) var rurSell: Double?
+    private(set) var plnBuy:  Double?
+    private(set) var plnSell: Double?
+    private(set) var uahBuy:  Double?
+    private(set) var uahSell: Double?
+    private(set) var eurUsdBuy:  Double?
+    private(set) var eurUsdSell: Double?
+
+    init(xmlChildElement: AEXMLElement) {
+        bankId   = xmlChildElement[MyFinXMLKeys.bankId].value ?? ""
+        filialId = xmlChildElement[MyFinXMLKeys.filialId].value ?? ""
+        date = xmlChildElement[MyFinXMLKeys.date].value ?? ""
+        bankName    = xmlChildElement[MyFinXMLKeys.bankName].value ?? ""
+        bankAddress = xmlChildElement[MyFinXMLKeys.bankAddress].value ?? ""
+        bankPhone   = xmlChildElement[MyFinXMLKeys.bankPhone].value ?? ""
+        filialName  = xmlChildElement[MyFinXMLKeys.filialName].value ?? ""
+        usdBuy  = safeDoubleObject(xmlChildElement[MyFinXMLKeys.usdBuy].value)
+        usdSell = safeDoubleObject(xmlChildElement[MyFinXMLKeys.usdSell].value)
+        eurBuy  = safeDoubleObject(xmlChildElement[MyFinXMLKeys.eurBuy].value)
+        eurSell = safeDoubleObject(xmlChildElement[MyFinXMLKeys.eurSell].value)
+        rurBuy  = safeDoubleObject(xmlChildElement[MyFinXMLKeys.rurBuy].value)
+        rurSell = safeDoubleObject(xmlChildElement[MyFinXMLKeys.rurSell].value)
+        plnBuy  = safeDoubleObject(xmlChildElement[MyFinXMLKeys.plnBuy].value)
+        plnSell = safeDoubleObject(xmlChildElement[MyFinXMLKeys.plnSell].value)
+        uahBuy  = safeDoubleObject(xmlChildElement[MyFinXMLKeys.uahBuy].value)
+        uahSell = safeDoubleObject(xmlChildElement[MyFinXMLKeys.uahSell].value)
+        eurUsdBuy  = safeDoubleObject(xmlChildElement[MyFinXMLKeys.eurUsdBuy].value)
+        eurUsdSell = safeDoubleObject(xmlChildElement[MyFinXMLKeys.eurUsdSell].value)
+    }
+
+    private func safeDoubleObject(value: String?) -> Double? {
+        return Double(value ?? "") ?? nil
+    }
+}

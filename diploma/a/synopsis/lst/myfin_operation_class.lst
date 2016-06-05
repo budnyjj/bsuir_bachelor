@@ -1,0 +1,127 @@
+ //
+ //  MyfinOperation.swift
+ //  CurrencyExchangeServer
+ //
+ //  Created by Pavel Anashkevich on 3/21/16.
+ //  Copyright 2016 Pavel Anashkevich. All rights reserved.
+ //
+
+ import Foundation
+ import AEXML
+
+ class MyfinOperation: Operation {
+     var cityIndex: Int
+
+     required init(cityIndex: Int) {
+         self.cityIndex = cityIndex
+     }
+
+     func startWithCompletion(completion: Void -> Void) {
+         dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+             let city = City(rawValue: self.cityIndex)!
+             self.operationForCity(city) {
+                 completion()
+             }
+         })
+     }
+ }
+
+ private extension MyfinOperation {
+
+     func operationForCity(city: City, completion: (Result -> Void) ) {
+         let url = city.myfinURL()
+
+         networkRequestForURL(url, auth: true) { (response, errorMessage) in
+             if let errorMessage = errorMessage {
+                 print(errorMessage)
+                 completion(Result.Error(errorMessage))
+             }
+
+             if let response = response {
+                 self.parseMyFinResponse(response, forCity: city, completion: completion)
+             }
+         }
+     }
+
+     func parseMyFinResponse(responseData: NSData, forCity city: City, completion: (Result -> Void) ) {
+         do {
+             let xmlDoc = try AEXMLDocument(xmlData: responseData)
+
+             if let banks = parseXML(children: xmlDoc.root.children) {
+                 completion(Result.Banks(banks))
+             } else {
+                 throw ParserFailureException
+             }
+         } catch {
+             completion(Result.Error(error))
+         }
+     }
+
+
+
+     func parseXML(children children: [AEXMLElement]) -> [Bank]? {
+         var banks = [Bank]()
+
+         autoreleasepool {
+             var mappedDepartments = [DepartmentXMLMap]()
+
+             for child in children {
+                 let mappedDepartment = DepartmentXMLMap(xmlChildElement: child)
+                 mappedDepartments.append(mappedDepartment)
+             }
+
+             for mappedDepartment in mappedDepartments {
+                 let existedBank = banks.filter { $0.id == mappedDepartment.bankId } .first
+
+                 if let existedBank = existedBank {
+                     let department = initDepartmentObject(mappedDepartment)
+                     existedBank.departments.append(department)
+
+                 } else {
+
+                     let bank = initBankObject(mappedDepartment)
+                     banks.append(bank)
+                 }
+             }
+         }
+
+         return banks
+     }
+
+     private func initBankObject(map: DepartmentXMLMap) -> Bank {
+         let department = initDepartmentObject(map)
+
+         let bank = Bank(id: map.bankId,
+                         name: map.bankName)
+
+         bank.departments.removeAll()
+         bank.departments.append(department)
+
+         return bank
+     }
+
+     private func initDepartmentObject(map: DepartmentXMLMap) -> Department {
+         let rates = initRatesObject(map)
+
+         return Department(id: map.filialId,
+                           name: map.filialName,
+                           address: map.bankAddress,
+                           phone: map.bankPhone,
+                           rates: rates)
+     }
+
+     private func initRatesObject(map: DepartmentXMLMap) -> ExchangeRates {
+         return ExchangeRates(usdBuy: map.usdBuy,
+                              usdSell: map.usdSell,
+                              eurBuy: map.eurBuy,
+                              eurSell: map.eurSell,
+                              rubBuy: map.rurBuy,
+                              rubSell: map.rurSell,
+                              plnBuy: map.plnBuy,
+                              plnSell: map.plnSell,
+                              uahBuy: map.uahBuy,
+                              uahSell: map.uahSell,
+                              eurBuyUsdSell: map.eurUsdSell,
+                              eurSellUsdBuy: map.eurUsdBuy)
+     }
+ }

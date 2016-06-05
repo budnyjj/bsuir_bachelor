@@ -1,0 +1,6 @@
+protocol Operation {
+    func startWithCompletion(completion: Void -> Void)
+
+    func networkRequestForURL(url: NSURL, auth: Bool?,
+            completion: (response: NSData?, errorMessage: String?) -> Void)
+}

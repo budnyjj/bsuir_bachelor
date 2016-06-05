@@ -1,0 +1,28 @@
+func networkRequestForURL(url: NSURL, auth: Bool?,
+        completion: (response: NSData?, errorMessage: String?) -> Void) {
+
+    let sessionConfiguration = NSURLSessionConfiguration.defaultSessionConfiguration()
+
+    if auth == true {
+        guard let authData = myfinAuthorizationString.dataUsingEncoding(NSUTF8StringEncoding) else { return }
+        let base64EncodedCredentials = authData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+        let authString = "Basic \(base64EncodedCredentials)"
+        sessionConfiguration.HTTPAdditionalHeaders = ["Authorization" : authString]
+    }
+
+    sessionConfiguration.timeoutIntervalForRequest  = 12.0
+    sessionConfiguration.timeoutIntervalForResource = 12.0
+
+    let session = NSURLSession(configuration: sessionConfiguration)
+
+    session.dataTaskWithURL(url) { (data, response, error) in
+        if let httpResponse = response as? NSHTTPURLResponse where
+            httpResponse.statusCode == 200 {
+            completion(response: data, errorMessage: nil)
+        } else if let error = error {
+            completion(response: nil, errorMessage: error.localizedDescription)
+        } else {
+            completion(response: nil, errorMessage: "unexpected error in networkRequestForURL:")
+        }
+    }.resume()
+}

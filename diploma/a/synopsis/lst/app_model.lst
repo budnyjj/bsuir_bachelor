@@ -1,0 +1,232 @@
+// class Bank
+
+class Bank: Object {
+
+    dynamic var id: String = ""
+    dynamic var name: String = ""
+    dynamic var website: String? = nil
+
+    let departments = List<Department>()
+
+    override class func primaryKey() -> String { return "id" }
+
+    convenience init(id: String, name: String, website: String? = nil) {
+        self.init()
+
+        self.id = id
+        self.name = name
+        self.website = website
+    }
+}
+
+
+// class Department
+
+class Department: Object {
+
+    dynamic private(set) var id: String = ""
+
+    dynamic private(set) var name: String = ""
+    dynamic private(set) var address: String = ""
+    dynamic private(set) var phone: String = ""
+
+    dynamic private(set) var rates: ExchangeRates!
+
+    override class func primaryKey() -> String { return "id" }
+
+    convenience init(id: String,
+                     name: String,
+                     address: String,
+                     phone: String,
+                     rates: ExchangeRates)
+    {
+        self.init()
+
+        self.id = id
+        self.name    = name
+        self.address = address
+        self.phone   = phone
+        self.rates   = rates
+    }
+}
+
+
+// class ExchangeRates
+
+class ExchangeRates: Object {
+
+    let usdBuy  = RealmOptional<Double>()
+    let usdSell = RealmOptional<Double>()
+
+    let eurBuy  = RealmOptional<Double>()
+    let eurSell = RealmOptional<Double>()
+
+    let rubBuy  = RealmOptional<Double>()
+    let rubSell = RealmOptional<Double>()
+
+    let plnBuy  = RealmOptional<Double>()
+    let plnSell = RealmOptional<Double>()
+
+    let uahBuy  = RealmOptional<Double>()
+    let uahSell = RealmOptional<Double>()
+
+    let eurBuyUsdSell = RealmOptional<Double>()
+    let eurSellUsdBuy = RealmOptional<Double>()
+
+    convenience init(usdBuy: Double?,
+                     usdSell: Double?,
+                     eurBuy: Double?,
+                     eurSell: Double?,
+                     rubBuy: Double?,
+                     rubSell: Double?,
+                     plnBuy: Double?,
+                     plnSell: Double?,
+                     uahBuy: Double?,
+                     uahSell: Double?,
+                     eurBuyUsdSell: Double?,
+                     eurSellUsdBuy: Double?)
+    {
+        self.init()
+
+        self.usdBuy.value = usdBuy
+        self.usdSell.value = usdSell
+
+        self.eurBuy.value  = eurBuy
+        self.eurSell.value = eurSell
+
+        self.rubBuy.value  = rubBuy
+        self.rubSell.value = rubSell
+
+        self.plnBuy.value  = plnBuy
+        self.plnSell.value = plnSell
+
+        self.uahBuy.value  = uahBuy
+        self.uahSell.value = uahSell
+
+        self.eurBuyUsdSell.value = eurBuyUsdSell
+        self.eurSellUsdBuy.value = eurSellUsdBuy
+    }
+}
+
+
+// Enum City
+
+enum City: Int {
+    case Minsk = 1, Vitebsk, Gomel, Grodno, Brest, Mogilev
+}
+
+extension City {
+    static func count() -> Int {
+        return Mogilev.rawValue
+    }
+
+    func name() -> String {
+        switch self {
+        case .Minsk:    return "Minsk"
+        case .Vitebsk:  return "Vitebsk"
+        case .Gomel:    return "Gomel"
+        case .Grodno:   return "Grodno"
+        case .Brest:    return "Brest"
+        case .Mogilev:  return "Mogilev"
+        }
+    }
+
+    func myfinURL() -> NSURL {
+        return NSURL(string: "\(myfinAddress)\(self.rawValue)")!
+    }
+}
+
+
+// Supporting struct DepartmentXMLMap
+
+private struct MyFinXMLKeys {
+    static let bankId = "bankid"
+    static let filialId = "filialid"
+    static let date = "date"
+    static let bankName = "bankname"
+    static let bankAddress = "bankaddress"
+    static let bankPhone = "bankphone"
+    static let filialName = "filialname"
+
+    static let usdBuy = "usd_buy"
+    static let usdSell = "usd_sell"
+    static let eurBuy = "eur_buy"
+    static let eurSell = "eur_sell"
+    static let rurBuy = "rur_buy"
+    static let rurSell = "rur_sell"
+    static let plnBuy = "pln_buy"
+    static let plnSell = "pln_sell"
+    static let uahBuy = "uah_buy"
+    static let uahSell = "uah_sell"
+    static let eurUsdBuy = "eurusd_buy"
+    static let eurUsdSell = "eurusd_sell"
+}
+
+struct DepartmentXMLMap {
+
+    private(set) var bankId: String = ""
+    private(set) var filialId: String = ""
+
+    private(set) var date: String = ""
+
+    private(set) var bankName: String = ""
+    private(set) var bankAddress: String = ""
+
+    private(set) var bankPhone: String = ""
+
+    private(set) var filialName: String = ""
+
+    private(set) var usdBuy:  Double?
+    private(set) var usdSell: Double?
+
+    private(set) var eurBuy:  Double?
+    private(set) var eurSell: Double?
+
+    private(set) var rurBuy:  Double?
+    private(set) var rurSell: Double?
+
+    private(set) var plnBuy:  Double?
+    private(set) var plnSell: Double?
+
+    private(set) var uahBuy:  Double?
+    private(set) var uahSell: Double?
+
+    private(set) var eurUsdBuy:  Double?
+    private(set) var eurUsdSell: Double?
+
+    init(xmlChildElement: AEXMLElement) {
+
+        bankId   = xmlChildElement[MyFinXMLKeys.bankId].value ?? ""
+        filialId = xmlChildElement[MyFinXMLKeys.filialId].value ?? ""
+
+        date = xmlChildElement[MyFinXMLKeys.date].value ?? ""
+
+        bankName    = xmlChildElement[MyFinXMLKeys.bankName].value ?? ""
+        bankAddress = xmlChildElement[MyFinXMLKeys.bankAddress].value ?? ""
+        bankPhone   = xmlChildElement[MyFinXMLKeys.bankPhone].value ?? ""
+
+        filialName  = xmlChildElement[MyFinXMLKeys.filialName].value ?? ""
+
+        usdBuy  = safeDoubleObject(xmlChildElement[MyFinXMLKeys.usdBuy].value)
+        usdSell = safeDoubleObject(xmlChildElement[MyFinXMLKeys.usdSell].value)
+
+        eurBuy  = safeDoubleObject(xmlChildElement[MyFinXMLKeys.eurBuy].value)
+        eurSell = safeDoubleObject(xmlChildElement[MyFinXMLKeys.eurSell].value)
+
+        rurBuy  = safeDoubleObject(xmlChildElement[MyFinXMLKeys.rurBuy].value)
+        rurSell = safeDoubleObject(xmlChildElement[MyFinXMLKeys.rurSell].value)
+
+        plnBuy  = safeDoubleObject(xmlChildElement[MyFinXMLKeys.plnBuy].value)
+        plnSell = safeDoubleObject(xmlChildElement[MyFinXMLKeys.plnSell].value)
+
+        uahBuy  = safeDoubleObject(xmlChildElement[MyFinXMLKeys.uahBuy].value)
+        uahSell = safeDoubleObject(xmlChildElement[MyFinXMLKeys.uahSell].value)
+
+        eurUsdBuy  = safeDoubleObject(xmlChildElement[MyFinXMLKeys.eurUsdBuy].value)
+        eurUsdSell = safeDoubleObject(xmlChildElement[MyFinXMLKeys.eurUsdSell].value)
+    }
+
+    private func safeDoubleObject(value: String?) -> Double? {
+        return Double(value ?? "") ?? nil
+    }
+}
