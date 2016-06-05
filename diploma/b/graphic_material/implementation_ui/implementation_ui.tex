@@ -1,0 +1,65 @@
+\documentclass[russian,utf8,a1paper,nostitching,simple]{eskdgraph}
+\usepackage[T2A]{fontenc}
+\usepackage{pscyr}
+\usepackage{tikz}
+\usepackage{color}
+
+\newcommand{\No}{\textnumero}
+
+\ESKDunitName{Реализация пользовательского интерфейса}
+\ESKDsignature{ГУИР.000000.004 ПЛ}
+\ESKDletter{}{Т}{}
+\ESKDauthor{Будный}
+\ESKDchecker{Сальников}
+\ESKDcolumnXIfIII{Лаппо}
+\ESKDnormContr{Протченко}
+\ESKDapprovedBy{Навроцкий}
+\ESKDgroup{ИТАС, гр. 120602}
+
+\renewcommand{\ESKDcolumnXfIVname}{Реценз.}
+\ESKDcolumnXIfIV{}
+
+\begin{document}
+
+\ESKDthisStyle{empty}
+\begin{ESKDdrawing}
+  \centering
+  {\fontsize{50}{60}\selectfont Реализация пользовательского интерфейса}
+
+  \vspace{2cm}
+  % \vline
+  % \hline
+  \begin{minipage}{47cm}
+    \centering
+    \ESKDfontX{Иерархия базовых классов} \\
+    \vspace{2cm}
+    \centering
+    \includegraphics[height=4cm]{fig/implementation_ui_hierarchy_wide.eps}
+
+    \vspace{4cm}
+    \centering
+    \ESKDfontX{Иерархия классов обработки пользовательского ввода} \\
+    \vspace{2cm}
+    \centering
+    \includegraphics[height=36.5cm]{fig/implementation_ui_edit_manager.eps}
+  \end{minipage}
+  % \vline
+  \hspace{2cm}
+  % \vline
+  \begin{minipage}{30cm}
+    \centering
+    \ESKDfontX{Жизненный цикл экрана} \\
+    \vspace{2cm}
+    \centering
+    \includegraphics[height=48cm]{fig/implementation_ui_lifecycle_activity.eps}
+  \end{minipage}
+  % \vline
+  % \hline
+\end{ESKDdrawing}
+
+\setcounter{page}{1}
+\ESKDthisStyle{formI}
+\begin{ESKDdrawing}
+\end{ESKDdrawing}
+
+\end{document}

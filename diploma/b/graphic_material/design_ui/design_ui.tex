@@ -1,0 +1,203 @@
+\documentclass[russian,utf8,a1paper,nostitching,simple]{eskdgraph}
+\usepackage[T2A]{fontenc}
+\usepackage{pscyr}
+\usepackage{tikz}
+\usepackage{color}
+
+\newcommand{\No}{\textnumero}
+
+\ESKDunitName{Пользовательский интерфейс}
+\ESKDsignature{ГУИР.000000.003 ПЛ}
+\ESKDletter{}{Т}{}
+\ESKDauthor{Будный}
+\ESKDchecker{Сальников}
+\ESKDcolumnXIfIII{Лаппо}
+\ESKDnormContr{Протченко}
+\ESKDapprovedBy{Навроцкий}
+\ESKDgroup{ИТАС, гр. 120602}
+
+\renewcommand{\ESKDcolumnXfIVname}{Реценз.}
+\ESKDcolumnXIfIV{}
+
+\begin{document}
+
+\ESKDthisStyle{empty}
+\begin{ESKDdrawing}
+  \centering
+  {\fontsize{50}{60}\selectfont Пользовательский интерфейс}
+
+  \vspace{1.7cm}
+  % \hline
+  % \vline
+  \begin{minipage}{28cm}
+    \centering
+    {\fontsize{40}{50}\selectfont Экран просмотра статистики \\ учетных записей}
+
+    \vspace{2cm}
+    % \vline
+    \begin{minipage}{10cm}
+      \vspace{4.5cm}
+      \raggedleft
+      \ESKDfontX{Хронологический порядок}
+
+      \vspace{11.5cm}
+      \raggedleft
+      \ESKDfontX{Группировка по категориям}
+
+      \vspace{2cm}
+    \end{minipage}
+    % \vline
+    \hfill
+    % \vline
+    \begin{minipage}{7.5cm}
+      \centering
+      \ESKDfontX{Текстовый режим}
+
+      \vspace{1cm}
+      \centering
+      \includegraphics[width=\linewidth]{fig/ui_activities_balance_text_chrono.eps}
+
+      \vspace{2cm}
+      \centering
+      \includegraphics[width=\linewidth]{fig/ui_activities_balance_text_group.eps}
+    \end{minipage}
+    % \vline
+    \hfill
+    % \vline
+    \begin{minipage}{7.5cm}
+      \centering
+      \ESKDfontX{Графический режим}
+      \vspace{1cm}
+
+      \centering
+      \includegraphics[width=\linewidth]{fig/ui_activities_balance_graphic_chrono.eps}
+
+      \vspace{2cm}
+      \centering
+      \includegraphics[width=\linewidth]{fig/ui_activities_balance_graphic_group.eps}
+    \end{minipage}
+    % \vline
+  \end{minipage}
+  % \vline
+  \hfill
+  % \vline
+  \begin{minipage}{17cm}
+    \centering
+    {\fontsize{40}{50}\selectfont Экран редактирования \\ изменений баланса}
+
+    \vspace{2cm}
+    \begin{minipage}{7.5cm}
+      \centering
+      \ESKDfontX{Расход д. средств}
+
+      \vspace{1cm}
+      \centering
+      \includegraphics[width=\linewidth]{fig/ui_activities_input_outcome_text.eps}
+
+      \vspace{2cm}
+      \centering
+      \includegraphics[width=\linewidth]{fig/ui_activities_input_outcome_graphic.eps}
+    \end{minipage}
+    % \vline
+    \hfill
+    % \vline
+    \begin{minipage}{7.5cm}
+      \centering
+      \ESKDfontX{Приход д. средств}
+
+      \vspace{1cm}
+      \centering
+      \includegraphics[width=\linewidth]{fig/ui_activities_input_income_text.eps}
+
+      \vspace{2cm}
+      \centering
+      \includegraphics[width=\linewidth]{fig/ui_activities_input_income_graphic.eps}
+    \end{minipage}
+  \end{minipage}
+  % \vline
+  \hfill
+  % \vline
+  \begin{minipage}{28cm}
+    \centering
+    {\fontsize{40}{50}\selectfont Экраны \\ управления}
+
+    \vspace{2cm}
+    % \vline
+    \begin{minipage}{7.5cm}
+      \centering
+      \ESKDfontX{Текстовый режим}
+
+      \vspace{1cm}
+      \centering
+      \includegraphics[width=\linewidth]{fig/ui_activities_accounts_view.eps}
+
+      \vspace{2cm}
+      \centering
+      \includegraphics[width=\linewidth]{fig/ui_activities_categories_view.eps}
+    \end{minipage}
+    % \vline
+    \hfill
+    % \vline
+    \begin{minipage}{7.5cm}
+      \centering
+      \ESKDfontX{Графический режим}
+      \vspace{1cm}
+
+      \centering
+      \includegraphics[width=\linewidth]{fig/ui_activities_accounts_edit.eps}
+
+      \vspace{2cm}
+      \centering
+      \includegraphics[width=\linewidth]{fig/ui_activities_categories_edit.eps}
+    \end{minipage}
+    % \vline
+    \hfill
+    % \vline
+    \begin{minipage}{10cm}
+      \vspace{4.5cm}
+      \ESKDfontX{Учетные записи}
+
+      \vspace{11.5cm}
+      \ESKDfontX{Категории учета}
+
+      \vspace{2cm}
+    \end{minipage}
+  \end{minipage}
+
+  % \vline
+  % \hline
+  % \vline
+
+  \vspace{1.7cm}
+  \begin{minipage}{17cm}
+    \begin{minipage}{7.5cm}
+      \vspace{0.6cm}
+      \centering
+      \ESKDfontX{Главное  меню}
+
+      \vspace{2cm}
+      \centering
+      \includegraphics[width=\linewidth]{fig/ui_interface_main_menu.eps}
+    \end{minipage}
+    % \vline
+    \hfill
+    % \vline
+    \begin{minipage}{7.5cm}
+      \centering
+      \ESKDfontX{Режимы \\ отображения}
+
+      \vspace{1cm}
+      \centering
+      \includegraphics[width=\linewidth]{fig/ui_interface_view_modes.eps}
+    \end{minipage}
+  \end{minipage}
+  % \vline
+\end{ESKDdrawing}
+
+
+\setcounter{page}{1}
+\ESKDthisStyle{formI}
+\begin{ESKDdrawing}
+\end{ESKDdrawing}
+
+\end{document}
