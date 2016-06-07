@@ -1,0 +1,17 @@
+class RealmManager {
+    private(set) lazy var realm: Realm = try! Realm()
+
+    static let sharedManager = RealmManager()
+    private init() {}
+
+    func writeObjects(objects: [Object]) {
+
+        print(Realm.Configuration.defaultConfiguration.path!)
+
+        try! realm.write {
+            realm.add(objects, update: true)
+        }
+    }
+
+    ...
+}
