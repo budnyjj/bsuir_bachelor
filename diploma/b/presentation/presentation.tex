@@ -3,10 +3,17 @@
 \input{sys/packages}
 \input{sys/styles}
 
+\definecolor{primary}{HTML}{0D47A1}
+\definecolor{accent}{HTML}{AFB42B}
+\setbeamercolor*{palette primary}{fg=white,bg=primary}
+\setbeamercolor*{enumerate item}{fg=accent}
+\setbeamercolor*{itemize item}{fg=accent}
+
 \title{Программный модуль учета персональной финансовой информации}
 \author{%
   Будный Р. И., студент гр. 120602 \\
-  Сальников А. А., ведущий инженер-программист
+  Сальников А. А., ведущий инженер-программист \\
+  Лаппо А. И., ассистент кафедры ИТАС
 }
 \date{2016}
 
@@ -16,40 +23,143 @@
   \maketitle
 \end{frame}
 
-\begin{frame}{Назначение разработки}
+\begin{frame}{Введение}
+  Предмет: мобильное приложение.
 
-\end{frame}
+  \smallskip
+  Назначение: учет персональной финансовой информации.
 
-\begin{frame}{Постановка задачи проектирования}
-
+  \smallskip
+  Обоснование:
+  \begin{itemize}
+  \item популярность темы разработки мобильных приложений;
+  \item необходимость учета баланса личных финансов;
+  \item желание изучить тему компьютерного зрения.
+  \end{itemize}
 \end{frame}
 
 \begin{frame}{Аналоги}
+  7 аналогов, 3 группы:
+  \begin{enumerate}
+    \item платные, много функций (4);
+    \item бесплатные, много функций (1);
+    \item бесплатные, мало функций (2).
+  \end{enumerate}
+\end{frame}
 
+\begin{frame}{Постановка задачи}
+  Системные требования:
+  \begin{itemize}
+    \item ОС Android 4.0;
+    \item без доступа к сети Интернет и личным данным;
+    \item открытое и бесплатное.
+  \end{itemize}
+
+  \smallskip
+  Минимальный набор функций:
+  \begin{itemize}
+  \item ведение нескольких счетов учета;
+  \item поддержка нескольких валют учета;
+  \item редактирование категорий учета.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Структура}
+  \begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{fig/design_main.eps}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Информационное обеспечение}
+  Ввод данных:
+  \begin{itemize}
+    \item ручной;
+    \item автоматический.
+  \end{itemize}
+
+  \smallskip
+  Вывод данных:
+  \begin{itemize}
+    \item хронологический порядок;
+    \item группировка по категориям учета.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Алгоритмическое обеспечение}
+  \begin{minipage}{0.55\linewidth}
+  Альтернативный механизм ввода:
+  \begin{itemize}
+    \item распознавание числовых данных по изображению с фотокамеры;
+    \item метод опорных векторов (SVM), гистограммы ориентированных градиентов (HOG);
+    \item обучение классификатора на ПК разработчика.
+  \end{itemize}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.35\linewidth}
+    \begin{figure}[h!]
+      \centering
+      \includegraphics[width=\textwidth]{fig/implementation_cv_recognition.png}
+    \end{figure}
+  \end{minipage}
 \end{frame}
 
 \begin{frame}{Пользовательский интерфейс}
+  \begin{minipage}{0.55\linewidth}
+    Основные цели:
+    \begin{itemize}
+    \item удобство использования;
+    \item минимум действий при вводе;
+    \item соответствие Material Design.
+    \end{itemize}
 
+    Результат:
+    \begin{itemize}
+    \item макеты шести экранов;
+    \item схема переходов.
+    \end{itemize}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.35\linewidth}
+    \begin{figure}[h!]
+      \centering
+      \includegraphics[width=\textwidth]{fig/ui_activities_balance_text_chrono.eps}
+    \end{figure}
+  \end{minipage}
 \end{frame}
 
-\begin{frame}{Распознавание изображений}
-
-\end{frame}
-
-\begin{frame}{Системные требования}
-
+\begin{frame}{Детали реализации}
+  \begin{itemize}
+    \item языки программирования: Java, C++;
+    \item СУБД Realm;
+    \item \texttt{long} для хранения величин транзакций;
+    \item распознавание изображений: OpenCV.
+  \end{itemize}
 \end{frame}
 
 \begin{frame}{Технико-экономическое обоснование}
+  Приложение открытое и бесплатное.
 
+  Затраты: 184 ч., 46 млн. б. р.
+
+  \smallskip
+  Социальный эффект:
+  \begin{itemize}
+  \item сокращение времени на учет;
+  \item анализ затрат \( \Rightarrow \) сокращение затрат.
+  \end{itemize}
 \end{frame}
 
 \begin{frame}{Выводы}
-
+  \begin{itemize}
+  \item ???
+  \item Исходный код: \url{https://github.com/budnyjj/MoneyKeeper.git}
+  \end{itemize}
 \end{frame}
 
-\begin{frame}{Спасибо за внимание!}
-
+\begin{frame}{Конец}
+  \centering
+  Спасибо за внимание!
 \end{frame}
 
 \end{document}
