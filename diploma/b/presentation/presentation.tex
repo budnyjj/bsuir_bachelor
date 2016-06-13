@@ -24,7 +24,7 @@
 \end{frame}
 
 \begin{frame}{Введение}
-  Предмет: мобильное приложение.
+  Предмет работы: мобильное приложение.
 
   \smallskip
   Назначение: учет персональной финансовой информации.
@@ -51,7 +51,7 @@
   Системные требования:
   \begin{itemize}
     \item ОС Android 4.0;
-    \item без доступа к сети Интернет и личным данным;
+    \item не требует доступа к сети Интернет и личным данным;
     \item открытое и бесплатное.
   \end{itemize}
 
@@ -87,12 +87,12 @@
 \end{frame}
 
 \begin{frame}{Алгоритмическое обеспечение}
-  \begin{minipage}{0.55\linewidth}
-  Альтернативный механизм ввода:
+  \begin{minipage}{0.6\linewidth}
+  Автоматический механизм ввода:
   \begin{itemize}
     \item распознавание числовых данных по изображению с фотокамеры;
-    \item метод опорных векторов (SVM), гистограммы ориентированных градиентов (HOG);
-    \item обучение классификатора на ПК разработчика.
+    \item метод опорных векторов, гистограммы ориентированных градиентов;
+    \item обучение модели классификатора на ПК разработчика.
   \end{itemize}
   \end{minipage}
   \hfill
@@ -115,7 +115,7 @@
 
     Результат:
     \begin{itemize}
-    \item макеты шести экранов;
+    \item макеты экранов;
     \item схема переходов.
     \end{itemize}
   \end{minipage}
@@ -137,10 +137,15 @@
   \end{itemize}
 \end{frame}
 
+\begin{frame}{Руководство пользователя}
+  \centering
+  \includegraphics[width=\textwidth]{fig/implementation_manual_balance_change.eps}
+\end{frame}
+
 \begin{frame}{Технико-экономическое обоснование}
   Приложение открытое и бесплатное.
 
-  Затраты: 184 ч., 46 млн. б. р.
+  Затраты: \( \approx 184 \) ч., \( \approx 46 \) млн. б. р.
 
   \smallskip
   Социальный эффект:
@@ -150,10 +155,19 @@
   \end{itemize}
 \end{frame}
 
+\begin{frame}{Перспективы развития}
+  \begin{itemize}
+  \item повышение точности распознавания числовых данных;
+  \item учет переводов денежных средств;
+  \item сортировка категорий учета на основании \\
+    данных о местоположении.
+  \end{itemize}
+\end{frame}
+
 \begin{frame}{Выводы}
   \begin{itemize}
   \item ???
-  \item Исходный код: \url{https://github.com/budnyjj/MoneyKeeper.git}
+  \item исходный код: \url{https://github.com/budnyjj/MoneyKeeper.git}.
   \end{itemize}
 \end{frame}
 
