@@ -2,10 +2,10 @@ default: compile
 
 compile:
 	$(MAKE) -C include/docs compile
-	pdflatex diploma.tex
+	pdflatex synopsis.tex
 
 bib:
-	bibtex8 -B diploma.aux
+	bibtex8 -B synopsis.aux
 
 clean:
 	$(MAKE) -C include/docs clean
