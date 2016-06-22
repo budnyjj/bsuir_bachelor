@@ -34,7 +34,7 @@
   \begin{itemize}
   \item популярность темы разработки мобильных приложений;
   \item необходимость учета баланса личных финансов;
-  \item желание изучить тему компьютерного зрения.
+  \item желание вникнуть в тему компьютерного зрения.
   \end{itemize}
 \end{frame}
 
@@ -48,7 +48,7 @@
 \end{frame}
 
 \begin{frame}{Постановка задачи}
-  Системные требования:
+  Требования:
   \begin{itemize}
     \item ОС Android 4.0;
     \item не требует доступа к сети Интернет и личным данным;
@@ -56,7 +56,7 @@
   \end{itemize}
 
   \smallskip
-  Минимальный набор функций:
+  Набор функций:
   \begin{itemize}
   \item ведение нескольких счетов учета;
   \item поддержка нескольких валют учета;
@@ -75,8 +75,15 @@
   Ввод данных:
   \begin{itemize}
     \item ручной;
-    \item автоматический.
+    \item автоматизированный.
   \end{itemize}
+
+  \smallskip
+  Хранение данных:
+  \begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{fig/design_entities.eps}
+  \end{figure}
 
   \smallskip
   Вывод данных:
@@ -87,16 +94,16 @@
 \end{frame}
 
 \begin{frame}{Алгоритмическое обеспечение}
-  \begin{minipage}{0.6\linewidth}
-  Автоматический механизм ввода:
+  \begin{minipage}{0.65\linewidth}
+  Автоматизированный механизм ввода:
   \begin{itemize}
     \item распознавание числовых данных по изображению с фотокамеры;
     \item метод опорных векторов, гистограммы ориентированных градиентов;
-    \item обучение модели классификатора на ПК разработчика.
+    \item обучение модели классификатора на ПК разработчика (MNIST).
   \end{itemize}
   \end{minipage}
   \hfill
-  \begin{minipage}{0.35\linewidth}
+  \begin{minipage}{0.3\linewidth}
     \begin{figure}[h!]
       \centering
       \includegraphics[width=\textwidth]{fig/implementation_cv_recognition.png}
@@ -166,7 +173,7 @@
 
 \begin{frame}{Выводы}
   \begin{itemize}
-  \item ???
+  \item проектирование, реализация, оценка затрат;
   \item исходный код: \url{https://github.com/budnyjj/MoneyKeeper.git}.
   \end{itemize}
 \end{frame}
